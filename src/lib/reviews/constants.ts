@@ -1,0 +1,11 @@
+export const MAX_REVIEW_IMAGES = 5;
+export const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
+export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'] as const;
+export const MIN_COMMENT_LENGTH = 10;
+export const MAX_COMMENT_LENGTH = 1000;
+export const MAX_TITLE_LENGTH = 100;
+export const MIN_RATING = 1;
+export const MAX_RATING = 5;
+export const REVIEWS_PER_PAGE = 10;
+export const STORAGE_BUCKET = 'review-images';
+export const REVIEW_EDIT_WINDOW = 30 * 24 * 60 * 60 * 1000; // 30 days

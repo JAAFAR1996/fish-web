@@ -1,0 +1,152 @@
+import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
+import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import withPWA from 'next-pwa';
+
+const securityHeaders = [
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN',
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'strict-origin-when-cross-origin',
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=()',
+  },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
+  },
+];
+
+function getSupabaseHostname() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!url) {
+    throw new Error('NEXT_PUBLIC_SUPABASE_URL is required for image hosting configuration');
+  }
+  return new URL(url).hostname;
+}
+
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [
+      rehypeSlug,
+      [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+    ],
+  },
+});
+
+const pwaConfig = {
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable:
+    process.env.NODE_ENV === 'development' ||
+    process.env.NEXT_PUBLIC_PWA_ENABLED === 'false',
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/.*\.supabase\.co\/storage\/v1\/object\/public\/.*/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'supabase-images',
+        expiration: {
+          maxEntries: 200,
+          maxAgeSeconds: 30 * 24 * 60 * 60,
+        },
+      },
+    },
+    {
+      urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/v1\/.*/i,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'supabase-rest',
+        networkTimeoutSeconds: 10,
+        expiration: {
+          maxEntries: 50,
+          maxAgeSeconds: 60 * 60,
+        },
+      },
+    },
+    {
+      urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'google-fonts-stylesheets',
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 365 * 24 * 60 * 60,
+        },
+      },
+    },
+    {
+      urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'google-fonts-webfonts',
+        expiration: {
+          maxEntries: 30,
+          maxAgeSeconds: 365 * 24 * 60 * 60,
+        },
+      },
+    },
+  ],
+};
+
+const nextConfig: NextConfig = {
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  reactStrictMode: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: getSupabaseHostname(),
+      },
+    ],
+    deviceSizes: [360, 414, 640, 768, 1024, 1280, 1536],
+    imageSizes: [32, 48, 64, 96, 128],
+  },
+  experimental: {
+    typedRoutes: true,
+    optimizePackageImports: ['recharts', 'lucide-react', 'fuse.js'],
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: securityHeaders,
+      },
+      {
+        source: '/:all*(svg|jpg|jpeg|png|webp|gif|ico)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
+};
+
+export default withPWA(pwaConfig)(withMDX(nextConfig));

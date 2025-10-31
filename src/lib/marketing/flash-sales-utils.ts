@@ -1,0 +1,75 @@
+import { createServerSupabaseClient } from '@/lib/supabase/server';
+import type { FlashSale } from '@/types';
+export { isFlashSaleActive, calculateTimeRemaining, formatCountdown } from './flash-sales-helpers';
+
+/**
+ * Get all active flash sales (started and not ended)
+ */
+export async function getActiveFlashSales(): Promise<FlashSale[]> {
+  const supabase = await createServerSupabaseClient();
+  const now = new Date().toISOString();
+
+  const { data, error } = await supabase
+    .from('flash_sales')
+    .select('*')
+    .eq('is_active', true)
+    .lte('starts_at', now)
+    .gte('ends_at', now)
+    .order('ends_at', { ascending: true });
+
+  if (error) {
+    console.error('[Flash Sales] Error fetching active flash sales:', error);
+    return [];
+  }
+
+  return data as FlashSale[];
+}
+
+/**
+ * Get flash sale for a specific product
+ */
+export async function getFlashSaleForProduct(productId: string): Promise<FlashSale | null> {
+  const supabase = await createServerSupabaseClient();
+  const now = new Date().toISOString();
+
+  const { data, error } = await supabase
+    .from('flash_sales')
+    .select('*')
+    .eq('product_id', productId)
+    .eq('is_active', true)
+    .lte('starts_at', now)
+    .gte('ends_at', now)
+    .maybeSingle();
+
+  if (error) {
+    console.error(`[Flash Sales] Error fetching flash sale for product ${productId}:`, error);
+    return null;
+  }
+
+  return data as FlashSale | null;
+}
+
+/**
+ * Check if flash sale has enough stock for purchase
+ */
+export function canPurchaseFlashSale(flashSale: FlashSale, requestedQuantity: number): boolean {
+  return flashSale.stock_sold + requestedQuantity <= flashSale.stock_limit;
+}
+
+/**
+ * Increment flash sale stock sold count (called when item purchased)
+ * Uses SQL increment to prevent race conditions
+ */
+export async function incrementFlashSaleSold(flashSaleId: string, quantity: number): Promise<void> {
+  const supabase = await createServerSupabaseClient();
+
+  // RPC parameters must match SQL signature (p_sale_id, p_qty)
+  const { error } = await supabase.rpc('increment_flash_sale_stock', {
+    p_sale_id: flashSaleId,
+    p_qty: quantity,
+  });
+
+  if (error) {
+    console.error(`[Flash Sales] Error incrementing stock for ${flashSaleId}:`, error);
+  }
+}

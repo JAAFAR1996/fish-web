@@ -1,0 +1,25 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="testsGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="50%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="testsHighlight" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#testsGradient)"/>
+  <circle cx="280" cy="220" r="220" fill="url(#testsHighlight)" opacity="0.6"/>
+  <circle cx="940" cy="520" r="260" fill="url(#testsHighlight)" opacity="0.4"/>
+  <g fill="#FFFFFF" fill-opacity="0.4">
+    <rect x="460" y="160" width="70" height="420" rx="24"/>
+    <rect x="580" y="200" width="70" height="360" rx="24"/>
+    <rect x="700" y="140" width="70" height="420" rx="24"/>
+  </g>
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="18" stroke-linecap="round">
+    <path d="M460 220h70M580 260h70M700 200h70"/>
+    <path d="M460 360h70M580 320h70M700 380h70"/>
+  </g>
+</svg>

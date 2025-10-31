@@ -1,0 +1,24 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="waterCareGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="50%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <radialGradient id="waterCareRipple" cx="0.5" cy="0.5" r="0.65">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#waterCareGradient)"/>
+  <circle cx="320" cy="240" r="240" fill="url(#waterCareRipple)"/>
+  <circle cx="940" cy="520" r="260" fill="url(#waterCareRipple)" opacity="0.4"/>
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="18" stroke-linecap="round">
+    <path d="M200 560c120-60 240-60 360 0s240 60 360 0 240-60 360 0"/>
+    <path d="M240 620c100-40 200-40 300 0s200 40 300 0 200-40 300 0"/>
+  </g>
+  <g fill="#FFFFFF" fill-opacity="0.35">
+    <path d="M360 200c0-66 54-120 120-120s120 54 120 120c0 40-28 92-120 180-92-88-120-140-120-180z"/>
+    <path d="M760 300c0-48 40-88 88-88s88 40 88 88c0 30-21 69-88 132-67-63-88-102-88-132z"/>
+  </g>
+</svg>

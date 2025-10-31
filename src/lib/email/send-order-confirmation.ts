@@ -1,0 +1,76 @@
+import type { Locale, Order, OrderItem } from '@/types';
+
+import { adminClient } from '@/lib/supabase/admin';
+import { formatCurrency } from '@/lib/utils';
+
+import { resend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
+import { renderOrderConfirmationEmailEn } from './templates/order-confirmation-en';
+import { renderOrderConfirmationEmailAr } from './templates/order-confirmation-ar';
+
+function getEmailSubject(locale: Locale, orderNumber: string) {
+  return locale === 'ar'
+    ? `تأكيد الطلب - ${orderNumber}`
+    : `Order Confirmation - ${orderNumber}`;
+}
+
+async function resolveRecipientEmail(order: Order): Promise<string | null> {
+  if (order.user_id) {
+    try {
+      const { data, error } = await adminClient.auth.admin.getUserById(order.user_id);
+      if (!error && data?.user?.email) {
+        return data.user.email;
+      }
+    } catch (error) {
+      console.error('Failed to fetch user email for order', error);
+    }
+  }
+
+  return order.guest_email ?? null;
+}
+
+export async function sendOrderConfirmationEmail(
+  order: Order,
+  items: OrderItem[],
+  locale: Locale,
+  deliveryEstimate: string | null = null
+): Promise<{ success: boolean; error?: string }> {
+  const recipientEmail = await resolveRecipientEmail(order);
+
+  if (!recipientEmail) {
+    console.error('No recipient email available for order', order.id);
+    return { success: false, error: 'checkout.errors.emailFailed' };
+  }
+
+  const formatAmount = (value: number) => formatCurrency(value, locale);
+  const html =
+    locale === 'ar'
+      ? renderOrderConfirmationEmailAr({
+          order,
+          items,
+          formatAmount,
+          deliveryEstimate,
+        })
+      : renderOrderConfirmationEmailEn({
+          order,
+          items,
+          formatAmount,
+          deliveryEstimate,
+        });
+
+  const subject = getEmailSubject(locale, order.order_number);
+
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: recipientEmail,
+      subject,
+      html,
+      replyTo: SUPPORT_EMAIL,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send order confirmation email', error);
+    return { success: false, error: 'checkout.errors.emailFailed' };
+  }
+}

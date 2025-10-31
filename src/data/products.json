@@ -1,0 +1,902 @@
+[
+  {
+    "id": "1",
+    "slug": "aquaclear-70-hob-filter",
+    "name": "AquaClear 70 Power Filter",
+    "brand": "AquaClear",
+    "category": "filtration",
+    "subcategory": "hob",
+    "description": "The AquaClear 70 Power Filter provides superior contact time with filter media and energy-efficient operation, suitable for 40-70 gallon aquariums.",
+    "price": 45000,
+    "originalPrice": 50000,
+    "currency": "IQD",
+    "images": ["/images/products/aquaclear-70-1.jpg", "/images/products/aquaclear-70-2.jpg"],
+    "thumbnail": "/images/products/aquaclear-70-thumb.jpg",
+    "rating": 4.7,
+    "reviewCount": 324,
+    "stock": 15,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": 1135,
+      "power": 8,
+      "compatibility": {
+        "minTankSize": 151,
+        "maxTankSize": 265,
+        "displayText": "151-265L"
+      },
+      "dimensions": {
+        "length": 18.5,
+        "width": 16,
+        "height": 14.5
+      },
+      "weight": 0.68
+    }
+  },
+  {
+    "id": "2",
+    "slug": "fluval-407-canister-filter",
+    "name": "Fluval 407 Performance Canister Filter",
+    "brand": "Fluval",
+    "category": "filtration",
+    "subcategory": "canister",
+    "description": "Multi-stage canister filter for aquariums up to 100 gallons, featuring Smart Pump technology and a flow rate of 1450 L/h.",
+    "price": 180000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/fluval-407-1.jpg", "/images/products/fluval-407-2.jpg"],
+    "thumbnail": "/images/products/fluval-407-thumb.jpg",
+    "rating": 4.9,
+    "reviewCount": 582,
+    "stock": 8,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": true,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": 1450,
+      "power": 20,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 379,
+        "displayText": "Up to 379L"
+      },
+      "dimensions": {
+        "length": 20,
+        "width": 20,
+        "height": 42
+      },
+      "weight": 5.2
+    }
+  },
+  {
+    "id": "3",
+    "slug": "eheim-classic-250-canister",
+    "name": "EHEIM Classic 250 External Canister Filter",
+    "brand": "EHEIM",
+    "category": "filtration",
+    "subcategory": "canister",
+    "description": "German-engineered external filter with reliable performance and whisper-quiet operation for aquariums up to 250 liters.",
+    "price": 120000,
+    "originalPrice": 135000,
+    "currency": "IQD",
+    "images": ["/images/products/eheim-classic-250-1.jpg", "/images/products/eheim-classic-250-2.jpg"],
+    "thumbnail": "/images/products/eheim-classic-250-thumb.jpg",
+    "rating": 4.8,
+    "reviewCount": 412,
+    "stock": 12,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": 440,
+      "power": 8,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 250,
+        "displayText": "Up to 250L"
+      },
+      "dimensions": {
+        "length": 18,
+        "width": 18,
+        "height": 35
+      },
+      "weight": 2.8
+    }
+  },
+  {
+    "id": "4",
+    "slug": "hikari-bacto-surge-foam",
+    "name": "Hikari Bacto-Surge High Density Foam Filter",
+    "brand": "Hikari",
+    "category": "filtration",
+    "subcategory": "sponge",
+    "description": "High-density sponge filter perfect for breeding tanks, fry tanks, and shrimp aquariums. Gentle filtration with biological benefits.",
+    "price": 12000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/hikari-sponge-1.jpg", "/images/products/hikari-sponge-2.jpg"],
+    "thumbnail": "/images/products/hikari-sponge-thumb.jpg",
+    "rating": 4.5,
+    "reviewCount": 198,
+    "stock": 45,
+    "lowStockThreshold": 10,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 150,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 75,
+        "displayText": "Up to 75L"
+      },
+      "dimensions": {
+        "length": 8,
+        "width": 8,
+        "height": 15
+      },
+      "weight": 0.15
+    }
+  },
+  {
+    "id": "5",
+    "slug": "aqueon-quietflow-30",
+    "name": "Aqueon QuietFlow LED PRO 30",
+    "brand": "Aqueon",
+    "category": "filtration",
+    "subcategory": "hob",
+    "description": "Hang-on-back filter with self-priming pump and 5-stage filtration for crystal clear water. LED indicators show when to change cartridges.",
+    "price": 32000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/aqueon-quietflow-1.jpg", "/images/products/aqueon-quietflow-2.jpg"],
+    "thumbnail": "/images/products/aqueon-quietflow-thumb.jpg",
+    "rating": 4.3,
+    "reviewCount": 267,
+    "stock": 22,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 680,
+      "power": 6,
+      "compatibility": {
+        "minTankSize": 57,
+        "maxTankSize": 114,
+        "displayText": "57-114L"
+      },
+      "dimensions": {
+        "length": 13,
+        "width": 12,
+        "height": 18
+      },
+      "weight": 0.5
+    }
+  },
+  {
+    "id": "6",
+    "slug": "penn-plax-cascade-1000",
+    "name": "Penn-Plax Cascade 1000 Canister Filter",
+    "brand": "Penn-Plax",
+    "category": "filtration",
+    "subcategory": "canister",
+    "description": "Multi-stage canister filter with a flow rate of 1000 L/h, ideal for larger aquariums up to 380 liters. Features push-button priming.",
+    "price": 95000,
+    "originalPrice": 110000,
+    "currency": "IQD",
+    "images": ["/images/products/cascade-1000-1.jpg", "/images/products/cascade-1000-2.jpg"],
+    "thumbnail": "/images/products/cascade-1000-thumb.jpg",
+    "rating": 4.4,
+    "reviewCount": 189,
+    "stock": 3,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 1000,
+      "power": 15,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 380,
+        "displayText": "Up to 380L"
+      },
+      "dimensions": {
+        "length": 19,
+        "width": 19,
+        "height": 38
+      },
+      "weight": 4.1
+    }
+  },
+  {
+    "id": "7",
+    "slug": "marina-slim-s15",
+    "name": "Marina Slim S15 Internal Filter",
+    "brand": "Marina",
+    "category": "filtration",
+    "subcategory": "internal",
+    "description": "Space-saving internal filter for small to medium tanks. Adjustable flow rate and easy maintenance for aquariums up to 57 liters.",
+    "price": 18000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/marina-slim-1.jpg", "/images/products/marina-slim-2.jpg"],
+    "thumbnail": "/images/products/marina-slim-thumb.jpg",
+    "rating": 4.2,
+    "reviewCount": 142,
+    "stock": 28,
+    "lowStockThreshold": 10,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 230,
+      "power": 3,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 57,
+        "displayText": "Up to 57L"
+      },
+      "dimensions": {
+        "length": 6.5,
+        "width": 5,
+        "height": 17
+      },
+      "weight": 0.25
+    }
+  },
+  {
+    "id": "8",
+    "slug": "tetra-whisper-ex70",
+    "name": "Tetra Whisper EX70 Power Filter",
+    "brand": "Tetra",
+    "category": "filtration",
+    "subcategory": "hob",
+    "description": "Ultra-quiet hang-on-back filter with advanced 3-stage filtration system. Perfect for 45-135 liter tanks with easy cartridge changes.",
+    "price": 38000,
+    "originalPrice": 42000,
+    "currency": "IQD",
+    "images": ["/images/products/tetra-whisper-1.jpg", "/images/products/tetra-whisper-2.jpg"],
+    "thumbnail": "/images/products/tetra-whisper-thumb.jpg",
+    "rating": 4.6,
+    "reviewCount": 298,
+    "stock": 0,
+    "lowStockThreshold": 5,
+    "inStock": false,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 850,
+      "power": 7,
+      "compatibility": {
+        "minTankSize": 45,
+        "maxTankSize": 135,
+        "displayText": "45-135L"
+      },
+      "dimensions": {
+        "length": 14,
+        "width": 13,
+        "height": 19
+      },
+      "weight": 0.6
+    }
+  },
+  {
+    "id": "9",
+    "slug": "aquatop-cf400uv-canister",
+    "name": "Aquatop CF-400UV Canister Filter with UV Sterilizer",
+    "brand": "Aquatop",
+    "category": "filtration",
+    "subcategory": "canister",
+    "description": "Advanced canister filter with built-in 9W UV sterilizer for clear, algae-free water. Suitable for aquariums up to 400 liters.",
+    "price": 145000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/aquatop-cf400-1.jpg", "/images/products/aquatop-cf400-2.jpg"],
+    "thumbnail": "/images/products/aquatop-cf400-thumb.jpg",
+    "rating": 4.7,
+    "reviewCount": 156,
+    "stock": 6,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": true,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 1400,
+      "power": 25,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 400,
+        "displayText": "Up to 400L"
+      },
+      "dimensions": {
+        "length": 21,
+        "width": 21,
+        "height": 44
+      },
+      "weight": 5.8
+    }
+  },
+  {
+    "id": "10",
+    "slug": "fluval-u2-internal",
+    "name": "Fluval U2 Underwater Filter",
+    "brand": "Fluval",
+    "category": "filtration",
+    "subcategory": "internal",
+    "description": "Versatile internal filter with 3-stage filtration, adjustable output, and multiple mounting options for tanks up to 110 liters.",
+    "price": 28000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/fluval-u2-1.jpg", "/images/products/fluval-u2-2.jpg"],
+    "thumbnail": "/images/products/fluval-u2-thumb.jpg",
+    "rating": 4.5,
+    "reviewCount": 223,
+    "stock": 18,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": 400,
+      "power": 5,
+      "compatibility": {
+        "minTankSize": 45,
+        "maxTankSize": 110,
+        "displayText": "45-110L"
+      },
+      "dimensions": {
+        "length": 9,
+        "width": 8,
+        "height": 20
+      },
+      "weight": 0.35
+    }
+  },
+  {
+    "id": "11",
+    "slug": "seachem-tidal-75",
+    "name": "Seachem Tidal 75 Power Filter",
+    "brand": "Seachem",
+    "category": "filtration",
+    "subcategory": "hob",
+    "description": "Innovative HOB filter with self-priming pump, surface skimmer, and adjustable flow control for aquariums up to 284 liters.",
+    "price": 52000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/seachem-tidal-1.jpg", "/images/products/seachem-tidal-2.jpg"],
+    "thumbnail": "/images/products/seachem-tidal-thumb.jpg",
+    "rating": 4.8,
+    "reviewCount": 178,
+    "stock": 11,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": true,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 1135,
+      "power": 10,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 284,
+        "displayText": "Up to 284L"
+      },
+      "dimensions": {
+        "length": 17,
+        "width": 15,
+        "height": 16
+      },
+      "weight": 0.75
+    }
+  },
+  {
+    "id": "12",
+    "slug": "aquael-turbo-filter-2000",
+    "name": "Aquael Turbo Filter 2000",
+    "brand": "Aquael",
+    "category": "filtration",
+    "subcategory": "internal",
+    "description": "High-performance internal filter with adjustable water flow and spray bar. Ideal for tanks up to 350 liters with biological filtration.",
+    "price": 42000,
+    "originalPrice": 48000,
+    "currency": "IQD",
+    "images": ["/images/products/aquael-turbo-1.jpg", "/images/products/aquael-turbo-2.jpg"],
+    "thumbnail": "/images/products/aquael-turbo-thumb.jpg",
+    "rating": 4.4,
+    "reviewCount": 134,
+    "stock": 9,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 2000,
+      "power": 18,
+      "compatibility": {
+        "minTankSize": 150,
+        "maxTankSize": 350,
+        "displayText": "150-350L"
+      },
+      "dimensions": {
+        "length": 11,
+        "width": 10,
+        "height": 28
+      },
+      "weight": 0.9
+    }
+  },
+  {
+    "id": "13",
+    "slug": "jbl-crystalprofi-e902",
+    "name": "JBL CristalProfi e902 Greenline",
+    "brand": "JBL",
+    "category": "filtration",
+    "subcategory": "canister",
+    "description": "Energy-efficient external filter with pre-filter for coarse dirt and fine filter baskets. Suitable for aquariums from 90-300 liters.",
+    "price": 135000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/jbl-e902-1.jpg", "/images/products/jbl-e902-2.jpg"],
+    "thumbnail": "/images/products/jbl-e902-thumb.jpg",
+    "rating": 4.6,
+    "reviewCount": 245,
+    "stock": 7,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": 900,
+      "power": 12,
+      "compatibility": {
+        "minTankSize": 90,
+        "maxTankSize": 300,
+        "displayText": "90-300L"
+      },
+      "dimensions": {
+        "length": 19,
+        "width": 19,
+        "height": 41
+      },
+      "weight": 4.5
+    }
+  },
+  {
+    "id": "14",
+    "slug": "hydor-professional-250",
+    "name": "Hydor Professional External Filter 250",
+    "brand": "Hydor",
+    "category": "filtration",
+    "subcategory": "canister",
+    "description": "Professional canister filter with large capacity media baskets and easy priming system. Perfect for planted and freshwater tanks up to 250L.",
+    "price": 98000,
+    "originalPrice": 115000,
+    "currency": "IQD",
+    "images": ["/images/products/hydor-250-1.jpg", "/images/products/hydor-250-2.jpg"],
+    "thumbnail": "/images/products/hydor-250-thumb.jpg",
+    "rating": 4.5,
+    "reviewCount": 167,
+    "stock": 10,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 880,
+      "power": 16,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 250,
+        "displayText": "Up to 250L"
+      },
+      "dimensions": {
+        "length": 18,
+        "width": 18,
+        "height": 39
+      },
+      "weight": 3.8
+    }
+  },
+  {
+    "id": "15",
+    "slug": "oase-biomaster-thermo-350",
+    "name": "Oase BioMaster Thermo 350",
+    "brand": "Oase",
+    "category": "filtration",
+    "subcategory": "canister",
+    "description": "Premium canister filter with integrated 300W heater. Pre-filter system and quiet operation for aquariums up to 350 liters.",
+    "price": 225000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/oase-thermo-1.jpg", "/images/products/oase-thermo-2.jpg"],
+    "thumbnail": "/images/products/oase-thermo-thumb.jpg",
+    "rating": 4.9,
+    "reviewCount": 134,
+    "stock": 4,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": true,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 1050,
+      "power": 19,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 350,
+        "displayText": "Up to 350L"
+      },
+      "dimensions": {
+        "length": 20,
+        "width": 20,
+        "height": 43
+      },
+      "weight": 6.2
+    }
+  },
+  {
+    "id": "16",
+    "slug": "hygger-xy-2831-sponge",
+    "name": "Hygger XY-2831 Double Sponge Filter",
+    "brand": "Hygger",
+    "category": "filtration",
+    "subcategory": "sponge",
+    "description": "Double sponge design for enhanced biological filtration. Ideal for breeding tanks, hospital tanks, and nano aquariums up to 60L.",
+    "price": 15000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/hygger-sponge-1.jpg", "/images/products/hygger-sponge-2.jpg"],
+    "thumbnail": "/images/products/hygger-sponge-thumb.jpg",
+    "rating": 4.3,
+    "reviewCount": 189,
+    "stock": 35,
+    "lowStockThreshold": 10,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 180,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 60,
+        "displayText": "Up to 60L"
+      },
+      "dimensions": {
+        "length": 7,
+        "width": 7,
+        "height": 18
+      },
+      "weight": 0.12
+    }
+  },
+  {
+    "id": "17",
+    "slug": "sobo-wp-3880-internal",
+    "name": "Sobo WP-3880 Submersible Filter",
+    "brand": "Sobo",
+    "category": "filtration",
+    "subcategory": "internal",
+    "description": "Compact submersible filter with adjustable flow and spray bar. Energy-efficient design for aquariums up to 180 liters.",
+    "price": 24000,
+    "originalPrice": 28000,
+    "currency": "IQD",
+    "images": ["/images/products/sobo-wp3880-1.jpg", "/images/products/sobo-wp3880-2.jpg"],
+    "thumbnail": "/images/products/sobo-wp3880-thumb.jpg",
+    "rating": 4.1,
+    "reviewCount": 156,
+    "stock": 19,
+    "lowStockThreshold": 10,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 650,
+      "power": 8,
+      "compatibility": {
+        "minTankSize": 60,
+        "maxTankSize": 180,
+        "displayText": "60-180L"
+      },
+      "dimensions": {
+        "length": 8.5,
+        "width": 7.5,
+        "height": 22
+      },
+      "weight": 0.45
+    }
+  },
+  {
+    "id": "18",
+    "slug": "sunsun-hw-303b-canister",
+    "name": "SunSun HW-303B External Canister Filter",
+    "brand": "SunSun",
+    "category": "filtration",
+    "subcategory": "canister",
+    "description": "Budget-friendly canister filter with 3-stage filtration and UV sterilizer. Suitable for aquariums up to 300 liters.",
+    "price": 78000,
+    "originalPrice": 92000,
+    "currency": "IQD",
+    "images": ["/images/products/sunsun-hw303-1.jpg", "/images/products/sunsun-hw303-2.jpg"],
+    "thumbnail": "/images/products/sunsun-hw303-thumb.jpg",
+    "rating": 4.2,
+    "reviewCount": 298,
+    "stock": 14,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": 1400,
+      "power": 24,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 300,
+        "displayText": "Up to 300L"
+      },
+      "dimensions": {
+        "length": 19,
+        "width": 19,
+        "height": 40
+      },
+      "weight": 4.8
+    }
+  },
+  {
+    "id": "19",
+    "slug": "aquaclear-20-mini-hob",
+    "name": "AquaClear 20 Power Filter",
+    "brand": "AquaClear",
+    "category": "filtration",
+    "subcategory": "hob",
+    "description": "Compact hang-on-back filter perfect for nano tanks and small aquariums. Energy-efficient with adjustable flow rate up to 76L.",
+    "price": 28000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/aquaclear-20-1.jpg", "/images/products/aquaclear-20-2.jpg"],
+    "thumbnail": "/images/products/aquaclear-20-thumb.jpg",
+    "rating": 4.6,
+    "reviewCount": 412,
+    "stock": 26,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": 380,
+      "power": 4,
+      "compatibility": {
+        "minTankSize": 19,
+        "maxTankSize": 76,
+        "displayText": "19-76L"
+      },
+      "dimensions": {
+        "length": 12,
+        "width": 10,
+        "height": 12
+      },
+      "weight": 0.35
+    }
+  },
+  {
+    "id": "20",
+    "slug": "fluval-306-canister",
+    "name": "Fluval 306 External Canister Filter",
+    "brand": "Fluval",
+    "category": "filtration",
+    "subcategory": "canister",
+    "description": "Reliable canister filter with AquaStop valves and multi-stage filtration. Perfect for aquariums from 200-300 liters.",
+    "price": 155000,
+    "originalPrice": 175000,
+    "currency": "IQD",
+    "images": ["/images/products/fluval-306-1.jpg", "/images/products/fluval-306-2.jpg"],
+    "thumbnail": "/images/products/fluval-306-thumb.jpg",
+    "rating": 4.7,
+    "reviewCount": 367,
+    "stock": 9,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": 1150,
+      "power": 17,
+      "compatibility": {
+        "minTankSize": 200,
+        "maxTankSize": 300,
+        "displayText": "200-300L"
+      },
+      "dimensions": {
+        "length": 18,
+        "width": 18,
+        "height": 40
+      },
+      "weight": 4.2
+    }
+  },
+  {
+    "id": "21",
+    "slug": "jaebo-wp-40-wavemaker",
+    "name": "Jebao WP-40 Wavemaker Pump",
+    "brand": "Jebao",
+    "category": "circulation",
+    "subcategory": "wavemaker",
+    "description": "Powerful circulation pump with wireless controller and multiple wave patterns. Ideal for reef and marine aquariums up to 500L.",
+    "price": 95000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/jebao-wp40-1.jpg", "/images/products/jebao-wp40-2.jpg"],
+    "thumbnail": "/images/products/jebao-wp40-thumb.jpg",
+    "rating": 4.5,
+    "reviewCount": 234,
+    "stock": 12,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 10000,
+      "power": 26,
+      "compatibility": {
+        "minTankSize": 200,
+        "maxTankSize": 500,
+        "displayText": "200-500L"
+      },
+      "dimensions": {
+        "length": 11,
+        "width": 8,
+        "height": 8
+      },
+      "weight": 0.65
+    }
+  },
+  {
+    "id": "22",
+    "slug": "eheim-jager-300w-heater",
+    "name": "EHEIM Jager 300W Aquarium Heater",
+    "brand": "EHEIM",
+    "category": "heating",
+    "subcategory": "submersible",
+    "description": "Precision-calibrated submersible heater with TruTemp dial and shatter-proof construction. Ideal for aquariums up to 400 liters.",
+    "price": 45000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/eheim-jager-1.jpg", "/images/products/eheim-jager-2.jpg"],
+    "thumbnail": "/images/products/eheim-jager-thumb.jpg",
+    "rating": 4.8,
+    "reviewCount": 456,
+    "stock": 18,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": null,
+      "power": 300,
+      "compatibility": {
+        "minTankSize": 300,
+        "maxTankSize": 400,
+        "displayText": "300-400L"
+      },
+      "dimensions": {
+        "length": 5,
+        "width": 5,
+        "height": 36
+      },
+      "weight": 0.55
+    }
+  },
+  {
+    "id": "23",
+    "slug": "nicrew-classicled-plus",
+    "name": "NICREW ClassicLED Plus Planted Tank Light",
+    "brand": "NICREW",
+    "category": "lighting",
+    "subcategory": "led",
+    "description": "Full spectrum LED light with adjustable brightness for planted aquariums. Energy-efficient with extendable brackets for 75-105cm tanks.",
+    "price": 65000,
+    "originalPrice": 75000,
+    "currency": "IQD",
+    "images": ["/images/products/nicrew-led-1.jpg", "/images/products/nicrew-led-2.jpg"],
+    "thumbnail": "/images/products/nicrew-led-thumb.jpg",
+    "rating": 4.6,
+    "reviewCount": 389,
+    "stock": 16,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": true,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": 18,
+      "compatibility": {
+        "minTankSize": 100,
+        "maxTankSize": 200,
+        "displayText": "100-200L"
+      },
+      "dimensions": {
+        "length": 90,
+        "width": 12,
+        "height": 2
+      },
+      "weight": 1.2
+    }
+  },
+  {
+    "id": "24",
+    "slug": "fluval-plant-spectrum-3.0",
+    "name": "Fluval Plant Spectrum 3.0 LED",
+    "brand": "Fluval",
+    "category": "lighting",
+    "subcategory": "led",
+    "description": "Smart LED with Bluetooth app control and full spectrum. Programmable sunrise/sunset and weather effects for planted tanks up to 150L.",
+    "price": 145000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/fluval-spectrum-1.jpg", "/images/products/fluval-spectrum-2.jpg"],
+    "thumbnail": "/images/products/fluval-spectrum-thumb.jpg",
+    "rating": 4.9,
+    "reviewCount": 278,
+    "stock": 7,
+    "lowStockThreshold": 5,
+    "inStock": true,
+    "isNew": true,
+    "isBestSeller": true,
+    "specifications": {
+      "flow": null,
+      "power": 32,
+      "compatibility": {
+        "minTankSize": 80,
+        "maxTankSize": 150,
+        "displayText": "80-150L"
+      },
+      "dimensions": {
+        "length": 84,
+        "width": 14,
+        "height": 2.5
+      },
+      "weight": 1.8
+    }
+  },
+  {
+    "id": "25",
+    "slug": "hygger-mini-sponge-filter",
+    "name": "Hygger Mini Corner Sponge Filter",
+    "brand": "Hygger",
+    "category": "filtration",
+    "subcategory": "sponge",
+    "description": "Ultra-compact corner sponge filter perfect for shrimp tanks, fry tanks, and quarantine setups. Gentle filtration for nano tanks up to 20L.",
+    "price": 8000,
+    "originalPrice": null,
+    "currency": "IQD",
+    "images": ["/images/products/hygger-mini-1.jpg", "/images/products/hygger-mini-2.jpg"],
+    "thumbnail": "/images/products/hygger-mini-thumb.jpg",
+    "rating": 4.4,
+    "reviewCount": 267,
+    "stock": 52,
+    "lowStockThreshold": 15,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": 80,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": 20,
+        "displayText": "Up to 20L"
+      },
+      "dimensions": {
+        "length": 5,
+        "width": 5,
+        "height": 12
+      },
+      "weight": 0.08
+    }
+  }
+]

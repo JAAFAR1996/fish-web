@@ -1,0 +1,16 @@
+# Allow all crawlers
+User-agent: *
+
+# Allow all pages
+Allow: /
+
+# Disallow private pages
+Disallow: /account
+Disallow: /checkout
+Disallow: /cart
+Disallow: /wishlist
+Disallow: /api
+Disallow: /auth
+
+# Sitemap location
+Sitemap: https://fishweb.iq/sitemap.xml

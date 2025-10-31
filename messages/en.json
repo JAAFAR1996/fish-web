@@ -1,0 +1,1691 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "cart": "Cart",
+    "account": "Account",
+    "calculators": "Calculators",
+    "search": "Search",
+    "searchPlaceholder": "Search products...",
+    "menu": "Menu",
+    "closeMenu": "Close Menu",
+    "orders": "Orders",
+    "wishlist": "Wishlist",
+    "settings": "Settings"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "notificationCenter": "Notification Center",
+    "unreadCount": "{count} unread",
+    "markAsRead": "Mark as Read",
+    "markAllAsRead": "Mark All as Read",
+    "delete": "Delete",
+    "clearAll": "Clear All",
+    "viewAll": "View All",
+    "noNotifications": "No notifications",
+    "noUnread": "No unread notifications",
+    "emptyState": "You're all caught up!",
+    "types": {
+      "order_confirmation": "Order Confirmation",
+      "shipping_update": "Shipping Update",
+      "stock_alert": "Back in Stock",
+      "special_offer": "Special Offer"
+    },
+    "time": {
+      "justNow": "Just now",
+      "minutesAgo": "{count}m ago",
+      "hoursAgo": "{count}h ago",
+      "daysAgo": "{count}d ago"
+    }
+  },
+  "categories": {
+    "filters": {
+      "title": "Filters",
+      "titleEn": "Filters"
+    },
+    "air": {
+      "title": "Air",
+      "titleEn": "Air"
+    },
+    "heaters": {
+      "title": "Heaters",
+      "titleEn": "Heaters"
+    },
+    "plantLighting": {
+      "title": "Plant Lighting",
+      "titleEn": "Plant Lighting"
+    },
+    "hardscape": {
+      "title": "Hardscape",
+      "titleEn": "Hardscape"
+    },
+    "waterCare": {
+      "title": "Water Care",
+      "titleEn": "Water Care"
+    },
+    "plantsFertilizers": {
+      "title": "Plants/Fertilizers",
+      "titleEn": "Plants/Fertilizers"
+    },
+    "tests": {
+      "title": "Tests",
+      "titleEn": "Tests"
+    }
+  },
+  "subcategories": {
+    "filters": {
+      "hob": "HOB Filters",
+      "canister": "Canister Filters",
+      "sponge": "Sponge Filters",
+      "internal": "Internal Filters",
+      "media": "Filter Media",
+      "accessories": "Filter Accessories"
+    },
+    "air": {
+      "airPumps": "Air Pumps",
+      "airStones": "Air Stones",
+      "tubing": "Tubing",
+      "valves": "Valves",
+      "accessories": "Accessories"
+    },
+    "heaters": {
+      "submersible": "Submersible Heaters",
+      "external": "External Heaters",
+      "controllers": "Temperature Controllers",
+      "thermometers": "Thermometers"
+    },
+    "plantLighting": {
+      "led": "LED Lighting",
+      "fluorescent": "Fluorescent Lighting",
+      "timers": "Timers",
+      "fixtures": "Fixtures",
+      "bulbs": "Bulbs"
+    },
+    "hardscape": {
+      "substrate": "Substrate",
+      "rocks": "Rocks",
+      "driftwood": "Driftwood",
+      "decorations": "Decorations",
+      "backgrounds": "Backgrounds"
+    },
+    "waterCare": {
+      "conditioners": "Water Conditioners",
+      "treatments": "Treatments",
+      "clarifiers": "Clarifiers",
+      "bacteria": "Beneficial Bacteria",
+      "maintenance": "Maintenance"
+    },
+    "plantsFertilizers": {
+      "livePlants": "Live Plants",
+      "liquidFertilizers": "Liquid Fertilizers",
+      "substrateFertilizers": "Substrate Fertilizers",
+      "co2": "CO2 System",
+      "tools": "Planting Tools"
+    },
+    "tests": {
+      "waterTests": "Water Tests",
+      "phTests": "pH Tests",
+      "ammoniaTests": "Ammonia Tests",
+      "nitriteTests": "Nitrite Tests",
+      "nitrateTests": "Nitrate Tests",
+      "multiTests": "Multi-Parameter Tests"
+    }
+  },
+  "home": {
+    "title": "Welcome to Aquarium Store",
+    "description": "Premium aquarium equipment in Iraq",
+    "hero": {
+      "usp": "Premium Aquarium Equipment for Iraq",
+      "title": "Create Your Perfect Aquatic World",
+      "subtitle": "Discover our comprehensive collection of high-quality aquarium equipment with full local support and delivery across Iraq",
+      "ctaPrimary": "Shop Now",
+      "ctaSecondary": "Explore Calculators",
+      "modelPlaceholder": "3D Model Coming Soon",
+      "trustIndicators": {
+        "freeShipping": "Free shipping on orders over 100,000 IQD",
+        "expertSupport": "Expert technical support",
+        "securePayment": "Secure cash on delivery"
+      }
+    },
+    "featuredCategories": {
+      "title": "Featured Categories",
+      "subtitle": "Browse by Category",
+      "viewAll": "View All",
+      "productsCount": "{count} products"
+    },
+    "bestSellers": {
+      "title": "Best Sellers",
+      "subtitle": "Our customers' favorite products",
+      "viewAll": "View All Best Sellers",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "calculatorsShowcase": {
+      "title": "Free Calculators",
+      "subtitle": "Calculate the perfect equipment for your tank",
+      "heater": {
+        "title": "Heater Calculator",
+        "description": "Calculate required heater wattage based on tank size"
+      },
+      "filter": {
+        "title": "Filter Calculator",
+        "description": "Calculate required filter flow rate"
+      },
+      "salinity": {
+        "title": "Salinity Calculator",
+        "description": "Calculate salt amount needed (coming soon)"
+      },
+      "tryNow": "Try Now",
+      "viewAll": "View All Calculators"
+    },
+    "trustBadges": {
+      "title": "Why Choose Us",
+      "subtitle": "We're committed to providing the best shopping experience"
+    },
+    "newArrivals": {
+      "title": "New Arrivals",
+      "subtitle": "Discover our latest additions",
+      "viewAll": "View All New Products"
+    },
+    "instagramFeed": {
+      "title": "Follow Us on Instagram",
+      "subtitle": "See our customers' amazing setups",
+      "handle": "@fishweb_iraq",
+      "followUs": "Follow Us",
+      "viewOnInstagram": "View on Instagram",
+      "placeholder": "Instagram photo"
+    },
+    "quickGuides": {
+      "title": "Quick Guides",
+      "subtitle": "Helpful tips for beginners",
+      "filterGuide": {
+        "title": "How to Choose the Right Filter",
+        "content": "Choosing the right filter depends on tank size and bioload. Use our filter calculator to determine required flow rate, and choose a filter that meets or exceeds this rate. For planted tanks, prefer lower flow rates to avoid disturbing plants."
+      },
+      "heaterGuide": {
+        "title": "Heater Selection Guide",
+        "content": "The basic rule is 1 watt per liter of water. If room temperature is low or you need significant temperature rise, add 2-3 extra watts per liter per degree Celsius. Use our heater calculator for precise recommendations."
+      },
+      "waterGuide": {
+        "title": "Water Quality Standards",
+        "content": "Maintain optimal water parameters: pH 6.5-7.5, Ammonia 0 ppm, Nitrite 0 ppm, Nitrate below 20 ppm. Test water weekly and change 25-30% every two weeks. Use water conditioners to remove chlorine and heavy metals."
+      }
+    }
+  },
+  "footer": {
+    "shop": "Shop",
+    "support": "Support",
+    "about": "About",
+    "followUs": "Follow Us",
+    "newsletter": "Newsletter",
+    "trustBadgesTitle": "Why Choose Us",
+    "shopLinks": {
+      "allProducts": "All Products",
+      "filters": "Filters",
+      "heaters": "Heaters",
+      "lighting": "Lighting",
+      "waterCare": "Water Care",
+      "plants": "Plants & Fertilizers"
+    },
+    "supportLinks": {
+      "contact": "Contact Us",
+      "shipping": "Shipping Information",
+      "returns": "Return Policy",
+      "faq": "FAQ",
+      "trackOrder": "Track Order",
+      "sizeGuide": "Size Guide"
+    },
+    "aboutLinks": {
+      "aboutUs": "About Us",
+      "blog": "Blog",
+      "gallery": "Setup Gallery",
+      "careers": "Careers",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions"
+    },
+    "newsletterTitle": "Subscribe to Our Newsletter",
+    "newsletterDescription": "Get the latest deals and new products",
+    "emailPlaceholder": "Enter your email",
+    "subscribeButton": "Subscribe",
+    "privacyNotice": "We respect your privacy. We won't share your email.",
+    "subscribeSuccess": "Successfully subscribed!",
+    "alreadySubscribed": "You're already subscribed",
+    "subscribeError": "Subscription failed. Please try again.",
+    "invalidEmail": "Please enter a valid email",
+    "trustBadges": {
+      "cod": {
+        "title": "Cash on Delivery",
+        "description": "Pay when you receive your order"
+      },
+      "returns": {
+        "title": "14-Day Returns",
+        "description": "Free and easy returns"
+      },
+      "delivery": {
+        "title": "Iraq-Wide Delivery",
+        "description": "Fast and secure shipping"
+      },
+      "support": {
+        "title": "Local Support",
+        "description": "Arabic-speaking support team"
+      }
+    },
+    "socialMedia": {
+      "facebook": "Follow us on Facebook",
+      "instagram": "Follow us on Instagram",
+      "twitter": "Follow us on Twitter",
+      "youtube": "Follow us on YouTube",
+      "whatsapp": "Contact us on WhatsApp"
+    },
+    "contact": {
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "hours": "Business Hours"
+    },
+    "paymentMethods": "Available Payment Methods",
+    "copyright": "Â© {year} FISH WEB. All rights reserved."
+  },
+  "product": {
+    "badges": {
+      "new": "New",
+      "bestSeller": "Best Seller",
+      "outOfStock": "Out of Stock",
+      "discount": "{percent}% Off"
+    },
+    "actions": {
+      "addToCart": "Add to Cart",
+      "quickView": "Quick View",
+      "addToWishlist": "Add to Wishlist",
+      "removeFromWishlist": "Remove from Wishlist",
+      "viewDetails": "View Details"
+    },
+    "specs": {
+      "flow": "Flow Rate",
+      "flowUnit": "L/h",
+      "power": "Power",
+      "powerUnit": "W",
+      "compatibility": "Compatibility",
+      "compatibilityUpTo": "Up to {value}L",
+      "compatibilityRange": "For {min}-{max}L tanks",
+      "compatibilityFrom": "From {value}L",
+      "upTo": "Up to {size}L",
+      "forTanks": "For {min}-{max}L tanks"
+    },
+    "stock": {
+      "inStock": "In Stock",
+      "outOfStock": "Out of Stock",
+      "lowStock": "Only {count} left!",
+      "lastItems": "Last items"
+    },
+    "rating": {
+      "stars": "{rating} stars",
+      "reviews": "({count} reviews)",
+      "noReviews": "No reviews yet",
+      "outOf": "out of 5"
+    },
+    "price": {
+      "from": "From",
+      "originalPrice": "Original Price",
+      "discountedPrice": "Sale Price",
+      "save": "Save {amount}"
+    },
+    "quickView": {
+      "title": "Quick View",
+      "description": "Description",
+      "specifications": "Specifications",
+      "brand": "Brand",
+      "category": "Category",
+      "availability": "Availability"
+    },
+    "a11y": {
+      "productImage": "{productName} image",
+      "wishlistButton": "Add {productName} to wishlist",
+      "quickViewButton": "Quick view {productName}",
+      "addToCartButton": "Add {productName} to cart",
+      "ratingStars": "Rated {rating} out of 5 stars"
+    }
+  },
+  "gallery": {
+    "title": "Setup Gallery",
+    "description": "Discover real aquariums built by our community",
+    "pageTitle": "Setup Gallery",
+    "pageSubtitle": "Browse community setups, explore hotspots, and shop the exact gear.",
+    "featured": "Featured setups",
+    "setup": {
+      "tankSize": "Tank size",
+      "tankSizeValue": "{size}L",
+      "style": "Style",
+      "viewCount": "{count, plural, one {{countFormatted} view} other {{countFormatted} views}}",
+      "mediaCount": "{count, plural, one {{countFormatted} media item} other {{countFormatted} media items}}",
+      "productCount": "{count, plural, one {{countFormatted} product} other {{countFormatted} products}}",
+      "submittedBy": "by {name}",
+      "submittedByAnonymous": "by the community",
+      "productsHeading": "Products"
+    },
+    "styles": {
+      "planted": "Planted",
+      "reef": "Reef",
+      "community": "Community",
+      "biotope": "Biotope",
+      "nano": "Nano",
+      "other": "Other"
+    },
+    "sizes": {
+      "all": "All sizes",
+      "nano": "Nano (≤ 40L)",
+      "small": "Small (41–120L)",
+      "medium": "Medium (121–250L)",
+      "large": "Large (251L+)"
+    },
+    "hotspots": {
+      "clickToView": "Click a marker to view the product",
+      "addHotspot": "Add hotspot",
+      "editHotspot": "Edit hotspot",
+      "deleteHotspot": "Delete hotspot",
+      "clickToTag": "Click the image to place a hotspot",
+      "selectProduct": "Select a product",
+      "maxHotspots": "Maximum hotspots reached"
+    },
+    "actions": {
+      "shopThisSetup": "Shop This Setup",
+      "submitSetup": "Submit Your Setup",
+      "viewSetup": "View Setup",
+      "editSetup": "Edit Setup",
+      "deleteSetup": "Delete Setup",
+      "addingToCart": "Adding {current} of {total}..."
+    },
+    "filters": {
+      "tankSize": "Tank size",
+      "style": "Style",
+      "search": "Search setups",
+      "sort": "Sort",
+      "applyFilters": "Apply filters"
+    },
+    "form": {
+      "title": "Title",
+      "description": "Description",
+      "tankSize": "Tank size (L)",
+      "style": "Style",
+      "uploadMedia": "Upload media",
+      "addHotspots": "Add hotspots",
+      "submit": "Submit setup",
+      "submitting": "Submitting...",
+      "pending": "Your setup was submitted and is pending approval.",
+      "signInRequired": "Sign in to submit your setup.",
+      "uploadMediaFirst": "Upload at least one media file to add hotspots.",
+      "reviewSummary": "Review \"{title}\" before submitting.",
+      "summary": {
+        "mediaCount": "{count, plural, one {{countFormatted} media file selected} other {{countFormatted} media files selected}}",
+        "hotspotCount": "{count, plural, one {{countFormatted} hotspot added} other {{countFormatted} hotspots added}}"
+      },
+      "untitled": "Untitled setup"
+    },
+    "validation": {
+      "titleRequired": "Title is required",
+      "tankSizeRequired": "Tank size is required",
+      "styleRequired": "Style is required",
+      "mediaRequired": "At least one image is required",
+      "maxMedia": "You can upload up to 5 files",
+      "maxHotspots": "You can add up to 10 hotspots"
+    },
+    "success": {
+      "created": "Setup submitted for review",
+      "updated": "Setup updated",
+      "deleted": "Setup deleted"
+    },
+    "errors": {
+      "loadFailed": "Failed to load setups",
+      "createFailed": "Failed to submit setup",
+      "updateFailed": "Failed to update setup",
+      "deleteFailed": "Failed to delete setup",
+      "notFound": "Setup not found"
+    },
+    "empty": {
+      "title": "No setups yet",
+      "titleWithStyle": "No {style} setups yet",
+      "description": "Be the first to share your aquarium.",
+      "browseAll": "Browse all",
+      "submitSetup": "Submit your setup"
+    }
+  },
+  "plp": {
+    "title": "Products",
+    "description": "Browse our complete collection of aquarium equipment",
+    "allProducts": "All Products",
+    "sort": {
+      "label": "Sort by",
+      "bestSelling": "Best Selling",
+      "highestRated": "Highest Rated",
+      "lowestPrice": "Lowest Price",
+      "newest": "Newest"
+    },
+    "filters": {
+      "title": "Filters",
+      "showFilters": "Show Filters",
+      "hideFilters": "Hide Filters",
+      "applyFilters": "Apply Filters",
+      "resetFilters": "Reset",
+      "clearAll": "Clear All",
+      "type": {
+        "label": "Type",
+        "hob": "HOB",
+        "canister": "Canister",
+        "sponge": "Sponge",
+        "internal": "Internal"
+      },
+      "tankSize": {
+        "label": "Tank Size",
+        "upTo": "Up to (Liters)",
+        "from": "From",
+        "to": "To",
+        "placeholder": "Enter size"
+      },
+      "flowRate": {
+        "label": "Flow Rate",
+        "from": "From (L/h)",
+        "to": "To (L/h)",
+        "placeholder": "Enter flow rate"
+      },
+      "brand": {
+        "label": "Brand",
+        "all": "All Brands"
+      }
+    },
+    "results": {
+      "showing": "Showing {count} products",
+      "showingRange": "Showing {from}-{to} of {total} products",
+      "noResults": "No products found",
+      "noResultsDescription": "Try adjusting your filters or search for something else",
+      "loading": "Loading products...",
+      "error": "Error loading products"
+    },
+    "activeFilters": {
+      "title": "Active Filters",
+      "clear": "Clear",
+      "type": "Type: {value}",
+      "tankSize": "Tank Size: {min}-{max}L",
+      "flowRate": "Flow Rate: {min}-{max}L/h",
+      "brand": "Brand: {value}"
+    }
+  },
+  "calculators": {
+    "title": "Calculators",
+    "description": "Free calculators to help you choose the right equipment for your aquarium",
+    "pageTitle": "Aquarium Calculators",
+    "pageSubtitle": "Calculate the perfect equipment for your tank with precision",
+    "tabs": {
+      "heater": "Heater Calculator",
+      "filter": "Filter Calculator",
+      "salinity": "Salinity Calculator"
+    },
+    "heater": {
+      "title": "Heater Calculator",
+      "description": "Calculate the required heater wattage based on tank volume and desired temperature",
+      "tankVolume": "Tank Volume (Liters)",
+      "currentTemp": "Current Temperature (\\u00B0C)",
+      "targetTemp": "Target Temperature (\\u00B0C)",
+      "calculate": "Calculate",
+      "result": "Required Wattage",
+      "resultUnit": "Watts",
+      "formula": "Formula: 1W/liter + 2.5W/liter per \\u00B0C rise",
+      "helpText": "For best results, choose a heater slightly higher than the calculated wattage",
+      "validation": {
+        "tankVolumeRequired": "Please enter tank volume",
+        "tankVolumeMin": "Tank volume must be at least 1 liter",
+        "tempRequired": "Please enter temperatures",
+        "targetHigher": "Target temperature must be higher than current",
+        "tankVolumeMax": "Tank volume must not exceed 10,000 liters",
+        "tempOutOfRange": "Temperature values must be between 0\\u00B0C and 40\\u00B0C"
+      },
+      "recommendationText": "We recommend using a {wattage}W heater for consistent temperature control."
+    },
+    "filter": {
+      "title": "Filter Calculator",
+      "description": "Calculate the required filter flow rate based on tank volume and bioload",
+      "tankVolume": "Tank Volume (Liters)",
+      "bioload": "Bioload Level",
+      "bioloadLow": "Low (Few fish, many plants)",
+      "bioloadMedium": "Medium (Moderate fish)",
+      "bioloadHigh": "High (Many fish, heavy feeding)",
+      "calculate": "Calculate",
+      "result": "Required Flow Rate",
+      "resultUnit": "L/h",
+      "formula": "Formula: {multiplier}\\u00D7 tank volume/hour",
+      "helpText": "Choose a filter with flow rate equal to or greater than calculated",
+      "validation": {
+        "tankVolumeRequired": "Please enter tank volume",
+        "bioloadRequired": "Please select bioload level",
+        "tankVolumeMin": "Tank volume must be at least 1 liter",
+        "tankVolumeMax": "Tank volume must not exceed 10,000 liters"
+      },
+      "recommendationText": "Choose a filter with at least {flow} L/h flow rate to meet your tank's needs."
+    },
+    "salinity": {
+      "title": "Salinity Calculator",
+      "description": "Calculate the amount of salt needed to reach desired specific gravity",
+      "comingSoon": "Coming Soon",
+      "comingSoonDescription": "This feature is under development and will be available soon"
+    },
+    "results": {
+      "optimal": "Optimal",
+      "adequate": "Adequate",
+      "insufficient": "Insufficient",
+      "yourResult": "Your Result",
+      "recommendation": "Recommendation",
+      "range": "{min} - {max} {unit}"
+    },
+    "recommendations": {
+      "title": "Recommended Products",
+      "description": "Based on your calculation, we recommend these products",
+      "noProducts": "No matching products found",
+      "viewAll": "View All {category}",
+      "matchesYourNeeds": "Matches your needs",
+      "loading": "Loading tailored product matches..."
+    },
+    "save": {
+      "button": "Save Calculation",
+      "signInRequired": "Sign in to save calculations",
+      "saved": "Saved successfully",
+      "error": "Error saving calculation",
+      "viewSaved": "View Saved Calculations",
+      "saving": "Saving..."
+    },
+    "common": {
+      "calculate": "Calculate",
+      "reset": "Reset",
+      "clear": "Clear",
+      "unit": {
+        "liters": "Liters",
+        "watts": "Watts",
+        "celsius": "\\u00B0C",
+        "lph": "L/h"
+      }
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": "Sign In",
+      "subtitle": "Welcome to FISH WEB"
+    },
+    "tabs": {
+      "signin": "Sign In",
+      "signup": "Sign Up",
+      "phone": "Phone Number"
+    },
+    "signin": {
+      "title": "Sign In",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign Up",
+      "orContinueWith": "Or continue with"
+    },
+    "signup": {
+      "title": "Create New Account",
+      "fullName": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create Account",
+      "haveAccount": "Already have an account?",
+      "signinLink": "Sign In",
+      "terms": "By creating an account, you agree to our {termsLink} and {privacyLink}",
+      "termsLink": "Terms & Conditions",
+      "privacyLink": "Privacy Policy",
+      "passwordHelper": "Password must be at least 8 characters."
+    },
+    "phone": {
+      "title": "Sign In with Phone",
+      "phoneNumber": "Phone Number",
+      "phoneHint": "Example: +9647XXXXXXXXX",
+      "sendOtp": "Send Verification Code",
+      "otpSent": "Verification code sent to {phone}",
+      "verificationCode": "Verification Code",
+      "verifyCode": "Verify",
+      "resendCode": "Resend Code",
+      "resendIn": "Resend in {seconds}s",
+      "changeNumber": "Change Number"
+    },
+    "oauth": {
+      "google": "Continue with Google",
+      "signinWith": "Sign in with {provider}",
+      "signupWith": "Sign up with {provider}"
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email address",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordMismatch": "Passwords do not match",
+      "fullNameRequired": "Full name is required",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Invalid phone number (use format +9647XXXXXXXXX)",
+      "otpRequired": "Verification code is required",
+      "otpInvalid": "Invalid verification code"
+    },
+    "success": {
+      "signupComplete": "Account created successfully!",
+      "signinComplete": "Welcome back!",
+      "emailSent": "Verification link sent to your email",
+      "otpSent": "Verification code sent",
+      "signoutComplete": "Signed out successfully"
+    },
+    "errors": {
+      "validation": "Please correct the highlighted fields.",
+      "invalidCredentials": "Invalid email or password",
+      "emailExists": "Email already in use",
+      "phoneExists": "Phone number already in use",
+      "tooManyRequests": "Too many requests. Please try again later",
+      "networkError": "Network error. Please try again",
+      "unknownError": "An unexpected error occurred",
+      "emailNotConfirmed": "Please verify your email to continue.",
+      "usernameExists": "Username already exists",
+      "unauthenticated": "You must be signed in to continue"
+    }
+  },
+  "account": {
+    "title": "My Account",
+    "description": "Manage your account and personal information",
+    "welcome": "Welcome, {name}",
+    "tabs": {
+      "profile": "Profile",
+      "orders": "Orders",
+      "wishlist": "Wishlist",
+      "addresses": "Addresses",
+      "loyalty": "Loyalty",
+      "referrals": "Referrals",
+      "settings": "Settings"
+    },
+    "profile": {
+      "title": "Profile Information",
+      "fullName": "Full Name",
+      "username": "Username",
+      "email": "Email",
+      "phone": "Phone",
+      "save": "Save Changes",
+      "saving": "Saving...",
+      "saved": "Changes saved successfully"
+    },
+    "orders": {
+      "title": "My Orders",
+      "noOrders": "No orders yet",
+      "startShopping": "Start Shopping",
+      "comingSoon": "Coming Soon"
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "noItems": "Wishlist is empty",
+      "addItems": "Add Products",
+      "comingSoon": "Coming Soon",
+      "removeItem": "Remove from Wishlist",
+      "moveToCart": "Move to Cart",
+      "moveAllToCart": "Move All to Cart",
+      "clearWishlist": "Clear Wishlist",
+      "itemsCount": "{count} items"
+    },
+    "addresses": {
+      "title": "Saved Addresses",
+      "description": "Manage your saved delivery addresses.",
+      "addNew": "Add New Address",
+      "addAddressTitle": "Add Address",
+      "editAddressTitle": "Edit Address",
+      "loading": "Loading addresses...",
+      "noAddresses": "No saved addresses yet",
+      "unknownLabel": "Unnamed address",
+      "default": "Default",
+      "label": "Label",
+      "recipientName": "Recipient Name",
+      "phone": "Phone Number",
+      "addressLine1": "Address Line 1",
+      "addressLine2": "Address Line 2",
+      "city": "City",
+      "governorate": "Governorate",
+      "postalCode": "Postal Code",
+      "setDefault": "Set as Default",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save Address",
+      "cancel": "Cancel",
+      "deleteConfirm": "Are you sure you want to delete this address?"
+    },
+    "loyalty": {
+      "title": "Loyalty Points",
+      "subtitle": "Track your balance, redemptions, and recent activity.",
+      "balance": "Current Balance",
+      "pointsValue": "{points} pts",
+      "potentialDiscount": "Worth {amount} in discounts",
+      "totalEarned": "Total Earned",
+      "totalRedeemed": "Total Redeemed",
+      "latestActivity": "Recent Activity",
+      "noActivity": "No loyalty activity yet. Place an order to earn points."
+    },
+    "referrals": {
+      "title": "Referral Program",
+      "subtitle": "Earn {reward} when friends make their first purchase. They get {friendReward} too.",
+      "rewardPointsLabel": "{points} pts earned",
+      "rewardPointsTitle": "Reward Points Earned",
+      "noCodeTitle": "Start sharing your referral code",
+      "noCodeDescription": "Generate your unique referral code to invite friends and earn rewards.",
+      "generateCode": "Generate Referral Code",
+      "referralCodeLabel": "Referral code: {code}"
+    },
+    "settings": {
+      "title": "Settings",
+      "changePassword": "Change Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "updatePassword": "Update Password",
+      "passwordUpdated": "Password updated successfully.",
+      "notificationPreferences": "Notification Preferences",
+      "emailOrderUpdates": "Order Notifications (Email)",
+      "emailShippingUpdates": "Shipping Updates (Email)",
+      "emailStockAlerts": "Stock Alerts (Email)",
+      "emailMarketing": "Offers & Updates (Email)",
+      "inappNotifications": "In-App Notifications",
+      "emailPreferences": "Email Preferences",
+      "marketingEmails": "Marketing & Updates",
+      "orderEmails": "Order Notifications",
+      "newsletter": "Newsletter",
+      "savePreferences": "Save Preferences",
+      "preferencesSaved": "Preferences saved.",
+      "dangerZone": "Danger Zone",
+      "signOutDescription": "Sign out of your current session.",
+      "deleteAccountWarning": "This action cannot be undone.",
+      "deleteAccountConfirm": "Are you sure you want to delete your account?",
+      "signOut": "Sign Out",
+      "deleteAccount": "Delete Account"
+    }
+  },
+  "loyalty": {
+    "invalidPoints": "Please enter a valid points amount.",
+    "notEnoughPoints": "You do not have enough points.",
+    "minRedemption": "You need at least {points} points to redeem.",
+    "maxRedemptionExceeded": "You cannot redeem more than 50% of the order total with points.",
+    "redemptionFailed": "We couldn't apply your points. Please try again."
+  },
+  "pdp": {
+    "titleTemplate": "{productName} - {brand} | FISH WEB",
+    "descriptionTemplate": "{description} - Available now in Iraq with fast delivery and cash on delivery",
+    "breadcrumb": {
+      "home": "Home",
+      "products": "Products",
+      "currentProduct": "{name}"
+    },
+    "cta": {
+      "addToCart": "Add to Cart",
+      "buyNow": "Buy Now",
+      "addToWishlist": "Add to Wishlist",
+      "removeFromWishlist": "Remove from Wishlist",
+      "contactWhatsApp": "Contact via WhatsApp",
+      "shareProduct": "Share Product",
+      "notifyWhenAvailable": "Notify When Available"
+    },
+    "tabs": {
+      "description": "Description",
+      "specifications": "Specifications",
+      "usageGuide": "Usage Guide",
+      "reviews": "Reviews",
+      "faq": "FAQ"
+    },
+    "specs": {
+      "title": "Technical Specifications",
+      "brand": "Brand",
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "sku": "SKU",
+      "dimensions": "Dimensions",
+      "weight": "Weight",
+      "flow": "Flow Rate",
+      "power": "Power",
+      "compatibility": "Compatibility",
+      "dimensionsValue": "{length} × {width} × {height} cm",
+      "weightValue": "{weight} kg"
+    },
+    "socialProof": {
+      "viewedToday": "{count} people viewed today",
+      "boughtThisWeek": "{count} bought this week",
+      "inCart": "{count} have this in cart",
+      "trending": "Trending now"
+    },
+    "related": {
+      "title": "Related Products",
+      "subtitle": "You may also like",
+      "viewAll": "View All",
+      "complementary": "Complementary Products",
+      "similarProducts": "Similar Products"
+    },
+    "usageGuide": {
+      "title": "Usage Guide",
+      "placeholder": "Detailed usage guide coming soon",
+      "installation": "Installation",
+      "maintenance": "Maintenance",
+      "tips": "Helpful Tips"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "How do I choose the right size?",
+        "answer": "Use our free calculators to determine the ideal size based on your tank volume and requirements."
+      },
+      "q2": {
+        "question": "What is the warranty period?",
+        "answer": "All our products come with manufacturer warranty. Duration varies by brand and product."
+      },
+      "q3": {
+        "question": "Is shipping free?",
+        "answer": "Yes, free shipping on orders over 100,000 IQD."
+      },
+      "q4": {
+        "question": "Can I return this product?",
+        "answer": "Yes, you have 14 days to return the product if it's not suitable."
+      }
+    },
+    "gallery": {
+      "zoom": "Zoom",
+      "viewFullscreen": "View Fullscreen",
+      "previousImage": "Previous Image",
+      "nextImage": "Next Image",
+      "closeGallery": "Close Gallery",
+      "imageCount": "Image {current} of {total}"
+    },
+    "share": {
+      "title": "Share Product",
+      "copyLink": "Copy Link",
+      "linkCopied": "Link Copied",
+      "whatsapp": "Share on WhatsApp",
+      "facebook": "Share on Facebook",
+      "twitter": "Share on Twitter"
+    },
+    "reviews": {
+      "placeholder": "Reviews are coming soon. We are gathering the first experiences from our community.",
+      "cta": "Purchased this item? Be the first to share your feedback once reviews launch."
+    },
+    "calculator": {
+      "title": "Calculate Compatibility",
+      "description": "Use the calculator to determine if this product is suitable for your tank",
+      "suitableFor": "This product is suitable for",
+      "tankSizeRange": "{min}-{max}L tanks"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "description": "Review your products and complete your purchase",
+    "yourCart": "Your Cart",
+    "itemsCount": "{count} items",
+    "itemsCountSingular": "1 item",
+    "summary": {
+      "title": "Order Summary",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "shippingFree": "Free",
+      "shippingCalculated": "Calculated at checkout",
+      "total": "Total",
+      "proceedToCheckout": "Proceed to Checkout",
+      "continueShopping": "Continue Shopping"
+    },
+    "freeShipping": {
+      "threshold": "100,000",
+      "progress": "Add {amount} for free shipping",
+      "qualified": "Congrats! You qualify for free shipping",
+      "almostThere": "You're almost there!"
+    },
+    "item": {
+      "quantity": "Quantity",
+      "price": "Price",
+      "total": "Total",
+      "remove": "Remove",
+      "saveForLater": "Save for Later",
+      "moveToCart": "Move to Cart",
+      "outOfStock": "Out of Stock",
+      "lowStock": "Only {count} left",
+      "maxQuantity": "Max {max}",
+      "quantityExceeded": "Requested quantity exceeds available stock"
+    },
+    "quantity": {
+      "increase": "Increase quantity",
+      "decrease": "Decrease quantity",
+      "update": "Update quantity",
+      "max": "Maximum",
+      "min": "Minimum"
+    },
+    "empty": {
+      "title": "Your cart is empty",
+      "description": "Start adding products to your cart",
+      "startShopping": "Start Shopping",
+      "savedItems": "You have {count} saved items",
+      "viewSaved": "View Saved Items"
+    },
+    "savedForLater": {
+      "title": "Saved for Later",
+      "empty": "No saved items",
+      "moveToCart": "Move to Cart",
+      "remove": "Remove"
+    },
+    "upsell": {
+      "title": "Complete Your Setup",
+      "subtitle": "Customers Also Bought",
+      "addToCart": "Add to Cart",
+      "viewAll": "View All"
+    },
+    "calculator": {
+      "needHelp": "Need help choosing size?",
+      "useCalculator": "Use Calculator",
+      "calculateSize": "Calculate Right Size"
+    },
+    "actions": {
+      "addToCart": "Add to Cart",
+      "updateCart": "Update Cart",
+      "clearCart": "Clear Cart",
+      "viewCart": "View Cart",
+      "closeCart": "Close Cart"
+    },
+    "success": {
+      "added": "Added to cart",
+      "removed": "Removed from cart",
+      "updated": "Quantity updated",
+      "savedForLater": "Saved for later",
+      "movedToCart": "Moved to cart"
+    },
+    "errors": {
+      "outOfStock": "This product is out of stock",
+      "quantityExceeded": "Requested quantity exceeds available stock",
+      "invalidQuantity": "Invalid quantity",
+      "loadFailed": "Failed to load cart",
+      "updateFailed": "Failed to update cart"
+    }
+  },
+  "checkout": {
+    "title": "Checkout",
+    "description": "Complete your order securely and easily",
+    "pageTitle": "Checkout",
+    "pageSubtitle": "Simple steps to complete your order",
+    "steps": {
+      "shipping": "Shipping Information",
+      "payment": "Payment Method",
+      "review": "Order Review",
+      "stepOf": "Step {current} of {total}"
+    },
+    "shipping": {
+      "title": "Shipping Information",
+      "description": "Where should we send your order?",
+      "useExisting": "Use a saved address",
+      "addNew": "Add new address",
+      "selectAddress": "Select an address",
+      "noSavedAddresses": "No saved addresses",
+      "guestEmail": "Email (for order confirmation)",
+      "guestEmailHint": "We'll send order details to this email",
+      "saveAddress": "Save this address for future orders",
+      "continue": "Continue to Payment"
+    },
+    "payment": {
+      "title": "Payment Method",
+      "description": "How would you like to pay?",
+      "cod": "Cash on Delivery (COD)",
+      "codDescription": "Pay cash when you receive your order",
+      "codBenefits": "Safe and convenient - no credit card needed",
+      "comingSoon": "More payment methods coming soon",
+      "continue": "Continue to Review"
+    },
+    "review": {
+      "title": "Order Review",
+      "description": "Review your order before confirming",
+      "shippingAddress": "Shipping Address",
+      "paymentMethod": "Payment Method",
+      "orderItems": "Items ({count})",
+      "orderSummary": "Order Summary",
+      "edit": "Edit",
+      "placeOrder": "Place Order",
+      "placingOrder": "Placing order...",
+      "termsAgree": "By placing your order, you agree to our {termsLink} and {privacyLink}"
+    },
+    "coupon": {
+      "label": "Discount Code",
+      "placeholder": "Enter discount code",
+      "apply": "Apply",
+      "remove": "Remove",
+      "applied": "Discount applied",
+      "discount": "Discount",
+      "invalidCode": "Invalid discount code",
+      "expired": "Discount code has expired",
+      "minOrderNotMet": "Minimum order value {amount}",
+      "usageLimitReached": "This code has been fully used"
+    },
+    "shippingCost": {
+      "calculating": "Calculating shipping cost...",
+      "free": "Free Shipping",
+      "standard": "Standard Shipping",
+      "governorate": "Shipping to {governorate}",
+      "estimatedDelivery": "Estimated delivery: {days} days"
+    },
+    "summary": {
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "discount": "Discount",
+      "loyaltyDiscount": "Loyalty Discount",
+      "total": "Total",
+      "itemsCount": "{count} items"
+    },
+    "validation": {
+      "addressRequired": "Please select or enter a shipping address",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email address",
+      "paymentRequired": "Please select a payment method",
+      "termsRequired": "You must agree to the terms and conditions"
+    },
+    "success": {
+      "orderPlaced": "Your order has been placed successfully!",
+      "orderNumber": "Order Number: {orderNumber}",
+      "emailSent": "Order confirmation sent to {email}"
+    },
+    "errors": {
+      "orderFailed": "Failed to create order. Please try again",
+      "emptyCart": "Your cart is empty. Add products before checkout",
+      "stockUnavailable": "Some products are out of stock",
+      "emailFailed": "Failed to send email. We'll try again"
+    }
+  },
+  "orderConfirmation": {
+    "title": "Order Confirmation",
+    "description": "Your order has been received successfully",
+    "thankYou": "Thank you for your order!",
+    "orderPlaced": "Your order has been received and we'll start processing it soon",
+    "orderNumber": "Order Number",
+    "orderDate": "Order Date",
+    "estimatedDelivery": "Estimated Delivery",
+    "deliveryDays": "{days} business days",
+    "emailSent": "Order confirmation sent to {email}",
+    "checkEmail": "Check your email for complete details",
+    "details": {
+      "title": "Order Details",
+      "items": "Items",
+      "shippingAddress": "Shipping Address",
+      "paymentMethod": "Payment Method",
+      "orderSummary": "Order Summary"
+    },
+    "nextSteps": {
+      "title": "What's Next",
+      "processing": "We'll process your order within 24 hours",
+      "notification": "You'll receive a notification when your order ships",
+      "contact": "Contact us via WhatsApp for any questions"
+    },
+    "actions": {
+      "trackOrder": "Track Order",
+      "continueShopping": "Continue Shopping",
+      "viewOrders": "View My Orders",
+      "contactSupport": "Contact Support",
+      "printOrder": "Print Order"
+    }
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "description": "Products saved for later purchase",
+    "pageTitle": "My Wishlist",
+    "pageSubtitle": "Products you love",
+    "actions": {
+      "addToWishlist": "Add to Wishlist",
+      "removeFromWishlist": "Remove from Wishlist",
+      "moveToCart": "Move to Cart",
+      "moveAllToCart": "Move All to Cart",
+      "clearAll": "Clear All",
+      "continueShopping": "Continue Shopping",
+      "cancel": "Cancel"
+    },
+    "bulkActions": {
+      "confirmMoveAllTitle": "Move all items to cart?",
+      "confirmMoveAllDescription": "This will add every wishlist item to your cart and remove them from the wishlist.",
+      "confirmMoveAllDetails": "Moving {count} items can take a moment. We'll keep everything in sync for you.",
+      "confirmMoveAllCta": "Yes, move everything",
+      "disabledLargeList": "Bulk move is disabled for large wishlists. Move items individually instead."
+    },
+    "stock": {
+      "inStock": "In Stock",
+      "outOfStock": "Out of Stock",
+      "lowStock": "Only {count} left",
+      "notifyMe": "Notify Me When Available"
+    },
+    "notifyMe": {
+      "title": "Notify Me When Available",
+      "description": "We'll send you an email when this product is back in stock",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "submit": "Notify Me",
+      "success": "Thanks! We'll notify you when it's available",
+      "alreadyRequested": "You've already requested notification",
+      "error": "An error occurred. Please try again"
+    },
+    "empty": {
+      "title": "Your wishlist is empty",
+      "description": "Save products you love for later purchase",
+      "startShopping": "Start Shopping",
+      "browseProducts": "Browse Products"
+    },
+    "success": {
+      "added": "Added to wishlist",
+      "removed": "Removed from wishlist",
+      "movedToCart": "Moved to cart",
+      "cleared": "Wishlist cleared"
+    }
+  },
+  "search": {
+    "autocomplete": {
+      "products": "Products",
+      "brands": "Brands",
+      "categories": "Categories",
+      "viewAll": "View All ({count})",
+      "noResults": "No results",
+      "recentSearches": "Recent Searches",
+      "popularSearches": "Popular Searches",
+      "inCategory": "in {category}"
+    },
+    "voice": {
+      "listening": "Listening...",
+      "speak": "Speak now",
+      "stopListening": "Stop Listening",
+      "tryAgain": "Try Again",
+      "notSupported": "Voice search is not supported in your browser",
+      "permissionDenied": "Microphone permission denied",
+      "noSpeech": "No speech detected. Please try again",
+      "error": "Speech recognition error occurred",
+      "tapToSpeak": "Tap to speak"
+    },
+    "results": {
+      "title": "Search Results",
+      "resultsFor": "Results for '{query}'",
+      "showing": "Showing {count} results",
+      "showingFor": "Showing {count} results for '{query}'",
+      "noResults": "No results found",
+      "noResultsFor": "No results found for '{query}'",
+      "tryDifferent": "Try different keywords",
+      "checkSpelling": "Check your spelling",
+      "tryBroader": "Try broader terms",
+      "browseCategories": "Browse Categories",
+      "suggestions": "Suggestions:",
+      "didYouMean": "Did you mean '{suggestion}'?",
+      "description": "Search our catalog of premium aquarium equipment"
+    },
+    "filters": {
+      "all": "All",
+      "inStock": "In Stock Only",
+      "onSale": "On Sale",
+      "newArrivals": "New Arrivals",
+      "clearSearch": "Clear Search"
+    },
+    "actions": {
+      "search": "Search",
+      "clearSearch": "Clear Search",
+      "voiceSearch": "Voice Search",
+      "viewProduct": "View Product",
+      "searchIn": "Search in {category}"
+    },
+    "hints": {
+      "minLength": "Enter at least 2 characters to search",
+      "pressEnter": "Press Enter to search",
+      "useVoice": "Or use voice search",
+      "examples": "Example: filter, heater, lighting"
+    }
+  },
+  "reviews": {
+    "title": "Reviews & Ratings",
+    "subtitle": "Real customer opinions",
+    "writeReview": "Write a Review",
+    "yourReview": "Your Review",
+    "customerReviews": "Customer Reviews",
+    "averageRating": "Average Rating",
+    "basedOn": "Based on {count} reviews",
+    "ratingDistribution": "Rating Distribution",
+    "stars": "{count} stars",
+    "outOf5": "out of 5",
+    "form": {
+      "title": "Write Your Review",
+      "rating": "Rating",
+      "ratingLabel": "Select your rating (1-5 stars)",
+      "reviewTitle": "Review Title",
+      "reviewTitlePlaceholder": "Summarize your experience in one sentence",
+      "comment": "Review",
+      "commentPlaceholder": "Share your detailed experience with this product...",
+      "images": "Images (optional)",
+      "imagesHint": "Add up to 5 images (max 5MB each)",
+      "uploadImages": "Upload Images",
+      "dragDrop": "Drag and drop images here or click to select",
+      "submit": "Submit Review",
+      "submitting": "Submitting...",
+      "update": "Update Review",
+      "cancel": "Cancel",
+      "delete": "Delete Review"
+    },
+    "validation": {
+      "ratingRequired": "Please select a rating",
+      "titleRequired": "Review title is required",
+      "titleMax": "Title must be less than 100 characters",
+      "commentRequired": "Review text is required",
+      "commentMin": "Review must be at least 10 characters",
+      "commentMax": "Review must be less than 1000 characters",
+      "imagesMax": "Maximum 5 images allowed",
+      "imageSizeMax": "Image size must be less than 5MB",
+      "imageTypeInvalid": "Unsupported file type. Use JPG, PNG, or WebP",
+      "alreadyReviewed": "You have already reviewed this product"
+    },
+    "helpful": {
+      "helpful": "Helpful",
+      "notHelpful": "Not Helpful",
+      "wasHelpful": "Was this review helpful?",
+      "thankYou": "Thanks for your feedback",
+      "peopleFound": "{count} people found this helpful"
+    },
+    "filters": {
+      "all": "All Reviews",
+      "5stars": "5 Stars",
+      "4stars": "4 Stars & Up",
+      "3stars": "3 Stars & Up",
+      "withImages": "With Images",
+      "verified": "Verified Purchase",
+      "clear": "Clear filters"
+    },
+    "sort": {
+      "recent": "Most Recent",
+      "helpful": "Most Helpful",
+      "highest": "Highest Rating",
+      "lowest": "Lowest Rating"
+    },
+    "empty": {
+      "noReviews": "No reviews yet",
+      "beFirst": "Be the first to review this product",
+      "shareExperience": "Share your experience to help others"
+    },
+    "success": {
+      "submitted": "Your review has been submitted successfully!",
+      "pending": "Your review is pending approval and will appear soon",
+      "updated": "Your review has been updated",
+      "deleted": "Your review has been deleted",
+      "voteRecorded": "Your feedback has been recorded"
+    },
+    "errors": {
+      "submitFailed": "Failed to submit review. Please try again",
+      "loadFailed": "Failed to load reviews",
+      "uploadFailed": "Failed to upload images",
+      "authRequired": "You must be signed in to write a review",
+      "purchaseRequired": "You must purchase this product first to write a review",
+      "deleteConfirm": "Are you sure you want to delete this review?",
+      "noMatches": "No reviews match your filters"
+    },
+    "moderation": {
+      "pending": "Pending Review",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "awaitingApproval": "Awaiting Approval"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Your complete guide to the aquarium world - tips, guides, and educational articles",
+    "pageTitle": "FISH WEB Blog",
+    "pageSubtitle": "Tips and guides from aquarium experts",
+    "home": "Home",
+    "categories": {
+      "all": "All Articles",
+      "filter-guide": {
+        "title": "Filter Guide",
+        "description": "Everything you need to know about aquarium filters"
+      },
+      "plant-care": {
+        "title": "Plant Care",
+        "description": "Complete guide to aquatic plants and their care"
+      },
+      "fish-compatibility": {
+        "title": "Fish Compatibility",
+        "description": "Learn which fish are compatible for your tank"
+      },
+      "setup-tips": {
+        "title": "Setup Tips",
+        "description": "Steps to set up the perfect aquarium"
+      }
+    },
+    "author": "Author",
+    "publishedOn": "Published on",
+    "updatedOn": "Last updated",
+    "readingTime": "{minutes} min read",
+    "category": "Category",
+    "tags": "Tags",
+    "inCategory": "in {category}",
+    "readMore": "Read More",
+    "readArticle": "Read Article",
+    "viewAll": "View All",
+    "viewAllInCategory": "View All {category} Articles",
+    "shareArticle": "Share Article",
+    "relatedArticles": "Related Articles",
+    "relatedProducts": "Related Products",
+    "backToBlog": "Back to Blog",
+    "browseByCategory": "Browse by Category",
+    "noPosts": "No articles yet",
+    "noPostsInCategory": "No articles in {category}",
+    "comingSoon": "New articles coming soon",
+    "browseAll": "Browse All Articles",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of",
+      "showing": "Showing {start}-{end} of {total} articles"
+    },
+    "metaTitleTemplate": "{title} | FISH WEB Blog",
+    "metaDescriptionTemplate": "{excerpt} - Your complete aquarium guide in Iraq"
+  },
+  "marketing": {
+    "flashSales": {
+      "title": "Flash Sales",
+      "endsIn": "Ends in",
+      "ended": "Sale Ended",
+      "soldOut": "Sold Out",
+      "limitedStock": "Limited Stock - {remaining} left",
+      "save": "Save {amount}",
+      "percentOff": "{percent}% Off",
+      "viewAll": "View All Flash Sales",
+      "active": "Active Now",
+      "upcoming": "Coming Soon",
+      "flashSale": "Flash Sale",
+      "flashPrice": "Flash Price",
+      "hurryUp": "Hurry! Limited Offer"
+    },
+    "bundles": {
+      "title": "Bundle Deals",
+      "saveWithBundle": "Save {amount} with this bundle",
+      "bundleIncludes": "Bundle Includes:",
+      "totalValue": "Total Value",
+      "bundlePrice": "Bundle Price",
+      "youSave": "You Save",
+      "addBundleToCart": "Add Bundle to Cart",
+      "viewBundle": "View Bundle Details",
+      "completeSetup": "Complete Setup",
+      "starterKit": "Starter Kit",
+      "bundleDeal": "Bundle Deal",
+      "items": "{count} items"
+    },
+    "loyalty": {
+      "title": "Loyalty Points",
+      "yourPoints": "Your Points",
+      "pointsBalance": "Points Balance",
+      "earnPoints": "Earn Points",
+      "redeemPoints": "Redeem Points",
+      "pointsEarned": "Points Earned",
+      "pointsRedeemed": "Points Redeemed",
+      "earnRate": "Earn {points} points per {amount} spent",
+      "redeemRate": "{points} points = {amount} discount",
+      "transactionHistory": "Points History",
+      "earned": "Earned",
+      "redeemed": "Redeemed",
+      "expired": "Expired",
+      "applyPoints": "Use {points} points",
+      "notEnoughPoints": "Not enough points",
+      "minRedemption": "Minimum {points} points to redeem",
+      "points": "points",
+      "youHave": "You have {balance} points",
+      "discount": "{amount} discount",
+      "enterPoints": "Enter points to redeem",
+      "apply": "Apply",
+      "remove": "Remove",
+      "applied": "{points} points applied",
+      "invalidPoints": "Invalid points amount",
+      "maxRedemptionExceeded": "Cannot use more than 50% of order value",
+      "redemptionFailed": "Failed to redeem points",
+      "loginRequired": "Sign in to redeem loyalty points",
+      "noTransactions": "No transactions yet. Start shopping to earn points!",
+      "howItWorks": "How It Works",
+      "earnInfo": "Earn 1 point for every 1,000 IQD spent",
+      "redeemInfo": "Redeem 100 points for 5,000 IQD discount"
+    },
+    "referrals": {
+      "title": "Referral Program",
+      "yourCode": "Your Referral Code",
+      "shareLink": "Share Link",
+      "copyLink": "Copy Link",
+      "linkCopied": "Link Copied",
+      "inviteFriends": "Invite Friends",
+      "earnReward": "Earn {reward} when your friend buys",
+      "friendGets": "Your friend gets {reward}",
+      "totalReferrals": "Total Referrals",
+      "pendingRewards": "Pending Rewards",
+      "completedReferrals": "Completed Referrals",
+      "howItWorks": "How It Works",
+      "step1": "Share your referral link",
+      "step2": "Friend signs up and buys",
+      "step3": "Both get rewarded",
+      "inviteNow": "Invite Now",
+      "referralCode": "Referral Code",
+      "invitedBy": "Invited by {name}",
+      "welcomeBonus": "Welcome Bonus",
+      "signupBonus": "Sign up now and get {points} points",
+      "benefits": "Benefits",
+      "freeShipping": "Free shipping on first order over 100,000 IQD",
+      "exclusiveDeals": "Access to exclusive deals",
+      "expertAdvice": "Expert aquarium advice",
+      "signUp": "Sign Up Now",
+      "browseProducts": "Browse Products",
+      "copyFailed": "Could not copy the link. Please try again.",
+      "shareFailed": "Sharing failed. Copy the link instead.",
+      "generateFailed": "Unable to generate a referral code. Please try again.",
+      "referralCodeLabel": "Referral code: {code}"
+    },
+    "admin": {
+      "dashboard": {
+        "title": "Admin Dashboard",
+        "welcome": "Welcome, {name}",
+        "overview": "Overview",
+        "stats": {
+          "totalOrders": "Total Orders",
+          "totalRevenue": "Total Revenue",
+          "totalCustomers": "Total Customers",
+          "totalProducts": "Total Products",
+          "pendingOrders": "Pending Orders",
+          "lowStockProducts": "Low Stock Products",
+          "pendingReviews": "Pending Reviews",
+          "activeFlashSales": "Active Flash Sales"
+        },
+        "quickActions": "Quick Actions",
+        "recentOrders": "Recent Orders",
+        "lowStockAlert": "Low Stock Alert"
+      },
+      "products": {
+        "title": "Product Management",
+        "addProduct": "Add Product",
+        "editProduct": "Edit Product",
+        "deleteProduct": "Delete Product",
+        "productDetails": "Product Details",
+        "brand": "Brand",
+        "category": "Category",
+        "subcategory": "Subcategory",
+        "description": "Description",
+        "basicInfo": "Basic Information",
+        "pricing": "Pricing",
+        "inventory": "Inventory",
+        "specifications": "Specifications",
+        "images": "Images",
+        "seo": "SEO",
+        "isNew": "Mark as New",
+        "isBestSeller": "Mark as Best Seller",
+        "deleteConfirm": "Are you sure you want to delete this product?",
+        "productDeleted": "Product deleted",
+        "productCreated": "Product created",
+        "productUpdated": "Product updated"
+      },
+      "orders": {
+        "title": "Order Management",
+        "orderDetails": "Order Details",
+        "updateStatus": "Update Status",
+        "printInvoice": "Print Invoice",
+        "trackingNumber": "Tracking Number",
+        "carrier": "Carrier",
+        "notes": "Internal Notes",
+        "statusUpdated": "Order status updated",
+        "filterByStatus": "Filter by Status",
+        "allOrders": "All Orders",
+        "total": "Total",
+        "createdAt": "Created",
+        "statusLabels": {
+          "pending": "Pending",
+          "confirmed": "Confirmed",
+          "shipped": "Shipped",
+          "delivered": "Delivered",
+          "cancelled": "Cancelled"
+        },
+        "errors": {
+          "orderNotFound": "Order not found",
+          "invalidTransition": "This status change is not allowed",
+          "updateFailed": "Failed to update order. Please try again."
+        }
+      },
+      "inventory": {
+        "title": "Inventory Management",
+        "updateStock": "Update Stock",
+        "lowStockAlert": "Low Stock Alert",
+        "outOfStock": "Out of Stock",
+        "stockUpdated": "Stock updated",
+        "restockProduct": "Restock Product",
+        "stockHistory": "Stock History"
+      },
+      "reports": {
+        "title": "Reports & Analytics",
+        "salesReport": "Sales Report",
+        "revenueChart": "Revenue Chart",
+        "bestSellers": "Best Sellers",
+        "categoryDistribution": "Category Distribution",
+        "dateRange": "Date Range",
+        "last7Days": "Last 7 Days",
+        "last30Days": "Last 30 Days",
+        "last90Days": "Last 90 Days",
+        "custom": "Custom",
+        "exportReport": "Export Report"
+      },
+      "users": {
+        "title": "User Management",
+        "totalUsers": "Total Users",
+        "viewUser": "View User",
+        "userDetails": "User Details",
+        "userOrders": "User Orders",
+        "userReviews": "User Reviews",
+        "approveReview": "Approve Review",
+        "rejectReview": "Reject Review",
+        "reviewApproved": "Review approved",
+        "reviewRejected": "Review rejected"
+      },
+      "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "view": "View",
+        "search": "Search",
+        "filter": "Filter",
+        "export": "Export",
+        "import": "Import",
+        "refresh": "Refresh",
+        "close": "Close",
+        "previous": "Previous",
+        "next": "Next",
+        "noResults": "No records found",
+        "rows": "rows"
+      },
+      "validation": {
+        "nameRequired": "Product name is required",
+        "brandRequired": "Brand is required",
+        "categoryRequired": "Category is required",
+        "subcategoryRequired": "Subcategory is required",
+        "descriptionRequired": "Description is required",
+        "priceInvalid": "Enter a valid price greater than zero",
+        "originalPriceInvalid": "Original price must be higher than current price",
+        "stockInvalid": "Stock must be zero or greater",
+        "stockInteger": "Stock must be a whole number",
+        "lowStockThresholdInvalid": "Enter a valid low stock threshold",
+        "imageCountExceeded": "Too many images. Remove some and try again.",
+        "imageSizeMax": "Image is too large. Maximum size is 5MB.",
+        "imageTypeInvalid": "Unsupported image type. Use JPG, PNG, or WebP.",
+        "imageUrlInvalid": "Image upload failed. Please try again.",
+        "specificationsRequired": "Product specifications are required",
+        "flowOrPowerRequired": "Provide either flow rate or power output",
+        "compatibilityRequired": "Compatibility details are required",
+        "statusInvalid": "Select a valid status",
+        "trackingRequired": "Tracking number is required for shipped orders",
+        "carrierRequired": "Carrier is required for shipped orders"
+      },
+      "errors": {
+        "imageUploadFailed": "Failed to upload image. Please try again.",
+        "imageUploadInProgress": "Please wait for image uploads to finish before saving.",
+        "productValidation": "Some product fields need attention",
+        "productCreateFailed": "Could not create product. Please try again.",
+        "productNotFound": "Product not found",
+        "productUpdateFailed": "Failed to update product. Please try again.",
+        "productDeleteFailed": "Failed to delete product. Please try again.",
+        "stockUpdateFailed": "Failed to update stock. Please try again."
+      }
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "subscribe": "Subscribe to Newsletter",
+      "subscribed": "Successfully subscribed!",
+      "welcomeEmailSent": "Welcome email sent",
+      "alreadySubscribed": "You're already subscribed",
+      "unsubscribe": "Unsubscribe",
+      "managePreferences": "Manage Preferences",
+      "categories": "Preferred Categories",
+      "frequency": "Frequency",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "subscriptionFailed": "Subscription failed. Try again",
+      "unsubscribeFailed": "Unsubscribe failed",
+      "thankYou": "Thank you for subscribing!",
+      "stayUpdated": "Stay updated with the latest products and offers"
+    }
+  },
+  "pwa": {
+    "install": {
+      "title": "Install FISH WEB App",
+      "description": "Get faster access and offline browsing",
+      "benefits": {
+        "offline": "Browse products offline",
+        "faster": "Faster page loading",
+        "homeScreen": "Home screen icon",
+        "notifications": "Instant notifications"
+      },
+      "install": "Install App",
+      "notNow": "Not Now",
+      "alreadyInstalled": "App already installed",
+      "installSuccess": "App installed successfully!",
+      "installFailed": "Failed to install app. Please try again"
+    },
+    "offline": {
+      "indicator": "You're offline. Some features may be unavailable.",
+      "dismiss": "Dismiss",
+      "browsing": "Offline Browsing",
+      "dataAvailable": "Data available offline",
+      "syncWhenOnline": "Will sync when online",
+      "limitedFeatures": "Limited features in offline mode",
+      "cannotCheckout": "Cannot checkout while offline",
+      "cannotAuth": "Cannot sign in while offline"
+    },
+    "update": {
+      "available": "Update Available",
+      "description": "A new version of the app is available",
+      "reload": "Reload",
+      "updateNow": "Update Now",
+      "later": "Later"
+    },
+    "cache": {
+      "clearing": "Clearing cache...",
+      "cleared": "Cache cleared",
+      "size": "Cache size: {size} MB",
+      "clearCache": "Clear Cache",
+      "clearConfirm": "Are you sure you want to clear all cached data?"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="plantLightingGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <radialGradient id="plantLightingGlow" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#plantLightingGradient)"/>
+  <circle cx="600" cy="200" r="260" fill="url(#plantLightingGlow)"/>
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="20" stroke-linecap="round">
+    <path d="M220 520c80-40 160-40 240 0s160 40 240 0 160-40 240 0 160 40 240 0"/>
+    <path d="M220 600c80-30 160-30 240 0s160 30 240 0 160-30 240 0 160 30 240 0"/>
+  </g>
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="18">
+    <path d="M360 160v220"/>
+    <path d="M600 120v260"/>
+    <path d="M840 160v220"/>
+  </g>
+  <g fill="#FFFFFF" fill-opacity="0.4">
+    <circle cx="360" cy="140" r="18"/>
+    <circle cx="600" cy="100" r="20"/>
+    <circle cx="840" cy="140" r="18"/>
+  </g>
+</svg>
