@@ -2,7 +2,7 @@
 
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { requireUser } from '@/lib/auth/utils';
-import { generateReferralCode } from './referral-utils';
+import { generateReferralCode } from './referral-utils-client';
 
 type EnsureReferralCodeResponse = {
   success: boolean;

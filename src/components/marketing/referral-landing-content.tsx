@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 
 import { Button, Icon } from '@/components/ui';
-import { setReferralCookie } from '@/lib/marketing/referral-utils';
+import { setReferralCookie } from '@/lib/marketing/referral-utils-client';
 import { REFEREE_REWARD_POINTS, REFERRAL_REWARD_POINTS } from '@/lib/marketing/constants';
 import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
