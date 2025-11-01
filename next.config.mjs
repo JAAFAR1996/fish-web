@@ -1,11 +1,10 @@
-import type { NextConfig } from 'next';
 import createMDX from '@next/mdx';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import withPWA from 'next-pwa';
 
-import { IMAGE_DEVICE_SIZES, IMAGE_SIZES } from './src/lib/config/ui';
+import { IMAGE_DEVICE_SIZES, IMAGE_SIZES } from './src/lib/config/ui.js';
 
 const baseSecurityHeaders = [
   {
@@ -30,7 +29,7 @@ const baseSecurityHeaders = [
   },
 ];
 
-function buildSecurityHeaders(): Array<{ key: string; value: string }> {
+function buildSecurityHeaders() {
   const headers = [...baseSecurityHeaders];
   const runtimeEnv =
     process.env.NEXT_PUBLIC_ENVIRONMENT ?? process.env.VERCEL_ENV ?? process.env.NODE_ENV;
@@ -59,7 +58,7 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
   return headers;
 }
 
-function getSupabaseHostname(): string | null {
+function getSupabaseHostname() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
   if (!url) {
@@ -75,11 +74,15 @@ function getSupabaseHostname(): string | null {
   try {
     return new URL(url).hostname;
   } catch (error) {
-    throw new Error(`Invalid NEXT_PUBLIC_SUPABASE_URL: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Invalid NEXT_PUBLIC_SUPABASE_URL: ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
   }
 }
 
-function getAdditionalImageHosts(): string[] {
+function getAdditionalImageHosts() {
   const raw = process.env.NEXT_PUBLIC_IMAGE_HOSTS;
   if (!raw) {
     return [];
@@ -91,12 +94,12 @@ function getAdditionalImageHosts(): string[] {
     .filter(Boolean);
 }
 
-function createSupabasePattern(hostname: string, path: string): RegExp {
+function createSupabasePattern(hostname, path) {
   const escapedHost = hostname.replace(/\./g, '\\.');
   return new RegExp(`^https://${escapedHost}${path}`, 'i');
 }
 
-function buildRuntimeCaching(supabaseHostname: string | null) {
+function buildRuntimeCaching(supabaseHostname) {
   const caching = [
     ...(supabaseHostname
       ? [
@@ -190,7 +193,7 @@ const remoteImagePatterns = [
         {
           protocol: 'https',
           hostname: supabaseHostname,
-        } as const,
+        },
       ]
     : []),
   ...additionalHosts.map((hostname) => ({
@@ -199,7 +202,7 @@ const remoteImagePatterns = [
   })),
 ];
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
   images: {
