@@ -15,7 +15,7 @@ import { cn, getWhatsAppShareUrl } from '@/lib/utils';
 import type { Locale, Product } from '@/types';
 
 export interface ShareButtonsProps {
-  product: Product;
+  product: Pick<Product, 'slug' | 'name'>;
   locale: Locale;
   variant?: 'button' | 'dropdown';
   className?: string;

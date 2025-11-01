@@ -20,7 +20,7 @@ import {
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
-import { CATEGORIES, type CategoryKey } from './navigation-data';
+import { CATEGORIES } from './navigation-data';
 
 type MobileMenuProps = {
   isOpen: boolean;

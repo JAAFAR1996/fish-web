@@ -16,6 +16,29 @@ import { AUDIT_ACTIONS, ENTITY_TYPES } from './constants';
 import { createAuditLog } from './audit-utils';
 import { validateOrderUpdate } from './validation';
 
+interface DbOrderRow {
+  id: string;
+  order_number: string;
+  user_id: string | null;
+  guest_email: string | null;
+  shipping_address_id: string | null;
+  shipping_address: unknown;
+  payment_method: string;
+  status: OrderStatus;
+  subtotal: number | string;
+  shipping_cost: number | string;
+  discount: number | string;
+  loyalty_discount: number | string;
+  loyalty_points_used: number | string;
+  total: number | string;
+  coupon_code: string | null;
+  notes: string | null;
+  tracking_number: string | null;
+  carrier: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 const revalidateOrders = () => {
   routing.locales.forEach((locale) => {
     revalidatePath(`/${locale}/admin`, 'page');
@@ -31,7 +54,7 @@ const allowedTransitions: Record<OrderStatus, OrderStatus[]> = {
   cancelled: [],
 };
 
-const normalizeOrder = (row: Record<string, any>): Order => ({
+const normalizeOrder = (row: DbOrderRow): Order => ({
   id: row.id,
   order_number: row.order_number,
   user_id: row.user_id,
@@ -100,7 +123,7 @@ export async function updateOrderStatusAction(
     };
   }
 
-  const updatePayload: Record<string, any> = {
+  const updatePayload: Partial<Pick<DbOrderRow, 'status' | 'tracking_number' | 'carrier' | 'notes'>> = {
     status: updateData.status,
     tracking_number: updateData.tracking_number ?? null,
     carrier: updateData.carrier ?? null,

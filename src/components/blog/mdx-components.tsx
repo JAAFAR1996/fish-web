@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { Icon } from '@/components/ui';
-import { cn } from '@/lib/utils';
 import type { MDXComponents } from 'mdx/types';
 
 export const mdxComponents: MDXComponents = {

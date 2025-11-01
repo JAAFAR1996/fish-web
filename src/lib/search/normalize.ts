@@ -1,6 +1,39 @@
 import type { Product, ProductSpecifications } from '@/types';
 
-export type SupabaseProductRow = Record<string, unknown>;
+export interface SupabaseProductRow {
+  id: string;
+  slug: string;
+  name: string;
+  brand: string;
+  category: string;
+  subcategory: string;
+  description: string;
+  price: number;
+  currency: string;
+  images: string[];
+  rating: number;
+  stock: number;
+  specifications: ProductSpecifications | null;
+  // Snake case variants
+  created_at?: string;
+  updated_at?: string;
+  original_price?: number;
+  review_count?: number;
+  low_stock_threshold?: number;
+  in_stock?: boolean;
+  is_new?: boolean;
+  is_best_seller?: boolean;
+  // Camel case variants
+  createdAt?: string;
+  updatedAt?: string;
+  originalPrice?: number;
+  reviewCount?: number;
+  lowStockThreshold?: number;
+  inStock?: boolean;
+  isNew?: boolean;
+  isBestSeller?: boolean;
+  thumbnail?: string;
+}
 
 const DEFAULT_COMPATIBILITY = {
   minTankSize: null as number | null,
@@ -55,44 +88,45 @@ function normalizeArray<T>(value: unknown, fallback: T[] = []): T[] {
 
 function normalizeSpecifications(value: unknown): ProductSpecifications {
   if (value && typeof value === 'object') {
-    const specs = value as Record<string, unknown>;
+    const specs = value as { 
+      compatibility?: { 
+        minTankSize?: unknown;
+        maxTankSize?: unknown;
+        displayText?: unknown;
+      };
+      flow?: unknown;
+      power?: unknown;
+      dimensions?: unknown;
+      weight?: unknown;
+    };
+
     const compatibility = specs.compatibility && typeof specs.compatibility === 'object'
       ? {
-          minTankSize:
-            typeof (specs.compatibility as Record<string, unknown>).minTankSize ===
-            'number'
-              ? (specs.compatibility as Record<string, unknown>).minTankSize
-              : null,
-          maxTankSize:
-            typeof (specs.compatibility as Record<string, unknown>).maxTankSize ===
-            'number'
-              ? (specs.compatibility as Record<string, unknown>).maxTankSize
-              : null,
-          displayText: normalizeString(
-            (specs.compatibility as Record<string, unknown>).displayText,
-            ''
-          ),
+          minTankSize: typeof specs.compatibility.minTankSize === 'number'
+            ? specs.compatibility.minTankSize
+            : null,
+          maxTankSize: typeof specs.compatibility.maxTankSize === 'number'
+            ? specs.compatibility.maxTankSize
+            : null,
+          displayText: normalizeString(specs.compatibility.displayText, ''),
         }
       : DEFAULT_COMPATIBILITY;
 
     return {
-      flow:
-        typeof specs.flow === 'number'
-          ? specs.flow
-          : null,
-      power:
-        typeof specs.power === 'number'
-          ? specs.power
-          : null,
+      flow: typeof specs.flow === 'number' ? specs.flow : null,
+      power: typeof specs.power === 'number' ? specs.power : null,
       compatibility,
-      dimensions:
-        specs.dimensions && typeof specs.dimensions === 'object'
-          ? (specs.dimensions as ProductSpecifications['dimensions'])
+      dimensions: specs.dimensions && typeof specs.dimensions === 'object' && 
+        'length' in specs.dimensions && typeof specs.dimensions.length === 'number' &&
+        'width' in specs.dimensions && typeof specs.dimensions.width === 'number' &&
+        'height' in specs.dimensions && typeof specs.dimensions.height === 'number'
+          ? {
+              length: specs.dimensions.length,
+              width: specs.dimensions.width,
+              height: specs.dimensions.height,
+            }
           : null,
-      weight:
-        typeof specs.weight === 'number'
-          ? specs.weight
-          : null,
+      weight: typeof specs.weight === 'number' ? specs.weight : null,
     };
   }
 
@@ -102,8 +136,8 @@ function normalizeSpecifications(value: unknown): ProductSpecifications {
 export function normalizeSupabaseProduct(row: SupabaseProductRow): Product {
   const specifications = normalizeSpecifications(row.specifications);
   const stock = normalizeNumber(row.stock);
-  const createdAt = normalizeString(row.created_at ?? (row as any).createdAt ?? '');
-  const updatedAt = normalizeString(row.updated_at ?? (row as any).updatedAt ?? '');
+  const createdAt = normalizeString(row.created_at ?? row.createdAt ?? '');
+  const updatedAt = normalizeString(row.updated_at ?? row.updatedAt ?? '');
 
   return {
     id: normalizeString(row.id),
@@ -114,26 +148,20 @@ export function normalizeSupabaseProduct(row: SupabaseProductRow): Product {
     subcategory: normalizeString(row.subcategory),
     description: normalizeString(row.description),
     price: normalizeNumber(row.price),
-    originalPrice:
-      normalizeOptionalNumber((row as any).originalPrice ?? (row as any).original_price),
+    originalPrice: normalizeOptionalNumber(row.originalPrice ?? row.original_price),
     currency: (normalizeString(row.currency, 'IQD') || 'IQD') as Product['currency'],
     images: normalizeArray<string>(row.images),
-    thumbnail:
-      normalizeString(
-        (row as any).thumbnail ??
-          (Array.isArray(row.images) && row.images.length > 0
-            ? (row.images as any[])[0]
-            : '')
-      ) || '',
+    thumbnail: normalizeString(
+      row.thumbnail ??
+        (Array.isArray(row.images) && row.images.length > 0 ? row.images[0] : '')
+    ) || '',
     rating: normalizeNumber(row.rating),
-    reviewCount: normalizeNumber((row as any).reviewCount ?? (row as any).review_count),
+    reviewCount: normalizeNumber(row.reviewCount ?? row.review_count),
     stock,
-    lowStockThreshold: normalizeNumber(
-      (row as any).lowStockThreshold ?? (row as any).low_stock_threshold
-    ),
-    inStock: normalizeBoolean((row as any).inStock ?? (row as any).in_stock, stock > 0),
-    isNew: normalizeBoolean((row as any).isNew ?? (row as any).is_new),
-    isBestSeller: normalizeBoolean((row as any).isBestSeller ?? (row as any).is_best_seller),
+    lowStockThreshold: normalizeNumber(row.lowStockThreshold ?? row.low_stock_threshold),
+    inStock: normalizeBoolean(row.inStock ?? row.in_stock, stock > 0),
+    isNew: normalizeBoolean(row.isNew ?? row.is_new),
+    isBestSeller: normalizeBoolean(row.isBestSeller ?? row.is_best_seller),
     specifications,
     created_at: createdAt || undefined,
     updated_at: updatedAt || undefined,

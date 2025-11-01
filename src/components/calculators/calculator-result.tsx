@@ -8,7 +8,6 @@ import {
   Button,
   Gauge,
   ProgressBar,
-  type GaugeProps,
 } from '@/components/ui';
 import { cn } from '@/lib/utils';
 

@@ -1,8 +1,7 @@
-import { ValidationResult } from '@/types';
+import type { GalleryStyle, ValidationResult } from '@/types';
 import {
   ALLOWED_GALLERY_IMAGE_TYPES,
   GALLERY_STYLES,
-  MAX_DESCRIPTION_LENGTH,
   MAX_GALLERY_IMAGE_SIZE,
   MAX_GALLERY_MEDIA,
   MAX_HOTSPOTS_PER_IMAGE,
@@ -27,17 +26,19 @@ export function validateTankSize(value: number): ValidationResult {
   return result({});
 }
 
-export function validateStyle(style: string): ValidationResult {
-  if (!GALLERY_STYLES.includes(style as any)) return result({ style: 'gallery.validation.styleRequired' });
+export function validateStyle(style: GalleryStyle): ValidationResult {
+  const validStyles: readonly string[] = GALLERY_STYLES;
+  if (!validStyles.includes(style)) return result({ style: 'gallery.validation.styleRequired' });
   return result({});
 }
 
 export function validateMedia(files: File[]): ValidationResult {
   if (!Array.isArray(files) || files.length === 0) return result({ media: 'gallery.validation.mediaRequired' });
   if (files.length > MAX_GALLERY_MEDIA) return result({ media: 'gallery.validation.maxMedia' });
+  const allowedTypes: readonly string[] = ALLOWED_GALLERY_IMAGE_TYPES;
   for (const file of files) {
     if (file.size > MAX_GALLERY_IMAGE_SIZE) return result({ media: 'gallery.validation.maxMedia' });
-    if (!ALLOWED_GALLERY_IMAGE_TYPES.includes(file.type as any)) return result({ media: 'gallery.validation.mediaRequired' });
+    if (!allowedTypes.includes(file.type)) return result({ media: 'gallery.validation.mediaRequired' });
   }
   return result({});
 }
@@ -57,7 +58,7 @@ export function validateSetupForm(data: {
   title: string;
   description?: string;
   tankSize: number;
-  style: string;
+  style: GalleryStyle;
   media: File[];
   hotspots: Array<{ x: number; y: number; product_id: string }>;
 }): ValidationResult {

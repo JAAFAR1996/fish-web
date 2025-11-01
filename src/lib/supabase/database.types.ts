@@ -204,11 +204,11 @@ export interface Database {
         ];
       };
     };
-    Views: {};
-    Functions: {};
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
     Enums: {
       cart_status: 'active' | 'converted' | 'abandoned';
     };
-    CompositeTypes: {};
+    CompositeTypes: Record<string, never>;
   };
 }

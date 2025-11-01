@@ -4,13 +4,13 @@ import type { CheckoutStep } from '@/types';
 
 import { useTranslations } from 'next-intl';
 
-import { Icon } from '@/components/ui';
+import { Icon, type IconName } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
 const STEPS: Array<{
   value: CheckoutStep;
   labelKey: string;
-  icon: string;
+  icon: IconName;
 }> = [
   { value: 'shipping', labelKey: 'shipping', icon: 'truck' },
   { value: 'payment', labelKey: 'payment', icon: 'credit-card' },
@@ -70,7 +70,7 @@ export function CheckoutProgress({
                     <Icon name="check" className="h-5 w-5" aria-hidden="true" />
                   ) : (
                     <Icon
-                      name={step.icon as any}
+                      name={step.icon}
                       className="h-5 w-5"
                       aria-hidden="true"
                     />

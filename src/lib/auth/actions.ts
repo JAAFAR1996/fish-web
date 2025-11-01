@@ -16,26 +16,26 @@ import {
 } from '@server/auth';
 import { getCurrentUser } from '@server/middleware';
 import { validateSignin, validateSignup } from '@/lib/auth/validation';
-
-type AuthActionResult<T extends Record<string, unknown> = {}> =
-  | ({ success: true } & T)
-  | { success: false; error: string };
+import type { 
+  AuthActionResult,
+  AuthActionProfileResult,
+  ProfileUpdates,
+  SignInPayload,
+  SignUpPayload,
+  UpdatePasswordPayload,
+} from '@/types/auth';
 
 const SESSION_COOKIE_NAME = 'session';
+const DEFAULT_REDIRECT = '/account';
 
-function sanitizeNext(next?: string | null) {
-  if (!next || typeof next !== 'string') return '/account';
-  if (!next.startsWith('/')) return '/account';
-  return next === '/' ? '/account' : next;
+function validateRedirectPath(path?: string | null): string {
+  if (!path || typeof path !== 'string' || !path.startsWith('/')) {
+    return DEFAULT_REDIRECT;
+  }
+  return path === '/' ? DEFAULT_REDIRECT : path;
 }
 
-export async function signUpWithEmail(payload: {
-  fullName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  next?: string;
-}): Promise<AuthActionResult> {
+export async function signUpWithEmail(payload: SignUpPayload): Promise<AuthActionResult> {
   const validation = validateSignup({
     fullName: payload.fullName,
     email: payload.email,
@@ -73,19 +73,16 @@ export async function signUpWithEmail(payload: {
     });
 
     return { success: true };
-  } catch (error: any) {
-    if (error.message?.toLowerCase().includes('email')) {
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    if (errorMessage.toLowerCase().includes('email')) {
       return { success: false, error: 'auth.errors.emailExists' };
     }
     return { success: false, error: 'auth.errors.unknownError' };
   }
 }
 
-export async function signInWithEmail(payload: {
-  email: string;
-  password: string;
-  next?: string;
-}): Promise<AuthActionResult> {
+export async function signInWithEmail(payload: SignInPayload): Promise<AuthActionResult> {
   const validation = validateSignin({
     email: payload.email,
     password: payload.password,
@@ -132,21 +129,18 @@ export async function signOut(): Promise<void> {
   redirect('/');
 }
 
-export async function updateProfile(payload: {
-  fullName?: string | null;
-  username?: string | null;
-  phone?: string | null;
-}): Promise<AuthActionResult<{ profile: Record<string, unknown> }>> {
+export async function updateProfile(payload: ProfileUpdates): Promise<AuthActionProfileResult> {
   const user = await getCurrentUser();
   if (!user) {
     return { success: false, error: 'auth.errors.unauthenticated' };
   }
 
   try {
-    const updates: any = {};
-    if (payload.fullName !== undefined) updates.fullName = payload.fullName;
-    if (payload.username !== undefined) updates.username = payload.username;
-    if (payload.phone !== undefined) updates.phone = payload.phone;
+    const updates = {
+      ...(payload.fullName !== undefined && { fullName: payload.fullName }),
+      ...(payload.username !== undefined && { username: payload.username }),
+      ...(payload.phone !== undefined && { phone: payload.phone }),
+    };
 
     const [updatedProfile] = await db
       .update(profiles)
@@ -154,26 +148,43 @@ export async function updateProfile(payload: {
       .where(eq(profiles.id, user.id))
       .returning();
 
-    if (payload.fullName !== undefined) {
+    if ('fullName' in updates) {
       await db
         .update(users)
-        .set({ fullName: payload.fullName })
+        .set({ fullName: updates.fullName })
         .where(eq(users.id, user.id));
     }
 
-    return { success: true, profile: updatedProfile as Record<string, unknown> };
-  } catch (error: any) {
-    if (error.message?.toLowerCase().includes('duplicate') || 
-        error.message?.toLowerCase().includes('unique')) {
+    return {
+      success: true,
+      profile: {
+        id: updatedProfile.id,
+        username: updatedProfile.username,
+        full_name: updatedProfile.fullName,
+        avatar_url: updatedProfile.avatarUrl,
+        phone: updatedProfile.phone,
+        is_admin: Boolean(updatedProfile.isAdmin),
+        loyalty_points_balance: Number(updatedProfile.loyaltyPointsBalance ?? 0),
+        referral_code: updatedProfile.referralCode,
+        referred_by: updatedProfile.referredBy,
+        created_at: updatedProfile.createdAt instanceof Date 
+          ? updatedProfile.createdAt.toISOString() 
+          : updatedProfile.createdAt ?? new Date().toISOString(),
+        updated_at: updatedProfile.updatedAt instanceof Date 
+          ? updatedProfile.updatedAt.toISOString() 
+          : updatedProfile.updatedAt ?? new Date().toISOString(),
+      }
+    };
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message.toLowerCase() : String(error).toLowerCase();
+    if (errorMessage.includes('duplicate') || errorMessage.includes('unique')) {
       return { success: false, error: 'auth.errors.usernameExists' };
     }
     return { success: false, error: 'auth.errors.unknownError' };
   }
 }
 
-export async function updatePassword(payload: {
-  newPassword: string;
-}): Promise<AuthActionResult> {
+export async function updatePassword(payload: UpdatePasswordPayload): Promise<AuthActionResult> {
   if (!payload.newPassword || payload.newPassword.length < 8) {
     return { success: false, error: 'auth.validation.passwordMin' };
   }

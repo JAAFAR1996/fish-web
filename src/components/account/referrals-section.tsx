@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import type { ReferralStats } from '@/types';
 import { ReferralShareCard } from '@/components/marketing/referral-share-card';
 import { ensureReferralCodeAction } from '@/lib/marketing/referral-actions';
-import { Button, Icon } from '@/components/ui';
+import { Button, Icon, type IconName } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import { REFERRAL_REWARD_POINTS, REFEREE_REWARD_POINTS } from '@/lib/marketing/constants';
 
@@ -39,7 +39,7 @@ export function ReferralsSection({ stats, referralCode, className }: ReferralsSe
     });
   }, []);
 
-  const statsItems = useMemo(
+  const statsItems: Array<{ label: string; value: string; icon: IconName }> = useMemo(
     () => [
       {
         label: tMarketing('totalReferrals'),
@@ -62,7 +62,7 @@ export function ReferralsSection({ stats, referralCode, className }: ReferralsSe
         icon: 'gift',
       },
     ],
-    [numberFormatter, stats, t, tMarketing]
+    [numberFormatter, stats, t, tMarketing, tLoyalty]
   );
 
   return (
@@ -84,7 +84,7 @@ export function ReferralsSection({ stats, referralCode, className }: ReferralsSe
             className="rounded-lg border border-border bg-card p-4 shadow-sm"
           >
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Icon name={item.icon as any} size="sm" />
+              <Icon name={item.icon} size="sm" />
               <span>{item.label}</span>
             </div>
             <p className="mt-2 text-2xl font-semibold text-foreground">{item.value}</p>

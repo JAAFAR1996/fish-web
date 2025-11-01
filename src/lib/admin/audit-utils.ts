@@ -93,7 +93,7 @@ export async function createAuditLog(
   action: string,
   entityType: string,
   entityId: string,
-  changes?: Record<string, any>,
+  changes?: Record<string, unknown>,
 ): Promise<void> {
   try {
     const supabase = await createServerSupabaseClient();

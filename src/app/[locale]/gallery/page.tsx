@@ -3,7 +3,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 
 import { GalleryGrid } from '@/components/gallery';
 import { getFeaturedSetups, getGallerySetups } from '@/lib/gallery/gallery-queries';
-import type { GalleryFilters as Filters, Locale } from '@/types';
+import type { GalleryFilters as Filters, GalleryStyle, Locale, TankSizeRange } from '@/types';
 import { GalleryFiltersClient } from '@/components/gallery/GalleryFiltersClient';
 
 export const revalidate = 3600; // 1 hour ISR
@@ -17,15 +17,20 @@ export default async function GalleryPage({ params, searchParams }: { params: { 
   const { locale } = params;
   setRequestLocale(locale);
 
-  const style = typeof searchParams.style === 'string' ? searchParams.style.split(',')[0] : undefined;
-  const tank = typeof searchParams.tankSize === 'string' ? (searchParams.tankSize as any) : 'all';
+  const rawStyle = typeof searchParams.style === 'string' ? searchParams.style.split(',')[0] : undefined;
+  const style = rawStyle as GalleryStyle | undefined;
+
+  const rawTank = typeof searchParams.tankSize === 'string' ? searchParams.tankSize : 'all';
+  const tankSizeRange: TankSizeRange | 'all' = ['nano', 'small', 'medium', 'large', 'all'].includes(rawTank)
+    ? (rawTank as TankSizeRange | 'all')
+    : 'all';
 
   const [featured, setups] = await Promise.all([
     getFeaturedSetups(6),
-    getGallerySetups({ isApproved: true, style, tankSizeRange: (tank as any) ?? 'all' }),
+    getGallerySetups({ isApproved: true, style, tankSizeRange }),
   ]);
 
-  const filters: Filters = { tankSizeRange: (tank as any) ?? 'all', styles: style ? [style as any] : [], searchQuery: '', sortBy: 'newest' };
+  const filters: Filters = { tankSizeRange, styles: style ? [style] : [], searchQuery: '', sortBy: 'newest' };
 
   const t = await getTranslations({ locale, namespace: 'gallery' });
   return (

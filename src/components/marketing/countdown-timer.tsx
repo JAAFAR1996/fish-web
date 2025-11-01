@@ -25,7 +25,7 @@ export function CountdownTimer({ endsAt, className, onComplete }: CountdownTimer
     setTimeRemaining(calculateTimeRemaining(endsAt));
 
     const interval = window.setInterval(() => {
-      setTimeRemaining((prev) => {
+      setTimeRemaining(() => {
         const next = calculateTimeRemaining(endsAt);
 
         if (next.totalMs <= 0 && !hasCompletedRef.current) {

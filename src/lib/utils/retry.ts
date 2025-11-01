@@ -129,7 +129,15 @@ function shouldRetrySupabaseError(error: PostgrestError | null): boolean {
     return false;
   }
 
-  const status = typeof (error as any)?.status === 'number' ? (error as any).status : Number(error.code);
+  // Type guard to check if error has a status property
+  const hasStatus = (err: unknown): err is { status: unknown } => {
+    return typeof err === 'object' && err !== null && 'status' in err;
+  };
+
+  const status = hasStatus(error) && typeof error.status === 'number'
+    ? error.status
+    : Number(error.code);
+
   if (Number.isFinite(status) && status >= 500) {
     return true;
   }

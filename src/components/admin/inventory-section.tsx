@@ -67,7 +67,7 @@ export function InventorySection({ admin, className }: InventorySectionProps) {
     [products],
   );
 
-  const handleRestock = (product: Product) => {
+  const handleRestock = useCallback((product: Product) => {
     const input = window.prompt(
       t('inventory.updateStock'),
       String(Math.max(product.lowStockThreshold, product.stock)),
@@ -87,7 +87,7 @@ export function InventorySection({ admin, className }: InventorySectionProps) {
       }
       await loadProducts();
     });
-  };
+  }, [t, loadProducts]);
 
   const columns = useMemo<ColumnDef<Product>[]>(
     () => [

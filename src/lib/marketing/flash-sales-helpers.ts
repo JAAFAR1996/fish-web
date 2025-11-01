@@ -1,4 +1,4 @@
-import type { FlashSale, Locale, Product } from '@/types';
+import type { FlashSale, Product } from '@/types';
 
 export type CountdownTime = {
   days: number;
@@ -32,8 +32,7 @@ export function calculateTimeRemaining(endsAt: string): CountdownTime {
 }
 
 export function formatCountdown(
-  timeRemaining: { days: number; hours: number; minutes: number; seconds: number },
-  locale: Locale
+  timeRemaining: { days: number; hours: number; minutes: number; seconds: number }
 ): string {
   const { days, hours, minutes, seconds } = timeRemaining;
 

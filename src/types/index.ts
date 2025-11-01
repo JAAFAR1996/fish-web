@@ -1,4 +1,5 @@
 import type { FuseResultMatch } from 'fuse.js';
+import type { IconName } from '@/components/ui';
 
 export type Theme = 'light' | 'dark' | 'system';
 
@@ -254,7 +255,7 @@ export interface LocalStorageCart {
   updatedAt: number;
 }
 
-export interface SavedForLaterItem extends LocalStorageCartItem {}
+export type SavedForLaterItem = LocalStorageCartItem;
 
 export interface CartContextValue {
   items: CartItemWithProduct[];
@@ -676,7 +677,7 @@ export interface NewsletterSubscriber {
   user_id: string | null;
   subscribed_at: string;
   unsubscribed_at: string | null;
-  preferences: Record<string, any>;
+  preferences: Record<string, unknown>;
   unsubscribe_token: string;
   created_at: string;
   updated_at: string;
@@ -731,7 +732,7 @@ export interface BlogCategoryInfo {
   key: BlogCategory;
   title: string;
   description: string;
-  icon: string;
+  icon: IconName;
   color: string;
   postCount: number;
 }
@@ -791,7 +792,7 @@ export interface AdminAuditLog {
   action: string;
   entity_type: string;
   entity_id: string;
-  changes: Record<string, any>;
+  changes: Record<string, unknown>;
   created_at: string;
 }
 

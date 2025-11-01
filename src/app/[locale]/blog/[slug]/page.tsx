@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { setRequestLocale, getTranslations } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';

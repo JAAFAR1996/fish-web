@@ -4,7 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import readingTime from 'reading-time';
 
-import type { BlogPost, BlogPostMetadata, BlogCategory, BlogCategoryInfo } from '@/types';
+import type { BlogPost, BlogCategory, BlogCategoryInfo } from '@/types';
 import { CONTENT_DIR, MAX_EXCERPT_LENGTH, BLOG_CATEGORIES, DEFAULT_COVER_IMAGE } from './constants';
 
 export const getAllBlogPosts = cache(async (): Promise<BlogPost[]> => {

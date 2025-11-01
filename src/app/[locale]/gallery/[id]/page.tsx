@@ -6,7 +6,7 @@ import { GalleryDetailView } from '@/components/gallery';
 import { getSetupById } from '@/lib/gallery/gallery-queries';
 import { incrementViewCountAction } from '@/lib/gallery/gallery-actions';
 import { getProducts } from '@/lib/data/products';
-import type { GallerySetupWithProducts, Locale } from '@/types';
+import type { GallerySetup, GallerySetupWithProducts, Hotspot, Locale } from '@/types';
 
 export const revalidate = 7200; // 2 hours ISR
 const BASE_URL = 'https://fishweb.iq';
@@ -74,10 +74,10 @@ export default async function GalleryDetailPage({ params }: { params: { locale: 
   }
 
   const allProducts = await getProducts();
-  const productIds = Array.from(new Set((setupRow.hotspots ?? []).map((h: any) => h.product_id).filter(Boolean)));
+  const productIds = Array.from(new Set((setupRow.hotspots ?? []).map((h: Hotspot) => h.product_id).filter(Boolean)));
   const products = allProducts.filter((p) => productIds.includes(p.id));
 
-  const setup: GallerySetupWithProducts = { ...(setupRow as any), products };
+  const setup: GallerySetupWithProducts = { ...setupRow, products };
 
   // Fire and forget increment
   incrementViewCountAction(id);

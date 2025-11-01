@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { createPortal } from 'react-dom';
-import { cn } from '@/lib/utils';
+import { cn, mergeRefs } from '@/lib/utils';
 
 interface PopoverProps {
   children: React.ReactNode;
@@ -51,107 +51,99 @@ export function PopoverTrigger({ children, asChild }: PopoverTriggerProps) {
   const { open, onOpenChange, triggerRef } = React.useContext(PopoverContext);
 
   const child = asChild ? React.Children.only(children) : <button type="button">{children}</button>;
-  const element = child as React.ReactElement;
-  
+  const element = child as React.ReactElement & { ref?: React.Ref<HTMLElement> };
+
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    
+
     // Call the original onClick if it exists
     if (element.props.onClick) {
       element.props.onClick(e);
     }
-    
+
     onOpenChange(!open);
   };
 
+  const childRef = element.ref;
+
   return React.cloneElement(element, {
-    ref: (node: HTMLElement | null) => {
-      // Handle refs properly
-      if (typeof element.ref === 'function') {
-        element.ref(node);
-      } else if (element.ref) {
-        (element.ref as React.MutableRefObject<HTMLElement | null>).current = node;
-      }
-      triggerRef.current = node;
-    },
+    ref: mergeRefs(triggerRef, childRef),
     onClick: handleClick,
     'aria-haspopup': true,
     'aria-expanded': open,
   });
 }
 
-export function PopoverContent({ 
-  children, 
-  align = 'center', 
-  side = 'bottom', 
+export function PopoverContent({
+  children,
+  align = 'center',
+  side = 'bottom',
   sideOffset = 4,
   className,
-  ...props 
+  ...props
 }: PopoverContentProps) {
   const { open, onOpenChange, triggerRef } = React.useContext(PopoverContext);
   const contentRef = React.useRef<HTMLDivElement>(null);
 
+  const updatePosition = React.useCallback(() => {
+    if (!triggerRef.current || !contentRef.current) return;
+
+    const triggerRect = triggerRef.current.getBoundingClientRect();
+    const contentRect = contentRef.current.getBoundingClientRect();
+
+    const margin = 8; // Safety margin from viewport edges
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    let x = 0;
+    let y = 0;
+
+    // Calculate initial position
+    switch (align) {
+      case 'start':
+        x = triggerRect.left;
+        break;
+      case 'center':
+        x = triggerRect.left + (triggerRect.width - contentRect.width) / 2;
+        break;
+      case 'end':
+        x = triggerRect.right - contentRect.width;
+        break;
+    }
+
+    switch (side) {
+      case 'top':
+        y = triggerRect.top - contentRect.height - sideOffset;
+        break;
+      case 'bottom':
+        y = triggerRect.bottom + sideOffset;
+        break;
+      case 'left':
+        x = triggerRect.left - contentRect.width - sideOffset;
+        y = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
+        break;
+      case 'right':
+        x = triggerRect.right + sideOffset;
+        y = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
+        break;
+    }
+
+    // Clamp to viewport
+    x = Math.min(Math.max(margin, x), viewportWidth - contentRect.width - margin);
+    y = Math.min(Math.max(margin, y), viewportHeight - contentRect.height - margin);
+
+    // Flip to opposite side if needed
+    if (side === 'bottom' && y + contentRect.height > viewportHeight - margin) {
+      y = triggerRect.top - contentRect.height - sideOffset;
+    } else if (side === 'top' && y < margin) {
+      y = triggerRect.bottom + sideOffset;
+    }
+
+    contentRef.current.style.transform = `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)`;
+  }, [align, side, sideOffset, triggerRef, contentRef]);
+
   React.useLayoutEffect(() => {
     if (!open || !triggerRef.current || !contentRef.current) return;
-
-    const updatePosition = () => {
-      const triggerRect = triggerRef.current?.getBoundingClientRect();
-      const contentRect = contentRef.current?.getBoundingClientRect();
-      
-      if (!triggerRect || !contentRect) return;
-
-      const margin = 8; // Safety margin from viewport edges
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      let x = 0;
-      let y = 0;
-
-      // Calculate initial position
-      switch (align) {
-        case 'start':
-          x = triggerRect.left;
-          break;
-        case 'center':
-          x = triggerRect.left + (triggerRect.width - contentRect.width) / 2;
-          break;
-        case 'end':
-          x = triggerRect.right - contentRect.width;
-          break;
-      }
-
-      switch (side) {
-        case 'top':
-          y = triggerRect.top - contentRect.height - sideOffset;
-          break;
-        case 'bottom':
-          y = triggerRect.bottom + sideOffset;
-          break;
-        case 'left':
-          x = triggerRect.left - contentRect.width - sideOffset;
-          y = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
-          break;
-        case 'right':
-          x = triggerRect.right + sideOffset;
-          y = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
-          break;
-      }
-
-      // Clamp to viewport
-      x = Math.min(Math.max(margin, x), viewportWidth - contentRect.width - margin);
-      y = Math.min(Math.max(margin, y), viewportHeight - contentRect.height - margin);
-
-      // Flip to opposite side if needed
-      if (side === 'bottom' && y + contentRect.height > viewportHeight - margin) {
-        y = triggerRect.top - contentRect.height - sideOffset;
-      } else if (side === 'top' && y < margin) {
-        y = triggerRect.bottom + sideOffset;
-      }
-
-      if (contentRef.current) {
-        contentRef.current.style.transform = `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)`;
-      }
-    };
 
     const handleScroll = () => {
       requestAnimationFrame(updatePosition);
@@ -165,7 +157,7 @@ export function PopoverContent({
       window.removeEventListener('resize', updatePosition);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [open, align, side, sideOffset]);
+  }, [open, align, side, sideOffset, triggerRef, contentRef, updatePosition]);
 
   // Handle Escape key
   React.useEffect(() => {
@@ -185,11 +177,12 @@ export function PopoverContent({
     if (!open) return;
 
     const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
       if (
         contentRef.current &&
-        !contentRef.current.contains(event.target as Node) &&
+        !contentRef.current.contains(target) &&
         triggerRef.current &&
-        !triggerRef.current.contains(event.target as Node)
+        !triggerRef.current.contains(target)
       ) {
         onOpenChange(false);
       }
@@ -197,7 +190,7 @@ export function PopoverContent({
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [open, onOpenChange]);
+  }, [open, onOpenChange, triggerRef, contentRef]);
 
   if (!open) return null;
 

@@ -1,9 +1,9 @@
 "use client";
 
 import Image from 'next/image';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import type { Hotspot } from '@/types';
+import type { AutocompleteSuggestion, Hotspot } from '@/types';
 import { Button, Card, Input } from '@/components/ui';
 import { calculateHotspotCoordinates, createHotspot } from '@/lib/gallery/hotspot-utils';
 import { HotspotMarker } from './hotspot-marker';
@@ -11,6 +11,12 @@ import { SearchAutocomplete } from '@/components/search/search-autocomplete';
 
 const SEARCH_DEBOUNCE = 250;
 const MIN_SEARCH_LENGTH = 2;
+
+interface WindowWithPendingCoords extends Window {
+  __pending_hotspot_coords?: { x: number; y: number };
+}
+
+declare const window: WindowWithPendingCoords;
 
 interface HotspotEditorProps {
   imageUrl: string;
@@ -24,7 +30,7 @@ export function HotspotEditor({ imageUrl, hotspots, onChange, className }: Hotsp
   const [isAdding, setIsAdding] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [suggestions, setSuggestions] = useState<AutocompleteSuggestion[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -83,7 +89,7 @@ export function HotspotEditor({ imageUrl, hotspots, onChange, className }: Hotsp
       // Open product search autocomplete anchored to input
       setIsSearchOpen(true);
       setQuery('');
-      (window as any).__pending_hotspot_coords = { x, y };
+      window.__pending_hotspot_coords = { x, y };
       setTimeout(() => inputRef.current?.focus(), 0);
     },
     [hotspots, isAdding, onChange]
@@ -121,24 +127,24 @@ export function HotspotEditor({ imageUrl, hotspots, onChange, className }: Hotsp
             placeholder="Search products..."
           />
           <SearchAutocomplete
-            suggestions={suggestions as any}
+            suggestions={suggestions}
             query={query}
             isOpen={isSearchOpen}
             onClose={() => setIsSearchOpen(false)}
             onSelect={(sugg) => {
               if (sugg.type === 'product' && sugg.product) {
-                const coords = (window as any).__pending_hotspot_coords as { x: number; y: number } | undefined;
+                const coords = window.__pending_hotspot_coords;
                 if (coords) {
                   const newHotspot = createHotspot(coords.x, coords.y, sugg.product.id);
                   onChange([...hotspots, newHotspot]);
-                  (window as any).__pending_hotspot_coords = undefined;
+                  window.__pending_hotspot_coords = undefined;
                 }
                 setIsSearchOpen(false);
                 setQuery('');
                 setSuggestions([]);
               }
             }}
-            inputRef={inputRef as any}
+            inputRef={inputRef}
           />
         </div>
       )}

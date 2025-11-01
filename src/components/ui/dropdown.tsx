@@ -17,11 +17,13 @@ import {
   type HTMLAttributes,
   type ReactElement,
   type ReactNode,
+  type Ref,
 } from 'react';
 import { createPortal } from 'react-dom';
 
 import { cn, mergeRefs } from '@/lib/utils';
 
+type ElementWithRef<T extends Element> = ReactElement & { ref?: Ref<T>; props: Record<string, unknown> };
 type Align = 'start' | 'center' | 'end';
 type Side = 'top' | 'bottom' | 'left' | 'right';
 
@@ -29,7 +31,7 @@ interface DropdownMenuContextValue {
   open: boolean;
   setOpen: (value: boolean) => void;
   close: () => void;
-  triggerRef: React.RefObject<HTMLElement>;
+  triggerRef: React.RefObject<HTMLButtonElement>;
   menuRef: React.RefObject<HTMLDivElement>;
   menuId: string;
   triggerId: string | null;
@@ -66,7 +68,7 @@ export function DropdownMenu({
   onOpenChange,
   children,
 }: DropdownMenuProps) {
-  const triggerRef = useRef<HTMLElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
   const isControlled = openProp !== undefined;
@@ -250,18 +252,20 @@ export const DropdownMenuTrigger = ({
     | undefined;
 
   const autoId = useId();
-  let childElement: ReactElement<Record<string, unknown>> | null = null;
+  let childElement: ElementWithRef<HTMLElement> | null = null;
   let childProvidedId: string | undefined;
+  let childRef: Ref<HTMLElement> | undefined;
 
   if (asChild) {
-    const onlyChild = Children.only(children) as ReactElement<Record<string, unknown>>;
+    const onlyChild = Children.only(children);
     if (!isValidElement(onlyChild)) {
       throw new Error(
         'DropdownMenuTrigger with asChild expects a single valid React element child.'
       );
     }
-    childElement = onlyChild;
-    childProvidedId = (onlyChild.props as { id?: string }).id;
+    childElement = onlyChild as ElementWithRef<HTMLElement>;
+    childProvidedId = onlyChild.props.id as string | undefined;
+    childRef = childElement.ref;
   }
 
   const resolvedId =
@@ -317,7 +321,7 @@ export const DropdownMenuTrigger = ({
       {
         ...restProps,
         id: resolvedId,
-        ref: mergeRefs(triggerRef, (childElement as any).ref),
+        ref: childRef !== undefined ? mergeRefs<HTMLElement>(triggerRef, childRef) : triggerRef,
         role: 'button',
         'aria-haspopup': 'menu',
         'aria-expanded': open,
@@ -337,7 +341,7 @@ export const DropdownMenuTrigger = ({
           handleKeyDown(event);
         },
         className: cn(existingClassName, className),
-      } as Record<string, unknown>
+      }
     );
 
     return cloned;
@@ -345,7 +349,7 @@ export const DropdownMenuTrigger = ({
 
   return (
     <button
-      ref={mergeRefs(triggerRef)}
+      ref={triggerRef}
       id={resolvedId}
       type="button"
       className={className}
@@ -475,7 +479,7 @@ export const DropdownMenuContent = ({
     );
 
     setPosition({ top, left });
-  }, [align, side, sideOffset, triggerRef]);
+  }, [align, side, sideOffset, triggerRef, menuRef]);
 
   useLayoutEffect(() => {
     if (!open) return;
@@ -668,13 +672,10 @@ export const DropdownMenuItem = ({
   );
 };
 
-export interface DropdownMenuLabelProps
-  extends HTMLAttributes<HTMLDivElement> {}
-
 export const DropdownMenuLabel = ({
   className,
   ...props
-}: DropdownMenuLabelProps) => (
+}: HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
       'px-2 py-1.5 text-sm font-semibold text-muted-foreground',
@@ -685,13 +686,10 @@ export const DropdownMenuLabel = ({
   />
 );
 
-export interface DropdownMenuSeparatorProps
-  extends HTMLAttributes<HTMLDivElement> {}
-
 export const DropdownMenuSeparator = ({
   className,
   ...props
-}: DropdownMenuSeparatorProps) => (
+}: HTMLAttributes<HTMLDivElement>) => (
   <div
     role="separator"
     className={cn('my-1 h-px bg-border', className)}

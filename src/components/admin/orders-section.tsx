@@ -12,6 +12,7 @@ import {
 
 import {
   Badge,
+  type BadgeVariant,
   Button,
   Icon,
   Input,
@@ -67,15 +68,15 @@ export function OrdersSection({ admin, className }: OrdersSectionProps) {
     void loadOrders();
   }, [loadOrders]);
 
-  const handleStatusUpdate = (order: Order) => {
+  const handleStatusUpdate = useCallback((order: Order) => {
     setSelectedOrder(order);
     setStatusModalOpen(true);
-  };
+  }, []);
 
-  const handlePrint = (order: Order) => {
+  const handlePrint = useCallback((order: Order) => {
     console.info('Printing invoice for order', order.id);
     window.print();
-  };
+  }, []);
 
   const columns = useMemo<ColumnDef<Order>[]>(
     () => [
@@ -109,7 +110,7 @@ export function OrdersSection({ admin, className }: OrdersSectionProps) {
         key: 'status',
         header: t('orders.updateStatus'),
         render: (order) => {
-          const variant =
+          const variant: BadgeVariant =
             order.status === 'pending'
               ? 'warning'
               : order.status === 'confirmed'
@@ -120,7 +121,7 @@ export function OrdersSection({ admin, className }: OrdersSectionProps) {
                     ? 'success'
                     : 'destructive';
           return (
-            <Badge variant={variant as any}>
+            <Badge variant={variant}>
               {t(`orders.statusLabels.${order.status}` as Parameters<typeof t>[0])}
             </Badge>
           );
@@ -157,7 +158,7 @@ export function OrdersSection({ admin, className }: OrdersSectionProps) {
         ),
       },
     ],
-    [locale, t, tCommon],
+    [locale, t, handleStatusUpdate, handlePrint],
   );
 
   const filteredOrders = useMemo(() => {

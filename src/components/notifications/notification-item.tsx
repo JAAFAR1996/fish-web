@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { Icon, Button } from '@/components/ui';
+import { Icon, Button, type IconName } from '@/components/ui';
 import { formatNotificationTime, getNotificationIcon, getNotificationColor } from '@/lib/notifications/notification-utils';
 import { cn } from '@/lib/utils';
 import type { Notification, Locale } from '@/types';
@@ -40,7 +40,7 @@ export function NotificationItem({
     >
       <div className="flex-shrink-0">
         <div className={cn('rounded-full p-2 bg-muted', iconColor)}>
-          <Icon name={iconName as any} size="sm" />
+          <Icon name={iconName} size="sm" />
         </div>
       </div>
 

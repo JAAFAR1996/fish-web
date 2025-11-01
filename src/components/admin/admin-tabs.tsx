@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import {
   Icon,
+  type IconName,
   Tabs,
   TabsContent,
   TabsList,
@@ -25,12 +26,12 @@ interface AdminTabsProps {
   defaultTab?: AdminDashboardTab;
 }
 
-const TABS: Array<{ value: AdminDashboardTab; icon: string; label: string }> = [
-  { value: 'dashboard', icon: 'layout-dashboard', label: 'dashboard.title' },
+const TABS: Array<{ value: AdminDashboardTab; icon: IconName; label: string }> = [
+  { value: 'dashboard', icon: 'gauge', label: 'dashboard.title' },
   { value: 'products', icon: 'package', label: 'products.title' },
-  { value: 'orders', icon: 'shopping-bag', label: 'orders.title' },
-  { value: 'inventory', icon: 'boxes', label: 'inventory.title' },
-  { value: 'reports', icon: 'bar-chart-3', label: 'reports.title' },
+  { value: 'orders', icon: 'cart', label: 'orders.title' },
+  { value: 'inventory', icon: 'list', label: 'inventory.title' },
+  { value: 'reports', icon: 'activity', label: 'reports.title' },
   { value: 'users', icon: 'users', label: 'users.title' },
 ];
 
@@ -47,7 +48,7 @@ export function AdminTabs({ admin, stats, defaultTab = 'dashboard' }: AdminTabsP
       <TabsList className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
         {TABS.map((tab) => (
           <TabsTrigger key={tab.value} value={tab.value} className="flex items-center gap-2">
-            <Icon name={tab.icon as any} className="h-4 w-4" />
+            <Icon name={tab.icon} className="h-4 w-4" />
             <span>{t(tab.label as Parameters<typeof t>[0])}</span>
           </TabsTrigger>
         ))}

@@ -1,10 +1,9 @@
 "use client";
 
-import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { Badge, Button, Checkbox, Input, RadioGroup } from '@/components/ui';
-import type { GalleryFilters } from '@/types';
+import { Button, Checkbox, Input } from '@/components/ui';
+import type { GalleryFilters, GalleryStyle } from '@/types';
 import { GALLERY_STYLES } from '@/lib/gallery/constants';
 
 interface GalleryFiltersProps {
@@ -18,11 +17,11 @@ interface GalleryFiltersProps {
 export function GalleryFilters({ filters, onChange, onApply, totalSetups, className }: GalleryFiltersProps) {
   const t = useTranslations('gallery.filters');
 
-  const handleToggleStyle = (style: string) => {
-    const exists = filters.styles.includes(style as any);
+  const handleToggleStyle = (style: GalleryStyle) => {
+    const exists = filters.styles.includes(style);
     const styles = exists
       ? filters.styles.filter((s) => s !== style)
-      : [...filters.styles, style as any];
+      : [...filters.styles, style];
     onChange({ ...filters, styles });
   };
 
@@ -60,7 +59,7 @@ export function GalleryFilters({ filters, onChange, onApply, totalSetups, classN
           <div className="grid grid-cols-2 gap-2">
             {GALLERY_STYLES.map((style) => (
               <label key={style} className="flex items-center gap-2 text-sm">
-                <Checkbox checked={filters.styles.includes(style as any)} onCheckedChange={() => handleToggleStyle(style)} />
+                <Checkbox checked={filters.styles.includes(style)} onCheckedChange={() => handleToggleStyle(style)} />
                 <span>{style}</span>
               </label>
             ))}

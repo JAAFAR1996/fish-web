@@ -1,7 +1,6 @@
 import { useTranslations } from 'next-intl';
 
 import { Icon } from '@/components/ui/icon';
-import { cn } from '@/lib/utils';
 
 const TRUST_BADGES = [
   { key: 'cod', icon: 'credit-card' },

@@ -336,14 +336,11 @@ export function AccordionItem({
   );
 }
 
-export interface AccordionTriggerProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {}
-
 export function AccordionTrigger({
   className,
   children,
   ...props
-}: AccordionTriggerProps) {
+}: ButtonHTMLAttributes<HTMLButtonElement>) {
   const {
     toggleItem,
     isItemOpen,
@@ -443,14 +440,11 @@ export function AccordionTrigger({
   );
 }
 
-export interface AccordionContentProps
-  extends HTMLAttributes<HTMLDivElement> {}
-
 export function AccordionContent({
   className,
   children,
   ...props
-}: AccordionContentProps) {
+}: HTMLAttributes<HTMLDivElement>) {
   const { isItemOpen } = useAccordionContext('AccordionContent');
   const { value, triggerId, contentId } = useAccordionItemContext(
     'AccordionContent'

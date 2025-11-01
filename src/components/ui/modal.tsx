@@ -79,7 +79,8 @@ export function Modal({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const previouslyFocusedElement = useRef<HTMLElement | null>(null);  const supportsShowModalRef = useRef<boolean>(true);
   const titleId = useId();
-  const descriptionId = description ? useId() : undefined;
+  const descriptionIdGenerated = useId();
+  const descriptionId = description ? descriptionIdGenerated : undefined;
 
   const close = useCallback(() => {
     onOpenChange(false);
@@ -268,9 +269,7 @@ export function Modal({
   );
 }
 
-export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {}
-
-export function ModalHeader({ className, children }: ModalHeaderProps) {
+export function ModalHeader({ className, children }: HTMLAttributes<HTMLDivElement>) {
   const { title, description, titleId, descriptionId, close, showCloseButton } =
     useModalContext('ModalHeader');
 
@@ -308,9 +307,7 @@ export function ModalHeader({ className, children }: ModalHeaderProps) {
   );
 }
 
-export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {}
-
-export function ModalBody({ className, ...props }: ModalBodyProps) {
+export function ModalBody({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(
@@ -322,9 +319,7 @@ export function ModalBody({ className, ...props }: ModalBodyProps) {
   );
 }
 
-export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {}
-
-export function ModalFooter({ className, ...props }: ModalFooterProps) {
+export function ModalFooter({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(

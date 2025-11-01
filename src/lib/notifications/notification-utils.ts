@@ -1,4 +1,5 @@
 import type { Notification, NotificationType, Locale } from '@/types';
+import type { IconName } from '@/components/ui';
 
 export function formatNotificationTime(dateString: string, locale: Locale): string {
   const date = new Date(dateString);
@@ -24,8 +25,8 @@ export function formatNotificationTime(dateString: string, locale: Locale): stri
   }
 }
 
-export function getNotificationIcon(type: NotificationType): string {
-  const iconMap: Record<NotificationType, string> = {
+export function getNotificationIcon(type: NotificationType): IconName {
+  const iconMap: Record<NotificationType, IconName> = {
     order_confirmation: 'check-circle',
     shipping_update: 'truck',
     stock_alert: 'bell-ring',

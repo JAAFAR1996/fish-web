@@ -10,6 +10,7 @@ import {
   TabsList,
   TabsTrigger,
   Icon,
+  type IconName,
 } from '@/components/ui';
 import type { LoyaltyPointsSummary, ReferralStats, UserProfile } from '@/types';
 
@@ -42,7 +43,7 @@ interface AccountTabsProps {
 
 const TABS: Array<{
   value: AccountTabValue;
-  icon: string;
+  icon: IconName;
   labelKey: string;
 }> = [
   { value: 'profile', icon: 'user', labelKey: 'tabs.profile' },
@@ -79,7 +80,7 @@ export function AccountTabs({
             value={tab.value}
             className="flex items-center gap-2"
           >
-            <Icon name={tab.icon as any} size="sm" />
+            <Icon name={tab.icon} size="sm" />
             <span>{t(tab.labelKey as Parameters<typeof t>[0])}</span>
           </TabsTrigger>
         ))}

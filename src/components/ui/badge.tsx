@@ -4,6 +4,8 @@ import { badgeVariants, type VariantProps } from './variants';
 
 type BadgeVariantOptions = VariantProps<typeof badgeVariants>;
 
+export type BadgeVariant = NonNullable<BadgeVariantOptions['variant']>;
+
 export type BadgeProps = HTMLAttributes<HTMLSpanElement> &
   BadgeVariantOptions;
 

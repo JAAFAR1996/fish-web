@@ -45,7 +45,7 @@ type VariantFunction<Variants extends VariantDefinitions> = (
   options?: VariantOptions<Variants>
 ) => string;
 
-export type VariantProps<T extends VariantFunction<any>> = NonNullable<
+export type VariantProps<T extends VariantFunction<VariantDefinitions>> = NonNullable<
   Parameters<T>[0]
 >;
 

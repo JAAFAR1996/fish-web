@@ -2,7 +2,6 @@ import { useTranslations } from 'next-intl';
 
 import { Link } from '@/i18n/navigation';
 import { Badge, Icon } from '@/components/ui';
-import { BLOG_CATEGORIES } from '@/lib/blog/constants';
 import type { BlogCategory, BlogCategoryInfo } from '@/types';
 import { cn } from '@/lib/utils';
 
@@ -70,7 +69,7 @@ export function BlogCategories({
             )}
             aria-current={isActive ? 'page' : undefined}
           >
-            <Icon name={category.icon as any} className="h-5 w-5" />
+            <Icon name={category.icon} className="h-5 w-5" />
             <span className="text-sm font-medium">
               {t(`categories.${category.key}.title`)}
             </span>

@@ -1,6 +1,5 @@
 import type {
   LocalStorageCart,
-  LocalStorageCartItem,
   SavedForLaterItem,
 } from '@/types';
 

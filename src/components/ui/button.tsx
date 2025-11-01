@@ -7,6 +7,7 @@ import {
   isValidElement,
   type ButtonHTMLAttributes,
   type ReactElement,
+  type Ref,
 } from 'react';
 
 import { cn, mergeRefs } from '@/lib/utils';
@@ -14,6 +15,7 @@ import { cn, mergeRefs } from '@/lib/utils';
 import { Icon } from './icon';
 import { buttonVariants, type Size, type VariantProps } from './variants';
 
+type ElementWithRef = ReactElement & { ref?: Ref<unknown> };
 type ButtonVariantOptions = VariantProps<typeof buttonVariants>;
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
@@ -44,7 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     });
 
     if (asChild) {
-      const child = Children.only(children) as ReactElement<Record<string, unknown>>;
+      const child = Children.only(children) as ElementWithRef;
 
       if (!isValidElement(child)) {
         throw new Error(
@@ -59,7 +61,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       const mergedProps: Record<string, unknown> = {
         className: cn(resolvedClassName, child.props.className as string),
         ...props,
-        ref: mergeRefs((child as any).ref, ref),
+        ref: mergeRefs(child.ref, ref),
       };
 
       if (disabledState) {
