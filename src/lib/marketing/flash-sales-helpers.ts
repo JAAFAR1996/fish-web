@@ -1,4 +1,4 @@
-import type { FlashSale, Locale } from '@/types';
+import type { FlashSale, Locale, Product } from '@/types';
 
 export type CountdownTime = {
   days: number;
@@ -46,4 +46,14 @@ export function formatCountdown(
   }
 
   return `${minutes}:${String(seconds).padStart(2, '0')}`;
+}
+
+export function getEffectiveUnitPrice(product: Product): number {
+  const { flashSale } = product;
+
+  if (flashSale && isFlashSaleActive(flashSale)) {
+    return flashSale.flash_price;
+  }
+
+  return product.price;
 }

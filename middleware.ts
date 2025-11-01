@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 
 import { routing } from '@/i18n/routing';
@@ -17,37 +17,7 @@ export default async function middleware(request: NextRequest) {
   const authCookies = authResponse.cookies.getAll();
   const intlResponse = handleI18nRouting(request);
 
-  const intlRedirect = intlResponse.headers.get('location');
-  const rewrite = intlResponse.headers.get('x-middleware-rewrite');
-  const middlewareNext = intlResponse.headers.get('x-middleware-next');
-
-  let finalResponse: NextResponse;
-
-  if (intlRedirect) {
-    finalResponse = NextResponse.redirect(intlRedirect, intlResponse.status);
-  } else {
-    finalResponse = NextResponse.next({
-      request: { headers: request.headers },
-    });
-    if (rewrite) {
-      finalResponse.headers.set('x-middleware-rewrite', rewrite);
-    }
-    if (middlewareNext) {
-      finalResponse.headers.set('x-middleware-next', middlewareNext);
-    }
-  }
-
-  intlResponse.headers.forEach((value, key) => {
-    const lower = key.toLowerCase();
-    if (lower === 'set-cookie' || lower === 'location' || lower === 'x-middleware-rewrite' || lower === 'x-middleware-next') {
-      return;
-    }
-    finalResponse.headers.set(key, value);
-  });
-
-  intlResponse.cookies.getAll().forEach((cookie) => {
-    finalResponse.cookies.set(cookie);
-  });
+  const finalResponse = intlResponse;
 
   authCookies.forEach((cookie) => {
     finalResponse.cookies.set(cookie);
@@ -57,5 +27,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next|_vercel|.*\\..*).*)'],
+  matcher: ['/(?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).+'],
 };

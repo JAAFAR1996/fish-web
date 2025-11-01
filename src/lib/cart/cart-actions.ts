@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 
 import type { CartWithItems, LocalStorageCartItem } from '@/types';
 
@@ -8,6 +9,8 @@ import { getProductsWithFlashSales } from '@/lib/data/products';
 import { getUser } from '@/lib/auth/utils';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { routing } from '@/i18n/routing';
+import { logError } from '@/lib/logger';
+import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 import {
   clearUserCart,
   createCart,
@@ -18,7 +21,6 @@ import {
   upsertCartItem,
 } from './cart-queries';
 import { validateQuantity } from './cart-utils';
-import { isFlashSaleActive } from '@/lib/marketing/flash-sales-helpers';
 
 function revalidateCart(locale: string | null | undefined) {
   if (locale) {
@@ -28,6 +30,39 @@ function revalidateCart(locale: string | null | undefined) {
 
   routing.locales.forEach((loc) => {
     revalidatePath(`/${loc}/cart`);
+  });
+}
+
+function resolveRequestId(): string | null {
+  try {
+    const headerList = headers();
+    return (
+      headerList.get('x-request-id') ??
+      headerList.get('x-correlation-id') ??
+      headerList.get('x-vercel-id') ??
+      headerList.get('x-amzn-trace-id') ??
+      null
+    );
+  } catch {
+    return null;
+  }
+}
+
+function logCartActionError(
+  action: string,
+  context: { userId: string | null } & Record<string, unknown>,
+  error: unknown
+) {
+  const requestId = resolveRequestId();
+  const errorMessage =
+    error instanceof Error ? error.message : (typeof error === 'string' ? error : 'Unknown error');
+
+  logError('Cart action failed', {
+    action,
+    ...context,
+    requestId,
+    errorMessage,
+    errorStack: error instanceof Error ? error.stack : undefined,
   });
 }
 
@@ -47,10 +82,7 @@ export async function addToCartAction(
     return { success: false, error: 'cart.errors.updateFailed' };
   }
 
-  const flashSale = product.flashSale;
-  const unitPrice = flashSale && isFlashSaleActive(flashSale)
-    ? flashSale.flash_price
-    : product.price;
+  const unitPrice = getEffectiveUnitPrice(product);
 
   const validation = validateQuantity(quantity, product.stock);
   if (!validation.valid) {
@@ -81,7 +113,11 @@ export async function addToCartAction(
     revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
-    console.error('Failed to add to cart', error);
+    logCartActionError(
+      'addToCart',
+      { userId: user.id, productId, quantity },
+      error
+    );
     return { success: false, error: 'cart.errors.updateFailed' };
   }
 }
@@ -104,7 +140,11 @@ export async function removeFromCartAction(
     revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
-    console.error('Failed to remove cart item', error);
+    logCartActionError(
+      'removeFromCart',
+      { userId: user.id, productId },
+      error
+    );
     return { success: false, error: 'cart.errors.updateFailed' };
   }
 }
@@ -135,17 +175,18 @@ export async function updateQuantityAction(
     return { success: false, error: 'cart.errors.updateFailed' };
   }
 
-  const flashSale = product.flashSale;
-  const unitPrice = flashSale && isFlashSaleActive(flashSale)
-    ? flashSale.flash_price
-    : product.price;
+  const unitPrice = getEffectiveUnitPrice(product);
 
   try {
     await upsertCartItem(cart.id, productId, quantity, unitPrice);
     revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
-    console.error('Failed to update cart quantity', error);
+    logCartActionError(
+      'updateQuantity',
+      { userId: user.id, productId, quantity },
+      error
+    );
     return { success: false, error: 'cart.errors.updateFailed' };
   }
 }
@@ -169,7 +210,11 @@ export async function clearCartAction(): Promise<{
     revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
-    console.error('Failed to clear cart', error);
+    logCartActionError(
+      'clearCart',
+      { userId: user.id },
+      error
+    );
     return { success: false, error: 'cart.errors.updateFailed' };
   }
 }
@@ -193,7 +238,11 @@ export async function syncGuestCartAction(
     revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
-    console.error('Failed to sync guest cart', error);
+    logCartActionError(
+      'syncGuestCart',
+      { userId: user.id, guestItemCount: guestItems.length },
+      error
+    );
     return { success: false, error: 'cart.errors.updateFailed' };
   }
 }

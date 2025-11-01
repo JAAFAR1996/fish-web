@@ -1,4 +1,4 @@
-// server-only
+// server-only: these helpers expose privileged credentials and must never run in the browser.
 
 import { validateEnv } from './env';
 

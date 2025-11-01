@@ -21,7 +21,7 @@ import type {
 } from '@/types';
 
 import { getProductsWithFlashSales } from '@/lib/data/products';
-import { isFlashSaleActive } from '@/lib/marketing/flash-sales-helpers';
+import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 import {
   addToCartAction,
   clearCartAction,
@@ -65,7 +65,7 @@ function mapStorageItemsToProducts(
     .map((item) => {
       const product = products.find((p) => p.id === item.productId);
       if (!product) return null;
-      const unitPrice = getProductUnitPrice(product);
+      const unitPrice = getEffectiveUnitPrice(product);
       return {
         id: `guest-${product.id}`,
         cart_id: 'guest',
@@ -79,12 +79,6 @@ function mapStorageItemsToProducts(
     })
     .filter((value): value is CartItemWithProduct => value !== null);
 }
-
-function getProductUnitPrice(product: Product): number {
-  const flashSale = product.flashSale;
-  return flashSale && isFlashSaleActive(flashSale)
-    ? flashSale.flash_price
-    : product.price;
 }
 
 function mapSavedItemsToProducts(
@@ -95,10 +89,7 @@ function mapSavedItemsToProducts(
     .map((item) => {
       const product = products.find((p) => p.id === item.productId);
       if (!product) return null;
-      const flashSale = product.flashSale;
-      const unitPrice = flashSale && isFlashSaleActive(flashSale)
-        ? flashSale.flash_price
-        : product.price;
+      const unitPrice = getEffectiveUnitPrice(product);
       return {
         id: `saved-${product.id}`,
         cart_id: 'guest-saved',
@@ -164,7 +155,7 @@ export function CartProvider({ children }: Props) {
 
     const { data: cartItems, error: itemsError } = await supabase
       .from('cart_items')
-      .select('*')
+      .select('id, cart_id, product_id, quantity, unit_price, created_at, updated_at')
       .eq('cart_id', cart.id);
 
     if (itemsError) {
@@ -174,12 +165,24 @@ export function CartProvider({ children }: Props) {
       return;
     }
 
+    const pendingPriceSync: Array<{ productId: string; quantity: number }> = [];
+
     const mappedItems = (cartItems ?? [])
       .map((item) => {
         const product = products.find((p) => p.id === item.product_id);
         if (!product) return null;
+        const nextUnitPrice = getEffectiveUnitPrice(product);
+
+        if (item.unit_price !== nextUnitPrice) {
+          pendingPriceSync.push({
+            productId: item.product_id,
+            quantity: item.quantity,
+          });
+        }
+
         return {
           ...item,
+          unit_price: nextUnitPrice,
           product,
         } as CartItemWithProduct;
       })
@@ -187,6 +190,18 @@ export function CartProvider({ children }: Props) {
 
     setItems(mappedItems);
     setSavedItems([]);
+
+    if (pendingPriceSync.length > 0) {
+      try {
+        await Promise.all(
+          pendingPriceSync.map(({ productId, quantity }) =>
+            updateQuantityAction(productId, quantity)
+          )
+        );
+      } catch (error) {
+        console.error('Failed to sync cart item pricing', error);
+      }
+    }
   }, [loadProducts, supabase, user]);
 
   const loadCart = useCallback(async () => {
@@ -243,7 +258,7 @@ export function CartProvider({ children }: Props) {
 
   const addItem = useCallback(
     async (product: Product, quantity: number = 1) => {
-      const unitPrice = getProductUnitPrice(product);
+      const unitPrice = getEffectiveUnitPrice(product);
       const maxAllowed = Math.min(product.stock, MAX_QUANTITY);
 
       if (maxAllowed <= 0) {

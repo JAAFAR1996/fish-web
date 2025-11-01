@@ -2,10 +2,40 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 
+const CONTROL_CHARACTERS_REGEX = /[\u0000-\u001F\u007F]/;
+const ALLOWED_PATH_PREFIXES = [
+  '/',
+  '/ar',
+  '/en',
+  '/account',
+  '/products',
+  '/cart',
+  '/wishlist',
+  '/orders',
+];
+
 function sanitizeNext(next?: string | null) {
   if (!next || typeof next !== 'string') return '/account';
-  if (!next.startsWith('/')) return '/account';
-  return next;
+
+  const trimmed = next.trim();
+  if (!trimmed.startsWith('/')) return '/account';
+  if (trimmed.startsWith('//')) return '/account';
+  if (CONTROL_CHARACTERS_REGEX.test(trimmed)) return '/account';
+  if (trimmed.includes(':/')) return '/account';
+
+  const normalized = trimmed.replace(/\/{2,}/g, '/');
+  if (!normalized || normalized === '.') return '/account';
+
+  const isAllowed = ALLOWED_PATH_PREFIXES.some((prefix) => {
+    if (prefix === '/') return normalized === '/';
+    return normalized === prefix || normalized.startsWith(`${prefix}/`);
+  });
+
+  if (!isAllowed) {
+    return '/account';
+  }
+
+  return normalized;
 }
 
 function resolveRedirectUrl(request: NextRequest, path: string) {

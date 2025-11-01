@@ -1,8 +1,9 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { createBrowserSupabaseClient } from '@/lib/supabase/client';
+import type { RealtimeChannel } from '@supabase/supabase-js';
+import { getBrowserSupabaseClient } from '@/lib/supabase/client';
 import {
   markAsReadAction,
   markAllAsReadAction,
@@ -21,6 +22,8 @@ interface NotificationProviderProps {
 }
 
 export function NotificationProvider({ children, userId }: NotificationProviderProps) {
+  const supabase = useMemo(() => getBrowserSupabaseClient(), []);
+  const channelRef = useRef<{ channel: RealtimeChannel; userId: string } | null>(null);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,7 +35,6 @@ export function NotificationProvider({ children, userId }: NotificationProviderP
     }
 
     try {
-      const supabase = createBrowserSupabaseClient();
       const { data, error } = await supabase
         .from('notifications')
         .select('*')
@@ -48,13 +50,38 @@ export function NotificationProvider({ children, userId }: NotificationProviderP
     } finally {
       setIsLoading(false);
     }
-  }, [userId]);
+  }, [supabase, userId]);
 
   // Subscribe to Realtime updates
   useEffect(() => {
-    if (!userId || !ENABLE_REALTIME_NOTIFICATIONS) return;
+    if (!ENABLE_REALTIME_NOTIFICATIONS) {
+      if (channelRef.current) {
+        supabase.removeChannel(channelRef.current.channel);
+        channelRef.current = null;
+      }
+      return;
+    }
 
-    const supabase = createBrowserSupabaseClient();
+    if (!userId) {
+      if (channelRef.current) {
+        supabase.removeChannel(channelRef.current.channel);
+        channelRef.current = null;
+      }
+      return;
+    }
+
+    if (
+      channelRef.current &&
+      channelRef.current.userId === userId &&
+      channelRef.current.channel.state !== 'closed'
+    ) {
+      return;
+    }
+
+    if (channelRef.current) {
+      supabase.removeChannel(channelRef.current.channel);
+      channelRef.current = null;
+    }
 
     const channel = supabase
       .channel(`notifications:${userId}`)
@@ -82,10 +109,15 @@ export function NotificationProvider({ children, userId }: NotificationProviderP
       )
       .subscribe();
 
+    channelRef.current = { channel, userId };
+
     return () => {
-      supabase.removeChannel(channel);
+      if (channelRef.current?.channel.state !== 'closed') {
+        supabase.removeChannel(channelRef.current.channel);
+      }
+      channelRef.current = null;
     };
-  }, [userId]);
+  }, [supabase, userId]);
 
   // Polling fallback
   useEffect(() => {

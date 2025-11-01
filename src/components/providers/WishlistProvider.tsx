@@ -24,6 +24,7 @@ import {
   addGuestWishlistItem,
   clearGuestWishlist,
   getGuestWishlist,
+  moveGuestWishlistItemToCart,
   removeGuestWishlistItem,
 } from '@/lib/wishlist/wishlist-storage';
 import { MAX_WISHLIST_ITEMS } from '@/lib/wishlist/constants';
@@ -103,6 +104,7 @@ export function WishlistProvider({ children }: Props) {
 
   const productsRef = useRef<Product[] | null>(null);
   const previousUserIdRef = useRef<string | null>(null);
+  const moveToCartInFlightRef = useRef<Set<string>>(new Set());
 
   const loadProducts = useCallback(async () => {
     if (productsRef.current) {
@@ -128,7 +130,7 @@ export function WishlistProvider({ children }: Props) {
 
     const { data, error } = await supabase
       .from('wishlists')
-      .select('*')
+      .select('id, user_id, product_id, created_at')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false });
 
@@ -269,15 +271,39 @@ export function WishlistProvider({ children }: Props) {
 
   const moveToCart = useCallback(
     async (productId: string) => {
+      if (moveToCartInFlightRef.current.has(productId)) {
+        return;
+      }
+
       const item = items.find((wishlistItem) => wishlistItem.product_id === productId);
       if (!item) {
         return;
       }
 
-      await addToCart(item.product, 1);
-      await removeItem(productId);
+      moveToCartInFlightRef.current.add(productId);
+
+      try {
+        await addToCart(item.product, 1);
+
+        if (user) {
+          await removeItem(productId);
+          await loadUserData();
+        } else {
+          const { wishlist, removed } = moveGuestWishlistItemToCart(productId);
+          if (!removed) {
+            return;
+          }
+          const products = await loadProducts();
+          const mapped = mapStorageItemsToProducts(wishlist, products, null);
+          setItems(mapped);
+        }
+      } catch (error) {
+        console.error('Failed to move wishlist item to cart', error);
+      } finally {
+        moveToCartInFlightRef.current.delete(productId);
+      }
     },
-    [addToCart, items, removeItem]
+    [addToCart, items, loadProducts, loadUserData, removeItem, user]
   );
 
   const value = useMemo<WishlistContextValue>(() => ({

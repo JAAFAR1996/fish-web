@@ -77,6 +77,27 @@ export function removeGuestWishlistItem(productId: string): LocalStorageWishlist
   return updated;
 }
 
+export function moveGuestWishlistItemToCart(productId: string): {
+  wishlist: LocalStorageWishlistItem[];
+  removed: LocalStorageWishlistItem | null;
+} {
+  const items = getGuestWishlist();
+  const index = items.findIndex((item) => item.productId === productId);
+
+  if (index === -1) {
+    return { wishlist: items, removed: null };
+  }
+
+  const updated = [...items];
+  const [removed] = updated.splice(index, 1);
+  saveGuestWishlist(updated);
+
+  return {
+    wishlist: updated,
+    removed: removed ?? null,
+  };
+}
+
 export function toggleGuestWishlistItem(productId: string): {
   items: LocalStorageWishlistItem[];
   added: boolean;

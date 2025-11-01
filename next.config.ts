@@ -5,6 +5,8 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import withPWA from 'next-pwa';
 
+import { IMAGE_DEVICE_SIZES, IMAGE_SIZES } from './src/lib/config/ui';
+
 const securityHeaders = [
   {
     key: 'X-Frame-Options',
@@ -151,8 +153,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: remoteImagePatterns,
-    deviceSizes: [360, 414, 640, 768, 1024, 1280, 1536],
-    imageSizes: [32, 48, 64, 96, 128],
+    deviceSizes: [...IMAGE_DEVICE_SIZES],
+    imageSizes: [...IMAGE_SIZES],
   },
   experimental: {
     typedRoutes: true,

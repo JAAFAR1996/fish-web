@@ -133,15 +133,16 @@ export function ReportsSection({ admin, className }: ReportsSectionProps) {
                   ? t('reports.last30Days')
                   : t('reports.last90Days');
             return (
-            <Button
-              key={range}
-              type="button"
-              variant={dateRange === range ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setDateRange(range as DateRange)}
-            >
-              {label}
-            </Button>
+              <Button
+                key={range}
+                type="button"
+                variant={dateRange === range ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setDateRange(range as DateRange)}
+              >
+                {label}
+              </Button>
+            );
           })}
           <Button
             type="button"

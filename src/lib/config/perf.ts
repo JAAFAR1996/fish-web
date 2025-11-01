@@ -1,0 +1,5 @@
+export const MAX_SEARCH_QUERY_LENGTH = 256;
+
+export const MAX_PRODUCT_SUGGESTIONS = 5;
+
+export const SEARCH_FALLBACK_CACHE_TTL_MS = 2 * 60 * 1000;
