@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useState, useTransition } from 'react';
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import { useTranslations } from 'next-intl';
 
 import { Button, Input } from '@/components/ui';
@@ -9,7 +9,7 @@ import type { FormStatus, UserProfile } from '@/types';
 import { updateProfile } from '@/lib/auth/actions';
 
 interface ProfileSectionProps {
-  user: User;
+  user: AuthUser;
   profile: UserProfile | null;
 }
 

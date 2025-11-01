@@ -1,5 +1,6 @@
 import containerQueries from '@tailwindcss/container-queries';
 import typography from '@tailwindcss/typography';
+import tailwindScrollbar from 'tailwind-scrollbar';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -142,6 +143,8 @@ const config: Config = {
     containerQueries,
     // Provides beautiful default styles for blog content.
     typography,
+    // Adds custom scrollbar styling
+    tailwindScrollbar({ nocompatible: true }),
   ],
 };
 

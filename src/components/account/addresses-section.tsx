@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useTransition } from 'react';
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import { useTranslations } from 'next-intl';
 
 import {
@@ -22,7 +22,7 @@ import type { SavedAddress } from '@/types';
 import { AddressForm, type AddressFormValues } from './address-form';
 
 interface AddressesSectionProps {
-  user: User;
+  user: AuthUser;
 }
 
 export function AddressesSection({ user }: AddressesSectionProps) {

@@ -1,9 +1,11 @@
-import { sql } from '@supabase/postgrest-js';
+import { sql } from 'drizzle-orm';
+import { and, or, isNull, lt } from 'drizzle-orm';
 
 import type { Coupon, Locale } from '@/types';
+import { db } from '@server/db';
+import { coupons } from '@server/schema';
 
 import { formatCurrency } from '@/lib/utils';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
 
 import { MAX_COUPON_PERCENTAGE } from './constants';
 
@@ -79,24 +81,31 @@ export function calculateDiscount(coupon: Coupon, subtotal: number): number {
 }
 
 export async function incrementCouponUsage(couponId: string): Promise<boolean> {
-  const supabase = await createServerSupabaseClient();
-  const { error, count } = await supabase
-    .from('coupons')
-    .update({ used_count: sql`used_count + 1` })
-    .eq('id', couponId)
-    .eq('is_active', true)
-    .or('usage_limit.is.null,used_count.lt.usage_limit')
-    .select('id', { count: 'exact', head: true });
+  try {
+    const result = await db
+      .update(coupons)
+      .set({ 
+        usedCount: sql`used_count + 1` 
+      })
+      .where(and(
+        eq(coupons.id, couponId),
+        eq(coupons.isActive, true),
+        or(
+          isNull(coupons.usageLimit),
+          lt(coupons.usedCount, coupons.usageLimit)
+        )
+      ))
+      .returning({ id: coupons.id });
 
-  if (error) {
+    const updated = result.length > 0;
+    if (!updated) {
+      console.warn('Coupon usage increment skipped due to limit or inactive coupon', {
+        couponId,
+      });
+    }
+    return updated;
+  } catch (error) {
     console.error('Failed to increment coupon usage', error);
-    return false;
-  }
-
-  if (!count) {
-    console.warn('Coupon usage increment skipped due to limit or inactive coupon', {
-      couponId,
-    });
     return false;
   }
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useState, useTransition, useEffect } from 'react';
-import type { Session, User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import { useTranslations } from 'next-intl';
 
 import { PasswordInput } from '@/components/auth';
@@ -13,8 +13,8 @@ import { createBrowserSupabaseClient } from '@/lib/supabase/client';
 import type { FormStatus, NotificationPreferences } from '@/types';
 
 interface SettingsSectionProps {
-  user: User;
-  session: Session | null;
+  user: AuthUser;
+  session: { user: AuthUser | null } | null;
 }
 
 export function SettingsSection({ user }: SettingsSectionProps) {

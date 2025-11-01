@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import type { Session, User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 
 import {
   Tabs,
@@ -31,8 +31,8 @@ type AccountTabValue =
   | 'settings';
 
 interface AccountTabsProps {
-  user: User;
-  session: Session | null;
+  user: AuthUser;
+  session: { user: AuthUser | null } | null;
   profile: UserProfile | null;
   loyaltySummary: LoyaltyPointsSummary | null;
   referralStats: ReferralStats | null;

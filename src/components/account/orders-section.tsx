@@ -1,13 +1,13 @@
 'use client';
 
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import { useTranslations } from 'next-intl';
 
 import { Button, Icon, Badge } from '@/components/ui';
 import { Link } from '@/i18n/navigation';
 
 interface OrdersSectionProps {
-  user: User;
+  user: AuthUser;
 }
 
 export function OrdersSection(_props: OrdersSectionProps) {

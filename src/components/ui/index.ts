@@ -4,6 +4,15 @@ export {
   type ButtonProps,
 } from './button';
 export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from './popover';
+export {
+  ScrollArea,
+  type ScrollAreaProps,
+} from './scroll-area';
+export {
   Card,
   CardHeader,
   CardTitle,

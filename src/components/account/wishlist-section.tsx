@@ -1,6 +1,6 @@
 'use client';
 
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
@@ -11,7 +11,7 @@ import { Link } from '@/i18n/navigation';
 import { useWishlist } from '@/components/providers/WishlistProvider';
 
 interface WishlistSectionProps {
-  user: User;
+  user: AuthUser;
 }
 
 export function WishlistSection(_props: WishlistSectionProps) {
