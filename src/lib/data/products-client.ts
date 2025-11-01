@@ -1,12 +1,14 @@
-import productsData from '@/data/products.json';
 import { getBrowserSupabaseClient } from '@/lib/supabase/client';
-import { normalizeSupabaseProduct } from '@/lib/search/supabase-search';
+import { normalizeSupabaseProduct } from '@/lib/search/normalize';
 import { getActiveFlashSalesClient } from '@/lib/marketing/flash-sales-client';
-import type { FlashSale, Product } from '@/types';
+import type { FlashSale, Product, ProductWithFlashSale } from '@/types';
 
-export type ProductWithFlashSale = Product & {
-  flashSale?: FlashSale;
-};
+async function loadFallbackProducts(): Promise<Product[]> {
+  const { default: productsData } = await import('@/data/products.json');
+  return (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
+    Object.freeze({ ...product })
+  );
+}
 
 async function fetchProductsClient(): Promise<Product[]> {
   try {
@@ -18,20 +20,13 @@ async function fetchProductsClient(): Promise<Product[]> {
 
     if (error || !data) {
       console.error('[Products Client] Failed to fetch products', error);
-      const fallback = (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
-        Object.freeze({ ...product })
-      );
-      return fallback;
+      return await loadFallbackProducts();
     }
 
-    const products = data.map((row) => Object.freeze({ ...normalizeSupabaseProduct(row) }));
-    return products;
+    return data.map((row) => Object.freeze({ ...normalizeSupabaseProduct(row) }));
   } catch (err) {
     console.error('[Products Client] Unexpected error', err);
-    const fallback = (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
-      Object.freeze({ ...product })
-    );
-    return fallback;
+    return await loadFallbackProducts();
   }
 }
 

@@ -5,7 +5,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 import { slugify } from '@/lib/blog/content-utils';
 import { requireAdmin } from '@/lib/auth/utils';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { normalizeSupabaseProduct } from '@/lib/search/supabase-search';
+import { normalizeSupabaseProduct } from '@/lib/search/normalize';
 import { triggerBackInStockAlerts } from '@/lib/notifications/trigger-stock-alerts';
 import { routing } from '@/i18n/routing';
 import { logError, logWarn, normalizeError } from '@/lib/logger';

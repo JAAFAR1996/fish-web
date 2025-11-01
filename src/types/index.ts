@@ -72,6 +72,8 @@ export interface Product {
   updated_at?: string;
 }
 
+export type ProductWithFlashSale = Product & { flashSale?: FlashSale };
+
 export interface ProductMedia {
   type: 'image' | 'video';
   url: string;

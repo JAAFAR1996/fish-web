@@ -3,12 +3,8 @@ import { cache } from 'react';
 import productsData from '@/data/products.json';
 import { getActiveFlashSales } from '@/lib/marketing/flash-sales-utils';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { normalizeSupabaseProduct } from '@/lib/search/supabase-search';
-import type { FlashSale, Product, ProductFilters, SortOption } from '@/types';
-
-export type ProductWithFlashSale = Product & {
-  flashSale?: FlashSale;
-};
+import { normalizeSupabaseProduct } from '@/lib/search/normalize';
+import type { FlashSale, Product, ProductFilters, ProductWithFlashSale, SortOption } from '@/types';
 
 const fetchProductsInternal = async (): Promise<{
   products: Product[];
