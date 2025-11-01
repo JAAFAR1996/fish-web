@@ -79,7 +79,6 @@ function mapStorageItemsToProducts(
     })
     .filter((value): value is CartItemWithProduct => value !== null);
 }
-}
 
 function mapSavedItemsToProducts(
   savedItems: SavedForLaterItem[],
