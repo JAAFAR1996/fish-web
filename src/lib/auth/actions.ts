@@ -17,7 +17,7 @@ import {
 import { getCurrentUser } from '@server/middleware';
 import { validateSignin, validateSignup } from '@/lib/auth/validation';
 
-type AuthActionResult<T extends Record<string, unknown> = Record<string, never>> =
+type AuthActionResult<T extends Record<string, unknown> = {}> =
   | ({ success: true } & T)
   | { success: false; error: string };
 

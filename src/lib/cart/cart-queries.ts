@@ -7,74 +7,61 @@ import type {
   Product,
 } from '@/types';
 
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { carts, cartItems } from '@shared/schema';
+import { eq, and } from 'drizzle-orm';
 import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 
 export async function getUserCart(userId: string): Promise<Cart | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('carts')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('status', 'active')
-    .maybeSingle();
+  const [cart] = await db
+    .select()
+    .from(carts)
+    .where(and(eq(carts.userId, userId), eq(carts.status, 'active')))
+    .limit(1);
 
-  if (error) {
-    console.error('Failed to fetch cart', error);
-    return null;
-  }
-
-  return data ?? null;
+  return cart ? (cart as unknown as Cart) : null;
 }
 
 export async function getCartWithItems(
   userId: string
 ): Promise<CartWithItems | null> {
-  const supabase = await createServerSupabaseClient();
   const cart = await getUserCart(userId);
 
   if (!cart) {
     return null;
   }
 
-  const { data: items, error } = await supabase
-    .from('cart_items')
-    .select('*')
-    .eq('cart_id', cart.id);
+  const items = await db
+    .select()
+    .from(cartItems)
+    .where(eq(cartItems.cartId, cart.id));
 
-  if (error) {
-    console.error('Failed to fetch cart items', error);
-    return { ...cart, items: [], total: 0 };
-  }
-
-  const total = (items ?? []).reduce(
-    (sum, item) => sum + item.quantity * item.unit_price,
+  const total = items.reduce(
+    (sum, item) => sum + item.quantity * Number(item.unitPrice),
     0
   );
 
   return {
     ...cart,
-    items: (items ?? []) as CartItem[],
+    items: items as unknown as CartItem[],
     total,
   };
 }
 
 export async function createCart(userId: string): Promise<Cart> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('carts')
-    .insert({
-      user_id: userId,
+  const [cart] = await db
+    .insert(carts)
+    .values({
+      userId,
       status: 'active',
     })
-    .select()
-    .single();
+    .returning();
 
-  if (error || !data) {
-    throw new Error(error?.message ?? 'Failed to create cart');
+  if (!cart) {
+    throw new Error('Failed to create cart');
   }
 
-  return data;
+  return cart as unknown as Cart;
 }
 
 export async function upsertCartItem(
@@ -83,14 +70,10 @@ export async function upsertCartItem(
   quantity: number,
   unitPrice: number
 ): Promise<CartItem> {
-  const supabase = await createServerSupabaseClient();
-
   if (quantity <= 0) {
-    await supabase
-      .from('cart_items')
-      .delete()
-      .eq('cart_id', cartId)
-      .eq('product_id', productId);
+    await db
+      .delete(cartItems)
+      .where(and(eq(cartItems.cartId, cartId), eq(cartItems.productId, productId)));
 
     return {
       id: '',
@@ -103,53 +86,41 @@ export async function upsertCartItem(
     };
   }
 
-  const { data, error } = await supabase
-    .from('cart_items')
-    .upsert(
-      {
-        cart_id: cartId,
-        product_id: productId,
+  const [item] = await db
+    .insert(cartItems)
+    .values({
+      cartId,
+      productId,
+      quantity,
+      unitPrice: unitPrice.toString(),
+    })
+    .onConflictDoUpdate({
+      target: [cartItems.cartId, cartItems.productId],
+      set: {
         quantity,
-        unit_price: unitPrice,
+        unitPrice: unitPrice.toString(),
       },
-      { onConflict: 'cart_id,product_id' }
-    )
-    .select()
-    .single();
+    })
+    .returning();
 
-  if (error || !data) {
-    throw new Error(error?.message ?? 'Failed to upsert cart item');
+  if (!item) {
+    throw new Error('Failed to upsert cart item');
   }
 
-  return data;
+  return item as unknown as CartItem;
 }
 
 export async function removeCartItem(
   cartId: string,
   productId: string
 ): Promise<void> {
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase
-    .from('cart_items')
-    .delete()
-    .eq('cart_id', cartId)
-    .eq('product_id', productId);
-
-  if (error) {
-    throw new Error(error.message);
-  }
+  await db
+    .delete(cartItems)
+    .where(and(eq(cartItems.cartId, cartId), eq(cartItems.productId, productId)));
 }
 
 export async function clearUserCart(cartId: string): Promise<void> {
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase
-    .from('cart_items')
-    .delete()
-    .eq('cart_id', cartId);
-
-  if (error) {
-    throw new Error(error.message);
-  }
+  await db.delete(cartItems).where(eq(cartItems.cartId, cartId));
 }
 
 export async function syncGuestCartToSupabase(
@@ -158,8 +129,6 @@ export async function syncGuestCartToSupabase(
   products: Product[]
 ): Promise<void> {
   if (guestItems.length === 0) return;
-
-  const supabase = await createServerSupabaseClient();
 
   let cart = await getUserCart(userId);
   if (!cart) {
@@ -171,13 +140,11 @@ export async function syncGuestCartToSupabase(
     if (!product) continue;
     const unitPrice = getEffectiveUnitPrice(product);
 
-    // Fetch existing quantity to merge.
-    const { data: existing } = await supabase
-      .from('cart_items')
-      .select('quantity')
-      .eq('cart_id', cart.id)
-      .eq('product_id', item.productId)
-      .maybeSingle();
+    const [existing] = await db
+      .select()
+      .from(cartItems)
+      .where(and(eq(cartItems.cartId, cart.id), eq(cartItems.productId, item.productId)))
+      .limit(1);
 
     const newQuantity = (existing?.quantity ?? 0) + item.quantity;
 

@@ -1,54 +1,45 @@
 import type { Wishlist } from '@/types';
 
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { wishlists } from '@shared/schema';
+import { eq, and, desc } from 'drizzle-orm';
 
 export async function getUserWishlist(userId: string): Promise<Wishlist[]> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('wishlists')
-    .select('*')
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false });
+  const items = await db
+    .select()
+    .from(wishlists)
+    .where(eq(wishlists.userId, userId))
+    .orderBy(desc(wishlists.createdAt));
 
-  if (error) {
-    console.error('Failed to fetch wishlist', error);
-    return [];
-  }
-
-  return (data as Wishlist[]) ?? [];
+  return items as unknown as Wishlist[];
 }
 
 export async function addToWishlist(
   userId: string,
   productId: string
 ): Promise<Wishlist | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('wishlists')
-    .insert({ user_id: userId, product_id: productId })
-    .select()
-    .single();
+  try {
+    const [item] = await db
+      .insert(wishlists)
+      .values({ userId, productId })
+      .returning();
 
-  if (error) {
+    return item as unknown as Wishlist;
+  } catch (error) {
     console.error('Failed to add to wishlist', error);
     return null;
   }
-
-  return data as Wishlist;
 }
 
 export async function removeFromWishlist(
   userId: string,
   productId: string
 ): Promise<void> {
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase
-    .from('wishlists')
-    .delete()
-    .eq('user_id', userId)
-    .eq('product_id', productId);
-
-  if (error) {
+  try {
+    await db
+      .delete(wishlists)
+      .where(and(eq(wishlists.userId, userId), eq(wishlists.productId, productId)));
+  } catch (error) {
     console.error('Failed to remove from wishlist', error);
   }
 }
@@ -57,35 +48,28 @@ export async function isInWishlist(
   userId: string,
   productId: string
 ): Promise<boolean> {
-  const supabase = await createServerSupabaseClient();
-  const { data } = await supabase
-    .from('wishlists')
-    .select('id')
-    .eq('user_id', userId)
-    .eq('product_id', productId)
-    .maybeSingle();
+  const [item] = await db
+    .select()
+    .from(wishlists)
+    .where(and(eq(wishlists.userId, userId), eq(wishlists.productId, productId)))
+    .limit(1);
 
-  return Boolean(data);
+  return Boolean(item);
 }
 
 export async function clearUserWishlist(userId: string): Promise<void> {
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase
-    .from('wishlists')
-    .delete()
-    .eq('user_id', userId);
-
-  if (error) {
+  try {
+    await db.delete(wishlists).where(eq(wishlists.userId, userId));
+  } catch (error) {
     console.error('Failed to clear wishlist', error);
   }
 }
 
 export async function getWishlistCount(userId: string): Promise<number> {
-  const supabase = await createServerSupabaseClient();
-  const { count } = await supabase
-    .from('wishlists')
-    .select('id', { count: 'exact', head: true })
-    .eq('user_id', userId);
+  const items = await db
+    .select()
+    .from(wishlists)
+    .where(eq(wishlists.userId, userId));
 
-  return count ?? 0;
+  return items.length;
 }
