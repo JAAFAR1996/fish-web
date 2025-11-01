@@ -111,22 +111,3 @@ export function sortProducts(products: Product[], sortBy: SortOption): Product[]
       return sorted;
   }
 }
-
-export function getProductCountByFilter(
-  products: Product[],
-  filterKey: keyof ProductFilters,
-  filterValue: string
-): number {
-  switch (filterKey) {
-    case 'types':
-      return products.filter((p) => p.subcategory === filterValue).length;
-    case 'brands':
-      return products.filter((p) => p.brand === filterValue).length;
-    case 'categories':
-      return products.filter((p) => p.category === filterValue).length;
-    case 'subcategories':
-      return products.filter((p) => p.subcategory === filterValue).length;
-    default:
-      return 0;
-  }
-}

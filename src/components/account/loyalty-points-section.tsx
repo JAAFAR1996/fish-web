@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 
 import { cn, formatCurrency } from '@/lib/utils';
 import type { LoyaltyPointsSummary } from '@/types';
-import { calculatePointsDiscount } from '@/lib/marketing/loyalty-utils';
+import { calculatePointsDiscount } from '@/lib/marketing/loyalty-helpers';
 
 interface LoyaltyPointsSectionProps {
   summary: LoyaltyPointsSummary | null;

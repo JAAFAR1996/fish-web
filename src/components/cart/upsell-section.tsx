@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Carousel } from '@/components/home/carousel';
 import { ProductCard } from '@/components/products';
 import type { CartItemWithProduct, Product } from '@/types';
-import { getComplementaryProducts } from '@/lib/data/products';
+import { getComplementaryProducts } from '@/lib/data/products-client';
 import { cn } from '@/lib/utils';
 import { useCart } from '@/components/providers/CartProvider';
 

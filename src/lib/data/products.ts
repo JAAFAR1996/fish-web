@@ -4,10 +4,8 @@ import productsData from '@/data/products.json';
 import { getActiveFlashSales } from '@/lib/marketing/flash-sales-utils';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { normalizeSupabaseProduct } from '@/lib/search/normalize';
+import { complementaryCategoryMap } from '@/lib/data/constants';
 import type { FlashSale, Product, ProductFilters, ProductWithFlashSale, SortOption } from '@/types';
-import { filterProducts, sortProducts, getProductCountByFilter } from './product-utils';
-
-export { filterProducts, sortProducts, getProductCountByFilter };
 
 const fetchProductsInternal = async (): Promise<{
   products: Product[];
@@ -52,6 +50,33 @@ export async function getProductsWithStatus(): Promise<{
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
   const products = await getProducts();
   return products.find((p) => p.slug === slug);
+}
+
+export { filterProducts, sortProducts } from '@/lib/data/products-shared';
+
+export async function getUniqueBrands(products?: Product[]): Promise<string[]> {
+  const allProducts = products ?? (await getProducts());
+  const brands = new Set(allProducts.map((p) => p.brand));
+  return Array.from(brands).sort();
+}
+
+export function getProductCountByFilter(
+  products: Product[],
+  filterKey: keyof ProductFilters,
+  filterValue: string
+): number {
+  switch (filterKey) {
+    case 'types':
+      return products.filter((p) => p.subcategory === filterValue).length;
+    case 'brands':
+      return products.filter((p) => p.brand === filterValue).length;
+    case 'categories':
+      return products.filter((p) => p.category === filterValue).length;
+    case 'subcategories':
+      return products.filter((p) => p.subcategory === filterValue).length;
+    default:
+      return 0;
+  }
 }
 
 export async function getBestSellers(limit: number = 8): Promise<ProductWithFlashSale[]> {
@@ -220,16 +245,8 @@ export async function getComplementaryProducts(
   product: Product,
   limit: number = 4
 ): Promise<Product[]> {
-  const complementaryMap: Record<string, string[]> = {
-    filtration: ['heating', 'waterCare'],
-    heating: ['filtration', 'waterCare'],
-    lighting: ['plantsFertilizers', 'waterCare'],
-    waterCare: ['filtration', 'tests'],
-    plantsFertilizers: ['lighting', 'waterCare'],
-  };
-
   const targetCategories =
-    complementaryMap[product.category] ?? [product.category];
+    complementaryCategoryMap[product.category] ?? [product.category];
 
   const products = await getProducts();
 

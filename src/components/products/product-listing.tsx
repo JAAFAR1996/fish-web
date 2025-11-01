@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import type { ProductListingProps, ProductFilters, SortOption } from '@/types';
-import { filterProducts, sortProducts } from '@/lib/data/product-utils';
+import { filterProducts, sortProducts } from '@/lib/data/products-client';
 import { DEFAULT_FILTERS } from '@/data/filter-options';
 import { Button, Icon } from '@/components/ui';
 import { ProductGrid } from './product-grid';

@@ -34,10 +34,12 @@ import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 import {
   calculatePointsDiscount,
   calculatePointsEarned,
+  validatePointsRedemption,
+} from '@/lib/marketing/loyalty-helpers';
+import {
   getUserPointsBalance,
   redeemPoints,
   awardPoints,
-  validatePointsRedemption,
 } from '@/lib/marketing/loyalty-utils';
 
 type CheckoutItemInput = {

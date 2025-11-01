@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AccountTabs } from '@/components/account';
 import { getUser, getUserProfile, getSession } from '@/lib/auth/utils';
 import { getLoyaltyPointsSummary } from '@/lib/marketing/loyalty-utils';
-import { getUserReferralStats } from '@/lib/marketing/referral-utils';
+import { getUserReferralStats } from '@/lib/marketing/referral-utils-server';
 import { routing } from '@/i18n/routing';
 
 type Locale = (typeof routing.locales)[number];

@@ -32,7 +32,7 @@ const securityHeaders = [
 function getSupabaseHostname() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
-  if (!url || url.trim() === '') {
+  if (!url) {
     if (process.env.NODE_ENV !== 'production') {
       console.warn(
         'NEXT_PUBLIC_SUPABASE_URL is not set; Supabase image remote pattern will be disabled in development.'
@@ -43,16 +43,8 @@ function getSupabaseHostname() {
   }
 
   try {
-    return new URL(url.trim()).hostname;
+    return new URL(url).hostname;
   } catch (error) {
-    console.error(
-      `Invalid NEXT_PUBLIC_SUPABASE_URL: ${url} - ${
-        error instanceof Error ? error.message : String(error)
-      }`
-    );
-    if (process.env.NODE_ENV !== 'production') {
-      return null;
-    }
     throw new Error(
       `Invalid NEXT_PUBLIC_SUPABASE_URL: ${
         error instanceof Error ? error.message : String(error)
@@ -191,32 +183,21 @@ const nextConfig = {
     imageSizes: [...IMAGE_SIZES],
   },
   experimental: {
+    typedRoutes: true,
     optimizePackageImports: ['recharts', 'lucide-react', 'fuse.js'],
   },
-  allowedDevOrigins: ['*'],
   async headers() {
-    const isDev = process.env.NODE_ENV === 'development';
     return [
       {
         source: '/(.*)',
-        headers: [
-          ...securityHeaders,
-          ...(isDev
-            ? [
-                {
-                  key: 'Cache-Control',
-                  value: 'no-store, must-revalidate',
-                },
-              ]
-            : []),
-        ],
+        headers: securityHeaders,
       },
       {
         source: '/:all*(svg|jpg|jpeg|png|webp|gif|ico)',
         headers: [
           {
             key: 'Cache-Control',
-            value: isDev ? 'no-cache' : 'public, max-age=31536000, immutable',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
@@ -225,7 +206,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: isDev ? 'no-cache' : 'public, max-age=31536000, immutable',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

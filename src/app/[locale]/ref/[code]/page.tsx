@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { ReferralLandingContent } from '@/components/marketing/referral-landing-content';
-import { getReferralByCode } from '@/lib/marketing/referral-utils';
+import { getReferralByCode } from '@/lib/marketing/referral-utils-server';
 import { routing } from '@/i18n/routing';
 
 type Locale = (typeof routing.locales)[number];
