@@ -1,37 +1,68 @@
-import type { User, Session } from '@supabase/supabase-js';
-
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@/../../server/db';
+import { users, profiles } from '@/../../server/schema';
+import { eq } from 'drizzle-orm';
+import { getSession as getSessionData } from '@/lib/auth/session';
 
 import type { UserProfile } from '@/types';
 
-/**
- * Returns the currently authenticated Supabase user or null if unauthenticated.
- * Always prefer this helper over getSession() when performing auth checks.
- */
-export async function getUser(): Promise<User | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase.auth.getUser();
+export interface User {
+  id: string;
+  email: string;
+  emailVerified: boolean;
+  createdAt: string;
+}
 
-  if (error) {
-    return null;
-  }
-
-  return data.user ?? null;
+export interface Session {
+  user: User;
+  sessionId: string;
 }
 
 /**
- * Returns the active Supabase session. Use for reading session data only.
- * For auth checks prefer getUser() which validates the JWT with Supabase.
+ * Returns the currently authenticated user or null if unauthenticated.
+ * Always prefer this helper over getSession() when performing auth checks.
  */
-export async function getSession(): Promise<Session | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase.auth.getSession();
+export async function getUser(): Promise<User | null> {
+  const session = await getSessionData();
 
-  if (error) {
+  if (!session) {
     return null;
   }
 
-  return data.session ?? null;
+  const [user] = await db
+    .select({
+      id: users.id,
+      email: users.email,
+      emailVerified: users.emailVerified,
+      createdAt: users.createdAt,
+    })
+    .from(users)
+    .where(eq(users.id, session.userId))
+    .limit(1);
+
+  return user || null;
+}
+
+/**
+ * Returns the active session. Use for reading session data only.
+ * For auth checks prefer getUser() which validates the session.
+ */
+export async function getSession(): Promise<Session | null> {
+  const sessionData = await getSessionData();
+
+  if (!sessionData) {
+    return null;
+  }
+
+  const user = await getUser();
+
+  if (!user) {
+    return null;
+  }
+
+  return {
+    user,
+    sessionId: sessionData.sessionId,
+  };
 }
 
 /**
@@ -50,21 +81,37 @@ export async function requireUser(): Promise<User> {
 }
 
 /**
- * Fetches the profile row associated with a Supabase auth user.
+ * Fetches the profile row associated with an auth user.
  */
 export async function getUserProfile(userId: string): Promise<UserProfile | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', userId)
-    .single<UserProfile>();
+  const [profile] = await db
+    .select()
+    .from(profiles)
+    .where(eq(profiles.id, userId))
+    .limit(1);
 
-  if (error) {
+  if (!profile) {
     return null;
   }
 
-  return data ?? null;
+  return {
+    id: profile.id,
+    username: profile.username,
+    full_name: profile.fullName,
+    avatar_url: profile.avatarUrl,
+    phone: profile.phone,
+    loyalty_points_balance: profile.loyaltyPointsBalance,
+    referral_code: profile.referralCode,
+    referred_by: profile.referredBy,
+    is_admin: profile.isAdmin,
+    email_order_updates: profile.emailOrderUpdates,
+    email_shipping_updates: profile.emailShippingUpdates,
+    email_stock_alerts: profile.emailStockAlerts,
+    email_marketing: profile.emailMarketing,
+    inapp_notifications_enabled: profile.inappNotificationsEnabled,
+    created_at: profile.createdAt,
+    updated_at: profile.updatedAt,
+  } as UserProfile;
 }
 
 /**
