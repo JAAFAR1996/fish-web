@@ -5,9 +5,18 @@ import bcrypt from 'bcryptjs';
 import { SignJWT, jwtVerify } from 'jose';
 import crypto from 'crypto';
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'your-secret-key-change-in-production-minimum-32-chars'
-);
+function getJWTSecret() {
+  const secret = process.env.JWT_SECRET;
+  if (!secret || secret.length < 32) {
+    throw new Error(
+      'JWT_SECRET environment variable is required and must be at least 32 characters long. ' +
+      'Generate one with: openssl rand -base64 32'
+    );
+  }
+  return new TextEncoder().encode(secret);
+}
+
+const JWT_SECRET = getJWTSecret();
 const SESSION_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 export interface AuthUser {
