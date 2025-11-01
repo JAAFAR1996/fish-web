@@ -4,14 +4,11 @@
   "type": "module",
   "version": "0.1.0",
   "scripts": {
-    "dev": "next dev -p 5000 -H 0.0.0.0",
+    "dev": "next dev --turbo",
     "build": "next build",
-    "start": "next start -p 5000 -H 0.0.0.0",
+    "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit",
-    "db:generate": "drizzle-kit generate",
-    "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "type-check": "tsc --noEmit"
   },
   "engines": {
     "node": ">=18.17.0"
@@ -19,17 +16,11 @@
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
-    "@neondatabase/serverless": "^0.10.4",
     "@next/mdx": "^14.2.33",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.1",
-    "bcryptjs": "^3.0.2",
-    "drizzle-kit": "^0.31.6",
-    "drizzle-orm": "^0.44.7",
     "fuse.js": "^7.0.0",
     "gray-matter": "^4.0.3",
-    "jose": "^6.1.0",
-    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.460.0",
     "next": "^14.2.4",
     "next-intl": "^3.14.1",
@@ -43,8 +34,7 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
-    "resend": "^3.2.0",
-    "ws": "^8.18.3"
+    "resend": "^3.2.0"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",

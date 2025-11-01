@@ -1,7 +1,8 @@
 'use server';
 import { getUser } from '@/lib/auth/utils';
 import { subscribeToNewsletter } from './newsletter-utils';
-import { validatePointsRedemption, calculatePointsDiscount, getUserPointsBalance } from './loyalty-utils';
+import { validatePointsRedemption, calculatePointsDiscount } from './loyalty-helpers';
+import { getUserPointsBalance } from './loyalty-utils';
 import { sendNewsletterWelcomeEmail } from '@/lib/email/send-newsletter-welcome';
 import type { Locale } from '@/types';
 

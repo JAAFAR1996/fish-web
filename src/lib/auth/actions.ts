@@ -1,17 +1,15 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { db } from '@/../../server/db';
-import { users, profiles } from '@/../../server/schema';
-import { eq } from 'drizzle-orm';
-import { hashPassword, verifyPassword } from '@/lib/auth/password';
-import { createSession, deleteSession } from '@/lib/auth/session';
+
+import { adminClient } from '@/lib/supabase/admin';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { getUser } from '@/lib/auth/utils';
 import { validateSignin, validateSignup } from '@/lib/auth/validation';
 
-type AuthActionResult<T = void> = T extends void
-  ? { success: true } | { success: false; error: string }
-  : { success: true; data: T } | { success: false; error: string };
+type AuthActionResult<T extends Record<string, unknown> = Record<string, never>> =
+  | ({ success: true } & T)
+  | { success: false; error: string };
 
 function sanitizeNext(next?: string | null) {
   if (!next || typeof next !== 'string') return '/account';
@@ -38,45 +36,25 @@ export async function signUpWithEmail(payload: {
     return { success: false, error: firstError };
   }
 
-  try {
-    // Check if user already exists
-    const existingUser = await db
-      .select()
-      .from(users)
-      .where(eq(users.email, payload.email.toLowerCase()))
-      .limit(1);
+  const supabase = await createServerSupabaseClient();
+  const { error } = await supabase.auth.signUp({
+    email: payload.email,
+    password: payload.password,
+    options: {
+      data: {
+        full_name: payload.fullName,
+      },
+    },
+  });
 
-    if (existingUser.length > 0) {
+  if (error) {
+    if (error.message.toLowerCase().includes('email')) {
       return { success: false, error: 'auth.errors.emailExists' };
     }
-
-    // Hash password
-    const passwordHash = await hashPassword(payload.password);
-
-    // Create user
-    const [newUser] = await db
-      .insert(users)
-      .values({
-        email: payload.email.toLowerCase(),
-        passwordHash,
-        emailVerified: true, // Auto-verify for now
-      })
-      .returning();
-
-    // Create profile
-    await db.insert(profiles).values({
-      id: newUser.id,
-      fullName: payload.fullName,
-    });
-
-    // Create session
-    await createSession(newUser.id);
-
-    return { success: true };
-  } catch (error) {
-    console.error('Signup error:', error);
     return { success: false, error: 'auth.errors.unknownError' };
   }
+
+  return { success: true };
 }
 
 export async function signInWithEmail(payload: {
@@ -94,36 +72,28 @@ export async function signInWithEmail(payload: {
     return { success: false, error: firstError };
   }
 
-  try {
-    // Find user
-    const [user] = await db
-      .select()
-      .from(users)
-      .where(eq(users.email, payload.email.toLowerCase()))
-      .limit(1);
+  const supabase = await createServerSupabaseClient();
+  const { error } = await supabase.auth.signInWithPassword({
+    email: payload.email,
+    password: payload.password,
+  });
 
-    if (!user) {
+  if (error) {
+    if (error.message.toLowerCase().includes('email') || error.message.toLowerCase().includes('password')) {
       return { success: false, error: 'auth.errors.invalidCredentials' };
     }
-
-    // Verify password
-    const isValid = await verifyPassword(payload.password, user.passwordHash);
-    if (!isValid) {
-      return { success: false, error: 'auth.errors.invalidCredentials' };
+    if (error.message.toLowerCase().includes('confirmed')) {
+      return { success: false, error: 'auth.errors.emailNotConfirmed' };
     }
-
-    // Create session
-    await createSession(user.id);
-
-    return { success: true };
-  } catch (error) {
-    console.error('Signin error:', error);
     return { success: false, error: 'auth.errors.unknownError' };
   }
+
+  return { success: true };
 }
 
 export async function signOut(): Promise<void> {
-  await deleteSession();
+  const supabase = await createServerSupabaseClient();
+  await supabase.auth.signOut();
   redirect('/');
 }
 
@@ -131,32 +101,34 @@ export async function updateProfile(payload: {
   fullName?: string | null;
   username?: string | null;
   phone?: string | null;
-}): Promise<AuthActionResult<{ id: string }>> {
+}): Promise<AuthActionResult<{ profile: Record<string, unknown> }>> {
   const user = await getUser();
   if (!user) {
     return { success: false, error: 'auth.errors.unauthenticated' };
   }
 
-  try {
-    const updates: Record<string, string | null> = {};
-    if (payload.fullName !== undefined) updates.fullName = payload.fullName;
-    if (payload.username !== undefined) updates.username = payload.username;
-    if (payload.phone !== undefined) updates.phone = payload.phone;
+  const supabase = await createServerSupabaseClient();
+  const updates = {
+    full_name: payload.fullName ?? null,
+    username: payload.username ?? null,
+    phone: payload.phone ?? null,
+  };
 
-    const [profile] = await db
-      .update(profiles)
-      .set(updates)
-      .where(eq(profiles.id, user.id))
-      .returning();
+  const { data, error } = await supabase
+    .from('profiles')
+    .update(updates)
+    .eq('id', user.id)
+    .select()
+    .single();
 
-    return { success: true, data: { id: profile.id } };
-  } catch (error: any) {
-    if (error?.message?.includes('unique') || error?.code === '23505') {
+  if (error) {
+    if (error.message.toLowerCase().includes('duplicate')) {
       return { success: false, error: 'auth.errors.usernameExists' };
     }
-    console.error('Update profile error:', error);
     return { success: false, error: 'auth.errors.unknownError' };
   }
+
+  return { success: true, profile: data ?? {} };
 }
 
 export async function updatePassword(payload: {
@@ -166,24 +138,16 @@ export async function updatePassword(payload: {
     return { success: false, error: 'auth.validation.passwordMin' };
   }
 
-  const user = await getUser();
-  if (!user) {
-    return { success: false, error: 'auth.errors.unauthenticated' };
-  }
+  const supabase = await createServerSupabaseClient();
+  const { error } = await supabase.auth.updateUser({
+    password: payload.newPassword,
+  });
 
-  try {
-    const passwordHash = await hashPassword(payload.newPassword);
-    
-    await db
-      .update(users)
-      .set({ passwordHash })
-      .where(eq(users.id, user.id));
-
-    return { success: true };
-  } catch (error) {
-    console.error('Update password error:', error);
+  if (error) {
     return { success: false, error: 'auth.errors.unknownError' };
   }
+
+  return { success: true };
 }
 
 export async function deleteAccount(): Promise<AuthActionResult> {
@@ -192,16 +156,13 @@ export async function deleteAccount(): Promise<AuthActionResult> {
     return { success: false, error: 'auth.errors.unauthenticated' };
   }
 
-  try {
-    // Delete user (profiles and sessions will cascade)
-    await db.delete(users).where(eq(users.id, user.id));
-    
-    // Clear session
-    await deleteSession();
-
-    return { success: true };
-  } catch (error) {
-    console.error('Delete account error:', error);
+  const { error } = await adminClient.auth.admin.deleteUser(user.id);
+  if (error) {
     return { success: false, error: 'auth.errors.unknownError' };
   }
+
+  const supabase = await createServerSupabaseClient();
+  await supabase.auth.signOut();
+
+  return { success: true };
 }

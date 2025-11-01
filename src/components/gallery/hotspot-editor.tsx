@@ -8,6 +8,7 @@ import { Button, Card, Input } from '@/components/ui';
 import { calculateHotspotCoordinates, createHotspot } from '@/lib/gallery/hotspot-utils';
 import { HotspotMarker } from './hotspot-marker';
 import { SearchAutocomplete } from '@/components/search/search-autocomplete';
+import { getAutocompleteSuggestions } from '@/lib/search/autocomplete-utils';
 
 interface HotspotEditorProps {
   imageUrl: string;
@@ -70,18 +71,8 @@ export function HotspotEditor({ imageUrl, hotspots, onChange, className }: Hotsp
               const q = e.target.value;
               setQuery(q);
               if (q.trim().length >= 2) {
-                try {
-                  const response = await fetch(`/api/search?q=${encodeURIComponent(q)}&locale=en`);
-                  if (response.ok) {
-                    const data = await response.json();
-                    setSuggestions(data.suggestions || []);
-                  } else {
-                    setSuggestions([]);
-                  }
-                } catch (error) {
-                  console.error('Failed to fetch suggestions:', error);
-                  setSuggestions([]);
-                }
+                const s = await getAutocompleteSuggestions(q);
+                setSuggestions(s as any);
               } else {
                 setSuggestions([]);
               }

@@ -22,7 +22,7 @@ import { LoyaltyPointsInput } from '@/components/marketing/loyalty-points-input'
 import {
   calculatePointsDiscount,
   validatePointsRedemption,
-} from '@/lib/marketing/loyalty-utils';
+} from '@/lib/marketing/loyalty-helpers';
 import { MIN_POINTS_REDEMPTION } from '@/lib/marketing/constants';
 
 export interface OrderReviewStepProps {

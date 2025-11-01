@@ -11,6 +11,7 @@ import {
   validateFilterInputs,
   getBioloadMultiplier,
 } from '@/lib/calculators/filter-calculator';
+import { getRecommendedFilters } from '@/lib/calculators/product-recommendations';
 import type {
   FilterCalculationInputs,
   FilterCalculationResult,
@@ -97,13 +98,10 @@ export function FilterCalculator({
 
     let cancelled = false;
     setIsLoadingProducts(true);
-    fetch(
-      `/api/calculators/recommended-filters?flowRate=${calculation.recommendedFlowRate}&tankVolume=${inputs.tankVolume}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
+    getRecommendedFilters(calculation.recommendedFlowRate, inputs.tankVolume)
+      .then((recommended) => {
         if (!cancelled) {
-          setProducts(data.products || []);
+          setProducts(recommended);
           setIsLoadingProducts(false);
         }
       })

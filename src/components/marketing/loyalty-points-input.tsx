@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Button, Input } from '@/components/ui';
 import { cn, formatCurrency } from '@/lib/utils';
 import type { Locale } from '@/types';
-import { calculatePointsDiscount } from '@/lib/marketing/loyalty-utils';
+import { calculatePointsDiscount } from '@/lib/marketing/loyalty-helpers';
 
 interface LoyaltyPointsInputProps {
   balance: number;

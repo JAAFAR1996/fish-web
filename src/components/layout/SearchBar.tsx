@@ -12,8 +12,9 @@ import {
 } from '@/components/search';
 import { cn } from '@/lib/utils';
 import {
+  getAutocompleteSuggestions,
   getSuggestionHref,
-} from '@/lib/search/suggestion-helpers';
+} from '@/lib/search/autocomplete-utils';
 import { SEARCH_DEBOUNCE, MIN_SEARCH_LENGTH } from '@/lib/search/constants';
 import { saveRecentSearch } from '@/lib/search/recent-searches';
 import { isVoiceSearchSupported } from '@/lib/search/voice-search';
@@ -100,8 +101,17 @@ export function SearchBar({ className, size = 'md' }: SearchBarProps) {
           console.error('[SearchBar] autocomplete error', error);
         }
 
-        setSuggestions([]);
-        setIsAutocompleteOpen(false);
+        try {
+          const fallback = await getAutocompleteSuggestions(query);
+          if (!cancelled) {
+            setSuggestions(fallback);
+            setIsAutocompleteOpen(true);
+          }
+        } catch (fallbackError) {
+          if (process.env.NODE_ENV !== 'production') {
+            console.error('[SearchBar] fallback autocomplete error', fallbackError);
+          }
+        }
       } finally {
         if (!cancelled) {
           setIsLoading(false);
