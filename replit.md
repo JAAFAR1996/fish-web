@@ -6,6 +6,15 @@ FISH WEB is a modern, RTL-first e-commerce platform for premium aquarium equipme
 
 # Recent Changes
 
+**2025-11-01**: Began Supabase to Neon Postgres Migration
+- ✅ Installed Drizzle ORM and dependencies (`drizzle-orm`, `@neondatabase/serverless`, `ws`)
+- ✅ Created comprehensive Drizzle schema (`server/schema.ts`) with all tables
+- ✅ Added database management scripts (`db:push`, `db:generate`, `db:studio`)
+- ✅ Successfully pushed database schema to Neon Postgres
+- ⚠️ **Migration In Progress**: Authentication system still uses Supabase Auth
+- ⚠️ **Migration In Progress**: Database queries still use Supabase client
+- 📝 See `MIGRATION_STATUS.md` for detailed migration progress and next steps
+
 **2025-11-01**: Migrated from Vercel to Replit
 - Configured dev/start scripts to bind to port 5000 with host 0.0.0.0
 - Added Cache-Control headers for development (no-store) to prevent caching issues in Replit's iframe
@@ -65,30 +74,34 @@ src/components/
 
 ## Backend Architecture
 
-**Database**: Supabase (PostgreSQL)
-- Row Level Security (RLS) policies for data access control
-- Real-time subscriptions for live updates
+**Database**: Neon Postgres (via Replit) with Drizzle ORM
+- PostgreSQL 15+ with connection pooling
+- Schema defined in `server/schema.ts`
+- Migrations managed via `drizzle-kit`
 - Database schema includes:
-  - `products` - Product catalog
-  - `profiles` - Extended user data (linked to auth.users)
-  - `cart_items` - Shopping cart persistence
-  - `wishlist_items` - Saved products
-  - `saved_addresses` - User shipping addresses
-  - `orders` - Order management
-  - `reviews` - Product reviews
-  - `notifications` - In-app notifications
-  - `saved_calculations` - Calculator results
-  - `gallery_setups` - User-submitted aquarium setups
-  - Marketing tables: `flash_sales`, `bundles`, `loyalty_points`, `referrals`, `newsletter_subscribers`
+  - User management: `users`, `profiles`, `sessions`
+  - E-commerce: `products`, `carts`, `cart_items`, `orders`, `order_items`
+  - Shipping: `saved_addresses`, `shipping_rates`
+  - Marketing: `flash_sales`, `bundles`, `coupons`, `loyalty_points`, `referrals`, `newsletter_subscribers`
+  - Community: `reviews`, `helpful_votes`, `wishlists`, `notify_me_requests`, `gallery_setups`
+  - Admin: `admin_audit_logs`
+  - User tools: `saved_calculations`, `notifications`
 
-**Authentication**
-- Supabase Auth with multiple providers:
-  - Email/password
+**Database Management Scripts**:
+- `npm run db:push` - Push schema changes to database
+- `npm run db:generate` - Generate migration files
+- `npm run db:studio` - Open Drizzle Studio UI
+
+**Authentication** ⚠️ *Migration in progress*
+- Currently: Supabase Auth with:
+  - Email/password authentication
   - Google OAuth
-  - Phone/OTP (configured but implementation varies)
-- Session management via `@supabase/ssr`
-- Middleware-based session refresh
-- Cookie-based auth state persistence
+  - Session management via `@supabase/ssr`
+  - Cookie-based auth state
+- Target: Custom session-based auth with JWT tokens
+  - Password hashing with `bcryptjs`
+  - Session tokens with `jose`
+  - Server-side session validation
 
 **Server Actions** (in `src/lib/`)
 - `auth/actions.ts` - Sign up, sign in, password updates
@@ -97,11 +110,14 @@ src/components/
 - `admin/*-actions.ts` - Admin product, order, inventory management
 - `marketing/*-actions.ts` - Newsletter, loyalty, referral operations
 
-**Data Fetching**
-- Server Components fetch data directly from Supabase
-- Client Components use browser Supabase client
-- `createServerSupabaseClient()` for authenticated server requests
-- `createBrowserSupabaseClient()` for client-side queries
+**Data Fetching** ⚠️ *Migration in progress*
+- Current: Supabase client for all database operations
+  - Server Components use `createServerSupabaseClient()`
+  - Client Components use `createBrowserSupabaseClient()`
+- Target: Drizzle ORM with server-only queries
+  - All database access through `server/db.ts`
+  - No client-side database queries
+  - Server Actions and Server Components only
 
 ## Key Features
 
@@ -161,12 +177,17 @@ src/components/
 ## External Dependencies
 
 **Third-Party Services**
-- **Supabase**: Database, authentication, storage, real-time subscriptions
+- **Neon Postgres** (via Replit): Primary database
+- **Supabase** ⚠️ *Being phased out*: Currently used for auth and storage
 - **Resend**: Transactional email delivery (newsletter welcome emails)
 - **Plausible**: Privacy-focused web analytics
 
 **Key NPM Packages**
-- `@supabase/supabase-js`, `@supabase/ssr` - Backend integration
+- `drizzle-orm`, `@neondatabase/serverless` - Database ORM and connection
+- `drizzle-kit` - Database migrations and schema management
+- `bcryptjs` - Password hashing
+- `jose`, `jsonwebtoken` - JWT tokens for authentication
+- `@supabase/supabase-js`, `@supabase/ssr` ⚠️ *Being phased out*
 - `next-intl` - Internationalization
 - `next-themes` - Dark mode
 - `fuse.js` - Client-side search
@@ -177,8 +198,9 @@ src/components/
 - `reading-time` - Blog reading estimates
 - `rehype-*`, `remark-*` - MDX plugins
 
-**Storage**
-- Supabase Storage for product images and review uploads
+**Storage** ⚠️ *Migration pending*
+- Current: Supabase Storage for product images, review uploads, gallery images
+- Target: Replit Object Storage or external service (S3, Cloudflare R2)
 - Local storage for cart state persistence
 - Session storage for temporary form data
 
