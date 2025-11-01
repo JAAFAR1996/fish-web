@@ -22,12 +22,16 @@ const fetchProductsInternal = async (): Promise<{
 
   if (error || !data) {
     console.error('Failed to fetch products', error);
-    const fallback = JSON.parse(JSON.stringify(productsData)) as Product[];
+    const fallback = (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
+      Object.freeze({ ...product })
+    );
     return { products: fallback, hadError: true };
   }
 
+  const products = data.map((row) => Object.freeze({ ...normalizeSupabaseProduct(row) }));
+
   return {
-    products: data.map((row) => normalizeSupabaseProduct(row)),
+    products,
     hadError: false,
   };
 };

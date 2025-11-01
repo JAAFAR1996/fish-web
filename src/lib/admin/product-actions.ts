@@ -141,6 +141,7 @@ export async function updateProductAction(
 
   const updates: Record<string, unknown> = {};
   const changes: Record<string, { before: unknown; after: unknown }> = {};
+  const imagesToDelete: string[] = [];
 
   if (formData.name && formData.name !== existingProduct.name) {
     const newSlug = slugify(formData.name);
@@ -248,7 +249,7 @@ export async function updateProductAction(
     if (hasChanged) {
       const removedImages = currentImages.filter((url) => !sanitizedImages.includes(url));
       if (removedImages.length) {
-        await deleteProductImages(removedImages);
+        imagesToDelete.push(...removedImages);
       }
 
       updates.images = sanitizedImages;
@@ -273,6 +274,18 @@ export async function updateProductAction(
   if (updateError) {
     console.error('Failed to update product', updateError);
     return { success: false, error: 'errors.productUpdateFailed' };
+  }
+
+  if (imagesToDelete.length) {
+    try {
+      await deleteProductImages(imagesToDelete);
+    } catch (imageError) {
+      console.error('Failed to delete outdated product images', {
+        productId,
+        imagesToDelete,
+        error: imageError,
+      });
+    }
   }
 
   await createAuditLog(admin.id, AUDIT_ACTIONS.PRODUCT_UPDATED, ENTITY_TYPES.PRODUCT, productId, {

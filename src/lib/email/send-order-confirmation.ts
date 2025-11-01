@@ -3,7 +3,7 @@ import type { Locale, Order, OrderItem } from '@/types';
 import { adminClient } from '@/lib/supabase/admin';
 import { formatCurrency } from '@/lib/utils';
 
-import { resend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
+import { getResend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
 import { renderOrderConfirmationEmailEn } from './templates/order-confirmation-en';
 import { renderOrderConfirmationEmailAr } from './templates/order-confirmation-ar';
 
@@ -60,6 +60,7 @@ export async function sendOrderConfirmationEmail(
   const subject = getEmailSubject(locale, order.order_number);
 
   try {
+    const resend = getResend();
     await resend.emails.send({
       from: FROM_EMAIL,
       to: recipientEmail,

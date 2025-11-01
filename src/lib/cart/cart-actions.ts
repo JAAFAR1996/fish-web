@@ -7,6 +7,7 @@ import type { CartWithItems, LocalStorageCartItem } from '@/types';
 import { getProductsWithFlashSales } from '@/lib/data/products';
 import { getUser } from '@/lib/auth/utils';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { routing } from '@/i18n/routing';
 import {
   clearUserCart,
   createCart,
@@ -18,6 +19,17 @@ import {
 } from './cart-queries';
 import { validateQuantity } from './cart-utils';
 import { isFlashSaleActive } from '@/lib/marketing/flash-sales-helpers';
+
+function revalidateCart(locale: string | null | undefined) {
+  if (locale) {
+    revalidatePath(`/${locale}/cart`);
+    return;
+  }
+
+  routing.locales.forEach((loc) => {
+    revalidatePath(`/${loc}/cart`);
+  });
+}
 
 export async function addToCartAction(
   productId: string,
@@ -66,7 +78,7 @@ export async function addToCartAction(
     }
 
     await upsertCartItem(cart.id, productId, newQuantity, unitPrice);
-    revalidatePath(`/${user.user_metadata?.locale ?? 'en'}/cart`);
+    revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
     console.error('Failed to add to cart', error);
@@ -89,7 +101,7 @@ export async function removeFromCartAction(
 
   try {
     await removeCartItem(cart.id, productId);
-    revalidatePath(`/${user.user_metadata?.locale ?? 'en'}/cart`);
+    revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
     console.error('Failed to remove cart item', error);
@@ -130,7 +142,7 @@ export async function updateQuantityAction(
 
   try {
     await upsertCartItem(cart.id, productId, quantity, unitPrice);
-    revalidatePath(`/${user.user_metadata?.locale ?? 'en'}/cart`);
+    revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
     console.error('Failed to update cart quantity', error);
@@ -154,7 +166,7 @@ export async function clearCartAction(): Promise<{
 
   try {
     await clearUserCart(cart.id);
-    revalidatePath(`/${user.user_metadata?.locale ?? 'en'}/cart`);
+    revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
     console.error('Failed to clear cart', error);
@@ -178,7 +190,7 @@ export async function syncGuestCartAction(
 
   try {
     await syncGuestCartToSupabase(user.id, guestItems, products);
-    revalidatePath(`/${user.user_metadata?.locale ?? 'en'}/cart`);
+    revalidateCart(user.user_metadata?.locale);
     return { success: true };
   } catch (error) {
     console.error('Failed to sync guest cart', error);

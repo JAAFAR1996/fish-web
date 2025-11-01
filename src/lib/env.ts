@@ -1,4 +1,4 @@
-function validateEnv<T extends string>(
+export function validateEnv<T extends string>(
   name: string,
   value: string | undefined,
   serverOnly = false
@@ -22,17 +22,4 @@ export function getSupabaseAnonKey(): string {
     'NEXT_PUBLIC_SUPABASE_ANON_KEY',
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   );
-}
-
-export function getSupabaseServiceRoleKey(): string {
-  return validateEnv(
-    'SUPABASE_SERVICE_ROLE_KEY',
-    process.env.SUPABASE_SERVICE_ROLE_KEY,
-    true
-  );
-}
-
-// For admin client
-export function getSupabaseServerUrl(): string {
-  return validateEnv('SUPABASE_URL', process.env.SUPABASE_URL, true);
 }

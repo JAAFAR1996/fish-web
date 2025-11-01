@@ -2,6 +2,12 @@ import { createServerSupabaseClient } from '@/lib/supabase/server';
 import type { FlashSale } from '@/types';
 export { isFlashSaleActive, calculateTimeRemaining, formatCountdown } from './flash-sales-helpers';
 
+const RPC_INCREMENT_FLASH_SALE_STOCK = 'increment_flash_sale_stock';
+const RPC_PARAM_SALE_ID = 'p_sale_id';
+const RPC_PARAM_QUANTITY = 'p_qty';
+
+type IncrementFlashSaleStockResult = number | null;
+
 /**
  * Get all active flash sales (started and not ended)
  */
@@ -63,13 +69,24 @@ export function canPurchaseFlashSale(flashSale: FlashSale, requestedQuantity: nu
 export async function incrementFlashSaleSold(flashSaleId: string, quantity: number): Promise<void> {
   const supabase = await createServerSupabaseClient();
 
-  // RPC parameters must match SQL signature (p_sale_id, p_qty)
-  const { error } = await supabase.rpc('increment_flash_sale_stock', {
-    p_sale_id: flashSaleId,
-    p_qty: quantity,
-  });
+  const { data, error } = await supabase.rpc<IncrementFlashSaleStockResult>(
+    RPC_INCREMENT_FLASH_SALE_STOCK,
+    {
+      [RPC_PARAM_SALE_ID]: flashSaleId,
+      [RPC_PARAM_QUANTITY]: quantity,
+    }
+  );
 
   if (error) {
     console.error(`[Flash Sales] Error incrementing stock for ${flashSaleId}:`, error);
+    return;
+  }
+
+  if (typeof data !== 'number') {
+    console.error('[Flash Sales] Unexpected increment result', {
+      flashSaleId,
+      quantity,
+      data,
+    });
   }
 }

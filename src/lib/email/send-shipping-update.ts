@@ -1,4 +1,4 @@
-import { resend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
+import { getResend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
 import { renderShippingUpdateEmailEn } from './templates/shipping-update-en';
 import { renderShippingUpdateEmailAr } from './templates/shipping-update-ar';
 import { adminClient } from '@/lib/supabase/admin';
@@ -48,6 +48,7 @@ export async function sendShippingUpdateEmail({
         ? renderShippingUpdateEmailAr({ order, trackingNumber, carrier })
         : renderShippingUpdateEmailEn({ order, trackingNumber, carrier });
 
+    const resend = getResend();
     await resend.emails.send({
       from: FROM_EMAIL,
       to: recipientEmail,

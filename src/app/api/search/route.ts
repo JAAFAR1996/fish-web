@@ -52,26 +52,45 @@ function buildSuggestionsFromProducts(
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const query = searchParams.get('q')?.trim() ?? '';
+  const rawQuery = searchParams.get('q') ?? '';
   const locale = (searchParams.get('locale') as Locale | null) ?? 'en';
 
-  if (query.length < MIN_SEARCH_LENGTH) {
+  const normalizedQuery = rawQuery
+    .replace(/\s+/g, ' ')
+    .replace(/[&|!]{2,}/g, (match) => match[0])
+    .trim();
+
+  const MAX_QUERY_LENGTH = 256;
+
+  if (normalizedQuery.length > MAX_QUERY_LENGTH) {
+    const truncated = normalizedQuery.slice(0, MAX_QUERY_LENGTH).trimEnd();
+    return NextResponse.json(
+      {
+        suggestions: [],
+        error: 'query_too_long',
+      },
+      { status: 400, headers: { 'x-truncated-query': truncated } }
+    );
+  }
+
+  if (normalizedQuery.length < MIN_SEARCH_LENGTH) {
     return NextResponse.json({ suggestions: [] });
   }
 
   try {
-    const supabaseResults = await searchProductsSupabase(query, locale, 20);
+    const supabaseResults = await searchProductsSupabase(normalizedQuery, locale, 20);
     const suggestions = buildSuggestionsFromProducts(supabaseResults);
 
     if (suggestions.length > 0) {
       return NextResponse.json({ suggestions, source: 'supabase' });
     }
   } catch (error) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('[api/search] Supabase search failed', error);
-    }
+    console.error('[api/search] Supabase search failed', {
+      error,
+      locale,
+    });
   }
 
-  const fallback = await getAutocompleteSuggestions(query);
+  const fallback = await getAutocompleteSuggestions(normalizedQuery);
   return NextResponse.json({ suggestions: fallback, source: 'fallback' });
 }

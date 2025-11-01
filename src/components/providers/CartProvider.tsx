@@ -65,10 +65,7 @@ function mapStorageItemsToProducts(
     .map((item) => {
       const product = products.find((p) => p.id === item.productId);
       if (!product) return null;
-      const flashSale = product.flashSale;
-      const unitPrice = flashSale && isFlashSaleActive(flashSale)
-        ? flashSale.flash_price
-        : product.price;
+      const unitPrice = getProductUnitPrice(product);
       return {
         id: `guest-${product.id}`,
         cart_id: 'guest',
@@ -81,6 +78,13 @@ function mapStorageItemsToProducts(
       } as CartItemWithProduct;
     })
     .filter((value): value is CartItemWithProduct => value !== null);
+}
+
+function getProductUnitPrice(product: Product): number {
+  const flashSale = product.flashSale;
+  return flashSale && isFlashSaleActive(flashSale)
+    ? flashSale.flash_price
+    : product.price;
 }
 
 function mapSavedItemsToProducts(
@@ -239,20 +243,33 @@ export function CartProvider({ children }: Props) {
 
   const addItem = useCallback(
     async (product: Product, quantity: number = 1) => {
+      const unitPrice = getProductUnitPrice(product);
+      const maxAllowed = Math.min(product.stock, MAX_QUANTITY);
+
+      if (maxAllowed <= 0) {
+        return;
+      }
+
       if (user) {
         const optimisticItems = [...items];
         const existing = optimisticItems.find(
           (item) => item.product_id === product.id
         );
+        const currentQuantity = existing ? existing.quantity : 0;
+        const quantityToAdd = Math.min(quantity, Math.max(maxAllowed - currentQuantity, 0));
+        const finalQuantity = Math.min(currentQuantity + quantityToAdd, maxAllowed);
+
         if (existing) {
-          existing.quantity += quantity;
+          existing.quantity = finalQuantity;
+          existing.unit_price = unitPrice;
+          existing.updated_at = new Date().toISOString();
         } else {
           optimisticItems.push({
             id: `optimistic-${product.id}`,
             cart_id: 'optimistic',
             product_id: product.id,
-            quantity,
-            unit_price: product.price,
+            quantity: finalQuantity,
+            unit_price: unitPrice,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
             product,
@@ -261,15 +278,17 @@ export function CartProvider({ children }: Props) {
         setItems(optimisticItems);
         setIsSidebarOpen(true);
 
-        const response = await addToCartAction(product.id, quantity);
-        if (!response.success) {
-          await loadCart();
-        } else {
-          await loadCart();
+        const response = quantityToAdd > 0
+          ? await addToCartAction(product.id, quantityToAdd)
+          : { success: true };
+
+        await loadCart();
+
+        if (response.success && quantityToAdd > 0) {
           trackEvent('Add to Cart', {
             product: product.name,
-            price: product.price,
-            quantity,
+            price: unitPrice,
+            quantity: quantityToAdd,
           });
         }
         return;
@@ -279,15 +298,15 @@ export function CartProvider({ children }: Props) {
       const existingItem = guestCart.items.find(
         (entry) => entry.productId === product.id
       );
-      const maxAllowed = Math.min(product.stock, MAX_QUANTITY);
-
-      if (maxAllowed <= 0) {
-        return;
-      }
 
       const desiredQuantity =
         (existingItem?.quantity ?? 0) + quantity;
       const finalQuantity = Math.min(desiredQuantity, maxAllowed);
+      const quantityToAdd = finalQuantity - (existingItem?.quantity ?? 0);
+
+      if (quantityToAdd <= 0) {
+        return;
+      }
 
       let updatedCart;
       if (existingItem) {
@@ -301,8 +320,8 @@ export function CartProvider({ children }: Props) {
       setIsSidebarOpen(true);
       trackEvent('Add to Cart', {
         product: product.name,
-        price: product.price,
-        quantity: finalQuantity,
+        price: unitPrice,
+        quantity: quantityToAdd,
       });
     },
     [items, loadCart, loadProducts, user]
@@ -316,11 +335,7 @@ export function CartProvider({ children }: Props) {
         );
         setItems(optimisticItems);
         const response = await removeFromCartAction(productId);
-        if (!response.success) {
-          await loadCart();
-        } else {
-          await loadCart();
-        }
+        await loadCart();
         return;
       }
 
@@ -341,11 +356,7 @@ export function CartProvider({ children }: Props) {
         );
         setItems(optimisticItems);
         const response = await updateQuantityAction(productId, quantity);
-        if (!response.success) {
-          await loadCart();
-        } else {
-          await loadCart();
-        }
+        await loadCart();
         return;
       }
 
@@ -427,11 +438,10 @@ export function CartProvider({ children }: Props) {
   const clearCart = useCallback(async () => {
     if (user) {
       const response = await clearCartAction();
+      await loadCart();
       if (!response.success) {
-        await loadCart();
         return;
       }
-      await loadCart();
       return;
     }
 

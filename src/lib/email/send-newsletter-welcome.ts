@@ -1,4 +1,4 @@
-import { resend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
+import { getResend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
 import type { Locale } from '@/types';
 import { renderNewsletterWelcomeEmailAr } from './templates/newsletter-welcome-ar';
 import { renderNewsletterWelcomeEmailEn } from './templates/newsletter-welcome-en';
@@ -33,6 +33,7 @@ export async function sendNewsletterWelcomeEmail(
       : renderNewsletterWelcomeEmailEn({ email, unsubscribeToken });
 
     // Send email using Resend
+    const resend = getResend();
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to: email,

@@ -28,12 +28,36 @@ const securityHeaders = [
   },
 ];
 
-function getSupabaseHostname() {
+function getSupabaseHostname(): string | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+
   if (!url) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(
+        'NEXT_PUBLIC_SUPABASE_URL is not set; Supabase image remote pattern will be disabled in development.'
+      );
+      return null;
+    }
     throw new Error('NEXT_PUBLIC_SUPABASE_URL is required for image hosting configuration');
   }
-  return new URL(url).hostname;
+
+  try {
+    return new URL(url).hostname;
+  } catch (error) {
+    throw new Error(`Invalid NEXT_PUBLIC_SUPABASE_URL: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
+function getAdditionalImageHosts(): string[] {
+  const raw = process.env.NEXT_PUBLIC_IMAGE_HOSTS;
+  if (!raw) {
+    return [];
+  }
+
+  return raw
+    .split(',')
+    .map((host) => host.trim())
+    .filter(Boolean);
 }
 
 const withMDX = createMDX({
@@ -103,17 +127,30 @@ const pwaConfig = {
   ],
 };
 
+const supabaseHostname = getSupabaseHostname();
+const additionalHosts = getAdditionalImageHosts();
+
+const remoteImagePatterns = [
+  ...(supabaseHostname
+    ? [
+        {
+          protocol: 'https',
+          hostname: supabaseHostname,
+        } as const,
+      ]
+    : []),
+  ...additionalHosts.map((hostname) => ({
+    protocol: 'https',
+    hostname,
+  })),
+];
+
 const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
   images: {
     formats: ['image/avif', 'image/webp'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: getSupabaseHostname(),
-      },
-    ],
+    remotePatterns: remoteImagePatterns,
     deviceSizes: [360, 414, 640, 768, 1024, 1280, 1536],
     imageSizes: [32, 48, 64, 96, 128],
   },

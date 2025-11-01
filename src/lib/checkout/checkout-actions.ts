@@ -310,14 +310,6 @@ export async function createOrderAction(
     const orderItemsPayload = mapCartItemsToOrderItems(cartItemsWithProducts, order.id);
     const orderItems = await createOrderItems(orderItemsPayload);
 
-    if (typeof window === 'undefined') {
-      console.log('Purchase event:', {
-        orderNumber: order.order_number,
-        total: order.total,
-        items: orderItems.length,
-      });
-    }
-
     if (authCartId) {
       const supabase = await createServerSupabaseClient();
       await supabase

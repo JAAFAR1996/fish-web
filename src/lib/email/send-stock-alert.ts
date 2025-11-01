@@ -1,4 +1,4 @@
-import { resend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
+import { getResend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
 import { renderStockAlertEmailEn } from './templates/stock-alert-en';
 import { renderStockAlertEmailAr } from './templates/stock-alert-ar';
 import type { Product, Locale } from '@/types';
@@ -36,6 +36,7 @@ export async function sendBackInStockEmail({
         ? renderStockAlertEmailAr({ product, productUrl, formatAmount })
         : renderStockAlertEmailEn({ product, productUrl, formatAmount });
 
+    const resend = getResend();
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
