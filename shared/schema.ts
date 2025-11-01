@@ -70,9 +70,7 @@ export const carts = pgTable('carts', {
   status: text('status').notNull().default('active'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (table) => ({
-  uniqueActiveCart: unique('unique_active_cart').on(table.userId, table.status).where(sql`${table.status} = 'active'`),
-}));
+});
 
 export const cartItems = pgTable('cart_items', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -101,9 +99,7 @@ export const savedAddresses = pgTable('saved_addresses', {
   isDefault: boolean('is_default').notNull().default(false),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (table) => ({
-  uniqueDefaultAddress: unique('unique_default_address').on(table.userId).where(sql`${table.isDefault} = true`),
-}));
+});
 
 export const savedCalculations = pgTable('saved_calculations', {
   id: uuid('id').primaryKey().defaultRandom(),

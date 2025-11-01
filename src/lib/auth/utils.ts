@@ -1,37 +1,26 @@
-import type { User, Session } from '@supabase/supabase-js';
-
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { profiles } from '@shared/schema';
+import { eq } from 'drizzle-orm';
+import { getCurrentUser, requireAuth } from '@server/middleware';
+import type { AuthUser } from '@server/auth';
 
 import type { UserProfile } from '@/types';
 
 /**
- * Returns the currently authenticated Supabase user or null if unauthenticated.
+ * Returns the currently authenticated user or null if unauthenticated.
  * Always prefer this helper over getSession() when performing auth checks.
  */
-export async function getUser(): Promise<User | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error) {
-    return null;
-  }
-
-  return data.user ?? null;
+export async function getUser(): Promise<AuthUser | null> {
+  return getCurrentUser();
 }
 
 /**
- * Returns the active Supabase session. Use for reading session data only.
- * For auth checks prefer getUser() which validates the JWT with Supabase.
+ * Returns the active session user data.
+ * @deprecated Use getUser() instead for consistency
  */
-export async function getSession(): Promise<Session | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase.auth.getSession();
-
-  if (error) {
-    return null;
-  }
-
-  return data.session ?? null;
+export async function getSession(): Promise<{ user: AuthUser | null } | null> {
+  const user = await getCurrentUser();
+  return user ? { user } : null;
 }
 
 /**
@@ -39,32 +28,25 @@ export async function getSession(): Promise<Session | null> {
  * Useful in server components, route handlers, or server actions that
  * require a signed-in user.
  */
-export async function requireUser(): Promise<User> {
-  const user = await getUser();
-
-  if (!user) {
-    throw new Error('User must be authenticated');
-  }
-
-  return user;
+export async function requireUser(): Promise<AuthUser> {
+  return requireAuth();
 }
 
 /**
- * Fetches the profile row associated with a Supabase auth user.
+ * Fetches the profile row associated with an auth user.
  */
 export async function getUserProfile(userId: string): Promise<UserProfile | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', userId)
-    .single<UserProfile>();
+  const [profile] = await db
+    .select()
+    .from(profiles)
+    .where(eq(profiles.id, userId))
+    .limit(1);
 
-  if (error) {
+  if (!profile) {
     return null;
   }
 
-  return data ?? null;
+  return profile as unknown as UserProfile;
 }
 
 /**
@@ -79,7 +61,7 @@ export async function isAuthenticated(): Promise<boolean> {
  * Ensures the current user has admin privileges.
  * Throws if no authenticated admin user exists.
  */
-export async function requireAdmin(): Promise<User> {
+export async function requireAdmin(): Promise<AuthUser> {
   const user = await getUser();
 
   if (!user) {

@@ -1,15 +1,27 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-
-import { adminClient } from '@/lib/supabase/admin';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { getUser } from '@/lib/auth/utils';
+import { cookies } from 'next/headers';
+import { db } from '@server/db';
+import { profiles, users } from '@shared/schema';
+import { eq } from 'drizzle-orm';
+import {
+  createUser,
+  authenticateUser,
+  createSession,
+  deleteSession,
+  deleteAllUserSessions,
+  updateUserPassword,
+  getUserByEmail,
+} from '@server/auth';
+import { getCurrentUser } from '@server/middleware';
 import { validateSignin, validateSignup } from '@/lib/auth/validation';
 
 type AuthActionResult<T extends Record<string, unknown> = Record<string, never>> =
   | ({ success: true } & T)
   | { success: false; error: string };
+
+const SESSION_COOKIE_NAME = 'session';
 
 function sanitizeNext(next?: string | null) {
   if (!next || typeof next !== 'string') return '/account';
@@ -36,25 +48,37 @@ export async function signUpWithEmail(payload: {
     return { success: false, error: firstError };
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.auth.signUp({
-    email: payload.email,
-    password: payload.password,
-    options: {
-      data: {
-        full_name: payload.fullName,
-      },
-    },
-  });
+  try {
+    const existingUser = await getUserByEmail(payload.email);
+    if (existingUser) {
+      return { success: false, error: 'auth.errors.emailExists' };
+    }
 
-  if (error) {
-    if (error.message.toLowerCase().includes('email')) {
+    const user = await createUser({
+      email: payload.email,
+      password: payload.password,
+      fullName: payload.fullName,
+    });
+
+    const sessionToken = await createSession(user.id);
+    
+    cookies().set({
+      name: SESSION_COOKIE_NAME,
+      value: sessionToken,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
+
+    return { success: true };
+  } catch (error: any) {
+    if (error.message?.toLowerCase().includes('email')) {
       return { success: false, error: 'auth.errors.emailExists' };
     }
     return { success: false, error: 'auth.errors.unknownError' };
   }
-
-  return { success: true };
 }
 
 export async function signInWithEmail(payload: {
@@ -72,28 +96,39 @@ export async function signInWithEmail(payload: {
     return { success: false, error: firstError };
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.auth.signInWithPassword({
-    email: payload.email,
-    password: payload.password,
-  });
+  try {
+    const user = await authenticateUser(payload.email, payload.password);
 
-  if (error) {
-    if (error.message.toLowerCase().includes('email') || error.message.toLowerCase().includes('password')) {
+    if (!user) {
       return { success: false, error: 'auth.errors.invalidCredentials' };
     }
-    if (error.message.toLowerCase().includes('confirmed')) {
-      return { success: false, error: 'auth.errors.emailNotConfirmed' };
-    }
+
+    const sessionToken = await createSession(user.id);
+    
+    cookies().set({
+      name: SESSION_COOKIE_NAME,
+      value: sessionToken,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
+
+    return { success: true };
+  } catch (error) {
     return { success: false, error: 'auth.errors.unknownError' };
   }
-
-  return { success: true };
 }
 
 export async function signOut(): Promise<void> {
-  const supabase = await createServerSupabaseClient();
-  await supabase.auth.signOut();
+  const sessionToken = cookies().get(SESSION_COOKIE_NAME)?.value;
+  
+  if (sessionToken) {
+    await deleteSession(sessionToken);
+  }
+  
+  cookies().delete(SESSION_COOKIE_NAME);
   redirect('/');
 }
 
@@ -102,33 +137,38 @@ export async function updateProfile(payload: {
   username?: string | null;
   phone?: string | null;
 }): Promise<AuthActionResult<{ profile: Record<string, unknown> }>> {
-  const user = await getUser();
+  const user = await getCurrentUser();
   if (!user) {
     return { success: false, error: 'auth.errors.unauthenticated' };
   }
 
-  const supabase = await createServerSupabaseClient();
-  const updates = {
-    full_name: payload.fullName ?? null,
-    username: payload.username ?? null,
-    phone: payload.phone ?? null,
-  };
+  try {
+    const updates: any = {};
+    if (payload.fullName !== undefined) updates.fullName = payload.fullName;
+    if (payload.username !== undefined) updates.username = payload.username;
+    if (payload.phone !== undefined) updates.phone = payload.phone;
 
-  const { data, error } = await supabase
-    .from('profiles')
-    .update(updates)
-    .eq('id', user.id)
-    .select()
-    .single();
+    const [updatedProfile] = await db
+      .update(profiles)
+      .set(updates)
+      .where(eq(profiles.id, user.id))
+      .returning();
 
-  if (error) {
-    if (error.message.toLowerCase().includes('duplicate')) {
+    if (payload.fullName !== undefined) {
+      await db
+        .update(users)
+        .set({ fullName: payload.fullName })
+        .where(eq(users.id, user.id));
+    }
+
+    return { success: true, profile: updatedProfile as Record<string, unknown> };
+  } catch (error: any) {
+    if (error.message?.toLowerCase().includes('duplicate') || 
+        error.message?.toLowerCase().includes('unique')) {
       return { success: false, error: 'auth.errors.usernameExists' };
     }
     return { success: false, error: 'auth.errors.unknownError' };
   }
-
-  return { success: true, profile: data ?? {} };
 }
 
 export async function updatePassword(payload: {
@@ -138,31 +178,43 @@ export async function updatePassword(payload: {
     return { success: false, error: 'auth.validation.passwordMin' };
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.auth.updateUser({
-    password: payload.newPassword,
-  });
-
-  if (error) {
-    return { success: false, error: 'auth.errors.unknownError' };
-  }
-
-  return { success: true };
-}
-
-export async function deleteAccount(): Promise<AuthActionResult> {
-  const user = await getUser();
+  const user = await getCurrentUser();
   if (!user) {
     return { success: false, error: 'auth.errors.unauthenticated' };
   }
 
-  const { error } = await adminClient.auth.admin.deleteUser(user.id);
-  if (error) {
+  try {
+    await updateUserPassword(user.id, payload.newPassword);
+    await deleteAllUserSessions(user.id);
+    
+    const sessionToken = await createSession(user.id);
+    cookies().set({
+      name: SESSION_COOKIE_NAME,
+      value: sessionToken,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
+
+    return { success: true };
+  } catch (error) {
     return { success: false, error: 'auth.errors.unknownError' };
   }
+}
 
-  const supabase = await createServerSupabaseClient();
-  await supabase.auth.signOut();
+export async function deleteAccount(): Promise<AuthActionResult> {
+  const user = await getCurrentUser();
+  if (!user) {
+    return { success: false, error: 'auth.errors.unauthenticated' };
+  }
 
-  return { success: true };
+  try {
+    await db.delete(users).where(eq(users.id, user.id));
+    cookies().delete(SESSION_COOKIE_NAME);
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: 'auth.errors.unknownError' };
+  }
 }
