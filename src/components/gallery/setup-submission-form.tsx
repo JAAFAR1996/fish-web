@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Button, Card, CardContent, CardHeader, CardTitle, Input } from '@/components/ui';
 import type { GalleryStyle, Hotspot } from '@/types';
 import { GALLERY_STYLES, MAX_GALLERY_MEDIA } from '@/lib/gallery/constants';
-import { uploadGalleryImages } from '@/lib/gallery/image-upload';
+import { uploadGalleryImages } from '@/lib/gallery/image-upload-client';
 import { createSetupAction } from '@/lib/gallery/gallery-actions';
 import { ImageUploadInput } from '@/components/reviews/image-upload-input';
 import { useAuth } from '@/components/providers/SupabaseAuthProvider';

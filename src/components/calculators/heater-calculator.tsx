@@ -10,7 +10,7 @@ import {
   calculateHeaterWattage,
   validateHeaterInputs,
 } from '@/lib/calculators/heater-calculator';
-import { getRecommendedHeaters } from '@/lib/calculators/product-recommendations';
+import { getRecommendedHeatersClient } from '@/lib/calculators/product-recommendations-client';
 import type {
   HeaterCalculationInputs,
   HeaterCalculationResult,
@@ -92,7 +92,7 @@ export function HeaterCalculator({
     let cancelled = false;
 
     setIsLoadingProducts(true);
-    getRecommendedHeaters(calculation.recommendedWattage).then((recommended) => {
+    getRecommendedHeatersClient(calculation.recommendedWattage).then((recommended) => {
       if (!cancelled) {
         setProducts(recommended);
         setIsLoadingProducts(false);
