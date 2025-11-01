@@ -4,6 +4,7 @@ import productsData from '@/data/products.json';
 import { getActiveFlashSales } from '@/lib/marketing/flash-sales-utils';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { normalizeSupabaseProduct } from '@/lib/search/normalize';
+import { complementaryCategoryMap } from '@/lib/data/constants';
 import type { FlashSale, Product, ProductFilters, ProductWithFlashSale, SortOption } from '@/types';
 
 const fetchProductsInternal = async (): Promise<{
@@ -354,16 +355,8 @@ export async function getComplementaryProducts(
   product: Product,
   limit: number = 4
 ): Promise<Product[]> {
-  const complementaryMap: Record<string, string[]> = {
-    filtration: ['heating', 'waterCare'],
-    heating: ['filtration', 'waterCare'],
-    lighting: ['plantsFertilizers', 'waterCare'],
-    waterCare: ['filtration', 'tests'],
-    plantsFertilizers: ['lighting', 'waterCare'],
-  };
-
   const targetCategories =
-    complementaryMap[product.category] ?? [product.category];
+    complementaryCategoryMap[product.category] ?? [product.category];
 
   const products = await getProducts();
 
