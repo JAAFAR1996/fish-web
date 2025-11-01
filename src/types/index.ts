@@ -6,6 +6,10 @@ export type Locale = 'ar' | 'en';
 
 export type Direction = 'rtl' | 'ltr';
 
+export type ActionResult<T> =
+  | { ok: true; data: T }
+  | { ok: false; error: string };
+
 export type ColorShade =
   | 50
   | 100

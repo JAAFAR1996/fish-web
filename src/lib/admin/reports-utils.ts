@@ -1,7 +1,13 @@
+import 'server-only';
+
 import { requireAdmin } from '@/lib/auth/utils';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 
 import type { AdminStats, BestSellerData, SalesReportData } from '@/types';
+
+// This module uses server-only dependencies and can only be imported in
+// Server Components, Server Actions, or API Routes.
+// Client components should use the Server Actions from @/lib/admin/reports-actions instead.
 
 const formatGroupDate = (date: Date, groupBy: 'day' | 'week' | 'month'): string => {
   const utcYear = date.getUTCFullYear();

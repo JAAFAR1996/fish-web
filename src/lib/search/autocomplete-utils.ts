@@ -1,5 +1,4 @@
 import type { AutocompleteSuggestion, Product } from '@/types';
-import { getProducts } from '@/lib/data/products';
 
 import {
   MAX_AUTOCOMPLETE_RESULTS,
@@ -13,15 +12,14 @@ import {
   getTopProductMatches,
 } from './search-utils';
 
-export async function getAutocompleteSuggestions(
-  query: string
-): Promise<AutocompleteSuggestion[]> {
+export function getAutocompleteSuggestions(
+  query: string,
+  products: Product[]
+): AutocompleteSuggestion[] {
   const trimmed = query.trim();
   if (!trimmed) {
     return [];
   }
-
-  const products = await getProducts();
 
   const productSuggestions = getTopProductMatches(
     products,
@@ -60,8 +58,18 @@ export function formatProductSuggestion(product: Product): AutocompleteSuggestio
 export function formatBrandSuggestion(
   brand: string,
   products: Product[]
+): AutocompleteSuggestion;
+export function formatBrandSuggestion(
+  brand: string,
+  count: number
+): AutocompleteSuggestion;
+export function formatBrandSuggestion(
+  brand: string,
+  productsOrCount: Product[] | number
 ): AutocompleteSuggestion {
-  const count = products.filter((product) => product.brand === brand).length;
+  const count = typeof productsOrCount === 'number'
+    ? productsOrCount
+    : productsOrCount.filter((product) => product.brand === brand).length;
 
   return {
     type: 'brand',
@@ -76,8 +84,18 @@ export function formatBrandSuggestion(
 export function formatCategorySuggestion(
   category: string,
   products: Product[]
+): AutocompleteSuggestion;
+export function formatCategorySuggestion(
+  category: string,
+  count: number
+): AutocompleteSuggestion;
+export function formatCategorySuggestion(
+  category: string,
+  productsOrCount: Product[] | number
 ): AutocompleteSuggestion {
-  const count = products.filter((product) => product.category === category).length;
+  const count = typeof productsOrCount === 'number'
+    ? productsOrCount
+    : productsOrCount.filter((product) => product.category === category).length;
 
   return {
     type: 'category',

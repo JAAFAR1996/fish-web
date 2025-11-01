@@ -1,6 +1,11 @@
+import 'server-only';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { verifySession, getUserById, AuthUser } from './auth';
 import { cookies } from 'next/headers';
+
+// This module uses next/headers and can only be imported in Server Components,
+// Server Actions, or API Routes. Do not import in Client Components.
 
 const SESSION_COOKIE_NAME = 'session';
 

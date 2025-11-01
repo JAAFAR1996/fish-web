@@ -16,6 +16,7 @@ import {
   MIN_SEARCH_LENGTH,
 } from '@/lib/search/constants';
 import { searchProductsSupabase } from '@/lib/search/supabase-search';
+import { getProducts } from '@/lib/data/products';
 
 const FALLBACK_CACHE_MAX_ENTRIES = 100;
 
@@ -98,12 +99,12 @@ function buildSuggestionsFromProducts(
   const brandSuggestions = Array.from(brandCounts.entries())
     .sort((a, b) => b[1] - a[1])
     .slice(0, MAX_BRAND_SUGGESTIONS)
-    .map(([brand]) => formatBrandSuggestion(brand, products));
+    .map(([brand, count]) => formatBrandSuggestion(brand, count));
 
   const categorySuggestions = Array.from(categoryCounts.entries())
     .sort((a, b) => b[1] - a[1])
     .slice(0, MAX_CATEGORY_SUGGESTIONS)
-    .map(([category]) => formatCategorySuggestion(category, products));
+    .map(([category, count]) => formatCategorySuggestion(category, count));
 
   return [...productSuggestions, ...brandSuggestions, ...categorySuggestions];
 }
@@ -163,7 +164,8 @@ export async function GET(request: Request) {
     );
   }
 
-  const fallback = await getAutocompleteSuggestions(sanitizedQuery);
+  const products = await getProducts();
+  const fallback = getAutocompleteSuggestions(sanitizedQuery, products);
   setCachedFallback(cacheKey, fallback);
 
   return NextResponse.json(

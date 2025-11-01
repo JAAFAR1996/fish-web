@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { AdminTabs } from '@/components/admin/admin-tabs';
 import { requireAdmin } from '@/lib/auth/utils';
-import { getAdminStats } from '@/lib/admin/reports-utils';
+import { getAdminStatsAction } from '@/lib/admin/reports-actions';
 import type { AdminDashboardTab } from '@/types';
 import { logWarn } from '@/lib/logger';
 
@@ -42,10 +42,32 @@ export default async function AdminDashboardPage({ params, searchParams }: Admin
 
   try {
     const admin = await requireAdmin();
-    const stats = await getAdminStats();
+    const statsResult = await getAdminStatsAction();
 
     const requestedTab = searchParams?.tab as AdminDashboardTab | undefined;
     const defaultTab = requestedTab && TAB_VALUES.includes(requestedTab) ? requestedTab : 'dashboard';
+
+    let stats;
+    let hasError = false;
+
+    if (!statsResult.ok) {
+      logWarn('Failed to load admin stats', {
+        error: statsResult.error,
+      });
+      hasError = true;
+      stats = {
+        totalOrders: 0,
+        pendingOrders: 0,
+        totalProducts: 0,
+        pendingReviews: 0,
+        activeFlashSales: 0,
+        lowStockProducts: 0,
+        totalRevenue: 0,
+        totalCustomers: 0,
+      };
+    } else {
+      stats = statsResult.data;
+    }
 
     return (
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8">
@@ -55,6 +77,13 @@ export default async function AdminDashboardPage({ params, searchParams }: Admin
             Welcome back, {admin.email ?? admin.id}
           </p>
         </header>
+
+        {hasError && (
+          <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+            <p className="font-medium">Warning: Failed to load admin statistics</p>
+            <p className="mt-1">Some dashboard data may be unavailable. Please try refreshing the page.</p>
+          </div>
+        )}
 
         <AdminTabs admin={admin} stats={stats} defaultTab={defaultTab} />
       </div>

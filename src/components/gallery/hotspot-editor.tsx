@@ -1,14 +1,16 @@
 "use client";
 
 import Image from 'next/image';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import type { Hotspot } from '@/types';
 import { Button, Card, Input } from '@/components/ui';
 import { calculateHotspotCoordinates, createHotspot } from '@/lib/gallery/hotspot-utils';
 import { HotspotMarker } from './hotspot-marker';
 import { SearchAutocomplete } from '@/components/search/search-autocomplete';
-import { getAutocompleteSuggestions } from '@/lib/search/autocomplete-utils';
+
+const SEARCH_DEBOUNCE = 250;
+const MIN_SEARCH_LENGTH = 2;
 
 interface HotspotEditorProps {
   imageUrl: string;
@@ -24,6 +26,54 @@ export function HotspotEditor({ imageUrl, hotspots, onChange, className }: Hotsp
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    const trimmedQuery = query.trim();
+    if (trimmedQuery.length < MIN_SEARCH_LENGTH) {
+      setSuggestions([]);
+      return;
+    }
+
+    let cancelled = false;
+    const controller = new AbortController();
+
+    const timer = window.setTimeout(async () => {
+      try {
+        const response = await fetch(
+          `/api/search?q=${encodeURIComponent(trimmedQuery)}&locale=en`,
+          { signal: controller.signal }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const body = await response.json();
+
+        if (!cancelled) {
+          setSuggestions(body.suggestions ?? []);
+        }
+      } catch (error) {
+        if (controller.signal.aborted || cancelled) {
+          return;
+        }
+
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('[HotspotEditor] search error', error);
+        }
+
+        if (!cancelled) {
+          setSuggestions([]);
+        }
+      }
+    }, SEARCH_DEBOUNCE);
+
+    return () => {
+      cancelled = true;
+      controller.abort();
+      window.clearTimeout(timer);
+    };
+  }, [query]);
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -67,16 +117,7 @@ export function HotspotEditor({ imageUrl, hotspots, onChange, className }: Hotsp
           <Input
             ref={inputRef}
             value={query}
-            onChange={async (e) => {
-              const q = e.target.value;
-              setQuery(q);
-              if (q.trim().length >= 2) {
-                const s = await getAutocompleteSuggestions(q);
-                setSuggestions(s as any);
-              } else {
-                setSuggestions([]);
-              }
-            }}
+            onChange={(e) => setQuery(e.target.value)}
             placeholder="Search products..."
           />
           <SearchAutocomplete

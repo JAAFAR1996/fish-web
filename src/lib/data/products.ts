@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { cache } from 'react';
 
 import productsData from '@/data/products.json';
@@ -6,6 +8,10 @@ import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { normalizeSupabaseProduct } from '@/lib/search/normalize';
 import { complementaryCategoryMap } from '@/lib/data/constants';
 import type { FlashSale, Product, ProductFilters, ProductWithFlashSale, SortOption } from '@/types';
+
+// This module uses server-only dependencies (Supabase server client) and can only
+// be imported in Server Components, Server Actions, or API Routes.
+// For client-side product fetching, use @/lib/data/products-client instead.
 
 const fetchProductsInternal = async (): Promise<{
   products: Product[];

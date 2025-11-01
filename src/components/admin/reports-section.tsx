@@ -23,7 +23,7 @@ import {
 } from 'recharts';
 
 import { Button, Card, CardContent, CardHeader, CardTitle, Icon } from '@/components/ui';
-import { getBestSellersReport, getSalesReport } from '@/lib/admin/reports-utils';
+import { getBestSellersReportAction, getSalesReportAction } from '@/lib/admin/reports-actions';
 import { CHART_COLORS } from '@/lib/admin/constants';
 import type { BestSellerData, Locale, SalesReportData } from '@/types';
 import { formatCurrency } from '@/lib/utils';
@@ -49,10 +49,12 @@ export function ReportsSection({ admin, className }: ReportsSectionProps) {
   const [salesData, setSalesData] = useState<SalesReportData[]>([]);
   const [bestSellers, setBestSellers] = useState<BestSellerData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
   const loadReports = useCallback(async () => {
     setIsLoading(true);
+    setError(null);
     const days = RANGE_TO_DAYS[dateRange];
     const end = new Date();
     const start = new Date();
@@ -61,13 +63,23 @@ export function ReportsSection({ admin, className }: ReportsSectionProps) {
     const startIso = start.toISOString();
     const endIso = end.toISOString();
 
-    const [sales, sellers] = await Promise.all([
-      getSalesReport(startIso, endIso, 'day'),
-      getBestSellersReport(10),
+    const [salesResult, sellersResult] = await Promise.all([
+      getSalesReportAction(startIso, endIso, 'day'),
+      getBestSellersReportAction(10),
     ]);
 
-    setSalesData(sales);
-    setBestSellers(sellers);
+    if (!salesResult.ok || !sellersResult.ok) {
+      const errors = [];
+      if (!salesResult.ok) errors.push('sales report');
+      if (!sellersResult.ok) errors.push('best sellers');
+      setError(`Failed to load: ${errors.join(', ')}`);
+      setSalesData([]);
+      setBestSellers([]);
+    } else {
+      setSalesData(salesResult.data);
+      setBestSellers(sellersResult.data);
+    }
+
     setIsLoading(false);
   }, [dateRange]);
 
@@ -155,6 +167,16 @@ export function ReportsSection({ admin, className }: ReportsSectionProps) {
           </Button>
         </div>
       </div>
+
+      {error && (
+        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+          <div className="flex items-center gap-2">
+            <Icon name="alert-triangle" className="h-4 w-4" />
+            <span className="font-medium">Error loading reports</span>
+          </div>
+          <p className="mt-1">{error}</p>
+        </div>
+      )}
 
       {isLoading ? (
         <div className="flex min-h-[240px] items-center justify-center text-sm text-muted-foreground">
