@@ -17,3 +17,11 @@ export function getJWTSecret(): string {
   return validateEnv('JWT_SECRET', process.env.JWT_SECRET, true) || 
     'your-secret-key-change-in-production-minimum-32-chars';
 }
+
+export function getSupabaseUrl(): string {
+  return validateEnv('NEXT_PUBLIC_SUPABASE_URL', process.env.NEXT_PUBLIC_SUPABASE_URL);
+}
+
+export function getSupabaseAnonKey(): string {
+  return validateEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+}

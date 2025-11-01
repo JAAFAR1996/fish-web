@@ -6,7 +6,8 @@ import { getUser } from '@/lib/auth/utils';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { getSupabaseUrl } from '@/lib/env';
 
-import { deleteReviewImages, extractPathFromUrl } from './image-upload';
+import { deleteReviewImages } from './image-upload';
+import { extractPathFromUrl } from './url-utils';
 import { MAX_REVIEW_IMAGES, STORAGE_BUCKET } from './constants';
 import {
   getReviewById,

@@ -22,7 +22,7 @@ import {
 } from '@/lib/reviews/review-actions';
 import {
   uploadReviewImages,
-} from '@/lib/reviews/image-upload';
+} from '@/lib/reviews/image-upload-client';
 import {
   validateReviewForm,
 } from '@/lib/reviews/review-validation';

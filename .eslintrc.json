@@ -11,6 +11,17 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["@/lib/reviews/image-upload"],
+            "message": "Use @/lib/reviews/image-upload-client for client components"
+          }
+        ]
+      }
+    ]
   }
 }
