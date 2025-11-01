@@ -1,7 +1,6 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { headers } from 'next/headers';
 
 import type { CartWithItems, LocalStorageCartItem } from '@/types';
 
@@ -9,7 +8,7 @@ import { getProductsWithFlashSales } from '@/lib/data/products';
 import { getUser } from '@/lib/auth/utils';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { routing } from '@/i18n/routing';
-import { logError } from '@/lib/logger';
+import { logError, resolveRequestId } from '@/lib/logger';
 import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 import {
   clearUserCart,
@@ -31,21 +30,6 @@ function revalidateCart(locale: string | null | undefined) {
   routing.locales.forEach((loc) => {
     revalidatePath(`/${loc}/cart`);
   });
-}
-
-function resolveRequestId(): string | null {
-  try {
-    const headerList = headers();
-    return (
-      headerList.get('x-request-id') ??
-      headerList.get('x-correlation-id') ??
-      headerList.get('x-vercel-id') ??
-      headerList.get('x-amzn-trace-id') ??
-      null
-    );
-  } catch {
-    return null;
-  }
 }
 
 function logCartActionError(

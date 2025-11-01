@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import type { ReactNode } from 'react';
+import { headers as nextHeaders } from 'next/headers';
 
 import { Header, Footer } from '@/components/layout';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
@@ -143,6 +144,8 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   const messages = await getMessages();
   const dir = getDirection(locale);
   const user = await getUser();
+  const headerList = nextHeaders();
+  const cspNonce = headerList.get('x-csp-nonce') ?? undefined;
 
   return (
     <html
@@ -172,7 +175,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
             </CartProvider>
           </NotificationProvider>
         </SupabaseAuthProvider>
-        {process.env.NODE_ENV === 'production' && <PlausibleAnalytics />}
+        {process.env.NODE_ENV === 'production' && <PlausibleAnalytics nonce={cspNonce} />}
       </body>
     </html>
   );

@@ -10,7 +10,11 @@ declare global {
 
 const DEFAULT_SCRIPT_URL = 'https://plausible.io/js/script.js';
 
-export default function PlausibleAnalytics() {
+type PlausibleAnalyticsProps = {
+  nonce?: string;
+};
+
+export default function PlausibleAnalytics({ nonce }: PlausibleAnalyticsProps = {}) {
   const domain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
   const scriptUrl = process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL ?? DEFAULT_SCRIPT_URL;
 
@@ -23,6 +27,7 @@ export default function PlausibleAnalytics() {
       src={scriptUrl}
       data-domain={domain}
       strategy="afterInteractive"
+      nonce={nonce}
       defer
     />
   );

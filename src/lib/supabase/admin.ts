@@ -1,4 +1,5 @@
 // server-only
+import 'server-only';
 
 /**
  * Admin Supabase client that bypasses Row Level Security.

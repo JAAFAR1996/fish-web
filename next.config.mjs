@@ -6,7 +6,7 @@ import withPWA from 'next-pwa';
 
 import { IMAGE_DEVICE_SIZES, IMAGE_SIZES } from './src/lib/config/ui.js';
 
-const baseSecurityHeaders = [
+const securityHeaders = [
   {
     key: 'X-Frame-Options',
     value: 'SAMEORIGIN',
@@ -28,35 +28,6 @@ const baseSecurityHeaders = [
     value: 'max-age=63072000; includeSubDomains; preload',
   },
 ];
-
-function buildSecurityHeaders() {
-  const headers = [...baseSecurityHeaders];
-  const runtimeEnv =
-    process.env.NEXT_PUBLIC_ENVIRONMENT ?? process.env.VERCEL_ENV ?? process.env.NODE_ENV;
-  const isPreview = runtimeEnv === 'staging' || runtimeEnv === 'preview';
-  const isDevelopment = process.env.NODE_ENV !== 'production';
-  const useReportOnly = isPreview || isDevelopment;
-  const cspHeaderKey = useReportOnly
-    ? 'Content-Security-Policy-Report-Only'
-    : 'Content-Security-Policy';
-
-  const cspDirectives = [
-    "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://plausible.io 'nonce-<generated>'",
-    "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https:",
-    "connect-src 'self' https://*.supabase.co https://plausible.io",
-    "font-src 'self' https://fonts.gstatic.com",
-    "frame-ancestors 'self'",
-  ].join('; ');
-
-  headers.push({
-    key: cspHeaderKey,
-    value: cspDirectives,
-  });
-
-  return headers;
-}
 
 function getSupabaseHostname() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -219,7 +190,7 @@ const nextConfig = {
     return [
       {
         source: '/(.*)',
-        headers: buildSecurityHeaders(),
+        headers: securityHeaders,
       },
       {
         source: '/:all*(svg|jpg|jpeg|png|webp|gif|ico)',

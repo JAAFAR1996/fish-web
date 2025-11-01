@@ -8,6 +8,7 @@ import { sendShippingUpdateEmail } from '@/lib/email/send-shipping-update';
 import { createNotificationAction } from '@/lib/notifications/notification-actions';
 import { routing } from '@/i18n/routing';
 import { adminClient } from '@/lib/supabase/admin';
+import { logError, logWarn, normalizeError } from '@/lib/logger';
 
 import type { Locale, Order, OrderStatus, OrderUpdateData } from '@/types';
 
@@ -74,7 +75,14 @@ export async function updateOrderStatusAction(
     .single();
 
   if (fetchError || !existingOrderRow) {
-    console.error('Failed to load order for update', fetchError);
+    const { errorMessage, errorStack } = normalizeError(fetchError);
+    logError('Failed to load order for update', {
+      action: 'updateOrderStatus',
+      adminId: admin.id,
+      orderId,
+      errorMessage,
+      errorStack,
+    });
     return { success: false, error: 'orders.errors.orderNotFound' };
   }
 
@@ -110,7 +118,14 @@ export async function updateOrderStatusAction(
     .single();
 
   if (error || !updatedRow) {
-    console.error('Failed to update order status', error);
+    const { errorMessage, errorStack } = normalizeError(error);
+    logError('Failed to update order status', {
+      action: 'updateOrderStatus',
+      adminId: admin.id,
+      orderId,
+      errorMessage,
+      errorStack,
+    });
     return { success: false, error: 'orders.errors.updateFailed' };
   }
 
@@ -129,7 +144,14 @@ export async function updateOrderStatusAction(
             emailLocale = preferred;
           }
         } catch (localeError) {
-          console.error('Failed to resolve user locale for shipping email', localeError);
+          const { errorMessage, errorStack } = normalizeError(localeError);
+          logWarn('Failed to resolve user locale for shipping email', {
+            action: 'updateOrderStatus',
+            adminId: admin.id,
+            orderId,
+            errorMessage,
+            errorStack,
+          });
         }
       } else if (typeof existingOrderRow.locale === 'string') {
         const orderLocale = existingOrderRow.locale;
@@ -145,7 +167,14 @@ export async function updateOrderStatusAction(
         locale: emailLocale,
       });
     } catch (emailError) {
-      console.error('Failed to send shipping update email', emailError);
+      const { errorMessage, errorStack } = normalizeError(emailError);
+      logError('Failed to send shipping update email', {
+        action: 'updateOrderStatus',
+        adminId: admin.id,
+        orderId,
+        errorMessage,
+        errorStack,
+      });
     }
 
     if (existingOrder.user_id) {
@@ -221,7 +250,12 @@ export async function getOrdersForAdmin(
 
   if (error || !data) {
     if (error) {
-      console.error('Failed to fetch admin orders', error);
+      const { errorMessage, errorStack } = normalizeError(error);
+      logError('Failed to fetch admin orders', {
+        action: 'getOrdersForAdmin',
+        errorMessage,
+        errorStack,
+      });
     }
     return [];
   }

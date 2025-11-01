@@ -20,7 +20,7 @@ import type {
   SavedForLaterItem,
 } from '@/types';
 
-import { getProductsWithFlashSales } from '@/lib/data/products';
+import { getProductsWithFlashSalesClient } from '@/lib/data/products-client';
 import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 import {
   addToCartAction,
@@ -117,7 +117,7 @@ export function CartProvider({ children }: Props) {
     if (productsRef.current) {
       return productsRef.current;
     }
-    const products = await getProductsWithFlashSales();
+    const products = await getProductsWithFlashSalesClient();
     productsRef.current = products;
     return products;
   }, []);

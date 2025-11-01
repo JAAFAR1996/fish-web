@@ -19,7 +19,7 @@ import type {
   WishlistItemWithProduct,
 } from '@/types';
 
-import { getProductsWithFlashSales } from '@/lib/data/products';
+import { getProductsWithFlashSalesClient } from '@/lib/data/products-client';
 import {
   addGuestWishlistItem,
   clearGuestWishlist,
@@ -111,7 +111,7 @@ export function WishlistProvider({ children }: Props) {
       return productsRef.current;
     }
 
-    const products = await getProductsWithFlashSales();
+    const products = await getProductsWithFlashSalesClient();
     productsRef.current = products;
     return products;
   }, []);

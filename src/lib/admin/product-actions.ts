@@ -8,6 +8,7 @@ import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { normalizeSupabaseProduct } from '@/lib/search/supabase-search';
 import { triggerBackInStockAlerts } from '@/lib/notifications/trigger-stock-alerts';
 import { routing } from '@/i18n/routing';
+import { logError, logWarn, normalizeError } from '@/lib/logger';
 
 import type { Product, ProductFormData } from '@/types';
 
@@ -89,7 +90,14 @@ export async function createProductAction(
   const { error } = await supabase.from('products').insert(payload);
 
   if (error) {
-    console.error('Failed to create product', error);
+    const { errorMessage, errorStack } = normalizeError(error);
+    logError('Failed to create product', {
+      action: 'createProduct',
+      adminId: admin.id,
+      productId,
+      errorMessage,
+      errorStack,
+    });
     return { success: false, error: 'errors.productCreateFailed' };
   }
 
@@ -116,7 +124,14 @@ export async function updateProductAction(
     .single();
 
   if (fetchError || !existingProductRow) {
-    console.error('Failed to fetch product for update', fetchError);
+    const { errorMessage, errorStack } = normalizeError(fetchError);
+    logError('Failed to fetch product for update', {
+      action: 'updateProduct',
+      adminId: admin.id,
+      productId,
+      errorMessage,
+      errorStack,
+    });
     return { success: false, error: 'errors.productNotFound' };
   }
 
@@ -272,7 +287,14 @@ export async function updateProductAction(
     .eq('id', productId);
 
   if (updateError) {
-    console.error('Failed to update product', updateError);
+    const { errorMessage, errorStack } = normalizeError(updateError);
+    logError('Failed to update product', {
+      action: 'updateProduct',
+      adminId: admin.id,
+      productId,
+      errorMessage,
+      errorStack,
+    });
     return { success: false, error: 'errors.productUpdateFailed' };
   }
 
@@ -280,10 +302,14 @@ export async function updateProductAction(
     try {
       await deleteProductImages(imagesToDelete);
     } catch (imageError) {
-      console.error('Failed to delete outdated product images', {
+      const { errorMessage, errorStack } = normalizeError(imageError);
+      logWarn('Failed to delete outdated product images', {
+        action: 'updateProduct',
+        adminId: admin.id,
         productId,
-        imagesToDelete,
-        error: imageError,
+        images: imagesToDelete,
+        errorMessage,
+        errorStack,
       });
     }
   }
@@ -309,7 +335,14 @@ export async function deleteProductAction(productId: string): Promise<ProductAct
     .single();
 
   if (fetchError || !product) {
-    console.error('Failed to load product for deletion', fetchError);
+    const { errorMessage, errorStack } = normalizeError(fetchError);
+    logError('Failed to load product for deletion', {
+      action: 'deleteProduct',
+      adminId: admin.id,
+      productId,
+      errorMessage,
+      errorStack,
+    });
     return { success: false, error: 'errors.productNotFound' };
   }
 
@@ -320,7 +353,14 @@ export async function deleteProductAction(productId: string): Promise<ProductAct
   const { error } = await supabase.from('products').delete().eq('id', productId);
 
   if (error) {
-    console.error('Failed to delete product', error);
+    const { errorMessage, errorStack } = normalizeError(error);
+    logError('Failed to delete product', {
+      action: 'deleteProduct',
+      adminId: admin.id,
+      productId,
+      errorMessage,
+      errorStack,
+    });
     return { success: false, error: 'errors.productDeleteFailed' };
   }
 
@@ -347,7 +387,14 @@ export async function updateProductStockAction(
     .single();
 
   if (fetchError || !productRow) {
-    console.error('Failed to load product for stock update', fetchError);
+    const { errorMessage, errorStack } = normalizeError(fetchError);
+    logError('Failed to load product for stock update', {
+      action: 'updateProductStock',
+      adminId: admin.id,
+      productId,
+      errorMessage,
+      errorStack,
+    });
     return { success: false, error: 'errors.productNotFound' };
   }
 
@@ -359,7 +406,14 @@ export async function updateProductStockAction(
     .eq('id', productId);
 
   if (error) {
-    console.error('Failed to update product stock', error);
+    const { errorMessage, errorStack } = normalizeError(error);
+    logError('Failed to update product stock', {
+      action: 'updateProductStock',
+      adminId: admin.id,
+      productId,
+      errorMessage,
+      errorStack,
+    });
     return { success: false, error: 'errors.stockUpdateFailed' };
   }
 
@@ -371,7 +425,14 @@ export async function updateProductStockAction(
         stock: newStock,
       });
     } catch (notificationError) {
-      console.error('Failed to trigger back-in-stock alerts', notificationError);
+      const { errorMessage, errorStack } = normalizeError(notificationError);
+      logWarn('Failed to trigger back-in-stock alerts', {
+        action: 'triggerBackInStockAlerts',
+        adminId: admin.id,
+        productId,
+        errorMessage,
+        errorStack,
+      });
     }
   }
 
@@ -396,7 +457,12 @@ export async function fetchAdminProducts(): Promise<Product[]> {
 
   if (error || !data) {
     if (error) {
-      console.error('Failed to load admin products', error);
+      const { errorMessage, errorStack } = normalizeError(error);
+      logError('Failed to load admin products', {
+        action: 'getAdminProducts',
+        errorMessage,
+        errorStack,
+      });
     }
     return [];
   }
