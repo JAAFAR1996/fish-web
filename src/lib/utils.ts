@@ -9,6 +9,70 @@ import type {
   SocialProofData,
 } from '@/types';
 
+const DEFAULT_WHATSAPP_NUMBER = '9647000000000';
+const WHATSAPP_COUNTRY_CODE = '964';
+const MIN_PHONE_DIGITS = 10;
+const MAX_PHONE_DIGITS = 15;
+const FALLBACK_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fishweb.iq';
+
+function sanitizePhoneNumber(phoneNumber?: string): string {
+  const digits = (phoneNumber ?? DEFAULT_WHATSAPP_NUMBER).replace(/[^\d]/g, '');
+
+  if (digits.length < MIN_PHONE_DIGITS || digits.length > MAX_PHONE_DIGITS) {
+    return DEFAULT_WHATSAPP_NUMBER;
+  }
+
+  if (digits.startsWith(WHATSAPP_COUNTRY_CODE)) {
+    return digits;
+  }
+
+  const normalized = `${WHATSAPP_COUNTRY_CODE}${digits}`;
+  if (normalized.length > MAX_PHONE_DIGITS) {
+    return DEFAULT_WHATSAPP_NUMBER;
+  }
+
+  return normalized;
+}
+
+function getAllowedOrigins(): string[] {
+  const origins = new Set<string>();
+
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    origins.add(window.location.origin);
+  }
+
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    try {
+      origins.add(new URL(process.env.NEXT_PUBLIC_SITE_URL).origin);
+    } catch {
+      // ignore invalid custom origin
+    }
+  }
+
+  try {
+    origins.add(new URL(FALLBACK_SITE_URL).origin);
+  } catch {
+    // ignore if fallback is somehow invalid
+  }
+
+  return Array.from(origins);
+}
+
+function sanitizeShareUrl(pageUrl: string): string | null {
+  const allowedOrigins = getAllowedOrigins();
+  const baseOrigin = allowedOrigins[0] ?? FALLBACK_SITE_URL;
+
+  try {
+    const parsed = new URL(pageUrl, baseOrigin);
+    if (!allowedOrigins.includes(parsed.origin)) {
+      return null;
+    }
+    return parsed.toString();
+  } catch {
+    return null;
+  }
+}
+
 export function cn(
   ...inputs: Array<string | false | null | undefined>
 ): string {
@@ -234,9 +298,9 @@ export function formatWhatsAppMessage(product: Product, locale: Locale): string 
 export function getWhatsAppUrl(
   product: Product,
   locale: Locale,
-  phoneNumber: string = '9647000000000'
+  phoneNumber?: string
 ): string {
-  const sanitizedNumber = phoneNumber.replace(/[^\d]/g, '');
+  const sanitizedNumber = sanitizePhoneNumber(phoneNumber);
   const message = formatWhatsAppMessage(product, locale);
   return `https://wa.me/${sanitizedNumber}?text=${message}`;
 }
@@ -246,11 +310,16 @@ export function getWhatsAppShareUrl(
   phoneNumber: string | undefined,
   pageUrl: string
 ): string {
-  const sanitizedNumber = (phoneNumber ?? '9647000000000').replace(/[^\d]/g, '');
+  const sanitizedNumber = sanitizePhoneNumber(phoneNumber);
   const baseMessage =
     locale === 'ar'
       ? `شاهد ${product.name} (${product.brand})`
       : `Check out ${product.name} (${product.brand})`;
-  const message = encodeURIComponent(`${baseMessage}\n${pageUrl}`);
+  const safeShareUrl = sanitizeShareUrl(pageUrl);
+  const segments = [baseMessage];
+  if (safeShareUrl) {
+    segments.push(safeShareUrl);
+  }
+  const message = encodeURIComponent(segments.join('\n'));
   return `https://wa.me/${sanitizedNumber}?text=${message}`;
 }

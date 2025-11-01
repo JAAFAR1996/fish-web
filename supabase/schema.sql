@@ -89,10 +89,12 @@ create table if not exists public.profiles (
     for delete
     using (auth.uid() = user_id);
 
-  create policy "Users can create own notifications"
+  drop policy if exists "Users can create own notifications" on public.notifications;
+
+  create policy "Service role can create notifications"
     on public.notifications
     for insert
-    with check (auth.uid() = user_id);
+    with check (auth.role() = 'service_role');
 
 
 create table if not exists public.carts (
@@ -114,6 +116,8 @@ create table if not exists public.cart_items (
   updated_at timestamptz not null default timezone('utc', now()),
   unique (cart_id, product_id)
 );
+
+create index if not exists idx_cart_items_cart_product on public.cart_items(cart_id, product_id);
 
 create table if not exists public.saved_addresses (
   id uuid primary key default uuid_generate_v4(),

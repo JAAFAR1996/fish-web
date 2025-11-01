@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { AdminTabs } from '@/components/admin/admin-tabs';
 import { requireAdmin } from '@/lib/auth/utils';
 import { getAdminStats } from '@/lib/admin/reports-utils';
 import type { AdminDashboardTab } from '@/types';
+import { logWarn } from '@/lib/logger';
 
 interface AdminDashboardPageProps {
   params: { locale: string };
@@ -58,7 +60,15 @@ export default async function AdminDashboardPage({ params, searchParams }: Admin
       </div>
     );
   } catch (error) {
-    console.error('Admin access denied', error);
+    const requestHeaders = headers();
+    const requestId =
+      requestHeaders.get('x-request-id') ??
+      requestHeaders.get('x-vercel-id') ??
+      null;
+
+    logWarn('Admin access denied', {
+      requestId,
+    });
     redirect('/');
   }
 }

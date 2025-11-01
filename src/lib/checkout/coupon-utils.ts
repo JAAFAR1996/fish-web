@@ -78,16 +78,29 @@ export function calculateDiscount(coupon: Coupon, subtotal: number): number {
   return 0;
 }
 
-export async function incrementCouponUsage(couponId: string): Promise<void> {
+export async function incrementCouponUsage(couponId: string): Promise<boolean> {
   const supabase = await createServerSupabaseClient();
-  const { error } = await supabase
+  const { error, count } = await supabase
     .from('coupons')
     .update({ used_count: sql`used_count + 1` })
-    .eq('id', couponId);
+    .eq('id', couponId)
+    .eq('is_active', true)
+    .or('usage_limit.is.null,used_count.lt.usage_limit')
+    .select('id', { count: 'exact', head: true });
 
   if (error) {
     console.error('Failed to increment coupon usage', error);
+    return false;
   }
+
+  if (!count) {
+    console.warn('Coupon usage increment skipped due to limit or inactive coupon', {
+      couponId,
+    });
+    return false;
+  }
+
+  return true;
 }
 
 export function formatCouponDiscount(

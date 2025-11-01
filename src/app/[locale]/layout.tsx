@@ -3,6 +3,7 @@ import '@/app/globals.css';
 import type { Metadata } from 'next';
 import { Cairo, Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import type { ReactNode } from 'react';
@@ -16,7 +17,6 @@ import { NotificationProvider } from '@/components/providers/NotificationProvide
 import { routing } from '@/i18n/routing';
 import { getDirection } from '@/lib/utils';
 import { getUser } from '@/lib/auth/utils';
-import { OfflineIndicator, InstallPrompt, UpdatePrompt } from '@/components/pwa';
 import PlausibleAnalytics from '@/components/analytics/plausible-analytics';
 import type { NextWebVitalsMetric } from 'next/app';
 import { reportWebVitals as reportWebVitalsToAnalytics } from '@/lib/analytics/web-vitals';
@@ -29,10 +29,12 @@ type RootLayoutProps = {
   params: Params;
 };
 
-function assertLocale(locale: string): asserts locale is Locale {
-  if (!routing.locales.includes(locale as Locale)) {
-    notFound();
+function ensureLocale(locale: string): Locale {
+  if (routing.locales.includes(locale as Locale)) {
+    return locale as Locale;
   }
+
+  notFound();
 }
 
 const cairo = Cairo({
@@ -49,6 +51,30 @@ const inter = Inter({
   weight: ['400', '500', '600', '700'],
 });
 
+const OfflineIndicator = dynamic(
+  () =>
+    import('@/components/pwa/offline-indicator').then(
+      (mod) => mod.OfflineIndicator
+    ),
+  { ssr: false }
+);
+
+const InstallPrompt = dynamic(
+  () =>
+    import('@/components/pwa/install-prompt').then(
+      (mod) => mod.InstallPrompt
+    ),
+  { ssr: false }
+);
+
+const UpdatePrompt = dynamic(
+  () =>
+    import('@/components/pwa/update-prompt').then(
+      (mod) => mod.UpdatePrompt
+    ),
+  { ssr: false }
+);
+
 const BASE_URL = 'https://fishweb.iq';
 
 export function generateStaticParams() {
@@ -60,9 +86,7 @@ export function generateMetadata({
 }: {
   params: Params;
 }): Metadata {
-  const { locale } = params;
-
-  assertLocale(locale);
+  const locale = ensureLocale(params.locale);
 
   const titles: Record<Locale, string> = {
     ar: 'متجر الأكواريوم المميز',
@@ -113,9 +137,7 @@ export function generateMetadata({
 }
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
-  const { locale } = params;
-
-  assertLocale(locale);
+  const locale = ensureLocale(params.locale);
   setRequestLocale(locale);
 
   const messages = await getMessages();

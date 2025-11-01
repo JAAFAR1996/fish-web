@@ -216,7 +216,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/(.*)',
-        headers: securityHeaders,
+        headers: buildSecurityHeaders(),
       },
       {
         source: '/:all*(svg|jpg|jpeg|png|webp|gif|ico)',

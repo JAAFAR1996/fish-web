@@ -1,4 +1,5 @@
 import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { adminClient } from '@/lib/supabase/admin';
 import type { Notification, NotificationData, NotificationType } from '@/types';
 import { MAX_NOTIFICATIONS_FETCH } from './constants';
 
@@ -139,9 +140,7 @@ export async function createNotification(
   data?: NotificationData,
   link?: string
 ): Promise<Notification | null> {
-  const supabase = await createServerSupabaseClient();
-
-  const { data: notification, error } = await supabase
+  const { data: notification, error } = await adminClient
     .from('notifications')
     .insert({
       user_id: userId,

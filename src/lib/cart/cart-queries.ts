@@ -8,7 +8,7 @@ import type {
 } from '@/types';
 
 import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { isFlashSaleActive } from '@/lib/marketing/flash-sales-helpers';
+import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 
 export async function getUserCart(userId: string): Promise<Cart | null> {
   const supabase = await createServerSupabaseClient();
@@ -169,10 +169,7 @@ export async function syncGuestCartToSupabase(
   for (const item of guestItems) {
     const product = products.find((p) => p.id === item.productId);
     if (!product) continue;
-    const flashSale = product.flashSale;
-    const unitPrice = flashSale && isFlashSaleActive(flashSale)
-      ? flashSale.flash_price
-      : product.price;
+    const unitPrice = getEffectiveUnitPrice(product);
 
     // Fetch existing quantity to merge.
     const { data: existing } = await supabase

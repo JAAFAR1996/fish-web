@@ -30,7 +30,7 @@ import { validateCoupon, calculateDiscount, incrementCouponUsage } from './coupo
 import { calculateOrderTotals, generateOrderNumber, mapCartItemsToOrderItems, validateOrderData } from './order-utils';
 import { createOrder, createOrderItems } from './order-queries';
 import { validateCheckoutData, validateCouponCode } from './validation';
-import { isFlashSaleActive } from '@/lib/marketing/flash-sales-helpers';
+import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 import {
   calculatePointsDiscount,
   calculatePointsEarned,
@@ -78,10 +78,7 @@ async function getGuestCartItems(
       return null;
     }
 
-    const flashSale = product.flashSale;
-    const unitPrice = flashSale && isFlashSaleActive(flashSale)
-      ? flashSale.flash_price
-      : product.price;
+    const unitPrice = getEffectiveUnitPrice(product);
 
     subtotal += unitPrice * item.quantity;
 
@@ -320,7 +317,13 @@ export async function createOrderAction(
     }
 
     if (appliedCouponId) {
-      await incrementCouponUsage(appliedCouponId);
+      const usageIncremented = await incrementCouponUsage(appliedCouponId);
+      if (!usageIncremented) {
+        console.warn('Failed to increment coupon usage after order creation', {
+          couponId: appliedCouponId,
+          orderId: order.id,
+        });
+      }
     }
 
     if (user) {
