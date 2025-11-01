@@ -10,7 +10,6 @@ import {
   calculateHeaterWattage,
   validateHeaterInputs,
 } from '@/lib/calculators/heater-calculator';
-import { getRecommendedHeaters } from '@/lib/calculators/product-recommendations';
 import type {
   HeaterCalculationInputs,
   HeaterCalculationResult,
@@ -92,17 +91,20 @@ export function HeaterCalculator({
     let cancelled = false;
 
     setIsLoadingProducts(true);
-    getRecommendedHeaters(calculation.recommendedWattage).then((recommended) => {
-      if (!cancelled) {
-        setProducts(recommended);
-        setIsLoadingProducts(false);
-      }
-    }).catch(() => {
-      if (!cancelled) {
-        setProducts([]);
-        setIsLoadingProducts(false);
-      }
-    });
+    fetch(`/api/calculators/recommended-heaters?wattage=${calculation.recommendedWattage}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (!cancelled) {
+          setProducts(data.products || []);
+          setIsLoadingProducts(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setProducts([]);
+          setIsLoadingProducts(false);
+        }
+      });
 
     return () => {
       cancelled = true;
