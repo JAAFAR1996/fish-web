@@ -164,6 +164,8 @@ export function sortProducts(products: Product[], sortBy: SortOption): Product[]
   }
 }
 
+export { filterProducts, sortProducts } from '@/lib/data/products-shared';
+
 export async function getUniqueBrands(products?: Product[]): Promise<string[]> {
   const allProducts = products ?? (await getProducts());
   const brands = new Set(allProducts.map((p) => p.brand));

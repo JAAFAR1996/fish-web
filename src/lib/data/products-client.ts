@@ -2,7 +2,7 @@ import { getBrowserSupabaseClient } from '@/lib/supabase/client';
 import { normalizeSupabaseProduct } from '@/lib/search/normalize';
 import { getActiveFlashSalesClient } from '@/lib/marketing/flash-sales-client';
 import { complementaryCategoryMap } from '@/lib/data/constants';
-import type { FlashSale, Product, ProductFilters, ProductWithFlashSale, SortOption } from '@/types';
+import type { FlashSale, Product, ProductWithFlashSale } from '@/types';
 
 async function loadFallbackProducts(): Promise<Product[]> {
   const { default: productsData } = await import('@/data/products.json');
@@ -118,114 +118,4 @@ async function getProductsBySameSubcategoryClient(
 
 export { getProductsBySameSubcategoryClient as getProductsBySameSubcategory };
 
-export function filterProducts(
-  products: Product[],
-  filters: ProductFilters
-): Product[] {
-  let filtered = [...products];
-
-  // Filter by types (subcategory)
-  if (filters.types.length > 0) {
-    filtered = filtered.filter((p) => filters.types.includes(p.subcategory));
-  }
-
-  // Filter by tank size
-  if (filters.tankSizeMin !== null || filters.tankSizeMax !== null) {
-    filtered = filtered.filter((p) => {
-      const { minTankSize, maxTankSize } = p.specifications.compatibility;
-      
-      // Check if product's range overlaps with filter range
-      if (filters.tankSizeMin !== null) {
-        // Product must support at least tankSizeMin
-        if (maxTankSize !== null && maxTankSize < filters.tankSizeMin) {
-          return false;
-        }
-      }
-      
-      if (filters.tankSizeMax !== null) {
-        // Product must support at most tankSizeMax
-        if (minTankSize !== null && minTankSize > filters.tankSizeMax) {
-          return false;
-        }
-      }
-      
-      return true;
-    });
-  }
-
-  // Filter by flow rate
-  if (filters.flowRateMin !== null || filters.flowRateMax !== null) {
-    filtered = filtered.filter((p) => {
-      const flow = p.specifications.flow;
-      if (flow === null) return false;
-      
-      if (filters.flowRateMin !== null && flow < filters.flowRateMin) {
-        return false;
-      }
-      
-      if (filters.flowRateMax !== null && flow > filters.flowRateMax) {
-        return false;
-      }
-      
-      return true;
-    });
-  }
-
-  // Filter by brands
-  if (filters.brands.length > 0) {
-    filtered = filtered.filter((p) => filters.brands.includes(p.brand));
-  }
-
-  // Filter by categories
-  if (filters.categories.length > 0) {
-    filtered = filtered.filter((p) => filters.categories.includes(p.category));
-  }
-
-  // Filter by subcategories
-  if (filters.subcategories.length > 0) {
-    filtered = filtered.filter((p) => filters.subcategories.includes(p.subcategory));
-  }
-
-  return filtered;
-}
-
-export function sortProducts(products: Product[], sortBy: SortOption): Product[] {
-  const sorted = [...products];
-
-  switch (sortBy) {
-    case 'bestSelling':
-      return sorted.sort((a, b) => {
-        // Best sellers first, then by review count
-        if (a.isBestSeller !== b.isBestSeller) {
-          return a.isBestSeller ? -1 : 1;
-        }
-        return b.reviewCount - a.reviewCount;
-      });
-
-    case 'highestRated':
-      return sorted.sort((a, b) => {
-        // Sort by rating, then by review count for ties
-        if (b.rating !== a.rating) {
-          return b.rating - a.rating;
-        }
-        return b.reviewCount - a.reviewCount;
-      });
-
-    case 'lowestPrice':
-      return sorted.sort((a, b) => a.price - b.price);
-
-    case 'newest':
-      return sorted.sort((a, b) => {
-        // New products first, then by ID (assuming higher ID = newer)
-        if (a.isNew !== b.isNew) {
-          return a.isNew ? -1 : 1;
-        }
-        const createdA = a.created_at ? new Date(a.created_at).getTime() : 0;
-        const createdB = b.created_at ? new Date(b.created_at).getTime() : 0;
-        return createdB - createdA;
-      });
-
-    default:
-      return sorted;
-  }
-}
+export { filterProducts, sortProducts } from '@/lib/data/products-shared';
