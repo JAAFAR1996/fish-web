@@ -104,7 +104,6 @@ export function generateMetadata({
     description: descriptions[locale],
     metadataBase: new URL(BASE_URL),
     manifest: '/manifest.json',
-    themeColor: '#0E8FA8',
     icons: {
       icon: [
         { url: '/icons/icon-192x192.png', type: 'image/png' },
@@ -134,6 +133,12 @@ export function generateMetadata({
         en: '/en',
       },
     },
+  };
+}
+
+export function generateViewport() {
+  return {
+    themeColor: '#0E8FA8',
   };
 }
 

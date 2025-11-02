@@ -3,6 +3,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import withPWA from 'next-pwa';
+import createNextIntlPlugin from 'next-intl/plugin';
 
 import { IMAGE_DEVICE_SIZES, IMAGE_SIZES } from './src/lib/config/ui.js';
 
@@ -144,6 +145,8 @@ const withMDX = createMDX({
   },
 });
 
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+
 const supabaseHostname = getSupabaseHostname();
 const additionalHosts = getAdditionalImageHosts();
 const runtimeCaching = buildRuntimeCaching(supabaseHostname);
@@ -214,4 +217,4 @@ const nextConfig = {
   },
 };
 
-export default withPWA(pwaConfig)(withMDX(nextConfig));
+export default withPWA(pwaConfig)(withMDX(withNextIntl(nextConfig)));
