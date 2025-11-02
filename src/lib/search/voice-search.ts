@@ -1,13 +1,5 @@
 import type { VoiceSearchState } from '@/types';
 
-type SpeechRecognitionConstructor = new () => SpeechRecognition;
-
-declare global {
-  interface Window {
-    webkitSpeechRecognition?: SpeechRecognitionConstructor;
-  }
-}
-
 export interface VoiceSearchHandlerOptions {
   locale: string;
   onResult: (transcript: string, isFinal: boolean) => void;
@@ -34,7 +26,7 @@ export class VoiceSearchHandler {
   private recognition: SpeechRecognition;
   private state: VoiceSearchState = 'idle';
 
-  private readonly onResult: (transcript: string) => void;
+  private readonly onResult: (transcript: string, isFinal: boolean) => void;
   private readonly onStateChange?: (state: VoiceSearchState) => void;
   private readonly onError?: (messageKey: string) => void;
 
@@ -45,7 +37,7 @@ export class VoiceSearchHandler {
 
     const RecognitionClass =
       (window.SpeechRecognition ??
-        window.webkitSpeechRecognition) as SpeechRecognitionConstructor;
+        window.webkitSpeechRecognition) as typeof SpeechRecognition;
 
     this.recognition = new RecognitionClass();
     this.recognition.continuous = false;

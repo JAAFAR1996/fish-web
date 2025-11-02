@@ -133,7 +133,6 @@ export function SearchBar({ className, size = 'md' }: SearchBarProps) {
       setIsAutocompleteOpen(false);
       router.push({
         pathname: '/search',
-        locale,
         query: { q: query },
       });
     },

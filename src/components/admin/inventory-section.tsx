@@ -1,6 +1,6 @@
 'use client';
 
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import { useLocale, useTranslations } from 'next-intl';
 import {
   useCallback,
@@ -27,7 +27,7 @@ import type { Locale, Product } from '@/types';
 import { formatCurrency } from '@/lib/utils';
 
 interface InventorySectionProps {
-  admin: User;
+  admin: AuthUser;
   className?: string;
 }
 

@@ -3,7 +3,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseAnonKey, getSupabaseUrl } from '../env';
 import { getBrowserSupabaseClient } from './client';
 
-export function createClientSupabaseClient(): SupabaseClient {
+export function createClientSupabaseClient() {
   return createBrowserClient(getSupabaseUrl(), getSupabaseAnonKey());
 }
 

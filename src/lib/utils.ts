@@ -305,16 +305,17 @@ export function getWhatsAppUrl(
   return `https://wa.me/${sanitizedNumber}?text=${message}`;
 }
 export function getWhatsAppShareUrl(
-  product: Product,
+  product: Pick<Product, 'name' | 'brand'> & { description?: string },
   locale: Locale,
   phoneNumber: string | undefined,
   pageUrl: string
 ): string {
   const sanitizedNumber = sanitizePhoneNumber(phoneNumber);
+  const brandInfo = product.brand ? ` (${product.brand})` : '';
   const baseMessage =
     locale === 'ar'
-      ? `شاهد ${product.name} (${product.brand})`
-      : `Check out ${product.name} (${product.brand})`;
+      ? `شاهد ${product.name}${brandInfo}`
+      : `Check out ${product.name}${brandInfo}`;
   const safeShareUrl = sanitizeShareUrl(pageUrl);
   const segments = [baseMessage];
   if (safeShareUrl) {

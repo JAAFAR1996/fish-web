@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import { useTranslations } from 'next-intl';
 
 import { Badge, Button, Icon, Input } from '@/components/ui';
@@ -21,7 +21,7 @@ interface ShippingInfoContinuePayload {
 }
 
 export interface ShippingInfoStepProps {
-  user: User | null;
+  user: AuthUser | null;
   savedAddresses: SavedAddress[];
   initialData?: ShippingAddressSnapshot | null;
   initialGuestEmail?: string | null;

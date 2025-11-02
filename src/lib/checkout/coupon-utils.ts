@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm';
+import { sql, eq } from 'drizzle-orm';
 import { and, or, isNull, lt } from 'drizzle-orm';
 
 import type { Coupon, Locale } from '@/types';
@@ -6,6 +6,7 @@ import { db } from '@server/db';
 import { coupons } from '@server/schema';
 
 import { formatCurrency } from '@/lib/utils';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
 
 import { MAX_COUPON_PERCENTAGE } from './constants';
 

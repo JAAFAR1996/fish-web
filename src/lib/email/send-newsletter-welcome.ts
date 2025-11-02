@@ -39,7 +39,7 @@ export async function sendNewsletterWelcomeEmail(
       to: email,
       subject,
       html,
-      replyTo: SUPPORT_EMAIL,
+      reply_to: SUPPORT_EMAIL,
     });
 
     if (error) {

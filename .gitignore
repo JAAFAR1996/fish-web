@@ -39,3 +39,7 @@ node_modules/
 .next/
 .env*
 .vercel/
+
+
+#Ignore cursor AI rules
+.cursor\rules\codacy.mdc

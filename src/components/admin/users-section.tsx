@@ -1,12 +1,12 @@
 'use client';
 
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import { useTranslations } from 'next-intl';
 
 import { Card, CardContent, CardHeader, CardTitle, Icon } from '@/components/ui';
 
 interface UsersSectionProps {
-  admin: User;
+  admin: AuthUser;
   className?: string;
 }
 

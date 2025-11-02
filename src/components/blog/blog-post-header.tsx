@@ -129,7 +129,7 @@ export function BlogPostHeader({
 
         <div className="ms-auto">
           <ShareButtons
-            product={{ name: post.title, slug: post.slug }}
+            product={{ name: post.title, slug: post.slug, brand: '' }}
             locale={locale}
           />
         </div>

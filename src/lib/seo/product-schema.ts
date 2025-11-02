@@ -20,10 +20,7 @@ export function generateProductSchema(
   locale: Locale,
 ) {
   const imageUrls = (product.images ?? [])
-    .map((image) =>
-      typeof image === 'string' ? image : image?.url,
-    )
-    .filter((url): url is string => Boolean(url));
+    .filter((url): url is string => Boolean(url) && typeof url === 'string');
 
   if (!imageUrls.length && product.thumbnail) {
     imageUrls.push(product.thumbnail);

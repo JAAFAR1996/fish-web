@@ -85,8 +85,6 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
             category={post.category}
             title="Related Products"
             onAddToCart={async () => {}}
-            wishlistIds={[]}
-            onWishlistToggle={async () => {}}
           />
         </div>
       )}

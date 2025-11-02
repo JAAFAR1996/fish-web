@@ -78,7 +78,8 @@ export function SettingsSection({ user }: SettingsSectionProps) {
       const result = await updatePassword({ newPassword });
       if (!result.success) {
         setPasswordStatus('error');
-        setPasswordMessage(tAuth(result.error.replace('auth.', '')));
+        const errorMessage = typeof result.error === 'string' ? result.error : 'Unknown error';
+        setPasswordMessage(tAuth(errorMessage.replace('auth.', '')));
         return;
       }
       setPasswordStatus('success');

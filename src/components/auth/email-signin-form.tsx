@@ -60,7 +60,8 @@ export function EmailSigninForm({
 
       if (!result.success) {
         setStatus('error');
-        setFormError(result.error);
+        const error = typeof result.error === 'string' ? result.error : String(result.error);
+        setFormError(error);
         return;
       }
 

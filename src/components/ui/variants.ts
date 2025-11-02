@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 
-export type Size = 'sm' | 'md' | 'lg';
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon';
 
 export type Variant =
   | 'default'
@@ -50,9 +50,12 @@ export type VariantProps<T extends VariantFunction<VariantDefinitions>> = NonNul
 >;
 
 export const BUTTON_SIZES: Record<Size, string> = {
+  xs: 'h-8 px-2 text-xs',
   sm: 'h-9 px-3 text-sm',
   md: 'h-10 px-4 text-base',
   lg: 'h-11 px-6 text-lg',
+  xl: 'h-12 px-8 text-xl',
+  icon: 'h-9 w-9 p-0',
 };
 
 export const INPUT_SIZES: Record<
@@ -65,6 +68,13 @@ export const INPUT_SIZES: Record<
     iconPaddingEnd: string;
   }
 > = {
+  xs: {
+    input: 'h-8 text-xs',
+    paddingStart: 'ps-2',
+    paddingEnd: 'pe-2',
+    iconPaddingStart: 'ps-8',
+    iconPaddingEnd: 'pe-8',
+  },
   sm: {
     input: 'h-9 text-sm',
     paddingStart: 'ps-3',
@@ -86,12 +96,29 @@ export const INPUT_SIZES: Record<
     iconPaddingStart: 'ps-12',
     iconPaddingEnd: 'pe-12',
   },
+  xl: {
+    input: 'h-12 text-xl',
+    paddingStart: 'ps-6',
+    paddingEnd: 'pe-6',
+    iconPaddingStart: 'ps-14',
+    iconPaddingEnd: 'pe-14',
+  },
+  icon: {
+    input: 'h-9 text-sm',
+    paddingStart: 'ps-3',
+    paddingEnd: 'pe-3',
+    iconPaddingStart: 'ps-10',
+    iconPaddingEnd: 'pe-10',
+  },
 };
 
 export const ICON_SIZES: Record<Size, number> = {
+  xs: 12,
   sm: 16,
   md: 20,
   lg: 24,
+  xl: 32,
+  icon: 16,
 };
 
 export function createVariants<

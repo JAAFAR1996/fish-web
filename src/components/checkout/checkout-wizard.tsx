@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 
 import type {
   CheckoutStep,
@@ -26,7 +26,7 @@ interface ShippingState {
 }
 
 export interface CheckoutWizardProps {
-  user: User | null;
+  user: AuthUser | null;
   savedAddresses: SavedAddress[];
   loyaltyPointsBalance: number;
   className?: string;

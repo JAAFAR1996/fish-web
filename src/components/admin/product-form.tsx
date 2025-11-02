@@ -261,8 +261,6 @@ export function ProductForm({
     }
 
     const payload: ProductFormData = {
-      id: existingProduct?.id ?? '',
-      slug: existingProduct?.slug ?? '',
       name,
       brand,
       category,
@@ -273,14 +271,11 @@ export function ProductForm({
       currency: 'IQD',
       images: uploadedImages,
       thumbnail: uploadedImages[0] ?? existingProduct?.thumbnail ?? '',
-      rating: existingProduct?.rating ?? 0,
-      reviewCount: existingProduct?.reviewCount ?? 0,
       stock,
       lowStockThreshold,
       isNew,
       isBestSeller,
       specifications,
-      flashSale: existingProduct?.flashSale,
     };
 
     const validation = validateProductForm(payload);

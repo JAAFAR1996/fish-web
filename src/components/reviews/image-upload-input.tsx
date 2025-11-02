@@ -74,7 +74,7 @@ export function ImageUploadInput({
       const previews: ImageUploadPreview[] = [];
 
       for (const file of allowedFiles) {
-        if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+        if (!ALLOWED_IMAGE_TYPES.includes(file.type as typeof ALLOWED_IMAGE_TYPES[number])) {
           setError(t('validation.imageTypeInvalid'));
           continue;
         }

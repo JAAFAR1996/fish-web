@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState, useTransition } from 'react';
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
@@ -26,7 +26,7 @@ import {
 import { MIN_POINTS_REDEMPTION } from '@/lib/marketing/constants';
 
 export interface OrderReviewStepProps {
-  user: User | null;
+  user: AuthUser | null;
   shippingAddress: ShippingAddressSnapshot;
   paymentMethod: PaymentMethod;
   guestEmail: string | null;

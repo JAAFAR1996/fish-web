@@ -6,7 +6,6 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type KeyboardEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';

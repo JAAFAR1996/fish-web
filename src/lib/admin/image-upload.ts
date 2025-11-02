@@ -22,7 +22,7 @@ export async function uploadProductImage(
     return { url: null, error: 'admin.validation.imageSizeMax' };
   }
 
-  if (!ALLOWED_PRODUCT_IMAGE_TYPES.includes(file.type)) {
+  if (!ALLOWED_PRODUCT_IMAGE_TYPES.includes(file.type as typeof ALLOWED_PRODUCT_IMAGE_TYPES[number])) {
     return { url: null, error: 'admin.validation.imageTypeInvalid' };
   }
 

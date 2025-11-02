@@ -71,7 +71,7 @@ export const validateReviewImages = (images: File[]): ValidationResult => {
       break;
     }
 
-    if (!ALLOWED_IMAGE_TYPES.includes(image.type)) {
+    if (!ALLOWED_IMAGE_TYPES.includes(image.type as typeof ALLOWED_IMAGE_TYPES[number])) {
       errors.images = 'reviews.validation.imageTypeInvalid';
       break;
     }

@@ -118,7 +118,8 @@ export async function getBestSellersReport(
   >();
 
   data.forEach((item) => {
-    if (item.orders?.status === 'cancelled') {
+    const order = Array.isArray(item.orders) ? item.orders[0] : item.orders;
+    if (order?.status === 'cancelled') {
       return;
     }
 

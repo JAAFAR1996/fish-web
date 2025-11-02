@@ -144,7 +144,7 @@ const config: Config = {
     // Provides beautiful default styles for blog content.
     typography,
     // Adds custom scrollbar styling
-    tailwindScrollbar({ nocompatible: true }),
+    tailwindScrollbar,
   ],
 };
 

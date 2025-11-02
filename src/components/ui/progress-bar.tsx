@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState, type CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
@@ -7,8 +7,8 @@ export interface ProgressBarProps {
   value: number;
   min?: number;
   max?: number;
-  label: string;
-  unit: string;
+  label?: string;
+  unit?: string;
   status: 'optimal' | 'adequate' | 'insufficient';
   showValue?: boolean;
   showPercentage?: boolean;
@@ -33,7 +33,7 @@ export function ProgressBar({
   min = 0,
   max = 100,
   label,
-  unit,
+  unit = '',
   status,
   showValue = true,
   showPercentage = false,
@@ -53,16 +53,20 @@ export function ProgressBar({
 
   return (
     <div className={cn('w-full', className)}>
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-medium text-sand-900 dark:text-sand-100">
-          {label}
-        </span>
-        {showValue && (
-          <span className={cn('text-sm font-semibold', STATUS_COLORS[status].replace('bg-', 'text-'))}>
-            {showPercentage ? `${Math.round(percentage)}%` : `${value} ${unit}`}
-          </span>
-        )}
-      </div>
+      {(label || (showValue && (unit || showPercentage))) && (
+        <div className="flex items-center justify-between mb-2">
+          {label && (
+            <span className="text-sm font-medium text-sand-900 dark:text-sand-100">
+              {label}
+            </span>
+          )}
+          {showValue && (unit || showPercentage) && (
+            <span className={cn('text-sm font-semibold', STATUS_COLORS[status].replace('bg-', 'text-'))}>
+              {showPercentage ? `${Math.round(percentage)}%` : `${value}${unit ? ` ${unit}` : ''}`}
+            </span>
+          )}
+        </div>
+      )}
 
       <div
         className={cn(
@@ -86,8 +90,6 @@ export function ProgressBar({
     </div>
   );
 }
-
-export type { ProgressBarProps };
 
 
 

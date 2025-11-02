@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import { useTranslations } from 'next-intl';
 
 import {
@@ -21,7 +21,7 @@ import { ReportsSection } from '@/components/admin/reports-section';
 import { UsersSection } from '@/components/admin/users-section';
 
 interface AdminTabsProps {
-  admin: User;
+  admin: AuthUser;
   stats: AdminStats;
   defaultTab?: AdminDashboardTab;
 }

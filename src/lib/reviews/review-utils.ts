@@ -38,7 +38,7 @@ export const getReviewSummary = (reviews: Review[]): ReviewSummary => {
   return { averageRating, totalReviews, ratingDistribution };
 };
 
-export const filterReviewsByRating = (reviews: Review[], minRating: number): Review[] => {
+export const filterReviewsByRating = <T extends Review>(reviews: T[], minRating: number): T[] => {
   if (minRating <= 0) {
     return reviews;
   }
@@ -46,10 +46,10 @@ export const filterReviewsByRating = (reviews: Review[], minRating: number): Rev
   return reviews.filter((review) => review.rating >= minRating);
 };
 
-export const sortReviews = (
-  reviews: Review[],
+export const sortReviews = <T extends Review>(
+  reviews: T[],
   sortBy: 'recent' | 'helpful' | 'highest' | 'lowest',
-): Review[] => {
+): T[] => {
   const sorted = [...reviews];
 
   switch (sortBy) {

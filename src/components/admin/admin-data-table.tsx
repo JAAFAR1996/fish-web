@@ -188,7 +188,7 @@ export function AdminDataTable<T>({
                           ? (
                             <span>{content}</span>
                             )
-                          : content}
+                          : (content as React.ReactNode)}
                       </td>
                     );
                   })}

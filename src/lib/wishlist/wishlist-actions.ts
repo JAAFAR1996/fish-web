@@ -22,7 +22,7 @@ export async function addToWishlistAction(
     return { success: false, error: 'auth.errors.unauthenticated' };
   }
 
-  const locale = (user.user_metadata?.locale as string) ?? 'en';
+  const locale = 'en';
 
   const exists = await isInWishlist(user.id, productId);
   if (exists) {
@@ -45,7 +45,7 @@ export async function removeFromWishlistAction(
   }
 
   await removeFromWishlist(user.id, productId);
-  const locale = (user.user_metadata?.locale as string) ?? 'en';
+  const locale = 'en';
   revalidatePath('/wishlist');
   revalidatePath(`/${locale}/wishlist`);
   return { success: true };
@@ -59,7 +59,7 @@ export async function toggleWishlistAction(
     return { success: false, added: false, error: 'auth.errors.unauthenticated' };
   }
 
-  const locale = (user.user_metadata?.locale as string) ?? 'en';
+  const locale = 'en';
   const exists = await isInWishlist(user.id, productId);
 
   if (exists) {
@@ -87,7 +87,7 @@ export async function syncGuestWishlistAction(
     return { success: true };
   }
 
-  const locale = (user.user_metadata?.locale as string) ?? 'en';
+  const locale = 'en';
 
   for (const item of guestItems) {
     const alreadyExists = await isInWishlist(user.id, item.productId);
@@ -112,7 +112,7 @@ export async function clearWishlistAction(): Promise<{
   }
 
   await clearUserWishlist(user.id);
-  const locale = (user.user_metadata?.locale as string) ?? 'en';
+  const locale = 'en';
   revalidatePath('/wishlist');
   revalidatePath(`/${locale}/wishlist`);
   return { success: true };

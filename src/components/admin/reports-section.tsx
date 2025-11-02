@@ -8,7 +8,7 @@ import {
   useTransition,
 } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import {
   Bar,
   BarChart,
@@ -29,7 +29,7 @@ import type { BestSellerData, Locale, SalesReportData } from '@/types';
 import { formatCurrency } from '@/lib/utils';
 
 interface ReportsSectionProps {
-  admin: User;
+  admin: AuthUser;
   className?: string;
 }
 

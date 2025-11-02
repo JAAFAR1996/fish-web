@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import type { User } from '@supabase/supabase-js';
+import type { AuthUser } from '@server/auth';
 import {
   useCallback,
   useEffect,
@@ -27,7 +27,7 @@ import type { Locale, Order, OrderStatus } from '@/types';
 import { formatCurrency } from '@/lib/utils';
 
 interface OrdersSectionProps {
-  admin: User;
+  admin: AuthUser;
   className?: string;
 }
 

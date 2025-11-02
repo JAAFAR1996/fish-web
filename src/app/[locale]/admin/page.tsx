@@ -52,7 +52,7 @@ export default async function AdminDashboardPage({ params, searchParams }: Admin
 
     if (!statsResult.ok) {
       logWarn('Failed to load admin stats', {
-        error: statsResult.error,
+        error: 'error' in statsResult ? statsResult.error : 'Unknown error',
       });
       hasError = true;
       stats = {

@@ -111,7 +111,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      type: 'product',
+      type: 'website',
       images: openGraphImages,
     },
     twitter: {

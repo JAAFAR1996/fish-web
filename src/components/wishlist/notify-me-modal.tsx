@@ -109,7 +109,7 @@ export function NotifyMeModal({ product, isOpen, onClose }: NotifyMeModalProps) 
   };
 
   return (
-    <Modal open={isOpen} onOpenChange={(open) => (!open ? handleClose() : null)} size="sm">
+    <Modal open={isOpen} onOpenChange={(open) => (!open ? handleClose() : null)} size="sm" title={t('title')}>
       <ModalHeader>
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-aqua-500/10 text-aqua-500">

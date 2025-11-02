@@ -1,9 +1,9 @@
-import Fuse from 'fuse.js';
+import Fuse, { type IFuseOptions, type FuseResultMatch } from 'fuse.js';
 
 import type { Product, SearchResult } from '@/types';
 import { FUSE_THRESHOLD, MAX_PRODUCT_SUGGESTIONS } from './constants';
 
-const FUSE_OPTIONS: Fuse.IFuseOptions<Product> = {
+const FUSE_OPTIONS: IFuseOptions<Product> = {
   keys: [
     { name: 'name', weight: 1 },
     { name: 'brand', weight: 0.8 },
@@ -26,7 +26,7 @@ export function searchProducts(products: Product[], query: string): SearchResult
     .map((result) => ({
       product: result.item,
       score: result.score ?? 1,
-      matches: result.matches ?? [],
+      matches: Array.from(result.matches ?? []),
     }))
     .sort((a, b) => (a.score ?? 1) - (b.score ?? 1));
 }
@@ -62,7 +62,7 @@ export function getMatchedCategories(products: Product[], query: string): string
 
 export function highlightMatches(
   text: string,
-  matches: Fuse.FuseResultMatch[]
+  matches: FuseResultMatch[]
 ): { text: string; highlighted: boolean }[] {
   if (!matches.length || !text) {
     return [{ text, highlighted: false }];

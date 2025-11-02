@@ -56,12 +56,15 @@ export const mdxComponents: MDXComponents = {
     const isInternal = href?.startsWith('/');
     const isExternal = href?.startsWith('http');
 
+    // Filter out props that aren't compatible with Link component
+    const { popover, ...linkCompatibleProps } = props as any;
+
     if (isInternal) {
       return (
         <Link
           href={href}
           className="text-aqua-500 hover:underline transition-colors"
-          {...props}
+          {...linkCompatibleProps}
         >
           {children}
         </Link>
@@ -93,14 +96,14 @@ export const mdxComponents: MDXComponents = {
       </a>
     );
   },
-  img: ({ src, alt, ...props }) => (
+  img: ({ src, alt, width, height, ...props }) => (
     <figure className="my-6">
       <div className="relative rounded-lg overflow-hidden shadow-md">
         <Image
           src={src || ''}
           alt={alt || ''}
-          width={1200}
-          height={630}
+          width={typeof width === 'number' ? width : 1200}
+          height={typeof height === 'number' ? height : 630}
           className="w-full h-auto"
           {...props}
         />

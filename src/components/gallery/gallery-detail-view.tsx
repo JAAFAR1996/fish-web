@@ -35,13 +35,13 @@ export function GalleryDetailView({ setup, locale, className }: GalleryDetailVie
         const lower = item.toLowerCase();
         const isVideo = lower.endsWith('.mp4') || lower.includes('/video/');
         return {
-          type: isVideo ? 'video' : 'image',
+          type: (isVideo ? 'video' : 'image') as 'video' | 'image',
           url: item,
           order: idx,
         } satisfies GalleryMedia;
       }
       const order = typeof item.order === 'number' ? item.order : idx;
-      const type = item.type === 'video' ? 'video' : 'image';
+      const type: 'video' | 'image' = item.type === 'video' ? 'video' : 'image';
       return {
         type,
         url: item.url,

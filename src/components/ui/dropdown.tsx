@@ -603,69 +603,110 @@ export const DropdownMenuContent = ({
 };
 
 export interface DropdownMenuItemProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onSelect'> {
   disabled?: boolean;
-  onSelect?: () => void;
+  onSelect?: (event?: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => void;
+  asChild?: boolean;
 }
 
 export const DropdownMenuItem = ({
   className,
   disabled = false,
   onSelect,
+  asChild = false,
   children,
   ...props
 }: DropdownMenuItemProps) => {
   const { close, focusItem } = useDropdownMenuContext('DropdownMenuItem');
   const itemRef = useRef<HTMLButtonElement>(null);
 
-  const handleSelect = (event: React.MouseEvent | React.KeyboardEvent) => {
+  const handleSelect = (event?: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
     if (disabled) return;
-    onSelect?.();
+    onSelect?.(event);
     close();
   };
+
+  const resolvedClassName = cn(
+    'relative flex w-full cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm text-foreground outline-none transition-colors motion-safe:transition-colors focus:bg-muted focus:text-foreground data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
+    className
+  );
+
+  const itemProps: ButtonHTMLAttributes<HTMLButtonElement> & {
+    'data-menu-item': string;
+    'data-disabled'?: string;
+  } = {
+    className: resolvedClassName,
+    'data-menu-item': 'true',
+    'data-disabled': disabled ? 'true' : undefined,
+    'aria-disabled': disabled || undefined,
+    tabIndex: -1,
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+      props.onClick?.(event);
+      handleSelect(event);
+    },
+    onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      props.onKeyDown?.(event);
+      if (disabled) return;
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        handleSelect(event);
+      }
+    },
+    onFocus: (event: React.FocusEvent<HTMLButtonElement>) => {
+      props.onFocus?.(event);
+      const items = itemRef.current?.parentElement
+        ?.querySelectorAll<HTMLElement>('[data-menu-item="true"]');
+      if (!items || !itemRef.current) return;
+      const index = Array.from(items).indexOf(itemRef.current);
+      if (index >= 0) {
+        focusItem(index);
+      }
+    },
+    onPointerMove: (event: React.PointerEvent<HTMLButtonElement>) => {
+      props.onPointerMove?.(event);
+      if (event.pointerType === 'mouse' && !disabled) {
+        itemRef.current?.focus();
+      }
+    },
+    ...props,
+  };
+
+  if (asChild) {
+    const child = Children.only(children) as ElementWithRef<HTMLElement>;
+
+    if (!isValidElement(child)) {
+      throw new Error(
+        'DropdownMenuItem with asChild expects a single valid React element child.'
+      );
+    }
+
+    const isNativeButton =
+      typeof child.type === 'string' && child.type === 'button';
+    const disabledState = Boolean(disabled);
+
+    const mergedProps: Record<string, unknown> = {
+      ...itemProps,
+      className: cn(resolvedClassName, child.props.className as string),
+      ref: mergeRefs(child.ref, itemRef),
+    };
+
+    if (disabledState) {
+      if (isNativeButton) {
+        mergedProps.disabled = true;
+      } else {
+        mergedProps['aria-disabled'] = true;
+      }
+    }
+
+    return cloneElement(child, mergedProps);
+  }
 
   return (
     <button
       ref={itemRef}
       type="button"
       role="menuitem"
-      className={cn(
-        'relative flex w-full cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm text-foreground outline-none transition-colors motion-safe:transition-colors focus:bg-muted focus:text-foreground data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
-        className
-      )}
-      data-menu-item="true"
-      data-disabled={disabled ? 'true' : undefined}
-      aria-disabled={disabled || undefined}
-      tabIndex={-1}
-      onClick={(event) => {
-        props.onClick?.(event);
-        handleSelect(event);
-      }}
-      onKeyDown={(event) => {
-        props.onKeyDown?.(event);
-        if (disabled) return;
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          handleSelect(event);
-        }
-      }}
-      onFocus={(event) => {
-        props.onFocus?.(event);
-        const items = itemRef.current?.parentElement
-          ?.querySelectorAll<HTMLElement>('[data-menu-item="true"]');
-        if (!items || !itemRef.current) return;
-        const index = Array.from(items).indexOf(itemRef.current);
-        if (index >= 0) {
-          focusItem(index);
-        }
-      }}
-      onPointerMove={(event) => {
-        props.onPointerMove?.(event);
-        if (event.pointerType === 'mouse' && !disabled) {
-          itemRef.current?.focus();
-        }
-      }}
-      {...props}
+      {...itemProps}
     >
       {children}
     </button>

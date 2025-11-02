@@ -195,7 +195,9 @@ const GUIDE_COPY: Record<Locale, Record<GuideSection, GuideContent>> = {
   },
 };
 
-const SECTION_ICONS: Record<'installation' | 'maintenance' | 'tips', string> = {
+import type { IconName } from '@/components/ui';
+
+const SECTION_ICONS: Record<'installation' | 'maintenance' | 'tips', IconName> = {
   installation: 'settings',
   maintenance: 'loader',
   tips: 'star',

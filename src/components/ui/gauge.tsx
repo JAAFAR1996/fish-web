@@ -122,4 +122,4 @@ export function Gauge({
   );
 }
 
-export type { GaugeProps };
+

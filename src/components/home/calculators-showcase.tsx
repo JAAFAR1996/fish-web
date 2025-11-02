@@ -19,12 +19,14 @@ const CALCULATORS = [
     icon: 'thermometer',
     href: { pathname: '/calculators', query: { tab: 'heater' } } as const,
     accent: 'from-aqua-100 to-aqua-200 dark:from-aqua-900 dark:to-aqua-800',
+    comingSoon: false,
   },
   {
     key: 'filter',
     icon: 'filter',
     href: { pathname: '/calculators', query: { tab: 'filter' } } as const,
     accent: 'from-coral-100 to-coral-200 dark:from-coral-900 dark:to-coral-800',
+    comingSoon: false,
   },
   {
     key: 'salinity',

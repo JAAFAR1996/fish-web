@@ -69,7 +69,7 @@ export function validatePaymentMethod(
 }
 
 export function validateCheckoutData(
-  data: CheckoutData,
+  data: CheckoutData & { guestEmail?: string | null },
   isGuest: boolean
 ): ValidationResult {
   const errors: Record<string, string> = {};

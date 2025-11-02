@@ -54,7 +54,7 @@ export async function sendShippingUpdateEmail({
       to: recipientEmail,
       subject,
       html,
-      replyTo: SUPPORT_EMAIL,
+      reply_to: SUPPORT_EMAIL,
     });
 
     return { success: true };

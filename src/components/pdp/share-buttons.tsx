@@ -15,7 +15,9 @@ import { cn, getWhatsAppShareUrl } from '@/lib/utils';
 import type { Locale, Product } from '@/types';
 
 export interface ShareButtonsProps {
-  product: Pick<Product, 'slug' | 'name'>;
+  product: Pick<Product, 'slug' | 'name' | 'brand'> & {
+    description?: string;
+  };
   locale: Locale;
   variant?: 'button' | 'dropdown';
   className?: string;
@@ -128,30 +130,15 @@ export function ShareButtons({
           <Icon name="copy" size="sm" className="me-2 text-muted-foreground" />
           {copied ? t('linkCopied') : t('copyLink')}
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onSelect={(event) => {
-            event.preventDefault();
-            handleWhatsAppShare();
-          }}
-        >
+        <DropdownMenuItem onSelect={handleWhatsAppShare}>
           <Icon name="whatsapp" size="sm" className="me-2 text-emerald-500" />
           {t('whatsapp')}
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onSelect={(event) => {
-            event.preventDefault();
-            handleFacebookShare();
-          }}
-        >
+        <DropdownMenuItem onSelect={handleFacebookShare}>
           <Icon name="facebook" size="sm" className="me-2 text-sky-600" />
           {t('facebook')}
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onSelect={(event) => {
-            event.preventDefault();
-            handleTwitterShare();
-          }}
-        >
+        <DropdownMenuItem onSelect={handleTwitterShare}>
           <Icon name="twitter" size="sm" className="me-2 text-sky-500" />
           {t('twitter')}
         </DropdownMenuItem>

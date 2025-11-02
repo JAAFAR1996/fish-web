@@ -24,7 +24,7 @@ export async function uploadReviewImage(
     return { url: null, error: 'reviews.validation.imageSizeMax' };
   }
 
-  if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+  if (!ALLOWED_IMAGE_TYPES.includes(file.type as typeof ALLOWED_IMAGE_TYPES[number])) {
     return { url: null, error: 'reviews.validation.imageTypeInvalid' };
   }
 

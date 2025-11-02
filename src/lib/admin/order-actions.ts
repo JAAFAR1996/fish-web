@@ -10,7 +10,7 @@ import { routing } from '@/i18n/routing';
 import { adminClient } from '@/lib/supabase/admin';
 import { logError, logWarn, normalizeError } from '@/lib/logger';
 
-import type { Locale, Order, OrderStatus, OrderUpdateData } from '@/types';
+import type { Locale, Order, OrderStatus, OrderUpdateData, ShippingAddressSnapshot, PaymentMethod } from '@/types';
 
 import { AUDIT_ACTIONS, ENTITY_TYPES } from './constants';
 import { createAuditLog } from './audit-utils';
@@ -60,8 +60,8 @@ const normalizeOrder = (row: DbOrderRow): Order => ({
   user_id: row.user_id,
   guest_email: row.guest_email ?? null,
   shipping_address_id: row.shipping_address_id ?? null,
-  shipping_address: row.shipping_address,
-  payment_method: row.payment_method,
+  shipping_address: (row.shipping_address as ShippingAddressSnapshot) ?? {} as ShippingAddressSnapshot,
+  payment_method: row.payment_method as PaymentMethod,
   status: row.status,
   subtotal: Number(row.subtotal ?? 0),
   shipping_cost: Number(row.shipping_cost ?? 0),

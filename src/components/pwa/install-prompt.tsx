@@ -271,7 +271,7 @@ export function InstallPrompt() {
           className="w-full sm:w-auto"
           onClick={handleInstall}
           disabled={!deferredPrompt || isInstalling}
-          isLoading={isInstalling}
+          loading={isInstalling}
         >
           <Icon name="download" className="h-4 w-4" aria-hidden />
           {t('install')}

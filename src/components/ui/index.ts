@@ -29,8 +29,6 @@ export {
   AccordionContent,
   type AccordionProps,
   type AccordionItemProps,
-  type AccordionTriggerProps,
-  type AccordionContentProps,
 } from './accordion';
 export {
   DropdownMenu,
@@ -40,11 +38,7 @@ export {
   DropdownMenuSeparator,
   DropdownMenuLabel,
   type DropdownMenuProps,
-  type DropdownMenuTriggerProps,
-  type DropdownMenuContentProps,
   type DropdownMenuItemProps,
-  type DropdownMenuSeparatorProps,
-  type DropdownMenuLabelProps,
 } from './dropdown';
 export {
   Icon,
@@ -70,9 +64,6 @@ export {
   ModalBody,
   ModalFooter,
   type ModalProps,
-  type ModalHeaderProps,
-  type ModalBodyProps,
-  type ModalFooterProps,
 } from './modal';
 export {
   Tabs,

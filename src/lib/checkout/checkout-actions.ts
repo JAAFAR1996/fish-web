@@ -52,6 +52,7 @@ type ExtendedCheckoutData = CheckoutData & {
   locale?: Locale;
   shippingAddressId?: string | null;
   loyaltyPoints?: number;
+  guestEmail?: string | null;
 };
 
 function getLocale(data: ExtendedCheckoutData, fallback: Locale = 'en'): Locale {
@@ -146,7 +147,11 @@ export async function applyCouponAction(
 
   const result = await validateCoupon(code, subtotal);
   if (!result.valid) {
-    return { success: false, error: result.error, params: result.params };
+    return {
+      success: false,
+      error: 'error' in result ? result.error : 'Unknown error',
+      params: 'params' in result ? result.params : undefined
+    };
   }
 
   const discount = calculateDiscount(result.coupon, subtotal);
@@ -218,8 +223,8 @@ export async function createOrderAction(
     if (!couponResult.valid) {
       return {
         success: false,
-        error: couponResult.error,
-        params: couponResult.params,
+        error: 'error' in couponResult ? couponResult.error : 'Unknown error',
+        params: 'params' in couponResult ? couponResult.params : undefined,
       };
     }
     discount = calculateDiscount(couponResult.coupon, subtotal);

@@ -291,8 +291,8 @@ export function Carousel({
 
   const containerStyles: CSSProperties = {
     gap,
-    ['--carousel-gap' as '--carousel-gap']: `${gap}px`,
-  };
+    '--carousel-gap': `${gap}px`,
+  } as CSSProperties;
 
   return (
     <div className={cn('relative', className)}>

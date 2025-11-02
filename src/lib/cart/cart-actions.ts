@@ -94,7 +94,7 @@ export async function addToCartAction(
     }
 
     await upsertCartItem(cart.id, productId, newQuantity, unitPrice);
-    revalidateCart(user.user_metadata?.locale);
+    revalidateCart(null);
     return { success: true };
   } catch (error) {
     logCartActionError(
@@ -121,7 +121,7 @@ export async function removeFromCartAction(
 
   try {
     await removeCartItem(cart.id, productId);
-    revalidateCart(user.user_metadata?.locale);
+    revalidateCart(null);
     return { success: true };
   } catch (error) {
     logCartActionError(
@@ -163,7 +163,7 @@ export async function updateQuantityAction(
 
   try {
     await upsertCartItem(cart.id, productId, quantity, unitPrice);
-    revalidateCart(user.user_metadata?.locale);
+    revalidateCart(null);
     return { success: true };
   } catch (error) {
     logCartActionError(
@@ -191,7 +191,7 @@ export async function clearCartAction(): Promise<{
 
   try {
     await clearUserCart(cart.id);
-    revalidateCart(user.user_metadata?.locale);
+    revalidateCart(null);
     return { success: true };
   } catch (error) {
     logCartActionError(
@@ -219,7 +219,7 @@ export async function syncGuestCartAction(
 
   try {
     await syncGuestCartToSupabase(user.id, guestItems, products);
-    revalidateCart(user.user_metadata?.locale);
+    revalidateCart(null);
     return { success: true };
   } catch (error) {
     logCartActionError(

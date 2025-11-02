@@ -143,8 +143,7 @@ export const Header = () => {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onSelect={(event) => {
-                      event.preventDefault();
+                    onSelect={() => {
                       signOut();
                     }}
                   >

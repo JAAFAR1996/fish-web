@@ -1,50 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "module": "ESNext",
+    "target": "ES2015",
+    "lib": ["dom", "dom.iterable", "ES2015", "ES2017", "ES2018", "ES2019", "ES2020", "ES2021"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
     "moduleResolution": "bundler",
-    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "allowJs": false,
-    "noEmit": true,
-    "types": [
-      "node"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@shared/*": [
-        "./shared/*"
-      ],
-      "@server/*": [
-        "./server/*"
-      ]
-    },
+    "downlevelIteration": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "esModuleInterop": true,
-    "isolatedModules": true
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@server/*": ["./server/*"],
+      "@shared/*": ["./shared/*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

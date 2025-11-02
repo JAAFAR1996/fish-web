@@ -69,7 +69,7 @@ export function canPurchaseFlashSale(flashSale: FlashSale, requestedQuantity: nu
 export async function incrementFlashSaleSold(flashSaleId: string, quantity: number): Promise<void> {
   const supabase = await createServerSupabaseClient();
 
-  const { data, error } = await supabase.rpc<IncrementFlashSaleStockResult>(
+  const { data, error } = await supabase.rpc(
     RPC_INCREMENT_FLASH_SALE_STOCK,
     {
       [RPC_PARAM_SALE_ID]: flashSaleId,
