@@ -1,9 +1,5 @@
-import Image from 'next/image';
-
 import { Icon } from '@/components/ui/icon';
 import { FeaturedCategoryClient } from './featured-category-client';
-import { Link } from '@/i18n/navigation';
-import { cn } from '@/lib/utils';
 import type { CategoryKey } from '@/components/layout/navigation-data';
 import { getCategoryCounts } from '@/lib/data/products';
 

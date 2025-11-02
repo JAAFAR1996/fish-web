@@ -27,7 +27,7 @@ export async function uploadGalleryImage(
   if (file.size > MAX_GALLERY_IMAGE_SIZE) {
     return { url: null, error: 'gallery.validation.maxMedia' };
   }
-  if (!ALLOWED_GALLERY_IMAGE_TYPES.includes(file.type as any)) {
+  if (!ALLOWED_GALLERY_IMAGE_TYPES.includes(file.type as typeof ALLOWED_GALLERY_IMAGE_TYPES[number])) {
     return { url: null, error: 'gallery.validation.mediaRequired' };
   }
 

@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 declare global {
   interface Window {
-    plausible?: (eventName: string, options?: { props?: Record<string, any> }) => void;
+    plausible?: (eventName: string, options?: { props?: Record<string, unknown> }) => void;
   }
 }
 
@@ -33,7 +33,7 @@ export default function PlausibleAnalytics({ nonce }: PlausibleAnalyticsProps = 
   );
 }
 
-export function trackEvent(eventName: string, props?: Record<string, any>) {
+export function trackEvent(eventName: string, props?: Record<string, unknown>) {
   if (typeof window === 'undefined') {
     return;
   }

@@ -8,7 +8,7 @@ import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { createAuditLog } from '@/lib/admin/audit-utils';
 import { AUDIT_ACTIONS, ENTITY_TYPES } from '@/lib/admin/constants';
 import { deleteGalleryImages } from './image-upload';
-import type { GalleryMedia, Hotspot } from '@/types';
+import type { GalleryMedia, GalleryStyle, Hotspot } from '@/types';
 import { GALLERY_STYLES, MAX_GALLERY_MEDIA, MAX_HOTSPOTS_PER_IMAGE, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, MIN_TANK_SIZE, MAX_TANK_SIZE } from './constants';
 
 function revalidateGallery() {
@@ -37,7 +37,7 @@ export async function createSetupAction(
   if (payload.tankSize < MIN_TANK_SIZE || payload.tankSize > MAX_TANK_SIZE) {
     return { success: false, error: 'gallery.validation.tankSizeRequired' };
   }
-  if (!GALLERY_STYLES.includes(payload.style as any)) {
+  if (!GALLERY_STYLES.includes(payload.style as GalleryStyle)) {
     return { success: false, error: 'gallery.validation.styleRequired' };
   }
   if (!Array.isArray(payload.mediaUrls) || payload.mediaUrls.length < 1) {

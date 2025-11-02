@@ -30,7 +30,8 @@ export function BundleCard({
   onViewDetails,
   locale: localeProp,
 }: BundleCardProps) {
-  const locale = localeProp ?? (useLocale() as Locale);
+  const currentLocale = useLocale() as Locale;
+  const locale = localeProp ?? currentLocale;
   const t = useTranslations('marketing.bundles');
 
   const totalValue = formatCurrency(bundle.totalOriginalPrice, locale);

@@ -217,7 +217,7 @@ export function Tabs({
   );
 }
 
-export interface TabsListProps extends HTMLAttributes<HTMLDivElement> {}
+export type TabsListProps = HTMLAttributes<HTMLDivElement>;
 
 export function TabsList({ className, children, ...props }: TabsListProps) {
   const { orientation } = useTabsContext('TabsList');

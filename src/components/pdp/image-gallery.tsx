@@ -25,11 +25,7 @@ export function ImageGallery({
   const isRtl = locale === 'ar';
   const [activeIndex, setActiveIndex] = useState(0);
 
-  if (!images || images.length === 0) {
-    return null;
-  }
-
-  const totalImages = images.length;
+  const totalImages = images?.length ?? 0;
 
   const goToPrevious = useCallback(() => {
     setActiveIndex((prev) =>
@@ -42,6 +38,10 @@ export function ImageGallery({
       prev === totalImages - 1 ? 0 : prev + 1
     );
   }, [totalImages]);
+
+  if (!images || images.length === 0) {
+    return null;
+  }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'ArrowLeft') {

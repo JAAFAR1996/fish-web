@@ -77,10 +77,13 @@ export async function getProductReviews(
 
   // Transform the data to match ReviewWithUser type
   // Supabase returns user as an array, but we need it as an object
-  return (data ?? []).map((review: any) => ({
-    ...review,
-    user: Array.isArray(review.user) ? review.user[0] : review.user,
-  })) as ReviewWithUser[];
+  return (data ?? []).map((review: unknown) => {
+    const r = review as Record<string, unknown>;
+    return {
+      ...r,
+      user: Array.isArray(r.user) ? r.user[0] : r.user,
+    };
+  }) as ReviewWithUser[];
 }
 
 export async function getUserReview(
@@ -124,7 +127,7 @@ export async function getReviewById(reviewId: string): Promise<ReviewWithUser | 
 
   // Transform the data to match ReviewWithUser type
   // Supabase returns user as an array, but we need it as an object
-  const review: any = data;
+  const review = data as Record<string, unknown>;
   return {
     ...review,
     user: Array.isArray(review.user) ? review.user[0] : review.user,
@@ -216,10 +219,13 @@ export async function getUserReviews(
 
   // Transform the data to match ReviewWithUser type
   // Supabase returns user as an array, but we need it as an object
-  return (data ?? []).map((review: any) => ({
-    ...review,
-    user: Array.isArray(review.user) ? review.user[0] : review.user,
-  })) as ReviewWithUser[];
+  return (data ?? []).map((review: unknown) => {
+    const r = review as Record<string, unknown>;
+    return {
+      ...r,
+      user: Array.isArray(r.user) ? r.user[0] : r.user,
+    };
+  }) as ReviewWithUser[];
 }
 
 export async function getHelpfulVotesForUser(

@@ -154,7 +154,7 @@ export function ProductForm({
         if (!prev.images) {
           return prev;
         }
-        const { images, ...rest } = prev;
+        const { images: _images, ...rest } = prev;
         return rest;
       });
 

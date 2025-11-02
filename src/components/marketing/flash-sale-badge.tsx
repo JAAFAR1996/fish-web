@@ -15,7 +15,8 @@ interface FlashSaleBadgeProps {
 }
 
 export function FlashSaleBadge({ flashSale, className, locale: localeProp }: FlashSaleBadgeProps) {
-  const locale = localeProp ?? (useLocale() as Locale);
+  const currentLocale = useLocale() as Locale;
+  const locale = localeProp ?? currentLocale;
   const t = useTranslations('marketing.flashSales');
   const [saleEnded, setSaleEnded] = useState(() => new Date(flashSale.ends_at) <= new Date());
 

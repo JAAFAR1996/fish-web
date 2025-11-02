@@ -6,6 +6,7 @@ const RPC_INCREMENT_FLASH_SALE_STOCK = 'increment_flash_sale_stock';
 const RPC_PARAM_SALE_ID = 'p_sale_id';
 const RPC_PARAM_QUANTITY = 'p_qty';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type IncrementFlashSaleStockResult = number | null;
 
 /**

@@ -2,8 +2,8 @@ import type { NextWebVitalsMetric } from 'next/app';
 
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
-    plausible?: (eventName: string, options?: { props?: Record<string, any> }) => void;
+    gtag?: (...args: unknown[]) => void;
+    plausible?: (eventName: string, options?: { props?: Record<string, unknown> }) => void;
   }
 }
 

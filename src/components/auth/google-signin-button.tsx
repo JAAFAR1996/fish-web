@@ -34,7 +34,7 @@ export function GoogleSigninButton({
         setIsLoading(false);
         onError?.('auth.errors.unknownError');
       }
-    } catch (_error) {
+    } catch {
       setIsLoading(false);
       onError?.('auth.errors.unknownError');
     }

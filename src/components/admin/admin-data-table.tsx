@@ -61,7 +61,7 @@ export function AdminDataTable<T>({
 
     return data.filter((item) =>
       columns.some((column) => {
-        const value = column.accessor ? column.accessor(item) : (item as any)[column.key];
+        const value = column.accessor ? column.accessor(item) : (item as Record<string, unknown>)[column.key];
         return String(value ?? '')
           .toLowerCase()
           .includes(term);

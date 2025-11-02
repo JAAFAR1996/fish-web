@@ -57,7 +57,7 @@ export const mdxComponents: MDXComponents = {
     const isExternal = href?.startsWith('http');
 
     // Filter out props that aren't compatible with Link component
-    const { popover, ...linkCompatibleProps } = props as any;
+    const { popover: _popover, ...linkCompatibleProps } = props as Record<string, unknown>;
 
     if (isInternal) {
       return (

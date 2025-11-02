@@ -14,7 +14,7 @@ import { HotspotEditor } from '@/components/gallery/hotspot-editor';
 
 interface SetupSubmissionFormProps {
   onSuccess?: () => void;
-  onCancel?: () => void;
+  onCancel?: () => void; // eslint-disable-line @typescript-eslint/no-unused-vars
   className?: string;
 }
 
@@ -56,13 +56,13 @@ export function SetupSubmissionForm({ onSuccess, onCancel, className }: SetupSub
     if (!canContinue()) return;
     setStatusKey(null);
     setUploadErrorKey(null);
-    setStep((s) => ((s + 1) as any));
+    setStep((s) => (s + 1) as 1 | 2 | 3 | 4);
   };
 
   const handlePreviousStep = () => {
     setStatusKey(null);
     setUploadErrorKey(null);
-    setStep((s) => (s > 1 ? ((s - 1) as any) : s));
+    setStep((s) => (s > 1 ? (s - 1) as 1 | 2 | 3 | 4 : s));
   };
 
   const translateMessage = (key: string): string => {
