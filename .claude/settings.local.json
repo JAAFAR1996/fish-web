@@ -4,7 +4,8 @@
       "Bash(npx tsc:*)",
       "Bash(npm run build)",
       "Bash(timeout 90 npm run build:*)",
-      "Bash(npx next lint:*)"
+      "Bash(npx next lint:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
