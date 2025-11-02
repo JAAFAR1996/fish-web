@@ -96,6 +96,21 @@ function applySecurityHeaders(
 }
 
 export default async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  if (
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/_next/static') ||
+    pathname.startsWith('/_next/image') ||
+    pathname === '/favicon.ico' ||
+    pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml' ||
+    pathname === '/manifest.json' ||
+    pathname.startsWith('/icons/') ||
+    pathname.startsWith('/images/')
+  ) {
+    return NextResponse.next();
+  }
+
   const headers = new Headers(request.headers);
   const existingRequestId = headers.get(REQUEST_ID_HEADER);
   const requestId = existingRequestId ?? crypto.randomUUID();
@@ -147,7 +162,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/(?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|manifest.json|icons/.*|images/.*).*',
-  ],
+  matcher: ['/:path*'],
 };

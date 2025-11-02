@@ -215,6 +215,18 @@
         "title": "Water Quality Standards",
         "content": "Maintain optimal water parameters: pH 6.5-7.5, Ammonia 0 ppm, Nitrite 0 ppm, Nitrate below 20 ppm. Test water weekly and change 25-30% every two weeks. Use water conditioners to remove chlorine and heavy metals."
       }
+    },
+    "categories": {
+      "title": "Shop by Category",
+      "count": "{count, plural, one {# product} other {# products}}",
+      "filters": "Filters",
+      "heaters": "Heaters",
+      "plantLighting": "Plant Lighting",
+      "waterCare": "Water Care",
+      "plantsFertilizers": "Plants & Fertilizers",
+      "air": "Air Pumps",
+      "hardscape": "Hardscape",
+      "tests": "Water Tests"
     }
   },
   "footer": {

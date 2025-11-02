@@ -1,23 +1,24 @@
-﻿-- Supabase schema definition for authentication & account management tables
+-- Supabase schema definition for authentication & account management tables
 create extension if not exists "uuid-ossp";
 create extension if not exists "pgcrypto";
 
-do 
-begin
+DO $$
+BEGIN
   if not exists (
     select 1 from pg_proc where proname = 'set_updated_at'
   ) then
     create function public.set_updated_at()
     returns trigger
     language plpgsql
-    as 
+    as $fn$
     begin
       new.updated_at = timezone('utc', now());
       return new;
     end;
-    ;
+    $fn$;
   end if;
-end;
+END;
+$$;
 
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
@@ -102,9 +103,12 @@ create table if not exists public.carts (
   user_id uuid not null references auth.users(id) on delete cascade,
   status text not null default 'active' check (status in ('active','converted','abandoned')),
   created_at timestamptz not null default timezone('utc', now()),
-  updated_at timestamptz not null default timezone('utc', now()),
-  unique (user_id, status) where status = 'active'
+  updated_at timestamptz not null default timezone('utc', now())
 );
+
+create unique index if not exists idx_carts_user_active
+  on public.carts(user_id, status)
+  where status = 'active';
 
 create table if not exists public.cart_items (
   id uuid primary key default uuid_generate_v4(),
@@ -132,9 +136,12 @@ create table if not exists public.saved_addresses (
   postal_code text,
   is_default boolean not null default false,
   created_at timestamptz not null default timezone('utc', now()),
-  updated_at timestamptz not null default timezone('utc', now()),
-  unique (user_id) where is_default
+  updated_at timestamptz not null default timezone('utc', now())
 );
+
+create unique index if not exists idx_saved_addresses_default
+  on public.saved_addresses(user_id)
+  where is_default;
 
 create table if not exists public.saved_calculations (
   id uuid primary key default uuid_generate_v4(),
@@ -317,7 +324,7 @@ create trigger trg_reviews_updated
 create or replace function public.refresh_review_helpful_counts()
 returns trigger
 language plpgsql
-as 
+as $fn$
 declare
   target uuid;
 begin
@@ -336,7 +343,7 @@ begin
 
   return null;
 end;
-;
+$fn$;
 
 create trigger trg_helpful_votes_refresh_counts
   after insert or update or delete on public.helpful_votes
@@ -348,16 +355,16 @@ create function public.handle_new_user()
 returns trigger
 language plpgsql
 security definer
-as 
+as $fn$
 begin
   insert into public.profiles (id, full_name, avatar_url)
   values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url');
   return new;
 end;
-;
+$fn$;
 
-do 
-begin
+DO $$
+BEGIN
   if not exists (
     select 1 from pg_trigger where tgname = 'on_auth_user_created'
   ) then
@@ -365,7 +372,8 @@ begin
     after insert on auth.users
     for each row execute procedure public.handle_new_user();
   end if;
-end;
+END;
+$$;
 
 alter table public.profiles enable row level security;
 alter table public.carts enable row level security;
@@ -754,14 +762,15 @@ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM storage.buckets WHERE name = 'gallery-images'
   ) THEN
-    PERFORM storage.create_bucket(
+    INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    VALUES (
       'gallery-images',
-      jsonb_build_object(
-        'public', true,
-        'file_size_limit', 10485760,
-        'allowed_mime_types', jsonb_build_array('image/jpeg','image/png','image/webp','video/mp4')
-      )
-    );
+      'gallery-images',
+      true,
+      10485760,
+      ARRAY['image/jpeg','image/png','image/webp','video/mp4']
+    )
+    ON CONFLICT (id) DO NOTHING;
   END IF;
 END;
 $$;
@@ -826,17 +835,18 @@ create policy "Admins can view audit logs"
     )
   );
 
-do
-begin
+DO $$
+BEGIN
   if exists (
     select 1 from pg_policies
     where schemaname = 'public'
       and tablename = 'admin_audit_logs'
-      and polname = 'System can create audit logs'
+      and policyname = 'System can create audit logs'
   ) then
     drop policy "System can create audit logs" on public.admin_audit_logs;
   end if;
-end;
+END;
+$$;
 
 create policy "Admins can create audit logs"
   on public.admin_audit_logs for insert
@@ -847,21 +857,23 @@ create policy "Admins can create audit logs"
     )
   );
 
-do
-begin
+DO $$
+BEGIN
   if not exists (
     select 1 from storage.buckets where name = 'product-images'
   ) then
-    perform storage.create_bucket(
+    INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    VALUES (
       'product-images',
-      jsonb_build_object(
-        'public', true,
-        'file_size_limit', 5242880,
-        'allowed_mime_types', jsonb_build_array('image/jpeg','image/png','image/webp')
-      )
-    );
+      'product-images',
+      true,
+      5242880,
+      ARRAY['image/jpeg','image/png','image/webp']
+    )
+    ON CONFLICT (id) DO NOTHING;
   end if;
-end;
+END;
+$$;
 
 create policy "Public can read product images"
   on storage.objects
@@ -1229,21 +1241,23 @@ values
   ('Babil', 8000, 3)
 on conflict (governorate) do nothing;
 
-do 
-begin
+DO $$
+BEGIN
   if not exists (
     select 1 from storage.buckets where name = 'review-images'
   ) then
-    perform storage.create_bucket(
+    INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    VALUES (
       'review-images',
-      jsonb_build_object(
-        'public', true,
-        'file_size_limit', 5242880,
-        'allowed_mime_types', jsonb_build_array('image/jpeg','image/png','image/webp')
-      )
-    );
+      'review-images',
+      true,
+      5242880,
+      ARRAY['image/jpeg','image/png','image/webp']
+    )
+    ON CONFLICT (id) DO NOTHING;
   end if;
-end;
+END;
+$$;
 
 create policy "Public can read review images"
   on storage.objects

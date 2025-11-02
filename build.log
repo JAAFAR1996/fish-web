@@ -1,0 +1,230 @@
+
+> fish-web@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+  - Experiments (use with caution):
+    · typedRoutes
+
+   Creating an optimized production build ...
+> [PWA] Compile server
+> [PWA] Compile server
+> [PWA] Compile client (static)
+> [PWA] Auto register service worker with: C:\Users\jaafa\Desktop\FISH WEB\node_modules\next-pwa\register.js
+> [PWA] Service worker: C:\Users\jaafa\Desktop\FISH WEB\public\sw.js
+> [PWA]   url: /sw.js
+> [PWA]   scope: /
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+
+./src/app/[locale]/admin/page.tsx
+93:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/gallery/[id]/page.tsx
+9:15  Warning: 'GallerySetup' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/account/loyalty-points-section.tsx
+31:9  Warning: The 'recentTransactions' logical expression could make the dependencies of useMemo Hook (at line 60) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of 'recentTransactions' in its own useMemo() Hook.  react-hooks/exhaustive-deps
+
+./src/components/admin/product-form.tsx
+157:25  Warning: '_images' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/blog/mdx-components.tsx
+60:22  Warning: '_popover' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/gallery/gallery-filters.tsx
+17:62  Warning: 'totalSetups' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/gallery/hotspot-editor.tsx
+95:5  Warning: React Hook useCallback has unnecessary dependencies: 'hotspots' and 'onChange'. Either exclude them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/gallery/hotspot-marker.tsx
+3:10  Warning: 'Button' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/gallery/hotspot-popover.tsx
+6:18  Warning: 'Card' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/gallery/setup-submission-form.tsx
+21:50  Warning: 'onCancel' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/gallery/shop-this-setup-button.tsx
+21:9  Warning: 'locale' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/layout/SearchBar.tsx
+139:5  Warning: React Hook useCallback has an unnecessary dependency: 'locale'. Either exclude it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/notifications/notification-item.tsx
+5:29  Warning: 'IconName' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/products/product-card.tsx
+74:9  Warning: 'tStock' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/providers/CartProvider.tsx
+351:15  Warning: 'response' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+372:15  Warning: 'response' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/providers/SupabaseAuthProvider.tsx
+83:5  Warning: React Hook useMemo has a missing dependency: 'signOut'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/search/search-autocomplete.tsx
+38:3  Warning: 'query' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/ui/accordion.tsx
+16:8  Warning: 'ReactNode' is defined but never used.  @typescript-eslint/no-unused-vars
+364:6  Warning: React Hook useEffect has a missing dependency: 'disabled'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/ui/progress-bar.tsx
+3:36  Warning: 'CSSProperties' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/ui/tabs.tsx
+13:8  Warning: 'ReactNode' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/ui/variants.ts
+126:3  Warning: 'Defaults' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/lib/auth/actions.ts
+31:10  Warning: 'validateRedirectPath' is defined but never used.  @typescript-eslint/no-unused-vars
+116:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+213:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+228:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/lib/auth/session.ts
+5:20  Warning: 'users' is defined but never used.  @typescript-eslint/no-unused-vars
+34:10  Warning: 'session' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+92:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/lib/data/products.ts
+10:73  Warning: 'SortOption' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/lib/gallery/gallery-queries.ts
+4:3  Warning: 'GalleryFilters' is defined but never used.  @typescript-eslint/no-unused-vars
+6:3  Warning: 'GallerySetupWithProducts' is defined but never used.  @typescript-eslint/no-unused-vars
+8:3  Warning: 'Product' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/lib/marketing/newsletter-utils.ts
+2:15  Warning: 'NewsletterSubscriber' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/lib/supabase/client-server.ts
+2:15  Warning: 'SupabaseClient' is defined but never used.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/41) ...
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+   Generating static pages (10/41) 
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+   Generating static pages (20/41) 
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+   Generating static pages (30/41) 
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+
+The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
+
+ ✓ Generating static pages (41/41)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                     Size     First Load JS
+┌ ƒ /                                           143 B          87.7 kB
+├ ○ /_not-found                                 876 B          88.4 kB
+├ ● /[locale]                                   3.42 kB         243 kB
+├   ├ /ar
+├   └ /en
+├ ● /[locale]/account                           7.49 kB         233 kB
+├   ├ /ar/account
+├   └ /en/account
+├ ● /[locale]/admin                             112 kB          310 kB
+├   ├ /ar/admin
+├   └ /en/admin
+├ ● /[locale]/blog                              2.61 kB         152 kB
+├   ├ /ar/blog
+├   └ /en/blog
+├ ● /[locale]/blog/[slug]                       562 B           237 kB
+├   ├ /ar/blog/how-to-choose-aquarium-filter
+├   ├ /ar/blog/beginners-guide-aquarium-plants
+├   ├ /ar/blog/community-fish-for-beginners
+├   └ [+5 more paths]
+├ ● /[locale]/calculators                       220 B           222 kB
+├   ├ /ar/calculators
+├   └ /en/calculators
+├ ● /[locale]/cart                              3.4 kB          225 kB
+├   ├ /ar/cart
+├   └ /en/cart
+├ ● /[locale]/checkout                          7.92 kB         229 kB
+├   ├ /ar/checkout
+├   └ /en/checkout
+├ ● /[locale]/checkout/confirmation             1.75 kB         151 kB
+├   ├ /ar/checkout/confirmation
+├   └ /en/checkout/confirmation
+├ ● /[locale]/gallery                           682 B           234 kB
+├   ├ /ar/gallery
+├   └ /en/gallery
+├ ƒ /[locale]/gallery/[id]                      310 B           234 kB
+├ ● /[locale]/products                          279 B           222 kB
+├   ├ /ar/products
+├   └ /en/products
+├ ƒ /[locale]/products/[slug]                   303 B           237 kB
+├ ƒ /[locale]/ref/[code]                        1.24 kB         150 kB
+├ ● /[locale]/search                            2.27 kB         227 kB
+├   ├ /ar/search
+├   └ /en/search
+├ ● /[locale]/wishlist                          1.91 kB         223 kB
+├   ├ /ar/wishlist
+├   └ /en/wishlist
+├ ƒ /api/search                                 0 B                0 B
+├ ƒ /auth/callback                              0 B                0 B
+├ ƒ /auth/confirm                               0 B                0 B
+├ ○ /icon.png                                   0 B                0 B
+└ ƒ /sitemap.xml                                0 B                0 B
++ First Load JS shared by all                   87.6 kB
+  ├ chunks/117-10dab620be3fb635.js              31.9 kB
+  ├ chunks/fd9d1056-dec3350c278f6b63.js         53.6 kB
+  └ other shared chunks (total)                 2.04 kB
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses getStaticProps)
+ƒ  (Dynamic)  server-rendered on demand
+
