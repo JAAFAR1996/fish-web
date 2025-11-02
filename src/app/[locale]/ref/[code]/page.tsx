@@ -6,6 +6,8 @@ import { ReferralLandingContent } from '@/components/marketing/referral-landing-
 import { getReferralByCode } from '@/lib/marketing/referral-utils-server';
 import { routing } from '@/i18n/routing';
 
+export const dynamic = 'force-dynamic';
+
 type Locale = (typeof routing.locales)[number];
 
 interface ReferralPageProps {

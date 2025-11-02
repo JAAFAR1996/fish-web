@@ -29,6 +29,8 @@ import { formatCurrency, isOutOfStock } from '@/lib/utils';
 import type { Locale, Product } from '@/types';
 import { generateProductSchema, generateBreadcrumbSchema, generateReviewListSchema } from '@/lib/seo/product-schema';
 
+export const dynamic = 'force-dynamic';
+
 const BASE_URL = 'https://fishweb.iq';
 
 interface PageParams {

@@ -9,6 +9,8 @@ import { getCartWithItems } from '@/lib/cart/cart-queries';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { getUserPointsBalance } from '@/lib/marketing/loyalty-utils';
 
+export const dynamic = 'force-dynamic';
+
 type CheckoutPageProps = {
   params: { locale: string };
 };

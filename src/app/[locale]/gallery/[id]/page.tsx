@@ -8,7 +8,7 @@ import { incrementViewCountAction } from '@/lib/gallery/gallery-actions';
 import { getProducts } from '@/lib/data/products';
 import type { GallerySetup, GallerySetupWithProducts, Hotspot, Locale } from '@/types';
 
-export const revalidate = 7200; // 2 hours ISR
+export const dynamic = 'force-dynamic';
 const BASE_URL = 'https://fishweb.iq';
 
 export async function generateMetadata({ params }: { params: { locale: Locale; id: string } }): Promise<Metadata> {

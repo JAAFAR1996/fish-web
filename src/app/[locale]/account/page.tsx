@@ -8,6 +8,8 @@ import { getLoyaltyPointsSummary } from '@/lib/marketing/loyalty-utils';
 import { getUserReferralStats } from '@/lib/marketing/referral-utils-server';
 import { routing } from '@/i18n/routing';
 
+export const dynamic = 'force-dynamic';
+
 type Locale = (typeof routing.locales)[number];
 
 interface AccountPageProps {

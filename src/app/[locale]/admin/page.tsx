@@ -9,6 +9,8 @@ import { getAdminStatsAction } from '@/lib/admin/reports-actions';
 import type { AdminDashboardTab } from '@/types';
 import { logWarn } from '@/lib/logger';
 
+export const dynamic = 'force-dynamic';
+
 interface AdminDashboardPageProps {
   params: { locale: string };
   searchParams?: { tab?: string };

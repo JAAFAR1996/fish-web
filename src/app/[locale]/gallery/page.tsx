@@ -6,7 +6,7 @@ import { getFeaturedSetups, getGallerySetups } from '@/lib/gallery/gallery-queri
 import type { GalleryFilters as Filters, GalleryStyle, Locale, TankSizeRange } from '@/types';
 import { GalleryFiltersClient } from '@/components/gallery/GalleryFiltersClient';
 
-export const revalidate = 3600; // 1 hour ISR
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: { locale: Locale } }): Promise<Metadata> {
   const t = await getTranslations({ locale: params.locale, namespace: 'gallery' });
