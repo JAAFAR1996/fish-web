@@ -19,7 +19,7 @@ import type {
   WishlistItemWithProduct,
 } from '@/types';
 
-import { getProductsWithFlashSalesClient } from '@/lib/data/products-client';
+import { getProductsWithFlashSalesAction } from '@/lib/data/products-actions';
 import {
   addGuestWishlistItem,
   clearGuestWishlist,
@@ -33,8 +33,9 @@ import {
   clearWishlistAction,
   removeFromWishlistAction,
   syncGuestWishlistAction,
+  getWishlistItemsAction,
 } from '@/lib/wishlist/wishlist-actions';
-import { useAuth } from './SupabaseAuthProvider';
+import { useAuth } from './AuthProvider';
 import { useCart } from './CartProvider';
 
 const WishlistContext = createContext<WishlistContextValue | null>(null);
@@ -68,7 +69,7 @@ function mapStorageItemsToProducts(
     .filter((value): value is WishlistItemWithProduct => value !== null);
 }
 
-function mapSupabaseItemsToProducts(
+function mapWishlistItemsToProducts(
   wishlist: Array<{
     id: string;
     user_id: string;
@@ -95,7 +96,7 @@ function mapSupabaseItemsToProducts(
 }
 
 export function WishlistProvider({ children }: Props) {
-  const { user, supabase } = useAuth();
+  const { user } = useAuth();
   const { addItem: addToCart } = useCart();
   const router = useRouter();
 
@@ -111,7 +112,7 @@ export function WishlistProvider({ children }: Props) {
       return productsRef.current;
     }
 
-    const products = await getProductsWithFlashSalesClient();
+    const products = await getProductsWithFlashSalesAction();
     productsRef.current = products;
     return products;
   }, []);
@@ -124,26 +125,20 @@ export function WishlistProvider({ children }: Props) {
   }, [loadProducts]);
 
   const loadUserData = useCallback(async () => {
-    if (!user || !supabase) {
+    if (!user) {
       return;
     }
 
-    const { data, error } = await supabase
-      .from('wishlists')
-      .select('id, user_id, product_id, created_at')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false });
-
-    if (error) {
+    try {
+      const wishlist = await getWishlistItemsAction();
+      const products = await loadProducts();
+      const mapped = mapWishlistItemsToProducts(wishlist ?? [], products);
+      setItems(mapped);
+    } catch (error) {
       console.error('Failed to load wishlist', error);
       setItems([]);
-      return;
     }
-
-    const products = await loadProducts();
-    const mapped = mapSupabaseItemsToProducts(data ?? [], products);
-    setItems(mapped);
-  }, [loadProducts, supabase, user]);
+  }, [loadProducts, user]);
 
   const loadWishlist = useCallback(async () => {
     setIsLoading(true);

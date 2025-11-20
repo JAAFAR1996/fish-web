@@ -1,43 +1,32 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { and, desc, eq, gte, lte, sql } from 'drizzle-orm';
+import type { SQL } from 'drizzle-orm';
+
+import { db } from '@server/db';
+import { orderItems, orders } from '@shared/schema';
 
 import { requireAdmin } from '@/lib/auth/utils';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { sendShippingUpdateEmail } from '@/lib/email/send-shipping-update';
 import { createNotificationAction } from '@/lib/notifications/notification-actions';
 import { routing } from '@/i18n/routing';
-import { adminClient } from '@/lib/supabase/admin';
 import { logError, logWarn, normalizeError } from '@/lib/logger';
 
-import type { Locale, Order, OrderStatus, OrderUpdateData, ShippingAddressSnapshot, PaymentMethod } from '@/types';
+import type {
+  Locale,
+  Order,
+  OrderStatus,
+  OrderUpdateData,
+  ShippingAddressSnapshot,
+  PaymentMethod,
+} from '@/types';
 
 import { AUDIT_ACTIONS, ENTITY_TYPES } from './constants';
 import { createAuditLog } from './audit-utils';
 import { validateOrderUpdate } from './validation';
 
-interface DbOrderRow {
-  id: string;
-  order_number: string;
-  user_id: string | null;
-  guest_email: string | null;
-  shipping_address_id: string | null;
-  shipping_address: unknown;
-  payment_method: string;
-  status: OrderStatus;
-  subtotal: number | string;
-  shipping_cost: number | string;
-  discount: number | string;
-  loyalty_discount: number | string;
-  loyalty_points_used: number | string;
-  total: number | string;
-  coupon_code: string | null;
-  notes: string | null;
-  tracking_number: string | null;
-  carrier: string | null;
-  created_at: string;
-  updated_at: string;
-}
+type OrderRow = typeof orders.$inferSelect;
 
 const revalidateOrders = () => {
   routing.locales.forEach((locale) => {
@@ -54,28 +43,35 @@ const allowedTransitions: Record<OrderStatus, OrderStatus[]> = {
   cancelled: [],
 };
 
-const normalizeOrder = (row: DbOrderRow): Order => ({
-  id: row.id,
-  order_number: row.order_number,
-  user_id: row.user_id,
-  guest_email: row.guest_email ?? null,
-  shipping_address_id: row.shipping_address_id ?? null,
-  shipping_address: (row.shipping_address as ShippingAddressSnapshot) ?? {} as ShippingAddressSnapshot,
-  payment_method: row.payment_method as PaymentMethod,
-  status: row.status,
-  subtotal: Number(row.subtotal ?? 0),
-  shipping_cost: Number(row.shipping_cost ?? 0),
-  discount: Number(row.discount ?? 0),
-  loyalty_discount: Number(row.loyalty_discount ?? 0),
-  loyalty_points_used: Number(row.loyalty_points_used ?? 0),
-  total: Number(row.total ?? 0),
-  coupon_code: row.coupon_code ?? null,
-  notes: row.notes ?? null,
-  tracking_number: row.tracking_number ?? null,
-  carrier: row.carrier ?? null,
-  created_at: row.created_at,
-  updated_at: row.updated_at,
-});
+const normalizeOrder = (row: OrderRow): Order => {
+  const shippingAddress =
+    (row.shippingAddress as ShippingAddressSnapshot | null) ?? ({} as ShippingAddressSnapshot);
+
+  return {
+    id: row.id,
+    order_number: row.orderNumber,
+    user_id: row.userId,
+    guest_email: row.guestEmail ?? null,
+    shipping_address_id: row.shippingAddressId ?? null,
+    shipping_address: shippingAddress,
+    payment_method: row.paymentMethod as PaymentMethod,
+    status: row.status as OrderStatus,
+    subtotal: Number(row.subtotal ?? 0),
+    shipping_cost: Number(row.shippingCost ?? 0),
+    discount: Number(row.discount ?? 0),
+    loyalty_discount: Number(row.loyaltyDiscount ?? 0),
+    loyalty_points_used: Number(row.loyaltyPointsUsed ?? 0),
+    total: Number(row.total ?? 0),
+    coupon_code: row.couponCode ?? null,
+    notes: row.notes ?? null,
+    tracking_number: row.trackingNumber ?? null,
+    carrier: row.carrier ?? null,
+    created_at:
+      row.createdAt instanceof Date ? row.createdAt.toISOString() : row.createdAt ?? '',
+    updated_at:
+      row.updatedAt instanceof Date ? row.updatedAt.toISOString() : row.updatedAt ?? '',
+  };
+};
 
 const isTransitionAllowed = (current: OrderStatus, next: OrderStatus): boolean => {
   if (current === next) {
@@ -89,15 +85,15 @@ export async function updateOrderStatusAction(
   updateData: OrderUpdateData,
 ): Promise<{ success: boolean; error?: string }> {
   const admin = await requireAdmin();
-  const supabase = await createServerSupabaseClient();
 
-  const { data: existingOrderRow, error: fetchError } = await supabase
-    .from('orders')
-    .select('*')
-    .eq('id', orderId)
-    .single();
-
-  if (fetchError || !existingOrderRow) {
+  let existingOrderRow: OrderRow | undefined;
+  try {
+    [existingOrderRow] = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.id, orderId))
+      .limit(1);
+  } catch (fetchError) {
     const { errorMessage, errorStack } = normalizeError(fetchError);
     logError('Failed to load order for update', {
       action: 'updateOrderStatus',
@@ -105,6 +101,17 @@ export async function updateOrderStatusAction(
       orderId,
       errorMessage,
       errorStack,
+    });
+    return { success: false, error: 'orders.errors.orderNotFound' };
+  }
+
+  if (!existingOrderRow) {
+    logError('Failed to load order for update', {
+      action: 'updateOrderStatus',
+      adminId: admin.id,
+      orderId,
+      errorMessage: 'Order not found',
+      errorStack: undefined,
     });
     return { success: false, error: 'orders.errors.orderNotFound' };
   }
@@ -123,9 +130,9 @@ export async function updateOrderStatusAction(
     };
   }
 
-  const updatePayload: Partial<Pick<DbOrderRow, 'status' | 'tracking_number' | 'carrier' | 'notes'>> = {
+  const updatePayload = {
     status: updateData.status,
-    tracking_number: updateData.tracking_number ?? null,
+    trackingNumber: updateData.tracking_number ?? null,
     carrier: updateData.carrier ?? null,
     notes:
       updateData.notes !== undefined
@@ -133,14 +140,14 @@ export async function updateOrderStatusAction(
         : existingOrder.notes,
   };
 
-  const { data: updatedRow, error } = await supabase
-    .from('orders')
-    .update(updatePayload)
-    .eq('id', orderId)
-    .select('*')
-    .single();
-
-  if (error || !updatedRow) {
+  let updatedRow: OrderRow | undefined;
+  try {
+    [updatedRow] = await db
+      .update(orders)
+      .set(updatePayload)
+      .where(eq(orders.id, orderId))
+      .returning();
+  } catch (error) {
     const { errorMessage, errorStack } = normalizeError(error);
     logError('Failed to update order status', {
       action: 'updateOrderStatus',
@@ -152,41 +159,27 @@ export async function updateOrderStatusAction(
     return { success: false, error: 'orders.errors.updateFailed' };
   }
 
+  if (!updatedRow) {
+    logError('Failed to update order status', {
+      action: 'updateOrderStatus',
+      adminId: admin.id,
+      orderId,
+      errorMessage: 'No updated row returned',
+      errorStack: undefined,
+    });
+    return { success: false, error: 'orders.errors.updateFailed' };
+  }
+
+  const updatedOrder = normalizeOrder(updatedRow);
+
   if (existingOrder.status !== updateData.status && updateData.status === 'shipped') {
     try {
-      let emailLocale: Locale = 'en';
-
-      if (existingOrder.user_id) {
-        try {
-          const { data: userData } = await adminClient.auth.admin.getUserById(
-            existingOrder.user_id,
-          );
-          const preferred = userData?.user?.user_metadata?.locale;
-
-          if (preferred === 'ar' || preferred === 'en') {
-            emailLocale = preferred;
-          }
-        } catch (localeError) {
-          const { errorMessage, errorStack } = normalizeError(localeError);
-          logWarn('Failed to resolve user locale for shipping email', {
-            action: 'updateOrderStatus',
-            adminId: admin.id,
-            orderId,
-            errorMessage,
-            errorStack,
-          });
-        }
-      } else if (typeof existingOrderRow.locale === 'string') {
-        const orderLocale = existingOrderRow.locale;
-        if (orderLocale === 'ar' || orderLocale === 'en') {
-          emailLocale = orderLocale;
-        }
-      }
+      const emailLocale: Locale = 'en';
 
       await sendShippingUpdateEmail({
-        order: { ...existingOrder, ...updatePayload, status: updateData.status },
-        trackingNumber: updateData.tracking_number ?? '',
-        carrier: updateData.carrier ?? '',
+        order: updatedOrder,
+        trackingNumber: updatedOrder.tracking_number ?? '',
+        carrier: updatedOrder.carrier ?? '',
         locale: emailLocale,
       });
     } catch (emailError) {
@@ -201,10 +194,23 @@ export async function updateOrderStatusAction(
     }
 
     if (existingOrder.user_id) {
-      const { count: itemsCount } = await supabase
-        .from('order_items')
-        .select('id', { count: 'exact', head: true })
-        .eq('order_id', orderId);
+      let itemsCount = 0;
+      try {
+        const [countResult] = await db
+          .select({ count: sql<number>`COUNT(*)::int` })
+          .from(orderItems)
+          .where(eq(orderItems.orderId, orderId));
+        itemsCount = countResult?.count ?? 0;
+      } catch (countError) {
+        const { errorMessage, errorStack } = normalizeError(countError);
+        logWarn('Failed to count order items for notification', {
+          action: 'updateOrderStatus',
+          adminId: admin.id,
+          orderId,
+          errorMessage,
+          errorStack,
+        });
+      }
 
       await createNotificationAction(
         existingOrder.user_id,
@@ -216,8 +222,8 @@ export async function updateOrderStatusAction(
           order_id: existingOrder.id,
           order_number: existingOrder.order_number,
           total: existingOrder.total,
-          items_count: itemsCount ?? 0,
-          tracking_number: updateData.tracking_number ?? undefined,
+          items_count: itemsCount,
+          tracking_number: updatedOrder.tracking_number ?? undefined,
         },
         `/account/orders/${existingOrder.id}`,
       );
@@ -249,41 +255,44 @@ export async function getOrdersForAdmin(
   limit?: number,
 ): Promise<Order[]> {
   await requireAdmin();
-  const supabase = await createServerSupabaseClient();
 
-  let query = supabase.from('orders').select('*').order('created_at', { ascending: false });
+  try {
+    let query = db
+      .select()
+      .from(orders)
+      .orderBy(desc(orders.createdAt))
+      .$dynamic();
 
-  if (filters?.status) {
-    query = query.eq('status', filters.status);
-  }
-
-  if (filters?.dateFrom) {
-    query = query.gte('created_at', filters.dateFrom);
-  }
-
-  if (filters?.dateTo) {
-    query = query.lte('created_at', filters.dateTo);
-  }
-
-  if (limit) {
-    query = query.limit(limit);
-  }
-
-  const { data, error } = await query;
-
-  if (error || !data) {
-    if (error) {
-      const { errorMessage, errorStack } = normalizeError(error);
-      logError('Failed to fetch admin orders', {
-        action: 'getOrdersForAdmin',
-        errorMessage,
-        errorStack,
-      });
+    const conditions: SQL[] = [];
+    if (filters?.status) {
+      conditions.push(eq(orders.status, filters.status));
     }
+    if (filters?.dateFrom) {
+      conditions.push(gte(orders.createdAt, new Date(filters.dateFrom)));
+    }
+    if (filters?.dateTo) {
+      conditions.push(lte(orders.createdAt, new Date(filters.dateTo)));
+    }
+
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions));
+    }
+
+    if (typeof limit === 'number') {
+      query = query.limit(limit);
+    }
+
+    const rows = await query;
+    return rows.map((row) => normalizeOrder(row));
+  } catch (error) {
+    const { errorMessage, errorStack } = normalizeError(error);
+    logError('Failed to fetch admin orders', {
+      action: 'getOrdersForAdmin',
+      errorMessage,
+      errorStack,
+    });
     return [];
   }
-
-  return data.map((row) => normalizeOrder(row));
 }
 
 export async function getOrderStatsAction(): Promise<{
@@ -292,28 +301,43 @@ export async function getOrderStatsAction(): Promise<{
   totalRevenue: number;
 }> {
   await requireAdmin();
-  const supabase = await createServerSupabaseClient();
 
-  const [totalOrdersResponse, pendingOrdersResponse, revenueResponse] = await Promise.all([
-    supabase.from('orders').select('id', { count: 'exact', head: true }),
-    supabase
-      .from('orders')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'pending'),
-    supabase.from('orders').select('total,status'),
-  ]);
+  try {
+    const [totalOrdersResponse, pendingOrdersResponse, revenueRows] = await Promise.all([
+      db.select({ count: sql<number>`COUNT(*)::int` }).from(orders),
+      db
+        .select({ count: sql<number>`COUNT(*)::int` })
+        .from(orders)
+        .where(eq(orders.status, 'pending')),
+      db.select({ total: orders.total, status: orders.status }).from(orders),
+    ]);
 
-  const totalRevenue =
-    revenueResponse.data?.reduce((sum, order) => {
+    const totalOrders = totalOrdersResponse[0]?.count ?? 0;
+    const pendingOrders = pendingOrdersResponse[0]?.count ?? 0;
+
+    const totalRevenue = revenueRows.reduce((sum, order) => {
       if (order.status === 'cancelled') {
         return sum;
       }
       return sum + Number(order.total ?? 0);
-    }, 0) ?? 0;
+    }, 0);
 
-  return {
-    totalOrders: totalOrdersResponse.count ?? 0,
-    pendingOrders: pendingOrdersResponse.count ?? 0,
-    totalRevenue,
-  };
+    return {
+      totalOrders,
+      pendingOrders,
+      totalRevenue,
+    };
+  } catch (error) {
+    const { errorMessage, errorStack } = normalizeError(error);
+    logError('Failed to compute order stats', {
+      action: 'getOrderStats',
+      errorMessage,
+      errorStack,
+    });
+    return {
+      totalOrders: 0,
+      pendingOrders: 0,
+      totalRevenue: 0,
+    };
+  }
 }

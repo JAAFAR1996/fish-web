@@ -1,49 +1,84 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { notifyMeRequests } from '@shared/schema';
+import { and, eq, inArray } from 'drizzle-orm';
+
 import { sendBulkStockAlerts } from '@/lib/email/send-stock-alert';
 import { createNotification } from './notification-queries';
-import type { Product, Locale, StockAlertData } from '@/types';
+import type {
+  Locale,
+  NotifyMeRequest,
+  Product,
+  StockAlertData,
+} from '@/types';
+
+const toIsoString = (value: Date | string | null | undefined): string =>
+  value instanceof Date ? value.toISOString() : value ?? new Date(0).toISOString();
+
+type NotifyMeRequestRow = typeof notifyMeRequests.$inferSelect;
+
+function transformNotifyMeRequest(row: NotifyMeRequestRow): NotifyMeRequest {
+  return {
+    id: row.id,
+    product_id: row.productId,
+    email: row.email ?? null,
+    user_id: row.userId ?? null,
+    notified: Boolean(row.notified),
+    created_at: toIsoString(row.createdAt),
+  };
+}
 
 export async function triggerBackInStockAlerts(
-  product: Product
+  product: Product,
 ): Promise<{ emailsSent: number; notificationsCreated: number }> {
-  const supabase = await createServerSupabaseClient();
-
   try {
-    // Query notify_me_requests for this product where not notified
-    const { data: requests, error } = await supabase
-      .from('notify_me_requests')
-      .select('*')
-      .eq('product_id', product.id)
-      .eq('notified', false);
+    const rows = await db
+      .select()
+      .from(notifyMeRequests)
+      .where(
+        and(
+          eq(notifyMeRequests.productId, product.id),
+          eq(notifyMeRequests.notified, false),
+        ),
+      );
 
-    if (error) {
-      console.error('Error fetching notify_me_requests:', error);
+    const requests = rows.map(transformNotifyMeRequest);
+
+    if (!requests.length) {
       return { emailsSent: 0, notificationsCreated: 0 };
     }
 
-    if (!requests || requests.length === 0) {
-      return { emailsSent: 0, notificationsCreated: 0 };
-    }
-
-    // Determine locale for each recipient (default to 'en')
     const recipients = requests.map((req) => ({
       email: req.email,
-      locale: 'en' as Locale, // TODO: Get actual user locale from profiles if user_id exists
+      locale: 'en' as Locale,
       userId: req.user_id,
       requestId: req.id,
     }));
 
-    // Build product URL
     const productUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://fishweb.iq'}/products/${product.slug}`;
 
-    // Send emails in bulk
-    const emailRecipients = recipients
-      .filter((r) => r.email)
-      .map((r) => ({ email: r.email!, locale: r.locale }));
+    const successfulRequestIds: string[] = [];
 
-    const { successCount } = await sendBulkStockAlerts(emailRecipients, product, productUrl);
+    // Send email alerts and track successes
+    const emailRecipients = recipients.filter((recipient) => recipient.email);
 
-    // Create in-app notifications for users (not guests)
+    const emailResults = await Promise.allSettled(
+      emailRecipients.map((recipient) =>
+        sendBulkStockAlerts(
+          [{ email: recipient.email as string, locale: recipient.locale }],
+          product,
+          productUrl
+        ).then((result) => ({ ...result, requestId: recipient.requestId }))
+      )
+    );
+
+    let emailsSent = 0;
+    for (const result of emailResults) {
+      if (result.status === 'fulfilled' && result.value.successCount > 0) {
+        emailsSent += 1;
+        successfulRequestIds.push(result.value.requestId);
+      }
+    }
+
     const notificationData: StockAlertData = {
       type: 'stock_alert',
       product_id: product.id,
@@ -54,30 +89,40 @@ export async function triggerBackInStockAlerts(
     };
 
     let notificationsCreated = 0;
+
+    // Send in-app notifications and track successes
     for (const recipient of recipients) {
-      if (recipient.userId) {
-        const notification = await createNotification(
-          recipient.userId,
-          'stock_alert',
-          `${product.name} is back in stock!`,
-          `The product you wanted is now available. Order soon before it sells out again!`,
-          notificationData,
-          `/products/${product.slug}`
-        );
-        if (notification) {
-          notificationsCreated++;
+      if (!recipient.userId) {
+        continue;
+      }
+
+      const notification = await createNotification(
+        recipient.userId,
+        'stock_alert',
+        `${product.name} is back in stock!`,
+        'The product you wanted is now available. Order soon before it sells out again!',
+        notificationData,
+        `/products/${product.slug}`,
+      );
+
+      if (notification) {
+        notificationsCreated += 1;
+        // Only add to successful list if not already added via email
+        if (!successfulRequestIds.includes(recipient.requestId)) {
+          successfulRequestIds.push(recipient.requestId);
         }
       }
     }
 
-    // Update notified = true for processed requests
-    const requestIds = requests.map((r) => r.id);
-    await supabase
-      .from('notify_me_requests')
-      .update({ notified: true })
-      .in('id', requestIds);
+    // Only mark successful requests as notified
+    if (successfulRequestIds.length > 0) {
+      await db
+        .update(notifyMeRequests)
+        .set({ notified: true })
+        .where(inArray(notifyMeRequests.id, successfulRequestIds));
+    }
 
-    return { emailsSent: successCount, notificationsCreated };
+    return { emailsSent, notificationsCreated };
   } catch (error) {
     console.error('Error triggering back-in-stock alerts:', error);
     return { emailsSent: 0, notificationsCreated: 0 };

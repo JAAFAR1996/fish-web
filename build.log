@@ -60,12 +60,13 @@
 ./src/components/products/product-card.tsx
 74:9  Warning: 'tStock' is assigned a value but never used.  @typescript-eslint/no-unused-vars
 
+./src/components/providers/AuthProvider.tsx
+33:9  Warning: 'router' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+50:14  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
 ./src/components/providers/CartProvider.tsx
 351:15  Warning: 'response' is assigned a value but never used.  @typescript-eslint/no-unused-vars
 372:15  Warning: 'response' is assigned a value but never used.  @typescript-eslint/no-unused-vars
-
-./src/components/providers/SupabaseAuthProvider.tsx
-83:5  Warning: React Hook useMemo has a missing dependency: 'signOut'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
 
 ./src/components/search/search-autocomplete.tsx
 38:3  Warning: 'query' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
@@ -84,26 +85,26 @@
 126:3  Warning: 'Defaults' is defined but never used.  @typescript-eslint/no-unused-vars
 
 ./src/lib/auth/actions.ts
-31:10  Warning: 'validateRedirectPath' is defined but never used.  @typescript-eslint/no-unused-vars
-116:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
-213:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
-228:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+168:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+265:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+280:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+315:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
 
 ./src/lib/auth/session.ts
 5:20  Warning: 'users' is defined but never used.  @typescript-eslint/no-unused-vars
 34:10  Warning: 'session' is assigned a value but never used.  @typescript-eslint/no-unused-vars
 92:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
 
-./src/lib/data/products.ts
-10:73  Warning: 'SortOption' is defined but never used.  @typescript-eslint/no-unused-vars
-
 ./src/lib/gallery/gallery-queries.ts
-4:3  Warning: 'GalleryFilters' is defined but never used.  @typescript-eslint/no-unused-vars
-6:3  Warning: 'GallerySetupWithProducts' is defined but never used.  @typescript-eslint/no-unused-vars
-8:3  Warning: 'Product' is defined but never used.  @typescript-eslint/no-unused-vars
+14:3  Warning: 'GalleryFilters' is defined but never used.  @typescript-eslint/no-unused-vars
+16:3  Warning: 'GallerySetupWithProducts' is defined but never used.  @typescript-eslint/no-unused-vars
+18:3  Warning: 'Product' is defined but never used.  @typescript-eslint/no-unused-vars
 
-./src/lib/marketing/newsletter-utils.ts
-2:15  Warning: 'NewsletterSubscriber' is defined but never used.  @typescript-eslint/no-unused-vars
+./src/lib/marketing/bundle-utils.ts
+3:41  Warning: 'sql' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/lib/marketing/referral-utils-server.ts
+7:10  Warning: 'awardPoints' is defined but never used.  @typescript-eslint/no-unused-vars
 
 ./src/lib/supabase/client-server.ts
 2:15  Warning: 'SupabaseClient' is defined but never used.  @typescript-eslint/no-unused-vars
@@ -111,68 +112,870 @@
 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
    Collecting page data ...
    Generating static pages (0/41) ...
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
    Generating static pages (10/41) 
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
    Generating static pages (20/41) 
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
    Generating static pages (30/41) 
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
-
-The `locale` parameter in `getRequestConfig` is deprecated, please switch to `await requestLocale`. See https://next-intl.dev/blog/next-intl-3-22#await-request-locale
-
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:25.119Z,2025-11-03T15:02:25.119Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 3 lines matching cause stack trace ...
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:25.119Z', '2025-11-03T15:02:25.119Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async j (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22201)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:26.621Z,2025-11-03T15:02:26.621Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 3 lines matching cause stack trace ...
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:26.621Z', '2025-11-03T15:02:26.621Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async j (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22201)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch products T [Error]: Failed query: select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc
+params: 
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 3 lines matching cause stack trace ...
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+  query: 'select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc',
+  params: [],
+  cause: error: relation "products" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+      at async Promise.all (index 0)
+      at async j (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22201)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+    length: 108,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '279',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch products T [Error]: Failed query: select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc
+params: 
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 3 lines matching cause stack trace ...
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+  query: 'select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc',
+  params: [],
+  cause: error: relation "products" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+      at async Promise.all (index 0)
+      at async j (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22201)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+    length: 108,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '279',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:25.114Z,2025-11-03T15:02:25.114Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 3 lines matching cause stack trace ...
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:25.114Z', '2025-11-03T15:02:25.114Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async j (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22201)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch products T [Error]: Failed query: select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc
+params: 
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 3 lines matching cause stack trace ...
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+  query: 'select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc',
+  params: [],
+  cause: error: relation "products" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+      at async Promise.all (index 0)
+      at async j (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22201)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+    length: 108,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '279',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:26.660Z,2025-11-03T15:02:26.660Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 3 lines matching cause stack trace ...
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:26.660Z', '2025-11-03T15:02:26.660Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async j (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22201)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch products T [Error]: Failed query: select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc
+params: 
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 3 lines matching cause stack trace ...
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+  query: 'select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc',
+  params: [],
+  cause: error: relation "products" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+      at async Promise.all (index 0)
+      at async j (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22201)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\products\page.js:1:5622) {
+    length: 108,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '279',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:26.650Z,2025-11-03T15:02:26.650Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 4 lines matching cause stack trace ...
+    at async Promise.all (index 0)
+    at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\page.js:1:21995) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:26.650Z', '2025-11-03T15:02:26.650Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async T (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22130)
+      at async y (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21565)
+      at async Promise.all (index 0) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:25.033Z,2025-11-03T15:02:25.033Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 4 lines matching cause stack trace ...
+    at async Promise.all (index 0)
+    at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\page.js:1:21995) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:25.033Z', '2025-11-03T15:02:25.033Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async T (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22130)
+      at async y (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21565)
+      at async Promise.all (index 0) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch products T [Error]: Failed query: select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc
+params: 
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+    at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21427 {
+  query: 'select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc',
+  params: [],
+  cause: error: relation "products" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21427 {
+    length: 108,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '279',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:26.651Z,2025-11-03T15:02:26.651Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 4 lines matching cause stack trace ...
+    at async Promise.all (index 1)
+    at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\page.js:1:21995) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:26.651Z', '2025-11-03T15:02:26.651Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async T (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22130)
+      at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21767)
+      at async Promise.all (index 1) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch products T [Error]: Failed query: select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc
+params: 
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+    at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21427 {
+  query: 'select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc',
+  params: [],
+  cause: error: relation "products" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21427 {
+    length: 108,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '279',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:24.734Z,2025-11-03T15:02:24.734Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 4 lines matching cause stack trace ...
+    at async Promise.all (index 0)
+    at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\page.js:1:21995) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:24.734Z', '2025-11-03T15:02:24.734Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async T (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22130)
+      at async y (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21565)
+      at async Promise.all (index 0) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:26.612Z,2025-11-03T15:02:26.612Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 4 lines matching cause stack trace ...
+    at async Promise.all (index 0)
+    at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\page.js:1:21995) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:26.612Z', '2025-11-03T15:02:26.612Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async T (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22130)
+      at async y (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21565)
+      at async Promise.all (index 0) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch products iO [Error]: Failed query: select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc
+params: 
+    at sY.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:33251)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async sY.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:36219)
+    ... 4 lines matching cause stack trace ...
+    at async oa (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:86565)
+    at async C:\Users\jaafa\Desktop\FISH WEB\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38411
+    at async e_.execute (C:\Users\jaafa\Desktop\FISH WEB\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:27880) {
+  query: 'select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc',
+  params: [],
+  cause: error: relation "products" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:9:29339
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:36263
+      at async sY.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:33226)
+      at async sY.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:36219)
+      at async aO (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:79049)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:79560
+      at async Promise.all (index 0)
+      at async a7 (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:85027)
+      at async oa (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:86565) {
+    length: 108,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '279',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch gallery setups iO [Error]: Failed query: select "gallery_setups"."id", "gallery_setups"."user_id", "gallery_setups"."title", "gallery_setups"."description", "gallery_setups"."tank_size", "gallery_setups"."style", "gallery_setups"."media_urls", "gallery_setups"."hotspots", "gallery_setups"."is_approved", "gallery_setups"."featured", "gallery_setups"."view_count", "gallery_setups"."created_at", "gallery_setups"."updated_at", "profiles"."id", "profiles"."username", "profiles"."full_name", "profiles"."avatar_url", "profiles"."phone", "profiles"."loyalty_points_balance", "profiles"."referral_code", "profiles"."referred_by", "profiles"."is_admin", "profiles"."email_order_updates", "profiles"."email_shipping_updates", "profiles"."email_stock_alerts", "profiles"."email_marketing", "profiles"."inapp_notifications_enabled", "profiles"."created_at", "profiles"."updated_at" from "gallery_setups" left join "profiles" on "gallery_setups"."user_id" = "profiles"."id" where "gallery_setups"."is_approved" = $1 order by "gallery_setups"."created_at" desc
+params: true
+    at sY.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:33251)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async sY.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:36219)
+    ... 4 lines matching cause stack trace ...
+    at async C:\Users\jaafa\Desktop\FISH WEB\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38411
+    at async e_.execute (C:\Users\jaafa\Desktop\FISH WEB\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:27880)
+    at async e_.handle (C:\Users\jaafa\Desktop\FISH WEB\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:39943) {
+  query: 'select "gallery_setups"."id", "gallery_setups"."user_id", "gallery_setups"."title", "gallery_setups"."description", "gallery_setups"."tank_size", "gallery_setups"."style", "gallery_setups"."media_urls", "gallery_setups"."hotspots", "gallery_setups"."is_approved", "gallery_setups"."featured", "gallery_setups"."view_count", "gallery_setups"."created_at", "gallery_setups"."updated_at", "profiles"."id", "profiles"."username", "profiles"."full_name", "profiles"."avatar_url", "profiles"."phone", "profiles"."loyalty_points_balance", "profiles"."referral_code", "profiles"."referred_by", "profiles"."is_admin", "profiles"."email_order_updates", "profiles"."email_shipping_updates", "profiles"."email_stock_alerts", "profiles"."email_marketing", "profiles"."inapp_notifications_enabled", "profiles"."created_at", "profiles"."updated_at" from "gallery_setups" left join "profiles" on "gallery_setups"."user_id" = "profiles"."id" where "gallery_setups"."is_approved" = $1 order by "gallery_setups"."created_at" desc',
+  params: [ true ],
+  cause: error: relation "gallery_setups" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:9:29339
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:36263
+      at async sY.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:33226)
+      at async sY.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:36219)
+      at async a4 (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:84084)
+      at async Promise.all (index 2)
+      at async a7 (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:85027)
+      at async oa (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\sitemap.xml\route.js:24:86565)
+      at async C:\Users\jaafa\Desktop\FISH WEB\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38411 {
+    length: 114,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '840',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch products T [Error]: Failed query: select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc
+params: 
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+    at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21427 {
+  query: 'select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc',
+  params: [],
+  cause: error: relation "products" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21427 {
+    length: 108,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '279',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:25.034Z,2025-11-03T15:02:25.034Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 4 lines matching cause stack trace ...
+    at async Promise.all (index 1)
+    at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\page.js:1:21995) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:25.034Z', '2025-11-03T15:02:25.034Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async T (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22130)
+      at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21767)
+      at async Promise.all (index 1) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:24.735Z,2025-11-03T15:02:24.735Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 4 lines matching cause stack trace ...
+    at async Promise.all (index 1)
+    at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\page.js:1:21995) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:24.735Z', '2025-11-03T15:02:24.735Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async T (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22130)
+      at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21767)
+      at async Promise.all (index 1) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+[Flash Sales] Error fetching active flash sales: T [Error]: Failed query: select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc
+params: true,2025-11-03T15:02:26.612Z,2025-11-03T15:02:26.612Z
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    ... 4 lines matching cause stack trace ...
+    at async Promise.all (index 1)
+    at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\app\[locale]\page.js:1:21995) {
+  query: 'select "id", "product_id", "flash_price", "original_price", "stock_limit", "stock_sold", "starts_at", "ends_at", "is_active", "created_at", "updated_at" from "flash_sales" where ("flash_sales"."is_active" = $1 and "flash_sales"."starts_at" <= $2 and "flash_sales"."ends_at" >= $3) order by "flash_sales"."ends_at" asc',
+  params: [ true, '2025-11-03T15:02:26.612Z', '2025-11-03T15:02:26.612Z' ],
+  cause: error: relation "flash_sales" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async p (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20562)
+      at async Promise.all (index 1)
+      at async T (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:22130)
+      at async S (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21767)
+      at async Promise.all (index 1) {
+    length: 111,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '159',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
+Failed to fetch products T [Error]: Failed query: select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc
+params: 
+    at eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36375)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+    at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+    at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21427 {
+  query: 'select "id", "slug", "name", "brand", "category", "subcategory", "description", "price", "original_price", "currency", "images", "thumbnail", "rating", "review_count", "stock", "low_stock_threshold", "is_new", "is_best_seller", "specifications", "created_at", "updated_at" from "products" order by "products"."created_at" desc',
+  params: [],
+  cause: error: relation "products" does not exist
+      at C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:10:29015
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39424
+      at async eP.queryWithCache (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:36350)
+      at async eP.execute (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\3477.js:25:39380)
+      at async d (C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:20893)
+      at async C:\Users\jaafa\Desktop\FISH WEB\.next\server\chunks\7166.js:1:21427 {
+    length: 108,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '279',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1449',
+    routine: 'parserOpenTable'
+  }
+}
  ✓ Generating static pages (41/41)
    Finalizing page optimization ...
    Collecting build traces ...
 
 Route (app)                                     Size     First Load JS
-┌ ƒ /                                           143 B          87.7 kB
-├ ○ /_not-found                                 876 B          88.4 kB
-├ ● /[locale]                                   3.42 kB         243 kB
+┌ ƒ /                                           143 B          87.8 kB
+├ ○ /_not-found                                 876 B          88.5 kB
+├ ● /[locale]                                   3.42 kB         242 kB
 ├   ├ /ar
 ├   └ /en
-├ ● /[locale]/account                           7.49 kB         233 kB
+├ ● /[locale]/account                           7.49 kB         232 kB
 ├   ├ /ar/account
 ├   └ /en/account
 ├ ● /[locale]/admin                             112 kB          310 kB
@@ -181,15 +984,15 @@ Route (app)                                     Size     First Load JS
 ├ ● /[locale]/blog                              2.61 kB         152 kB
 ├   ├ /ar/blog
 ├   └ /en/blog
-├ ● /[locale]/blog/[slug]                       562 B           237 kB
+├ ● /[locale]/blog/[slug]                       562 B           236 kB
 ├   ├ /ar/blog/how-to-choose-aquarium-filter
 ├   ├ /ar/blog/beginners-guide-aquarium-plants
 ├   ├ /ar/blog/community-fish-for-beginners
 ├   └ [+5 more paths]
-├ ● /[locale]/calculators                       220 B           222 kB
+├ ● /[locale]/calculators                       220 B           221 kB
 ├   ├ /ar/calculators
 ├   └ /en/calculators
-├ ● /[locale]/cart                              3.4 kB          225 kB
+├ ● /[locale]/cart                              3.4 kB          224 kB
 ├   ├ /ar/cart
 ├   └ /en/cart
 ├ ● /[locale]/checkout                          7.92 kB         229 kB
@@ -198,16 +1001,16 @@ Route (app)                                     Size     First Load JS
 ├ ● /[locale]/checkout/confirmation             1.75 kB         151 kB
 ├   ├ /ar/checkout/confirmation
 ├   └ /en/checkout/confirmation
-├ ● /[locale]/gallery                           682 B           234 kB
+├ ● /[locale]/gallery                           682 B           233 kB
 ├   ├ /ar/gallery
 ├   └ /en/gallery
-├ ƒ /[locale]/gallery/[id]                      310 B           234 kB
-├ ● /[locale]/products                          279 B           222 kB
+├ ƒ /[locale]/gallery/[id]                      310 B           233 kB
+├ ● /[locale]/products                          279 B           221 kB
 ├   ├ /ar/products
 ├   └ /en/products
-├ ƒ /[locale]/products/[slug]                   303 B           237 kB
+├ ƒ /[locale]/products/[slug]                   303 B           236 kB
 ├ ƒ /[locale]/ref/[code]                        1.24 kB         150 kB
-├ ● /[locale]/search                            2.27 kB         227 kB
+├ ● /[locale]/search                            2.27 kB         226 kB
 ├   ├ /ar/search
 ├   └ /en/search
 ├ ● /[locale]/wishlist                          1.91 kB         223 kB
@@ -217,11 +1020,11 @@ Route (app)                                     Size     First Load JS
 ├ ƒ /auth/callback                              0 B                0 B
 ├ ƒ /auth/confirm                               0 B                0 B
 ├ ○ /icon.png                                   0 B                0 B
-└ ƒ /sitemap.xml                                0 B                0 B
+└ ○ /sitemap.xml                                0 B                0 B
 + First Load JS shared by all                   87.6 kB
   ├ chunks/117-10dab620be3fb635.js              31.9 kB
   ├ chunks/fd9d1056-dec3350c278f6b63.js         53.6 kB
-  └ other shared chunks (total)                 2.04 kB
+  └ other shared chunks (total)                 2.1 kB
 
 
 ○  (Static)   prerendered as static content

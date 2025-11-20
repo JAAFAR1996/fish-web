@@ -6,17 +6,17 @@ import type { CartWithItems, LocalStorageCartItem } from '@/types';
 
 import { getProductsWithFlashSales } from '@/lib/data/products';
 import { getUser } from '@/lib/auth/utils';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { routing } from '@/i18n/routing';
 import { logError, resolveRequestId } from '@/lib/logger';
 import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 import {
   clearUserCart,
   createCart,
+  getCartItemByProduct,
   getCartWithItems,
   getUserCart,
   removeCartItem,
-  syncGuestCartToSupabase,
+  syncGuestCartToDatabase,
   upsertCartItem,
 } from './cart-queries';
 import { validateQuantity } from './cart-utils';
@@ -79,14 +79,7 @@ export async function addToCartAction(
   }
 
   try {
-    const supabase = await createServerSupabaseClient();
-    const { data: existingItem } = await supabase
-      .from('cart_items')
-      .select('quantity')
-      .eq('cart_id', cart.id)
-      .eq('product_id', productId)
-      .maybeSingle();
-
+    const existingItem = await getCartItemByProduct(cart.id, productId);
     const newQuantity = (existingItem?.quantity ?? 0) + quantity;
     const finalValidation = validateQuantity(newQuantity, product.stock);
     if (!finalValidation.valid) {
@@ -218,7 +211,7 @@ export async function syncGuestCartAction(
   const products = await getProductsWithFlashSales();
 
   try {
-    await syncGuestCartToSupabase(user.id, guestItems, products);
+    await syncGuestCartToDatabase(user.id, guestItems, products);
     revalidateCart(null);
     return { success: true };
   } catch (error) {
@@ -239,5 +232,3 @@ export async function getServerCartForUser(): Promise<CartWithItems | null> {
 
   return getCartWithItems(user.id);
 }
-
-

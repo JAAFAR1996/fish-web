@@ -1,7 +1,31 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { profiles, referrals } from '@shared/schema';
+import { and, eq } from 'drizzle-orm';
+
 import type { Referral, ReferralStats } from '@/types';
 import { REFERRAL_REWARD_POINTS, REFEREE_REWARD_POINTS } from './constants';
-import { awardPoints } from './loyalty-utils';
+import { awardPoints, awardPointsInTransaction } from './loyalty-utils';
+
+const toIsoString = (value: Date | string | null | undefined): string =>
+  value instanceof Date ? value.toISOString() : value ?? new Date(0).toISOString();
+
+type ReferralRow = typeof referrals.$inferSelect;
+
+function transformReferral(row: ReferralRow): Referral {
+  return {
+    id: row.id,
+    referrer_id: row.referrerId,
+    referee_id: row.refereeId,
+    referral_code: row.referralCode,
+    status: row.status as Referral['status'],
+    reward_type: row.rewardType as Referral['reward_type'],
+    reward_value: Number.parseFloat(String(row.rewardValue ?? 0)),
+    referee_first_order_id: row.refereeFirstOrderId ?? null,
+    rewarded_at: row.rewardedAt ? toIsoString(row.rewardedAt) : null,
+    created_at: toIsoString(row.createdAt),
+    updated_at: toIsoString(row.updatedAt),
+  };
+}
 
 /**
  * Get referrer info by referral code (server-only)
@@ -9,23 +33,25 @@ import { awardPoints } from './loyalty-utils';
 export async function getReferralByCode(
   code: string
 ): Promise<{ userId: string; fullName: string | null } | null> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    const [row] = await db
+      .select({ id: profiles.id, fullName: profiles.fullName })
+      .from(profiles)
+      .where(eq(profiles.referralCode, code))
+      .limit(1);
 
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('id, full_name')
-    .eq('referral_code', code)
-    .maybeSingle();
+    if (!row) {
+      return null;
+    }
 
-  if (error || !data) {
+    return {
+      userId: row.id,
+      fullName: row.fullName,
+    };
+  } catch (error) {
     console.error(`[Referrals] Error fetching referral by code ${code}:`, error);
     return null;
   }
-
-  return {
-    userId: data.id,
-    fullName: data.full_name,
-  };
 }
 
 /**
@@ -36,102 +62,126 @@ export async function createReferral(
   refereeId: string,
   referralCode: string
 ): Promise<Referral | null> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    const [row] = await db
+      .insert(referrals)
+      .values({
+        referrerId,
+        refereeId,
+        referralCode,
+        status: 'pending',
+        rewardType: 'points',
+        rewardValue: String(REFERRAL_REWARD_POINTS),
+      })
+      .returning();
 
-  const { data, error } = await supabase
-    .from('referrals')
-    .insert({
-      referrer_id: referrerId,
-      referee_id: refereeId,
-      referral_code: referralCode,
-      status: 'pending',
-      reward_type: 'points',
-      reward_value: REFERRAL_REWARD_POINTS,
-    })
-    .select()
-    .single();
-
-  if (error) {
+    return row ? transformReferral(row) : null;
+  } catch (error) {
     console.error(`[Referrals] Error creating referral for ${refereeId}:`, error);
     return null;
   }
-
-  return data as Referral;
 }
 
 /**
  * Process referral reward when referee makes first purchase (server-only)
  */
 export async function processReferralReward(refereeId: string, firstOrderId: string): Promise<void> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    await db.transaction(async (tx) => {
+      const [referralRow] = await tx
+        .select()
+        .from(referrals)
+        .where(
+          and(
+            eq(referrals.refereeId, refereeId),
+            eq(referrals.status, 'pending'),
+          ),
+        )
+        .limit(1);
 
-  // Get pending referral for this referee
-  const { data: referral, error: fetchError } = await supabase
-    .from('referrals')
-    .select('*')
-    .eq('referee_id', refereeId)
-    .eq('status', 'pending')
-    .maybeSingle();
+      if (!referralRow) {
+        console.log(`[Referrals] No pending referral found for user ${refereeId}`);
+        return;
+      }
 
-  if (fetchError || !referral) {
-    console.log(`[Referrals] No pending referral found for user ${refereeId}`);
-    return;
+      await tx
+        .update(referrals)
+        .set({
+          status: 'completed',
+          refereeFirstOrderId: firstOrderId,
+          updatedAt: new Date(),
+        })
+        .where(eq(referrals.id, referralRow.id));
+
+      await awardPointsInTransaction(
+        tx,
+        referralRow.referrerId,
+        REFERRAL_REWARD_POINTS,
+        firstOrderId,
+        'Referral reward - friend made first purchase',
+      );
+
+      await awardPointsInTransaction(
+        tx,
+        refereeId,
+        REFEREE_REWARD_POINTS,
+        firstOrderId,
+        'Signup bonus - referral reward',
+      );
+
+      await tx
+        .update(referrals)
+        .set({
+          status: 'rewarded',
+          rewardedAt: new Date(),
+          updatedAt: new Date(),
+        })
+        .where(eq(referrals.id, referralRow.id));
+
+      console.log(
+        `[Referrals] Processed referral reward for ${refereeId} and ${referralRow.referrerId}`,
+      );
+    });
+  } catch (error) {
+    console.error(`[Referrals] Error processing referral reward for ${refereeId}:`, error);
   }
-
-  // Update referral status to completed
-  const { error: updateError } = await supabase
-    .from('referrals')
-    .update({
-      status: 'completed',
-      referee_first_order_id: firstOrderId,
-    })
-    .eq('id', referral.id);
-
-  if (updateError) {
-    console.error(`[Referrals] Error updating referral ${referral.id}:`, updateError);
-    return;
-  }
-
-  // Award points to referrer
-  await awardPoints(
-    referral.referrer_id,
-    REFERRAL_REWARD_POINTS,
-    firstOrderId,
-    'Referral reward - friend made first purchase'
-  );
-
-  // Award points to referee
-  await awardPoints(
-    refereeId,
-    REFEREE_REWARD_POINTS,
-    firstOrderId,
-    'Signup bonus - referral reward'
-  );
-
-  // Update referral status to rewarded
-  await supabase
-    .from('referrals')
-    .update({
-      status: 'rewarded',
-      rewarded_at: new Date().toISOString(),
-    })
-    .eq('id', referral.id);
-
-  console.log(`[Referrals] Processed referral reward for ${refereeId} and ${referral.referrer_id}`);
 }
 
 /**
  * Get referral stats for a user (server-only)
  */
 export async function getUserReferralStats(userId: string): Promise<ReferralStats> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    const rows = await db
+      .select()
+      .from(referrals)
+      .where(eq(referrals.referrerId, userId));
 
-  const { data: referrals, error } = await supabase
-    .from('referrals')
-    .select('*')
-    .eq('referrer_id', userId);
+    const totals = rows.reduce(
+      (acc, row) => {
+        const rewardValue = Number.parseFloat(String(row.rewardValue ?? 0));
+        if (row.status === 'completed' || row.status === 'rewarded') {
+          acc.completed += 1;
+        }
+        if (row.status === 'completed' && !row.rewardedAt) {
+          acc.pending += 1;
+        }
+        if (row.status === 'rewarded') {
+          acc.rewards += rewardValue;
+        }
 
-  if (error) {
+        return acc;
+      },
+      { completed: 0, pending: 0, rewards: 0 },
+    );
+
+    return {
+      totalReferrals: rows.length,
+      completedReferrals: totals.completed,
+      pendingRewards: totals.pending,
+      totalRewardsEarned: totals.rewards,
+    };
+  } catch (error) {
     console.error(`[Referrals] Error fetching referral stats for ${userId}:`, error);
     return {
       totalReferrals: 0,
@@ -140,18 +190,4 @@ export async function getUserReferralStats(userId: string): Promise<ReferralStat
       totalRewardsEarned: 0,
     };
   }
-
-  const totalReferrals = referrals.length;
-  const completedReferrals = referrals.filter(r => r.status === 'completed' || r.status === 'rewarded').length;
-  const pendingRewards = referrals.filter(r => r.status === 'completed' && !r.rewarded_at).length;
-  const totalRewardsEarned = referrals
-    .filter(r => r.status === 'rewarded')
-    .reduce((sum, r) => sum + r.reward_value, 0);
-
-  return {
-    totalReferrals,
-    completedReferrals,
-    pendingRewards,
-    totalRewardsEarned,
-  };
 }

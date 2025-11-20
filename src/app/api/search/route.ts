@@ -15,7 +15,7 @@ import {
   MAX_PRODUCT_SUGGESTIONS,
   MIN_SEARCH_LENGTH,
 } from '@/lib/search/constants';
-import { searchProductsSupabase } from '@/lib/search/supabase-search';
+import { searchProductsFTS } from '@/lib/search/postgres-search';
 import { getProducts } from '@/lib/data/products';
 
 const FALLBACK_CACHE_MAX_ENTRIES = 100;
@@ -140,14 +140,14 @@ export async function GET(request: Request) {
   }
 
   try {
-    const supabaseResults = await searchProductsSupabase(sanitizedQuery, locale, 20);
-    const suggestions = buildSuggestionsFromProducts(supabaseResults);
+    const dbResults = await searchProductsFTS(sanitizedQuery, locale, 20);
+    const suggestions = buildSuggestionsFromProducts(dbResults);
 
     if (suggestions.length > 0) {
-      return NextResponse.json({ suggestions, source: 'supabase' });
+      return NextResponse.json({ suggestions, source: 'postgres' });
     }
   } catch (error) {
-    logError('Supabase search failed', {
+    logError('Postgres search failed', {
       locale,
       errorMessage: error instanceof Error ? error.message : String(error),
       query: sanitizedQuery,

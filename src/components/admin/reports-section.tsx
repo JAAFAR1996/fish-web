@@ -69,7 +69,7 @@ export function ReportsSection({ admin, className }: ReportsSectionProps) {
     ]);
 
     if (!salesResult.ok || !sellersResult.ok) {
-      const errors = [];
+      const errors: string[] = [];
       if (!salesResult.ok) errors.push('sales report');
       if (!sellersResult.ok) errors.push('best sellers');
       setError(`Failed to load: ${errors.join(', ')}`);

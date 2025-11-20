@@ -3,14 +3,14 @@ import 'server-only';
 
 import { validateEnv } from './env';
 
-export function getSupabaseServiceRoleKey(): string {
-  return validateEnv(
-    'SUPABASE_SERVICE_ROLE_KEY',
-    process.env.SUPABASE_SERVICE_ROLE_KEY,
-    true
-  );
+export function getR2AccountId(): string {
+  return validateEnv('R2_ACCOUNT_ID', process.env.R2_ACCOUNT_ID, true);
 }
 
-export function getSupabaseServerUrl(): string {
-  return validateEnv('SUPABASE_URL', process.env.SUPABASE_URL, true);
+export function getR2AccessKeyId(): string {
+  return validateEnv('R2_ACCESS_KEY_ID', process.env.R2_ACCESS_KEY_ID, true);
+}
+
+export function getR2SecretAccessKey(): string {
+  return validateEnv('R2_SECRET_ACCESS_KEY', process.env.R2_SECRET_ACCESS_KEY, true);
 }

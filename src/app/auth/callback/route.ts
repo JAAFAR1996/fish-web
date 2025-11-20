@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-
 const CONTROL_CHARACTERS_REGEX = /[\u0000-\u001F\u007F]/;
 const ALLOWED_PATH_PREFIXES = [
   '/',
@@ -50,23 +48,7 @@ function resolveRedirectUrl(request: NextRequest, path: string) {
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
-  const code = url.searchParams.get('code');
   const next = sanitizeNext(url.searchParams.get('next'));
-
-  if (!code) {
-    return NextResponse.redirect(
-      resolveRedirectUrl(request, '/auth/error?message=missing_code')
-    );
-  }
-
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.auth.exchangeCodeForSession(code);
-
-  if (error) {
-    return NextResponse.redirect(
-      resolveRedirectUrl(request, '/auth/error?message=exchange_failed')
-    );
-  }
-
-  return NextResponse.redirect(resolveRedirectUrl(request, next));
+  const errorRedirect = `/auth/error?message=oauth_not_configured&next=${encodeURIComponent(next)}`;
+  return NextResponse.redirect(resolveRedirectUrl(request, errorRedirect));
 }

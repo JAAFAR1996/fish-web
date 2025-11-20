@@ -1,34 +1,45 @@
 ﻿# FISH WEB - Premium Aquarium Equipment E-commerce
 
-A modern, RTL-first e-commerce platform for aquarium equipment in Iraq, built with Next.js 14, TypeScript, Tailwind CSS, Supabase, and next-intl.
+A modern, RTL-first e-commerce platform for aquarium equipment in Iraq, built with Next.js 14, TypeScript, Tailwind CSS, Drizzle ORM, and next-intl.
 
 ## Tech Stack
 - Next.js 14 (App Router)
 - TypeScript (strict mode)
 - Tailwind CSS with RTL support
-- Supabase (Database, Auth, Storage)
+- Drizzle ORM + Neon PostgreSQL
+- Custom JWT authentication (bcryptjs + jose)
+- Cloudflare R2 object storage
 - next-intl for i18n
 
 ## Prerequisites
 - Node.js 18.17 or newer
-- npm, pnpm, or yarn
-- Supabase project with API keys
+- npm (or pnpm / yarn)
+- Neon PostgreSQL database (connection string)
+- Cloudflare R2 account & bucket
 
 ## Getting Started
 1. Install dependencies:
    ```bash
    npm install
    ```
-2. Copy the environment template and add your Supabase credentials:
+2. Copy the environment template:
    ```bash
    cp .env.local.example .env.local
    ```
-3. Update `.env.local` with values from the Supabase dashboard.
-4. Run the development server:
+3. Provision infrastructure:
+   - Create a Neon Postgres database and capture the pooled connection string.
+   - Create a Cloudflare R2 bucket for public assets (set public read or use custom CDN).
+   - Generate a 32+ byte random `JWT_SECRET` (e.g., `openssl rand -base64 48`).
+4. Update `.env.local` with database, auth, storage, and email credentials (see **Environment Variables**).
+5. Push the latest schema to Neon:
+   ```bash
+   npm run db:push
+   ```
+6. Run the development server:
    ```bash
    npm run dev
    ```
-5. Visit `http://localhost:3000` (all routes are locale prefixed, e.g. `/ar`, `/en`).
+7. Visit `http://localhost:3000` (all routes are locale prefixed, e.g. `/ar`, `/en`).
 
 ## Available Scripts
 - `npm run dev` – Start the development server with Turbopack.
@@ -38,13 +49,17 @@ A modern, RTL-first e-commerce platform for aquarium equipment in Iraq, built wi
 - `npm run type-check` – Validate TypeScript types without emitting files.
 
 ## Project Structure
-- `src/app` – Next.js App Router pages, layouts, and route handlers.
-- `src/components` – Reusable UI pieces (grouped into ui, layout, products, features).
-- `src/lib` – Utilities and third-party integrations (Supabase clients, helpers).
-- `src/types` – Central TypeScript definitions.
-- `src/i18n` – Locale configuration, middleware helpers, navigation utilities.
-- `messages` – Translation dictionaries (`ar.json`, `en.json`).
-- `public` – Static assets served directly by Next.js.
+- `server/` – Drizzle database client (`db.ts`), auth services, middleware adapters, and schema definitions.
+- `shared/` – Cross-cutting Drizzle table schema shared between server and client code.
+- `src/app/` – Next.js App Router pages, layouts, and route handlers.
+- `src/components/` – Reusable UI pieces (ui primitives, layouts, feature modules).
+- `src/lib/` – Domain logic, data fetching, marketing utilities, storage adapters, analytics, etc.
+  - `src/lib/storage/` – Cloudflare R2 upload + deletion utilities.
+  - `src/lib/uploads/` – Client-side sanitizers and rate limiting helpers.
+- `src/types/` – Central TypeScript definitions.
+- `src/i18n/` – Locale configuration, middleware helpers, navigation utilities.
+- `messages/` – Translation dictionaries (`ar.json`, `en.json`).
+- `public/` – Static assets served directly by Next.js.
 
 ## Design System
 
@@ -193,7 +208,7 @@ A comprehensive landing experience composed of nine cohesive sections that guide
 ### SEO & Future Enhancements
 - Structured page ready for metadata expansion (Open Graph, JSON-LD)
 - Internal links to calculators and product listings improve crawl depth
-- Future: replace Instagram placeholders with Supabase-stored images or Graph API
+- Future: replace Instagram placeholders with Cloudflare R2-hosted content or Graph API
 - Potential additions: testimonials, blog previews, personalized recommendations, seasonal promos
 - Cart/wishlist server actions will eventually replace console placeholders in client components
 
@@ -202,18 +217,18 @@ A comprehensive landing experience composed of nine cohesive sections that guide
 The wishlist experience mirrors the cart’s dual-storage strategy while keeping the codebase consistent and easy to extend.
 
 ### Highlights
-- **Dual Storage:** Guests rely on `localStorage` (`fish-web-wishlist`); authenticated users persist to Supabase (`wishlists` table). A login automatically merges both sources without duplicates.
+- **Dual Storage:** Guests rely on `localStorage` (`fish-web-wishlist`); authenticated users persist to Neon Postgres (`wishlists` table via Drizzle). A login automatically merges both sources without duplicates.
 - **Provider Pattern:** `WishlistProvider` exposes `useWishlist()` with `items`, `itemCount`, `addItem`, `removeItem`, `toggleItem`, `moveToCart`, and `clearWishlist`, matching the cart API for familiarity.
 - **Server Actions:** `wishlist-actions.ts` handles add/remove/toggle/sync flows, revalidates `/wishlist` per locale, and records notify-me requests (`notify_me_requests` table with RLS + unique indexes).
 - **UI Integration:** `ProductCard` and PDP `ProductInfo` consume `useWishlist()` directly. The heart icon is now stateful everywhere, and out-of-stock items surface a `NotifyMeButton` that opens an email capture modal.
 - **Wishlist Page:** `/[locale]/wishlist` renders `WishlistPageContent`—bulk move-to-cart, clear-all, per-item notify me, and an empty state. The Account wishlist tab shows a four-item preview.
 
 ### Schema Additions
-- `wishlists` table (unique `user_id + product_id`, indexed by user/product, full RLS coverage).
+- `wishlists` table (unique `user_id + product_id`, indexed by user/product, enforced via Drizzle constraints).
 - `notify_me_requests` table (supports guests and users, unique partial indexes to avoid duplicate requests, pending notifications flagged via `notified = false`).
 
 ### Components & Utilities
-- `src/lib/wishlist/`: constants, storage helpers, Supabase queries, and server actions.
+- `src/lib/wishlist/`: constants, storage helpers, Drizzle queries, and server actions.
 - `WishlistProvider`: mirrors `CartProvider` with optimistic state updates and login sync.
 - `NotifyMeModal` / `NotifyMeButton`: reusable opt-in flow for restock emails.
 - `WishlistPageContent`, `EmptyWishlist`: dedicated wishlist UI with responsive grid + skeletons.
@@ -233,8 +248,8 @@ Fully authenticated product reviews with star ratings, moderation, image uploads
 
 ### Highlights
 - Authenticated reviews only (no guests) with one review per user/product and 30-day edit window
-- Supabase tables: `reviews` (approval workflow, helpful counters) and `helpful_votes` (toggleable votes) with RLS policies
-- Supabase Storage bucket `review-images` (public read, user-scoped write, 5MB/file, JPG/PNG/WebP)
+- Drizzle-managed tables: `reviews` (approval workflow, helpful counters) and `helpful_votes` (toggleable votes) enforced via database constraints
+- Cloudflare R2 bucket `review-images` (public read, user-scoped write, 5MB/file, JPG/PNG/WebP)
 - Server utilities (`src/lib/reviews`) for constants, validation, image upload, queries, and server actions (create/update/delete/toggle votes)
 - Client components (`src/components/reviews`) covering summary, filters, list, item, form, image uploader, helpful buttons, and empty state
 - PDP integration: server-rendered `ProductTabs` passes review data to client `ReviewsTabContent` with live refresh after actions
@@ -458,7 +473,7 @@ All search content is translated:
 - Lazy load voice search modal (only render when opened)
 
 **Future optimizations (Phase 19)**
-- Migrate to Supabase full-text search (PostgreSQL tsvector)
+- Promote to Neon Postgres full-text search (tsvector) via Drizzle
 - Server-side search API (handle 1000+ products)
 - Search result caching (SWR or React Query)
 - Pagination for large result sets
@@ -527,7 +542,7 @@ All search content is translated:
 
 ### Future Enhancements
 
-- Supabase full-text search (PostgreSQL tsvector, Phase 19)
+- Neon Postgres full-text search (tsvector, Phase 19)
 - Search filters (price range, rating, availability)
 - Search suggestions ("Did you mean...?" for typos)
 - Search history (show recent searches in autocomplete)
@@ -700,7 +715,7 @@ Arabic and English dictionaries stay in lockstep for locale parity.
 - Shared helpers (`formatCurrency`, `getProductBadges`, `isLowStock`) live in `@/lib/utils` for consistency.
 
 ### Future Enhancements
-- Connect wishlist state to Supabase (Phase 12).
+- Tighten wishlist/cart synchronization with Neon Postgres (Phase 12).
 - Wire Add to Cart into the real cart service with optimistic updates (Phase 11).
 - Add skeleton loading states for slower networks.
 - Support product image carousels or quick-compare badges.
@@ -778,10 +793,10 @@ A server-rendered product experience that blends rich media, pricing, calculator
 
 ## Shopping Cart System
 
-Full-featured cart with dual storage (localStorage for guests, Supabase for authenticated users) and synchronized state across app surfaces.
+Full-featured cart with dual storage (localStorage for guests, Neon Postgres via Drizzle for authenticated users) and synchronized state across app surfaces.
 
 ### Features
-- **Dual Storage**: Guests persist cart data in localStorage (`fish-web-cart`), while signed-in users store carts in Supabase (`carts`, `cart_items`). Guest carts auto-merge on login via `syncGuestCartAction`.
+- **Dual Storage**: Guests persist cart data in localStorage (`fish-web-cart`), while signed-in users store carts in Neon Postgres (`carts`, `cart_items` managed through Drizzle). Guest carts auto-merge on login via `syncGuestCartAction`.
 - **Two Cart Views**: Slide-in `SidebarCart` for quick edits and the `/cart` page for a complete review; both share `CartProvider` state and utilities.
 - **Cart Operations**: Add, remove, update quantity (debounced 500 ms), clear cart, save for later (Phase 11 in-memory / localStorage, Phase 12 integrates wishlist).
 - **Free Shipping Progress**: Threshold 100,000 IQD with real-time progress bar messaging.
@@ -790,7 +805,7 @@ Full-featured cart with dual storage (localStorage for guests, Supabase for auth
 
 ### Architecture
 - `CartProvider` (`src/components/providers/CartProvider.tsx`) exposes `useCart()` with cart items, totals, operations, and sidebar controls.
-- Cart utilities live in `src/lib/cart/` (constants, pure calculations, localStorage helpers, Supabase queries, server actions).
+- Cart utilities live in `src/lib/cart/` (constants, pure calculations, localStorage helpers, Drizzle queries, server actions).
 - Cart UI components reside in `src/components/cart/` (items, summary, progress, upsell, saved items, sidebar, calculator link, page content).
 - `/app/[locale]/cart/page.tsx` renders the full cart page with localized metadata (`robots: noindex, nofollow`).
 - Header cart badge uses `useCart()` for live counts; sidebar reuses MobileMenu focus/animation patterns.
@@ -810,16 +825,16 @@ A comprehensive admin workspace for managing catalog, orders, inventory, analyti
 ### Features
 
 **Admin Authentication**
-- `profiles.is_admin` flag with index (`supabase/schema.sql`).
+- `profiles.is_admin` flag with index (`shared/schema.ts` / `server/schema.ts`).
 - Middleware gate keeps `/admin` routes by invoking `isAdmin()`.
 - Server pages/actions use `requireAdmin()` for defense-in-depth.
 - Audit trail stored in `admin_audit_logs` via `createAuditLog()` helpers.
 
 **Product Management**
-- CRUD powered by Supabase `products` table and Storage bucket `product-images`.
+- CRUD powered by Drizzle models (`products` table) and Cloudflare R2 `product-images` bucket.
 - `ProductForm` supports validation, specs capture, and batch image upload.
 - Actions revalidate storefront caches (`/products`, `products` tag).
-- `products.json` now acts as fallback when Supabase query fails.
+- `products.json` now acts as fallback when database connectivity fails.
 
 **Order Management**
 - `updateOrderStatusAction` enforces status transitions and collects tracking data.
@@ -832,7 +847,7 @@ A comprehensive admin workspace for managing catalog, orders, inventory, analyti
 - Totals surface within dashboard stats for at-a-glance monitoring.
 
 **Sales Reports**
-- `getSalesReport` + `getBestSellersReport` aggregate Supabase order data.
+- `getSalesReport` + `getBestSellersReport` aggregate order data directly from Postgres.
 - Recharts visualizes revenue trend and top products with responsive charts.
 - Date range buttons (7/30/90 days) update analytics on demand.
 
@@ -863,11 +878,11 @@ A comprehensive admin workspace for managing catalog, orders, inventory, analyti
 
 ### Security & Access Control
 - Middleware → Server Components → Server Actions triple-check admin rights.
-- Supabase RLS grants public read, admin write on `products`; audit logs admin-only.
+- Database constraints enforce read/write boundaries; auth middleware prevents non-admin mutations.
 - Validation layer returns translation keys for consistent error messaging.
 
 ### Performance
-- Supabase queries batched via Promise.all where possible.
+- Drizzle queries batched via Promise.all where possible.
 - `cache()` wraps `getProducts()` to reduce duplicate fetches per request.
 - Pagination keeps tables performant (20 rows for products/orders; 10 for inventory list).
 
@@ -890,9 +905,9 @@ Implement a community-driven Setup Gallery with interactive product hotspots, su
 ### Database Schema
 - Table `gallery_setups` with: id, user_id, title (≤100), description (≤500), tank_size (1–10000), style, media_urls (jsonb), hotspots (jsonb), is_approved, featured, view_count, timestamps
 - Indexes: user_id, is_approved, style, tank_size, featured, created_at DESC
-- RLS: public can read approved; users can CRUD own rows
+- Access control: custom middleware restricts writes to owners/admins, public queries only return approved rows
 - Trigger `set_updated_at` on update
-- Storage bucket `gallery-images` (public read, user-scoped write, 10MB, jpeg/png/webp/mp4)
+- Cloudflare R2 bucket `gallery-images` (public read, user-scoped write, 10MB, jpeg/png/webp/mp4)
 
 ### Component Architecture
 - GalleryCard, GalleryGrid, GalleryFilters, EmptyGalleryState
@@ -991,7 +1006,7 @@ Comprehensive performance optimizations and SEO enhancements for production read
 **Caching & Compression:**
 - Static assets cached for 1 year (immutable, cache-busting via hashed filenames)
 - ISR caching (stale-while-revalidate pattern)
-- Supabase query caching (Next.js cache() function)
+- Database query caching (Next.js `cache()` wrapper over Drizzle calls)
 - Image caching (Next.js Image component handles cache headers)
 - Compression headers for static assets (Cache-Control: public, max-age=31536000, immutable)
 
@@ -1103,7 +1118,7 @@ Comprehensive performance optimizations and SEO enhancements for production read
 - [ ] Set up Plausible dashboard (add fishweb.iq as site)
 - [ ] Monitor Core Web Vitals in Search Console (wait 28 days for data)
 - [ ] Set up alerts in Plausible (traffic drops, conversion rate changes)
-- [ ] Monitor Supabase usage (database queries, storage bandwidth)
+- [ ] Monitor Neon database metrics (connections, query latency) and R2 bandwidth
 - [ ] Test social sharing (Facebook, Twitter, WhatsApp)
 
 **Ongoing Monitoring:**
@@ -1140,12 +1155,12 @@ Transform FISH WEB into an installable Progressive Web App with offline capabili
 **Offline Capabilities**
 - Offline indicator banner driven by `navigator.onLine`
 - IndexedDB-powered product caching (`cacheProductsForOffline`, `getOfflineProducts`)
-- Cached imagery (Supabase Storage) and static assets via next-pwa/Workbox
+- Cached imagery (Cloudflare R2 objects) and static assets via next-pwa/Workbox
 - Cart, wishlist, calculators, and previously visited pages keep functioning without connectivity
 
 **Service Worker Caching**
-- CacheFirst for Supabase images (30 days, 200 entries)
-- NetworkFirst for Supabase REST API (1 hour, 50 entries, 10s timeout)
+- CacheFirst for R2-hosted images (30 days, 200 entries)
+- NetworkFirst for product/search API requests (1 hour, 50 entries, 10s timeout)
 - CacheFirst for Google Fonts stylesheets and webfonts (1 year)
 - Automatic cache versioning + `skipWaiting` for instant updates
 
@@ -1170,7 +1185,7 @@ Transform FISH WEB into an installable Progressive Web App with offline capabili
 - Cached products, gallery items, blog posts, cart, wishlist, calculators, and stored imagery
 
 **Requires Online**
-- Checkout, authentication, search refresh, review submission, and any Supabase mutations
+- Checkout, authentication, search refresh, review submission, and any database mutations
 
 ### Testing & Deployment
 
@@ -1190,11 +1205,19 @@ Transform FISH WEB into an installable Progressive Web App with offline capabili
 ## Environment Variables
 | Variable | Description |
 | --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (exposed to the browser). |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key for client-side access. |
-| `SUPABASE_SERVICE_ROLE_KEY` | Service role key for privileged server-side operations (never expose). |
+| `DATABASE_URL` | Neon Postgres pooled connection string used by Drizzle (`postgresql://user:pass@host/db?sslmode=require`). |
+| `JWT_SECRET` | 32+ byte secret for signing/verifying session tokens (generate with `openssl rand -base64 48`). |
+| `R2_ACCOUNT_ID` | Cloudflare R2 account identifier (used to build the S3-compatible endpoint). |
+| `R2_ACCESS_KEY_ID` | R2 access key with read/write permissions to the application bucket. |
+| `R2_SECRET_ACCESS_KEY` | R2 secret for the above access key (store securely). |
+| `NEXT_PUBLIC_R2_PUBLIC_URL` | Public base URL for serving uploaded media (e.g., `https://cdn.example.com`). |
+| `RESEND_API_KEY` | Resend transactional email API key for order/shipping notifications. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site origin (used in metadata, emails, share links). |
 
-`NEXT_PUBLIC_` variables are bundled into the client. Keep service keys server-only and use them within Route Handlers or Server Actions.
+Notes:
+- `NEXT_PUBLIC_*` values are exposed to the browser; do not put secrets there.
+- Rotate `JWT_SECRET` and R2 credentials per environment and invalidate old sessions after rotation.
+- Add optional feature flags (`NEXT_PUBLIC_PWA_ENABLED`, etc.) as needed for deployments.
 
 ## Internationalization
 - Locales: Arabic (`ar`) and English (`en`).
@@ -1204,7 +1227,7 @@ Transform FISH WEB into an installable Progressive Web App with offline capabili
 
 ## Development Notes
 - Use navigation helpers from `@/i18n/navigation` to preserve locale state.
-- Client components instantiate Supabase via `createClient()`; server code uses `createServerSupabaseClient()`.
+- Client components rely on context providers; all persistent reads/mutations run through Drizzle server actions.
 - Prefer semantic color utilities for theme compatibility.
 - Guard animations with `motion-safe:` and `motion-reduce:`.
 - Employ container queries (`@sm`, `@md`, `@lg`) when components must respond to parent width.
@@ -1212,6 +1235,34 @@ Transform FISH WEB into an installable Progressive Web App with offline capabili
 
 ## Contributing
 Contribution guidelines will arrive in a future phase. For now, open a discussion or issue before submitting significant changes.
+
+## 🎨 Interactive Effects
+
+**3D Tilt Effect**
+- Mouse-tracking tilt on product cards with optional glass hover polish.
+- GSAP-powered updates when animations are enabled; CSS transitions for fallback paths.
+- Usage: `<ProductCard tilt3D />` with `shineEffect` or `glassHover` for premium card states.
+
+**Shine Effect**
+- Glossy overlay that tracks the pointer using CSS variables and GPU-accelerated transforms.
+- Mix-blend overlay adapts to light/dark themes; prefers-reduced-motion disables it automatically.
+- Usage: enable with `tilt3D` + `shineEffect` or drop `<ShineEffect />` into any relative container.
+
+**Dynamic Brand Lighting**
+- Aquatic radial lighting inside the hero visual that follows cursor movement.
+- Optional wave ripple animation for atmospheric depth; respects feature flags and motion settings.
+- Auto-enabled in the hero when `NEXT_PUBLIC_ENABLE_GSAP=true` and reduced motion is off.
+
+**Parallax Imagery**
+- Subtle ±10px scroll parallax on product imagery via ScrollTrigger.
+- Graceful no-JavaScript fallback using CSS transitions; disabled in reduced-motion contexts.
+- Ready to apply on any asset wrapped with the `.parallax-image` utility class.
+
+**Performance & Accessibility**
+- Shared `willChangeManager` throttles GPU hints to active interactions only.
+- Mouse/touch tracking throttled with `rafThrottle` helpers (60fps max) to avoid layout thrash.
+- `prefers-reduced-motion` short-circuits all interactive effects and removes additional shadows.
+- Feature flags (`NEXT_PUBLIC_ENABLE_GSAP`, `NEXT_PUBLIC_PERFORMANCE_MODE`, `NEXT_PUBLIC_DEBUG_ANIMATIONS`) gate advanced visuals on low-end devices.
 
 ## License
 Proprietary. All rights reserved.

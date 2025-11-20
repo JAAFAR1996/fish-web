@@ -1,14 +1,41 @@
-import { sql, eq } from 'drizzle-orm';
-import { and, or, isNull, lt } from 'drizzle-orm';
+import { sql, eq, and, or, isNull, lt } from 'drizzle-orm';
 
 import type { Coupon, Locale } from '@/types';
 import { db } from '@server/db';
-import { coupons } from '@server/schema';
+import { coupons } from '@shared/schema';
 
 import { formatCurrency } from '@/lib/utils';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
 
 import { MAX_COUPON_PERCENTAGE } from './constants';
+
+const toNumber = (value: unknown): number =>
+  typeof value === 'number' ? value : Number(value ?? 0);
+
+const toNullableIso = (value: unknown): string | null => {
+  if (value instanceof Date) return value.toISOString();
+  if (typeof value === 'string') return value;
+  return null;
+};
+
+const toIsoString = (value: unknown): string =>
+  toNullableIso(value) ?? new Date().toISOString();
+
+function transformCoupon(row: typeof coupons.$inferSelect): Coupon {
+  return {
+    id: row.id,
+    code: row.code,
+    discount_type: row.discountType === 'percentage' ? 'percentage' : 'fixed',
+    discount_value: toNumber(row.discountValue ?? 0),
+    min_order_value: row.minOrderValue !== null ? toNumber(row.minOrderValue) : null,
+    max_discount: row.maxDiscount !== null ? toNumber(row.maxDiscount) : null,
+    usage_limit: row.usageLimit,
+    used_count: row.usedCount,
+    is_active: row.isActive,
+    expiry_date: toNullableIso(row.expiryDate),
+    created_at: toIsoString(row.createdAt),
+    updated_at: toIsoString(row.updatedAt),
+  };
+}
 
 export async function validateCoupon(
   code: string,
@@ -23,43 +50,45 @@ export async function validateCoupon(
 
   const normalizedCode = code.trim().toUpperCase();
 
-  const supabase = await createServerSupabaseClient();
-  const { data: coupon, error } = await supabase
-    .from('coupons')
-    .select('*')
-    .eq('code', normalizedCode)
-    .eq('is_active', true)
-    .maybeSingle();
+  try {
+    const [row] = await db
+      .select()
+      .from(coupons)
+      .where(
+        and(eq(coupons.code, normalizedCode), eq(coupons.isActive, true))
+      )
+      .limit(1);
 
-  if (error) {
+    if (!row) {
+      return { valid: false, error: 'checkout.coupon.invalidCode' };
+    }
+
+    const coupon = transformCoupon(row);
+
+    if (coupon.expiry_date) {
+      const expiresAt = new Date(coupon.expiry_date).getTime();
+      if (Number.isFinite(expiresAt) && expiresAt < Date.now()) {
+        return { valid: false, error: 'checkout.coupon.expired' };
+      }
+    }
+
+    if (coupon.usage_limit !== null && coupon.used_count >= coupon.usage_limit) {
+      return { valid: false, error: 'checkout.coupon.usageLimitReached' };
+    }
+
+    if (coupon.min_order_value !== null && subtotal < coupon.min_order_value) {
+      return {
+        valid: false,
+        error: 'checkout.coupon.minOrderNotMet',
+        params: { amount: coupon.min_order_value },
+      };
+    }
+
+    return { valid: true, coupon };
+  } catch (error) {
     console.error('Failed to validate coupon', error);
     return { valid: false, error: 'checkout.coupon.invalidCode' };
   }
-
-  if (!coupon) {
-    return { valid: false, error: 'checkout.coupon.invalidCode' };
-  }
-
-  if (coupon.expiry_date) {
-    const expiresAt = new Date(coupon.expiry_date).getTime();
-    if (Number.isFinite(expiresAt) && expiresAt < Date.now()) {
-      return { valid: false, error: 'checkout.coupon.expired' };
-    }
-  }
-
-  if (coupon.usage_limit !== null && coupon.used_count >= coupon.usage_limit) {
-    return { valid: false, error: 'checkout.coupon.usageLimitReached' };
-  }
-
-  if (coupon.min_order_value !== null && subtotal < coupon.min_order_value) {
-    return {
-      valid: false,
-      error: 'checkout.coupon.minOrderNotMet',
-      params: { amount: coupon.min_order_value },
-    };
-  }
-
-  return { valid: true, coupon: coupon as Coupon };
 }
 
 export function calculateDiscount(coupon: Coupon, subtotal: number): number {

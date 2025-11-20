@@ -3,8 +3,10 @@
 import { revalidatePath } from 'next/cache';
 
 import { getUser } from '@/lib/auth/utils';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { getSupabaseUrl } from '@/lib/env';
+import { getR2PublicUrl } from '@/lib/env';
+import { db } from '@server/db';
+import { helpfulVotes, reviews } from '@shared/schema';
+import { and, eq, sql } from 'drizzle-orm';
 
 import { deleteReviewImages } from './image-upload';
 import { extractPathFromUrl } from './url-utils';
@@ -38,8 +40,8 @@ const validateImageUrls = async (imageUrls: string[]): Promise<{ valid: boolean;
     return { valid: false, error: 'reviews.validation.imagesMax' };
   }
 
-  const supabaseUrl = getSupabaseUrl();
-  const expectedPrefix = `${supabaseUrl}/storage/v1/object/public/${STORAGE_BUCKET}/`;
+  const baseUrl = getR2PublicUrl().replace(/\/+$/, '');
+  const expectedPrefix = `${baseUrl}/${STORAGE_BUCKET}/`;
 
   for (const url of imageUrls) {
     if (!url.startsWith(expectedPrefix)) {
@@ -103,31 +105,33 @@ export async function createReviewAction(
     return { success: false, error: 'reviews.validation.alreadyReviewed' };
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('reviews')
-    .insert({
-      product_id: productId,
-      user_id: user.id,
-      rating: formData.rating,
-      title: formData.title.trim(),
-      comment: formData.comment.trim(),
-      images: formData.imageUrls,
-      is_approved: false,
-    })
-    .select('id')
-    .single();
+  try {
+    const [created] = await db
+      .insert(reviews)
+      .values({
+        productId,
+        userId: user.id,
+        rating: formData.rating,
+        title: formData.title.trim(),
+        comment: formData.comment.trim(),
+        images: formData.imageUrls,
+        isApproved: false,
+      })
+      .returning({ id: reviews.id });
 
-  if (error || !data) {
+    if (!created) {
+      return { success: false, error: 'reviews.errors.submitFailed' };
+    }
+
+    if (options?.revalidatePath) {
+      revalidateReviewPaths(options.revalidatePath);
+    }
+
+    return { success: true, reviewId: created.id };
+  } catch (error) {
     console.error('Failed to create review', error);
     return { success: false, error: 'reviews.errors.submitFailed' };
   }
-
-  if (options?.revalidatePath) {
-    revalidateReviewPaths(options.revalidatePath);
-  }
-
-  return { success: true, reviewId: data.id };
 }
 
 export async function updateReviewAction(
@@ -178,28 +182,28 @@ export async function updateReviewAction(
     };
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase
-    .from('reviews')
-    .update({
-      rating: formData.rating,
-      title: formData.title.trim(),
-      comment: formData.comment.trim(),
-      images: formData.imageUrls,
-      is_approved: false,
-    })
-    .eq('id', reviewId);
+  try {
+    await db
+      .update(reviews)
+      .set({
+        rating: formData.rating,
+        title: formData.title.trim(),
+        comment: formData.comment.trim(),
+        images: formData.imageUrls,
+        isApproved: false,
+        updatedAt: sql`now()`,
+      })
+      .where(and(eq(reviews.id, reviewId), eq(reviews.userId, user.id)));
 
-  if (error) {
+    if (options?.revalidatePath) {
+      revalidateReviewPaths(options.revalidatePath);
+    }
+
+    return { success: true, reviewId };
+  } catch (error) {
     console.error('Failed to update review', error);
     return { success: false, error: 'reviews.errors.submitFailed' };
   }
-
-  if (options?.revalidatePath) {
-    revalidateReviewPaths(options.revalidatePath);
-  }
-
-  return { success: true, reviewId };
 }
 
 export async function deleteReviewAction(
@@ -222,19 +226,20 @@ export async function deleteReviewAction(
     await deleteReviewImages(existingReview.images);
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.from('reviews').delete().eq('id', reviewId);
+  try {
+    await db
+      .delete(reviews)
+      .where(and(eq(reviews.id, reviewId), eq(reviews.userId, user.id)));
 
-  if (error) {
+    if (options?.revalidatePath) {
+      revalidateReviewPaths(options.revalidatePath);
+    }
+
+    return { success: true };
+  } catch (error) {
     console.error('Failed to delete review', error);
     return { success: false, error: 'reviews.errors.submitFailed' };
   }
-
-  if (options?.revalidatePath) {
-    revalidateReviewPaths(options.revalidatePath);
-  }
-
-  return { success: true };
 }
 
 export async function toggleHelpfulVoteAction(
@@ -247,45 +252,79 @@ export async function toggleHelpfulVoteAction(
     return { success: false, error: 'reviews.errors.authRequired' };
   }
 
-  const supabase = await createServerSupabaseClient();
-  const existingVote = await getUserHelpfulVote(user.id, reviewId);
+  try {
+    const existingVote = await getUserHelpfulVote(user.id, reviewId);
 
-  if (!existingVote) {
-    const { error } = await supabase
-      .from('helpful_votes')
-      .insert({
-        review_id: reviewId,
-        user_id: user.id,
-        vote_type: voteType,
+    if (!existingVote) {
+      // Insert new vote
+      await db.insert(helpfulVotes).values({
+        reviewId,
+        userId: user.id,
+        voteType,
       });
 
-    if (error) {
-      console.error('Failed to create helpful vote', error);
-      return { success: false, error: 'reviews.errors.submitFailed' };
-    }
-  } else if (existingVote.vote_type === voteType) {
-    const { error } = await supabase
-      .from('helpful_votes')
-      .delete()
-      .eq('id', existingVote.id);
+      // Increment the appropriate counter
+      if (voteType === 'helpful') {
+        await db
+          .update(reviews)
+          .set({ helpfulCount: sql`${reviews.helpfulCount} + 1` })
+          .where(eq(reviews.id, reviewId));
+      } else {
+        await db
+          .update(reviews)
+          .set({ notHelpfulCount: sql`${reviews.notHelpfulCount} + 1` })
+          .where(eq(reviews.id, reviewId));
+      }
+    } else if (existingVote.vote_type === voteType) {
+      // Delete existing vote
+      await db
+        .delete(helpfulVotes)
+        .where(and(eq(helpfulVotes.id, existingVote.id), eq(helpfulVotes.userId, user.id)));
 
-    if (error) {
-      console.error('Failed to remove helpful vote', error);
-      return { success: false, error: 'reviews.errors.submitFailed' };
-    }
-  } else {
-    const { error } = await supabase
-      .from('helpful_votes')
-      .update({ vote_type: voteType })
-      .eq('id', existingVote.id);
+      // Decrement the appropriate counter
+      if (voteType === 'helpful') {
+        await db
+          .update(reviews)
+          .set({ helpfulCount: sql`GREATEST(${reviews.helpfulCount} - 1, 0)` })
+          .where(eq(reviews.id, reviewId));
+      } else {
+        await db
+          .update(reviews)
+          .set({ notHelpfulCount: sql`GREATEST(${reviews.notHelpfulCount} - 1, 0)` })
+          .where(eq(reviews.id, reviewId));
+      }
+    } else {
+      // Update vote type
+      await db
+        .update(helpfulVotes)
+        .set({ voteType })
+        .where(and(eq(helpfulVotes.id, existingVote.id), eq(helpfulVotes.userId, user.id)));
 
-    if (error) {
-      console.error('Failed to update helpful vote', error);
-      return { success: false, error: 'reviews.errors.submitFailed' };
+      // Update counters: decrement old type, increment new type
+      if (voteType === 'helpful') {
+        await db
+          .update(reviews)
+          .set({
+            helpfulCount: sql`${reviews.helpfulCount} + 1`,
+            notHelpfulCount: sql`GREATEST(${reviews.notHelpfulCount} - 1, 0)`,
+          })
+          .where(eq(reviews.id, reviewId));
+      } else {
+        await db
+          .update(reviews)
+          .set({
+            helpfulCount: sql`GREATEST(${reviews.helpfulCount} - 1, 0)`,
+            notHelpfulCount: sql`${reviews.notHelpfulCount} + 1`,
+          })
+          .where(eq(reviews.id, reviewId));
+      }
     }
+
+    revalidatePath('/account');
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to toggle helpful vote', error);
+    return { success: false, error: 'reviews.errors.submitFailed' };
   }
-
-  revalidatePath('/account');
-
-  return { success: true };
 }

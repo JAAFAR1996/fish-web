@@ -13,7 +13,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@/components/ui';
-import { useAuth } from '@/components/providers/SupabaseAuthProvider';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { createNotifyMeRequestAction } from '@/lib/wishlist/wishlist-actions';
 import { validateEmail } from '@/lib/auth/validation';
 import type { Product } from '@/types';

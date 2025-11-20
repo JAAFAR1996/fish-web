@@ -15,7 +15,7 @@ import {
   Input,
   StarRating,
 } from '@/components/ui';
-import { useAuth } from '@/components/providers/SupabaseAuthProvider';
+import { useAuth } from '@/components/providers/AuthProvider';
 import {
   createReviewAction,
   updateReviewAction,

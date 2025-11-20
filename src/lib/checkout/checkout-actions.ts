@@ -3,18 +3,24 @@
 import { revalidatePath } from 'next/cache';
 
 import type {
+  CartItem,
   CartItemWithProduct,
   CheckoutData,
   Locale,
   Order,
-  OrderItem,
   OrderWithItems,
 } from '@/types';
 
 import { getUser } from '@/lib/auth/utils';
 import { getProductsWithFlashSales } from '@/lib/data/products';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { adminClient } from '@/lib/supabase/admin';
+import { db } from '@server/db';
+import {
+  cartItems as cartItemsTable,
+  carts as cartsTable,
+  orders as ordersTable,
+  orderItems as orderItemsTable,
+} from '@shared/schema';
+import { eq } from 'drizzle-orm';
 import {
   clearUserCart,
   getUserCart,
@@ -27,8 +33,13 @@ import type { OrderNotificationData } from '@/types';
 
 import { calculateShippingCost, formatDeliveryEstimate } from './shipping-rates';
 import { validateCoupon, calculateDiscount, incrementCouponUsage } from './coupon-utils';
-import { calculateOrderTotals, generateOrderNumber, mapCartItemsToOrderItems, validateOrderData } from './order-utils';
-import { createOrder, createOrderItems } from './order-queries';
+import {
+  calculateOrderTotals,
+  generateOrderNumber,
+  mapCartItemsToOrderItems,
+  validateOrderData,
+} from './order-utils';
+import { createOrder, createOrderItems, transformOrder, transformOrderItem } from './order-queries';
 import { validateCheckoutData, validateCouponCode } from './validation';
 import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 import {
@@ -54,6 +65,37 @@ type ExtendedCheckoutData = CheckoutData & {
   loyaltyPoints?: number;
   guestEmail?: string | null;
 };
+
+const toIsoString = (value: Date | string | null | undefined): string => {
+  if (value instanceof Date) return value.toISOString();
+  if (typeof value === 'string') return value;
+  return new Date().toISOString();
+};
+
+function isDuplicateOrderNumberError(error: unknown): boolean {
+  if (!error || typeof error !== 'object') {
+    return false;
+  }
+
+  const maybeDatabaseError = error as {
+    code?: string;
+    message?: string;
+    constructor?: { name?: string };
+  };
+
+  if (maybeDatabaseError.code === '23505') {
+    if (maybeDatabaseError.constructor?.name === 'DatabaseError') {
+      return true;
+    }
+    const message = maybeDatabaseError.message ?? '';
+    if (message.includes('orders_order_number_key') || message.includes('duplicate key value')) {
+      return true;
+    }
+  }
+
+  const fallbackMessage = maybeDatabaseError.message ?? '';
+  return fallbackMessage.includes('orders_order_number_key') || fallbackMessage.includes('duplicate key value');
+}
 
 function getLocale(data: ExtendedCheckoutData, fallback: Locale = 'en'): Locale {
   if (data.locale === 'ar' || data.locale === 'en') {
@@ -108,15 +150,24 @@ async function getAuthenticatedCartItems(
     return null;
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { data: rawItems, error } = await supabase
-    .from('cart_items')
-    .select('*')
-    .eq('cart_id', cart.id);
+  const rows = await db
+    .select()
+    .from(cartItemsTable)
+    .where(eq(cartItemsTable.cartId, cart.id));
 
-  if (error || !rawItems?.length) {
+  if (!rows.length) {
     return null;
   }
+
+  const rawItems: CartItem[] = rows.map((item) => ({
+    id: item.id,
+    cart_id: item.cartId,
+    product_id: item.productId,
+    quantity: item.quantity,
+    unit_price: Number(item.unitPrice ?? 0),
+    created_at: toIsoString(item.createdAt),
+    updated_at: toIsoString(item.updatedAt),
+  }));
 
   const products = await getProductsWithFlashSales();
   const items = await mapCartItemsWithProducts(rawItems, products);
@@ -290,14 +341,7 @@ export async function createOrderAction(
         });
         break;
       } catch (error) {
-        const code = (error as { code?: string } | null)?.code;
-        const message = (error as Error)?.message ?? '';
-
-        if (
-          code === '23505' ||
-          message.includes('orders_order_number_key') ||
-          message.includes('duplicate key value')
-        ) {
+        if (isDuplicateOrderNumberError(error)) {
           attemptError = error;
           continue;
         }
@@ -315,11 +359,10 @@ export async function createOrderAction(
     const orderItems = await createOrderItems(orderItemsPayload);
 
     if (authCartId) {
-      const supabase = await createServerSupabaseClient();
-      await supabase
-        .from('carts')
-        .update({ status: 'converted' })
-        .eq('id', authCartId);
+      await db
+        .update(cartsTable)
+        .set({ status: 'converted' })
+        .where(eq(cartsTable.id, authCartId));
       await clearUserCart(authCartId);
     }
 
@@ -406,31 +449,31 @@ export async function getOrderForConfirmation(
     return null;
   }
 
-  const { data: order, error } = await adminClient
-    .from('orders')
-    .select('*')
-    .eq('order_number', orderNumber)
-    .maybeSingle<Order>();
+  try {
+    const [orderRow] = await db
+      .select()
+      .from(ordersTable)
+      .where(eq(ordersTable.orderNumber, orderNumber))
+      .limit(1);
 
-  if (error || !order) {
-    if (error) {
-      console.error('Failed to fetch order for confirmation', error);
+    if (!orderRow) {
+      return null;
     }
+
+    const itemsRows = await db
+      .select()
+      .from(orderItemsTable)
+      .where(eq(orderItemsTable.orderId, orderRow.id));
+
+    const order = transformOrder(orderRow);
+    const items = itemsRows.map(transformOrderItem);
+
+    return {
+      ...order,
+      items,
+    };
+  } catch (error) {
+    console.error('Failed to fetch order for confirmation', error);
     return null;
   }
-
-  const { data: items, error: itemsError } = await adminClient
-    .from('order_items')
-    .select('*')
-    .eq('order_id', order.id);
-
-  if (itemsError) {
-    console.error('Failed to fetch order items for confirmation', itemsError);
-    return null;
-  }
-
-  return {
-    ...(order as Order),
-    items: (items ?? []) as OrderItem[],
-  };
 }

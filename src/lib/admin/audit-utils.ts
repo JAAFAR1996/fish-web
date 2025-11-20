@@ -1,4 +1,8 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { and, desc, eq } from 'drizzle-orm';
+import type { SQL } from 'drizzle-orm';
+
+import { db } from '@server/db';
+import { adminAuditLogs } from '@shared/schema';
 
 import type { AdminAuditLog, Locale } from '@/types';
 
@@ -96,21 +100,29 @@ export async function createAuditLog(
   changes?: Record<string, unknown>,
 ): Promise<void> {
   try {
-    const supabase = await createServerSupabaseClient();
-    const { error } = await supabase.from('admin_audit_logs').insert({
-      admin_id: adminId,
+    await db.insert(adminAuditLogs).values({
+      adminId,
       action,
-      entity_type: entityType,
-      entity_id: entityId,
+      entityType,
+      entityId,
       changes: changes ?? null,
     });
-
-    if (error) {
-      console.error('Failed to create admin audit log', error);
-    }
   } catch (error) {
     console.error('Unexpected error while creating admin audit log', error);
   }
+}
+
+function transformAuditLog(row: typeof adminAuditLogs.$inferSelect): AdminAuditLog {
+  return {
+    id: row.id,
+    admin_id: row.adminId,
+    action: row.action,
+    entity_type: row.entityType,
+    entity_id: row.entityId,
+    changes: (row.changes ?? {}) as Record<string, unknown>,
+    created_at:
+      row.createdAt instanceof Date ? row.createdAt.toISOString() : row.createdAt ?? '',
+  };
 }
 
 export async function getAuditLogs(
@@ -121,33 +133,38 @@ export async function getAuditLogs(
   },
   limit: number = AUDIT_LOGS_PER_PAGE,
 ): Promise<AdminAuditLog[]> {
-  const supabase = await createServerSupabaseClient();
-  let query = supabase
-    .from('admin_audit_logs')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(limit);
+  try {
+    let query = db
+      .select()
+      .from(adminAuditLogs)
+      .orderBy(desc(adminAuditLogs.createdAt))
+      .limit(limit)
+      .$dynamic();
 
-  if (filters?.adminId) {
-    query = query.eq('admin_id', filters.adminId);
-  }
+    const conditions: SQL[] = [];
 
-  if (filters?.entityType) {
-    query = query.eq('entity_type', filters.entityType);
-  }
+    if (filters?.adminId) {
+      conditions.push(eq(adminAuditLogs.adminId, filters.adminId));
+    }
 
-  if (filters?.entityId) {
-    query = query.eq('entity_id', filters.entityId);
-  }
+    if (filters?.entityType) {
+      conditions.push(eq(adminAuditLogs.entityType, filters.entityType));
+    }
 
-  const { data, error } = await query;
+    if (filters?.entityId) {
+      conditions.push(eq(adminAuditLogs.entityId, filters.entityId));
+    }
 
-  if (error) {
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions));
+    }
+
+    const rows = await query;
+    return rows.map(transformAuditLog);
+  } catch (error) {
     console.error('Failed to fetch admin audit logs', error);
     return [];
   }
-
-  return (data ?? []) as AdminAuditLog[];
 }
 
 export function formatAuditLogMessage(log: AdminAuditLog, locale: Locale): string {

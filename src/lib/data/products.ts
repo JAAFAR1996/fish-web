@@ -2,14 +2,19 @@ import 'server-only';
 
 import { cache } from 'react';
 
-import productsData from '@/data/products.json';
-import { getActiveFlashSales } from '@/lib/marketing/flash-sales-utils';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { normalizeSupabaseProduct } from '@/lib/search/normalize';
-import { complementaryCategoryMap } from '@/lib/data/constants';
-import type { FlashSale, Product, ProductFilters, ProductWithFlashSale, SortOption } from '@/types';
+import { desc } from 'drizzle-orm';
 
-// This module uses server-only dependencies (Supabase server client) and can only
+import { db } from '@server/db';
+import { products as productsTable } from '@shared/schema';
+
+import productsData from '@/data/products.json';
+import { complementaryCategoryMap } from '@/lib/data/constants';
+import { getActiveFlashSales } from '@/lib/marketing/flash-sales-utils';
+import { normalizeSupabaseProduct } from '@/lib/search/normalize';
+import type { SupabaseProductRow } from '@/lib/search/normalize';
+import type { FlashSale, Product, ProductFilters, ProductWithFlashSale } from '@/types';
+
+// This module uses server-only dependencies (database access) and can only
 // be imported in Server Components, Server Actions, or API Routes.
 // For client-side product fetching, use @/lib/data/products-client instead.
 
@@ -17,26 +22,37 @@ const fetchProductsInternal = async (): Promise<{
   products: Product[];
   hadError: boolean;
 }> => {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('products')
-    .select('*')
-    .order('created_at', { ascending: false });
+  try {
+    const rows = await db
+      .select()
+      .from(productsTable)
+      .orderBy(desc(productsTable.createdAt));
 
-  if (error || !data) {
+    if (rows.length === 0) {
+      console.warn('No products returned from database, falling back to static data');
+      const fallback = (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
+        Object.freeze({ ...product }),
+      );
+      return { products: fallback, hadError: true };
+    }
+
+    const normalized = rows.map((row) =>
+      Object.freeze({
+        ...normalizeSupabaseProduct(row as unknown as SupabaseProductRow),
+      }),
+    );
+
+    return {
+      products: normalized,
+      hadError: false,
+    };
+  } catch (error) {
     console.error('Failed to fetch products', error);
     const fallback = (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
-      Object.freeze({ ...product })
+      Object.freeze({ ...product }),
     );
     return { products: fallback, hadError: true };
   }
-
-  const products = data.map((row) => Object.freeze({ ...normalizeSupabaseProduct(row) }));
-
-  return {
-    products,
-    hadError: false,
-  };
 };
 
 const cachedFetchProducts = cache(fetchProductsInternal);
@@ -69,7 +85,7 @@ export async function getUniqueBrands(products?: Product[]): Promise<string[]> {
 export function getProductCountByFilter(
   products: Product[],
   filterKey: keyof ProductFilters,
-  filterValue: string
+  filterValue: string,
 ): number {
   switch (filterKey) {
     case 'types':
@@ -120,7 +136,7 @@ export async function getNewArrivals(limit: number = 8): Promise<ProductWithFlas
 
 export async function getProductsByCategory(
   category: string,
-  limit?: number
+  limit?: number,
 ): Promise<ProductWithFlashSale[]> {
   const products = await getProductsWithFlashSales();
   const filtered = products.filter((product) => product.category === category);
@@ -146,17 +162,12 @@ function attachFlashSalesToProducts(
 
   return products.map((product) => {
     const flashSale = flashSaleMap.get(product.id);
-    return flashSale
-      ? { ...product, flashSale }
-      : { ...product };
+    return flashSale ? { ...product, flashSale } : { ...product };
   });
 }
 
 export async function getProductsWithFlashSales(): Promise<ProductWithFlashSale[]> {
-  const [products, flashSales] = await Promise.all([
-    getProducts(),
-    getActiveFlashSales(),
-  ]);
+  const [products, flashSales] = await Promise.all([getProducts(), getActiveFlashSales()]);
   return attachFlashSalesToProducts(products, flashSales);
 }
 
@@ -175,10 +186,7 @@ export async function getProductsWithFlashSalesStatus(): Promise<{
 }
 
 export async function getFlashSaleProducts(): Promise<ProductWithFlashSale[]> {
-  const [products, flashSales] = await Promise.all([
-    getProducts(),
-    getActiveFlashSales(),
-  ]);
+  const [products, flashSales] = await Promise.all([getProducts(), getActiveFlashSales()]);
 
   const productMap = new Map(products.map((product) => [product.id, product]));
 
@@ -219,14 +227,14 @@ export async function getCategoryCounts(): Promise<Record<string, number>> {
 
 export async function getRelatedProducts(
   product: Product,
-  limit: number = 8
+  limit: number = 8,
 ): Promise<Product[]> {
   const products = await getProducts();
 
   return products
     .filter(
       (candidate) =>
-        candidate.id !== product.id && candidate.category === product.category
+        candidate.id !== product.id && candidate.category === product.category,
     )
     .sort((a, b) => {
       if (a.subcategory !== b.subcategory) {
@@ -249,7 +257,7 @@ export async function getRelatedProducts(
 
 export async function getComplementaryProducts(
   product: Product,
-  limit: number = 4
+  limit: number = 4,
 ): Promise<Product[]> {
   const targetCategories =
     complementaryCategoryMap[product.category] ?? [product.category];
@@ -259,8 +267,7 @@ export async function getComplementaryProducts(
   return products
     .filter(
       (candidate) =>
-        candidate.id !== product.id &&
-        targetCategories.includes(candidate.category)
+        candidate.id !== product.id && targetCategories.includes(candidate.category),
     )
     .sort((a, b) => {
       if (b.rating !== a.rating) {
@@ -276,15 +283,14 @@ export async function getComplementaryProducts(
 
 export async function getProductsBySameSubcategory(
   product: Product,
-  limit: number = 4
+  limit: number = 4,
 ): Promise<Product[]> {
   const products = await getProducts();
 
   return products
     .filter(
       (candidate) =>
-        candidate.id !== product.id &&
-        candidate.subcategory === product.subcategory
+        candidate.id !== product.id && candidate.subcategory === product.subcategory,
     )
     .sort((a, b) => {
       if (b.rating !== a.rating) {

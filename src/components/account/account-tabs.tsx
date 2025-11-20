@@ -12,7 +12,12 @@ import {
   Icon,
   type IconName,
 } from '@/components/ui';
-import type { LoyaltyPointsSummary, ReferralStats, UserProfile } from '@/types';
+import type {
+  LoyaltyPointsSummary,
+  NotificationPreferences,
+  ReferralStats,
+  UserProfile,
+} from '@/types';
 
 import { ProfileSection } from './profile-section';
 import { OrdersSection } from './orders-section';
@@ -38,6 +43,7 @@ interface AccountTabsProps {
   loyaltySummary: LoyaltyPointsSummary | null;
   referralStats: ReferralStats | null;
   referralCode: string | null;
+  notificationPrefs: NotificationPreferences;
   defaultTab?: AccountTabValue;
 }
 
@@ -62,6 +68,7 @@ export function AccountTabs({
   loyaltySummary,
   referralStats,
   referralCode,
+  notificationPrefs,
   defaultTab = 'profile',
 }: AccountTabsProps) {
   const [activeTab, setActiveTab] = useState<AccountTabValue>(defaultTab);
@@ -111,7 +118,11 @@ export function AccountTabs({
       </TabsContent>
 
       <TabsContent value="settings">
-        <SettingsSection user={user} session={session} />
+        <SettingsSection
+          user={user}
+          session={session}
+          initialNotificationPrefs={notificationPrefs}
+        />
       </TabsContent>
     </Tabs>
   );

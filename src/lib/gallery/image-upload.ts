@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { deleteFile, deleteFiles } from '@/lib/storage/r2';
 
 import {
   GALLERY_IMAGES_BUCKET,
@@ -15,26 +15,39 @@ import {
 const extractGalleryPathFromUrl = (url: string): string | null => {
   const marker = `${GALLERY_IMAGES_BUCKET}/`;
   const index = url.indexOf(marker);
-  if (index === -1) return null;
+  if (index === -1) {
+    const relative = url.replace(/^\/+/, '');
+    return relative || null;
+  }
   return url.slice(index + marker.length);
 };
 
 export async function deleteGalleryImage(imageUrl: string): Promise<void> {
   const path = extractGalleryPathFromUrl(imageUrl);
   if (!path) return;
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.storage.from(GALLERY_IMAGES_BUCKET).remove([path]);
-  if (error) {
-    console.error('Failed to delete gallery image', error);
+
+  try {
+    await deleteFile(GALLERY_IMAGES_BUCKET, path);
+  } catch (error) {
+    console.error('[Gallery] Failed to delete image:', {
+      imageUrl,
+      path,
+      error,
+    });
   }
 }
 
 export async function deleteGalleryImages(imageUrls: string[]): Promise<void> {
   const paths = imageUrls.map(extractGalleryPathFromUrl).filter((p): p is string => Boolean(p));
   if (!paths.length) return;
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.storage.from(GALLERY_IMAGES_BUCKET).remove(paths);
-  if (error) {
-    console.error('Failed to delete gallery images', error);
+
+  try {
+    await deleteFiles(GALLERY_IMAGES_BUCKET, paths);
+  } catch (error) {
+    console.error('[Gallery] Failed to delete images:', {
+      imageUrls,
+      paths,
+      error,
+    });
   }
 }

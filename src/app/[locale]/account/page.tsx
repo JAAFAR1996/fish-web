@@ -7,6 +7,9 @@ import { getUser, getUserProfile, getSession } from '@/lib/auth/utils';
 import { getLoyaltyPointsSummary } from '@/lib/marketing/loyalty-utils';
 import { getUserReferralStats } from '@/lib/marketing/referral-utils-server';
 import { routing } from '@/i18n/routing';
+import { db } from '@server/db';
+import { profiles } from '@shared/schema';
+import { eq } from 'drizzle-orm';
 
 export const dynamic = 'force-dynamic';
 
@@ -62,10 +65,30 @@ export default async function AccountPage({ params, searchParams }: AccountPageP
 
   const session = await getSession();
   const profile = await getUserProfile(user.id);
-  const [loyaltySummary, referralStats] = await Promise.all([
+  const [loyaltySummary, referralStats, preferencesRow] = await Promise.all([
     getLoyaltyPointsSummary(user.id),
     getUserReferralStats(user.id),
+    db
+      .select({
+        emailOrderUpdates: profiles.emailOrderUpdates,
+        emailShippingUpdates: profiles.emailShippingUpdates,
+        emailStockAlerts: profiles.emailStockAlerts,
+        emailMarketing: profiles.emailMarketing,
+        inappNotificationsEnabled: profiles.inappNotificationsEnabled,
+      })
+      .from(profiles)
+      .where(eq(profiles.id, user.id))
+      .limit(1)
+      .then((rows) => rows[0] ?? null),
   ]);
+
+  const notificationPrefs = {
+    email_order_updates: preferencesRow?.emailOrderUpdates ?? true,
+    email_shipping_updates: preferencesRow?.emailShippingUpdates ?? true,
+    email_stock_alerts: preferencesRow?.emailStockAlerts ?? true,
+    email_marketing: preferencesRow?.emailMarketing ?? false,
+    inapp_notifications_enabled: preferencesRow?.inappNotificationsEnabled ?? true,
+  };
   const defaultTab = searchParams?.tab && VALID_TABS.has(searchParams.tab)
     ? (searchParams.tab as Parameters<typeof AccountTabs>[0]['defaultTab'])
     : 'profile';
@@ -79,6 +102,7 @@ export default async function AccountPage({ params, searchParams }: AccountPageP
         loyaltySummary={loyaltySummary}
         referralStats={referralStats}
         referralCode={profile?.referral_code ?? null}
+        notificationPrefs={notificationPrefs}
         defaultTab={defaultTab}
       />
     </div>

@@ -123,7 +123,20 @@ export async function clearUserCart(cartId: string): Promise<void> {
   await db.delete(cartItems).where(eq(cartItems.cartId, cartId));
 }
 
-export async function syncGuestCartToSupabase(
+export async function getCartItemByProduct(
+  cartId: string,
+  productId: string,
+): Promise<CartItem | null> {
+  const [existing] = await db
+    .select()
+    .from(cartItems)
+    .where(and(eq(cartItems.cartId, cartId), eq(cartItems.productId, productId)))
+    .limit(1);
+
+  return existing ? (existing as unknown as CartItem) : null;
+}
+
+export async function syncGuestCartToDatabase(
   userId: string,
   guestItems: LocalStorageCartItem[],
   products: Product[]
@@ -140,12 +153,7 @@ export async function syncGuestCartToSupabase(
     if (!product) continue;
     const unitPrice = getEffectiveUnitPrice(product);
 
-    const [existing] = await db
-      .select()
-      .from(cartItems)
-      .where(and(eq(cartItems.cartId, cart.id), eq(cartItems.productId, item.productId)))
-      .limit(1);
-
+    const existing = await getCartItemByProduct(cart.id, item.productId);
     const newQuantity = (existing?.quantity ?? 0) + item.quantity;
 
     await upsertCartItem(cart.id, item.productId, newQuantity, unitPrice);
@@ -162,8 +170,10 @@ export async function mapCartItemsWithProducts(
       if (!product) {
         return null;
       }
+      const unitPrice = getEffectiveUnitPrice(product);
       return {
         ...item,
+        unit_price: unitPrice,
         product,
       } as CartItemWithProduct;
     })

@@ -5,7 +5,11 @@
       "Bash(npm run build)",
       "Bash(timeout 90 npm run build:*)",
       "Bash(npx next lint:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(curl:*)",
+      "Bash(next dev)",
+      "Bash(npx next dev)",
+      "Bash(rm:*)"
     ],
     "deny": [],
     "ask": []

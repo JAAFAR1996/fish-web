@@ -1,80 +1,116 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { randomUUID } from 'crypto';
+
+import { db } from '@server/db';
+import { newsletterSubscribers } from '@shared/schema';
+import { and, eq, isNull, sql } from 'drizzle-orm';
+
 import type { NewsletterSubscriber } from '@/types';
+
+const toIsoString = (value: Date | string | null | undefined): string =>
+  value instanceof Date ? value.toISOString() : value ?? new Date(0).toISOString();
+
+type NewsletterSubscriberRow = typeof newsletterSubscribers.$inferSelect;
+
+function transformNewsletterSubscriber(row: NewsletterSubscriberRow): NewsletterSubscriber {
+  return {
+    id: row.id,
+    email: row.email,
+    user_id: row.userId ?? null,
+    subscribed_at: toIsoString(row.subscribedAt),
+    unsubscribed_at: row.unsubscribedAt ? toIsoString(row.unsubscribedAt) : null,
+    preferences: (row.preferences as NewsletterSubscriber['preferences']) ?? {},
+    unsubscribe_token: row.unsubscribeToken,
+    created_at: toIsoString(row.createdAt),
+    updated_at: toIsoString(row.updatedAt),
+  };
+}
 
 /**
  * Subscribe email to newsletter
  */
 export async function subscribeToNewsletter(
   email: string,
-  userId: string | null = null
+  userId: string | null = null,
 ): Promise<{ success: boolean; alreadySubscribed?: boolean; unsubscribeToken?: string; error?: string }> {
-  const supabase = await createServerSupabaseClient();
-  
-  // Normalize email
   const normalizedEmail = email.trim().toLowerCase();
 
-  // Check subscription status via RPC for guests
-  const { data: statusData, error: statusError } = await supabase.rpc('newsletter_is_subscribed', {
-    p_email: normalizedEmail,
-  });
+  try {
+    const [existing] = await db
+      .select()
+      .from(newsletterSubscribers)
+      .where(eq(newsletterSubscribers.email, normalizedEmail))
+      .limit(1);
 
-  if (statusError) {
-    console.error('[Newsletter] Error checking subscription status:', statusError);
-    return { success: false, error: 'marketing.newsletter.subscriptionFailed' };
-  }
-
-  const status = Array.isArray(statusData) ? statusData[0] : null;
-
-  if (status?.is_subscribed) {
-    return {
-      success: true,
-      alreadySubscribed: true,
-      unsubscribeToken: status.unsubscribe_token ?? undefined,
-    };
-  }
-
-  // If exists but unsubscribed, re-subscribe via RPC
-  if (status && !status.is_subscribed) {
-    const { data: reactivateData, error: reactivateError } = await supabase.rpc('newsletter_reactivate', {
-      p_email: normalizedEmail,
-      p_user_id: userId,
-    });
-
-    if (reactivateError) {
-      console.error('[Newsletter] Error re-subscribing:', reactivateError);
-      return { success: false, error: 'marketing.newsletter.subscriptionFailed' };
+    if (existing && existing.unsubscribedAt === null) {
+      const subscriber = transformNewsletterSubscriber(existing);
+      return {
+        success: true,
+        alreadySubscribed: true,
+        unsubscribeToken: subscriber.unsubscribe_token,
+      };
     }
 
-    const reactivateRow = Array.isArray(reactivateData) ? reactivateData[0] : reactivateData;
+    if (existing && existing.unsubscribedAt !== null) {
+      const [reactivated] = await db
+        .update(newsletterSubscribers)
+        .set({
+          unsubscribedAt: null,
+          subscribedAt: new Date(),
+          updatedAt: new Date(),
+          userId,
+        })
+        .where(eq(newsletterSubscribers.email, normalizedEmail))
+        .returning({ unsubscribeToken: newsletterSubscribers.unsubscribeToken });
+
+      return {
+        success: true,
+        alreadySubscribed: false,
+        unsubscribeToken:
+          reactivated?.unsubscribeToken ?? existing.unsubscribeToken ?? undefined,
+      };
+    }
+
+    const [inserted] = await db
+      .insert(newsletterSubscribers)
+      .values({
+        email: normalizedEmail,
+        userId,
+        subscribedAt: new Date(),
+        unsubscribeToken: randomUUID(),
+      })
+      .returning({ unsubscribeToken: newsletterSubscribers.unsubscribeToken });
 
     return {
       success: true,
       alreadySubscribed: false,
-      unsubscribeToken: reactivateRow?.unsubscribe_token ?? status.unsubscribe_token ?? undefined,
+      unsubscribeToken: inserted?.unsubscribeToken ?? undefined,
     };
-  }
+  } catch (error) {
+    console.error('[Newsletter] Error subscribing email:', error);
 
-  // Insert new subscriber
-  const { data: insertData, error: insertError } = await supabase
-    .from('newsletter_subscribers')
-    .insert({
-      email: normalizedEmail,
-      user_id: userId,
-      subscribed_at: new Date().toISOString(),
-    })
-    .select('id, unsubscribe_token')
-    .maybeSingle();
+    // Handle unique constraint violation (race condition)
+    if (error && typeof error === 'object' && 'code' in error && error.code === '23505') {
+      try {
+        const [refetched] = await db
+          .select()
+          .from(newsletterSubscribers)
+          .where(eq(newsletterSubscribers.email, normalizedEmail))
+          .limit(1);
 
-  if (insertError || !insertData) {
-    console.error('[Newsletter] Error inserting subscriber:', insertError);
+        if (refetched) {
+          return {
+            success: true,
+            alreadySubscribed: true,
+            unsubscribeToken: refetched.unsubscribeToken,
+          };
+        }
+      } catch (refetchError) {
+        console.error('[Newsletter] Error refetching after unique violation:', refetchError);
+      }
+    }
+
     return { success: false, error: 'marketing.newsletter.subscriptionFailed' };
   }
-
-  return {
-    success: true,
-    alreadySubscribed: false,
-    unsubscribeToken: insertData?.unsubscribe_token ?? undefined,
-  };
 }
 
 /**
@@ -82,59 +118,71 @@ export async function subscribeToNewsletter(
  */
 export async function unsubscribeFromNewsletter(
   email: string,
-  token: string
+  token: string,
 ): Promise<{ success: boolean; error?: string }> {
-  const supabase = await createServerSupabaseClient();
   const normalizedEmail = email.trim().toLowerCase();
 
-  const { data, error } = await supabase.rpc('newsletter_unsubscribe', {
-    p_email: normalizedEmail,
-    p_token: token,
-  });
+  try {
+    const updated = await db
+      .update(newsletterSubscribers)
+      .set({
+        unsubscribedAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .where(
+        and(
+          eq(newsletterSubscribers.email, normalizedEmail),
+          eq(newsletterSubscribers.unsubscribeToken, token),
+        ),
+      )
+      .returning({ id: newsletterSubscribers.id });
 
-  if (error || data !== true) {
+    if (!updated.length) {
+      return { success: false, error: 'marketing.newsletter.unsubscribeFailed' };
+    }
+
+    return { success: true };
+  } catch (error) {
     console.error('[Newsletter] Error unsubscribing:', error);
     return { success: false, error: 'marketing.newsletter.unsubscribeFailed' };
   }
-
-  return { success: true };
 }
 
 /**
  * Check if email is subscribed to newsletter
  */
 export async function isSubscribed(email: string): Promise<boolean> {
-  const supabase = await createServerSupabaseClient();
   const normalizedEmail = email.trim().toLowerCase();
 
-  const { data, error } = await supabase.rpc('newsletter_is_subscribed', {
-    p_email: normalizedEmail,
-  });
+  try {
+    const [status] = await db
+      .select({
+        isSubscribed: sql<boolean>`${newsletterSubscribers.unsubscribedAt} IS NULL`,
+      })
+      .from(newsletterSubscribers)
+      .where(eq(newsletterSubscribers.email, normalizedEmail))
+      .limit(1);
 
-  if (error) {
+    return Boolean(status?.isSubscribed);
+  } catch (error) {
     console.error('[Newsletter] Error checking subscription:', error);
     return false;
   }
-
-  const status = Array.isArray(data) ? data[0] : null;
-  return Boolean(status?.is_subscribed);
 }
 
 /**
  * Get subscriber count (for admin dashboard)
  */
 export async function getSubscriberCount(): Promise<number> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    const [result] = await db
+      .select({ count: sql<number>`COUNT(*)::int` })
+      .from(newsletterSubscribers)
+      .where(isNull(newsletterSubscribers.unsubscribedAt));
 
-  const { count, error } = await supabase
-    .from('newsletter_subscribers')
-    .select('id', { count: 'exact', head: true })
-    .is('unsubscribed_at', null);
-
-  if (error) {
+    return result?.count ?? 0;
+  } catch (error) {
     console.error('[Newsletter] Error getting subscriber count:', error);
     return 0;
   }
-
-  return count || 0;
 }

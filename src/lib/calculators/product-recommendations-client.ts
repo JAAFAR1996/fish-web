@@ -1,11 +1,11 @@
 import type { Product } from '@/types';
-import { getProductsWithFlashSalesClient } from '@/lib/data/products-client';
+import { getProductsWithFlashSalesAction } from '@/lib/data/products-actions';
 
 export async function getRecommendedHeatersClient(
   requiredWattage: number,
   limit: number = 4
 ): Promise<Product[]> {
-  const allProducts = await getProductsWithFlashSalesClient();
+  const allProducts = await getProductsWithFlashSalesAction();
 
   const heaters = allProducts.filter((product) => product.category === 'heating');
 
@@ -48,7 +48,7 @@ export async function getRecommendedFiltersClient(
   tankVolume: number,
   limit: number = 4
 ): Promise<Product[]> {
-  const allProducts = await getProductsWithFlashSalesClient();
+  const allProducts = await getProductsWithFlashSalesAction();
 
   const filters = allProducts.filter((product) => product.category === 'filtration');
 

@@ -1,0 +1,1703 @@
+{
+  "common": {
+    "loading": "Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...",
+    "error": "حدث خطأ",
+    "retry": "Ø¥Ø¹Ø§Ø¯Ø© Ø§Ù„Ù…Ø­Ø§ÙˆÙ„Ø©"
+  },
+  "nav": {
+    "home": "Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©",
+    "products": "Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª",
+    "cart": "Ø§Ù„Ø¹Ø±Ø¨Ø©",
+    "account": "Ø§Ù„Ø­Ø³Ø§Ø¨",
+    "calculators": "Ø§Ù„Ø­Ø§Ø³Ø¨Ø§Øª",
+    "search": "بحث",
+    "searchPlaceholder": "Ø§Ø¨Ø­Ø« Ø¹Ù† Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª...",
+    "menu": "Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©",
+    "closeMenu": "Ø¥ØºÙ„Ø§Ù‚ Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©",
+    "orders": "الطلبات",
+    "wishlist": "المفضلة",
+    "settings": "الإعدادات"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "notificationCenter": "مركز الإشعارات",
+    "unreadCount": "{count} غير مقروء",
+    "markAsRead": "تحديد كمقروء",
+    "markAllAsRead": "تحديد الكل كمقروء",
+    "delete": "حذف",
+    "clearAll": "حذف الكل",
+    "viewAll": "عرض الكل",
+    "noNotifications": "لا توجد إشعارات",
+    "noUnread": "لا توجد إشعارات غير مقروءة",
+    "emptyState": "أنت على اطلاع على كل شيء!",
+    "types": {
+      "order_confirmation": "تأكيد الطلب",
+      "shipping_update": "تحديث الشحن",
+      "stock_alert": "متوفر في المخزون",
+      "special_offer": "عرض خاص"
+    },
+    "time": {
+      "justNow": "الآن",
+      "minutesAgo": "منذ {count} دقيقة",
+      "hoursAgo": "منذ {count} ساعة",
+      "daysAgo": "منذ {count} يوم"
+    }
+  },
+  "categories": {
+    "filters": {
+      "title": "Ù…Ø±Ø´Ø­Ø§Øª",
+      "titleEn": "Filters"
+    },
+    "air": {
+      "title": "هواء",
+      "titleEn": "Air"
+    },
+    "heaters": {
+      "title": "Ø³Ø®Ø§Ù†Ø§Øª",
+      "titleEn": "Heaters"
+    },
+    "plantLighting": {
+      "title": "Ø¥Ø¶Ø§Ø¡Ø© Ù†Ø¨Ø§ØªØ§Øª",
+      "titleEn": "Plant Lighting"
+    },
+    "hardscape": {
+      "title": "Ø±ÙƒØ§Ø¦Ø²/Ù‡Ø§Ø±Ø¯Ø³ÙƒÙŠØ¨",
+      "titleEn": "Hardscape"
+    },
+    "waterCare": {
+      "title": "Ø¹Ù†Ø§ÙŠØ© Ù…Ø§Ø¡",
+      "titleEn": "Water Care"
+    },
+    "plantsFertilizers": {
+      "title": "Ù†Ø¨Ø§ØªØ§Øª/Ø£Ø³Ù…Ø¯Ø©",
+      "titleEn": "Plants/Fertilizers"
+    },
+    "tests": {
+      "title": "اختبارات",
+      "titleEn": "Tests"
+    }
+  },
+  "subcategories": {
+    "filters": {
+      "hob": "ÙÙ„Ø§ØªØ± HOB",
+      "canister": "ÙÙ„Ø§ØªØ± Canister",
+      "sponge": "ÙÙ„Ø§ØªØ± Ø¥Ø³ÙÙ†Ø¬ÙŠØ©",
+      "internal": "ÙÙ„Ø§ØªØ± Ø¯Ø§Ø®Ù„ÙŠØ©",
+      "media": "ÙˆØ³Ø§Ø¦Ø· Ø§Ù„ÙÙ„ØªØ±Ø©",
+      "accessories": "Ø¥ÙƒØ³Ø³ÙˆØ§Ø±Ø§Øª Ø§Ù„ÙÙ„Ø§ØªØ±"
+    },
+    "air": {
+      "airPumps": "Ù…Ø¶Ø®Ø§Øª Ù‡ÙˆØ§Ø¡",
+      "airStones": "Ø£Ø­Ø¬Ø§Ø± Ù‡ÙˆØ§Ø¡",
+      "tubing": "Ø£Ù†Ø§Ø¨ÙŠØ¨",
+      "valves": "ØµÙ…Ø§Ù…Ø§Øª",
+      "accessories": "Ø¥ÙƒØ³Ø³ÙˆØ§Ø±Ø§Øª"
+    },
+    "heaters": {
+      "submersible": "Ø³Ø®Ø§Ù†Ø§Øª ØºØ§Ø·Ø³Ø©",
+      "external": "Ø³Ø®Ø§Ù†Ø§Øª Ø®Ø§Ø±Ø¬ÙŠØ©",
+      "controllers": "Ù…ØªØ­ÙƒÙ…Ø§Øª Ø­Ø±Ø§Ø±Ø©",
+      "thermometers": "Ù…ÙˆØ§Ø²ÙŠÙ† Ø­Ø±Ø§Ø±Ø©"
+    },
+    "plantLighting": {
+      "led": "إضاءة LED",
+      "fluorescent": "Ø¥Ø¶Ø§Ø¡Ø© ÙÙ„ÙˆØ±Ø³Ù†Øª",
+      "timers": "Ù…Ø¤Ù‚ØªØ§Øª",
+      "fixtures": "ØªØ±ÙƒÙŠØ¨Ø§Øª",
+      "bulbs": "Ù„Ù…Ø¨Ø§Øª"
+    },
+    "hardscape": {
+      "substrate": "Ø±ÙƒØ§Ø¦Ø²",
+      "rocks": "ØµØ®ÙˆØ±",
+      "driftwood": "Ø®Ø´Ø¨ Ø·Ø§ÙÙŠ",
+      "decorations": "Ø¯ÙŠÙƒÙˆØ±Ø§Øª",
+      "backgrounds": "Ø®Ù„ÙÙŠØ§Øª"
+    },
+    "waterCare": {
+      "conditioners": "Ù…Ø­Ø³Ù†Ø§Øª Ù…Ø§Ø¡",
+      "treatments": "Ù…Ø¹Ø§Ù„Ø¬Ø§Øª",
+      "clarifiers": "Ù…Ù†Ù‚ÙŠØ§Øª",
+      "bacteria": "Ø¨ÙƒØªÙŠØ±ÙŠØ§ Ù†Ø§ÙØ¹Ø©",
+      "maintenance": "ØµÙŠØ§Ù†Ø©"
+    },
+    "plantsFertilizers": {
+      "livePlants": "Ù†Ø¨Ø§ØªØ§Øª Ø­ÙŠØ©",
+      "liquidFertilizers": "Ø£Ø³Ù…Ø¯Ø© Ø³Ø§Ø¦Ù„Ø©",
+      "substrateFertilizers": "Ø£Ø³Ù…Ø¯Ø© Ø±ÙƒØ§Ø¦Ø²",
+      "co2": "Ù†Ø¸Ø§Ù… CO2",
+      "tools": "Ø£Ø¯ÙˆØ§Øª Ø²Ø±Ø§Ø¹Ø©"
+    },
+    "tests": {
+      "waterTests": "Ø§Ø®ØªØ¨Ø§Ø±Ø§Øª Ù…Ø§Ø¡",
+      "phTests": "اختبارات pH",
+      "ammoniaTests": "Ø§Ø®ØªØ¨Ø§Ø±Ø§Øª Ø£Ù…ÙˆÙ†ÙŠØ§",
+      "nitriteTests": "Ø§Ø®ØªØ¨Ø§Ø±Ø§Øª Ù†ÙŠØªØ±ÙŠØª",
+      "nitrateTests": "Ø§Ø®ØªØ¨Ø§Ø±Ø§Øª Ù†ÙŠØªØ±Ø§Øª",
+      "multiTests": "Ø§Ø®ØªØ¨Ø§Ø±Ø§Øª Ù…ØªØ¹Ø¯Ø¯Ø©"
+    }
+  },
+  "home": {
+    "title": "Ù…Ø±Ø­Ø¨Ø§Ù‹ Ø¨Ùƒ ÙÙŠ Ù…ØªØ¬Ø± Ø§Ù„Ø£ÙƒÙˆØ§Ø±ÙŠÙˆÙ… Ø§Ù„Ù…Ù…ÙŠØ²",
+    "description": "Ø£ÙØ¶Ù„ Ù…Ø¹Ø¯Ø§Øª Ø§Ù„Ø£Ø­ÙˆØ§Ø¶ Ø§Ù„Ù…Ø§Ø¦ÙŠØ© ÙÙŠ Ø§Ù„Ø¹Ø±Ø§Ù‚ Ù…Ø¹ Ø¯Ø¹Ù… ÙƒØ§Ù…Ù„ Ù„Ù„ØºØ© Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©.",
+    "hero": {
+      "usp": "Ù…Ø¹Ø¯Ø§Øª Ø£ÙƒÙˆØ§Ø±ÙŠÙˆÙ… Ù…ØªÙ…ÙŠØ²Ø© Ù„Ù„Ø¹Ø±Ø§Ù‚",
+      "title": "Ø§ØµÙ†Ø¹ Ø¹Ø§Ù„Ù…Ùƒ Ø§Ù„Ù…Ø§Ø¦ÙŠ Ø§Ù„Ù…Ø«Ø§Ù„ÙŠ",
+      "subtitle": "Ø§ÙƒØªØ´Ù Ù…Ø¬Ù…ÙˆØ¹ØªÙ†Ø§ Ø§Ù„Ø´Ø§Ù…Ù„Ø© Ù…Ù† Ù…Ø¹Ø¯Ø§Øª Ø§Ù„Ø£Ø­ÙˆØ§Ø¶ Ø§Ù„Ù…Ø§Ø¦ÙŠØ© Ø¹Ø§Ù„ÙŠØ© Ø§Ù„Ø¬ÙˆØ¯Ø© Ù…Ø¹ Ø¯Ø¹Ù… Ù…Ø­Ù„ÙŠ ÙƒØ§Ù…Ù„ ÙˆØªÙˆØµÙŠÙ„ Ù„Ø¬Ù…ÙŠØ¹ Ø£Ù†Ø­Ø§Ø¡ Ø§Ù„Ø¹Ø±Ø§Ù‚",
+      "ctaPrimary": "ØªØ³ÙˆÙ‚ Ø§Ù„Ø¢Ù†",
+      "ctaSecondary": "Ø§Ø³ØªÙƒØ´Ù Ø§Ù„Ø­Ø§Ø³Ø¨Ø§Øª",
+      "trustIndicators": {
+        "freeShipping": "Ø´Ø­Ù† Ù…Ø¬Ø§Ù†ÙŠ Ù„Ù„Ø·Ù„Ø¨Ø§Øª ÙÙˆÙ‚ 100,000 Ø¯ÙŠÙ†Ø§Ø±",
+        "expertSupport": "Ø¯Ø¹Ù… ÙÙ†ÙŠ Ù…ØªØ®ØµØµ",
+        "securePayment": "Ø¯ÙØ¹ Ø¢Ù…Ù† Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…"
+      },
+      "modelPlaceholder": "Ø§Ù„Ù†Ù…ÙˆØ°Ø¬ Ø«Ù„Ø§Ø«ÙŠ Ø§Ù„Ø£Ø¨Ø¹Ø§Ø¯ Ù‚Ø§Ø¯Ù… Ù‚Ø±ÙŠØ¨Ø§Ù‹"
+    },
+    "featuredCategories": {
+      "title": "الفئات المميزة",
+      "subtitle": "تصفح حسب الفئة",
+      "viewAll": "عرض الكل",
+      "productsCount": "{count} منتج"
+    },
+    "bestSellers": {
+      "title": "الأكثر مبيعاً",
+      "subtitle": "المنتجات الأكثر شعبية لدى عملائنا",
+      "viewAll": "عرض جميع المنتجات الأكثر مبيعاً",
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "calculatorsShowcase": {
+      "title": "حاسبات مجانية",
+      "subtitle": "احسب المعدات المثالية لحوضك",
+      "heater": {
+        "title": "حاسبة السخان",
+        "description": "احسب القدرة المطلوبة للسخان بناءً على حجم الحوض"
+      },
+      "filter": {
+        "title": "حاسبة الفلترة",
+        "description": "احسب معدل التدفق المطلوب للفلتر"
+      },
+      "salinity": {
+        "title": "حاسبة الملوحة",
+        "description": "احسب كمية الملح المطلوبة (قريباً)"
+      },
+      "tryNow": "جرب الآن",
+      "viewAll": "عرض جميع الحاسبات"
+    },
+    "trustBadges": {
+      "title": "لماذا تختارنا",
+      "subtitle": "نلتزم بتقديم أفضل تجربة تسوق"
+    },
+    "newArrivals": {
+      "title": "المنتجات الجديدة",
+      "subtitle": "اكتشف أحدث إضافاتنا",
+      "viewAll": "عرض جميع المنتجات الجديدة"
+    },
+    "instagramFeed": {
+      "title": "تابعنا على إنستغرام",
+      "subtitle": "شاهد إعدادات عملائنا المذهلة",
+      "handle": "@fishweb_iraq",
+      "followUs": "تابعنا",
+      "viewOnInstagram": "عرض على إنستغرام",
+      "placeholder": "صورة من إنستغرام"
+    },
+    "quickGuides": {
+      "title": "أدلة سريعة",
+      "subtitle": "نصائح مفيدة للمبتدئين",
+      "filterGuide": {
+        "title": "كيف تختار الفلتر المناسب",
+        "content": "اختيار الفلتر المناسب يعتمد على حجم الحوض والحمل الحيوي. استخدم حاسبة الفلترة لتحديد معدل التدفق المطلوب، واختر فلتراً يساوي أو يزيد عن هذا المعدل. للأحواض المزروعة، يفضل فلتر بمعدل تدفق أقل لتجنب إزعاج النباتات."
+      },
+      "heaterGuide": {
+        "title": "دليل اختيار السخان",
+        "content": "القاعدة الأساسية هي 1 وات لكل لتر من الماء. إذا كانت درجة حرارة الغرفة منخفضة أو كنت بحاجة لرفع الحرارة بشكل كبير، أضف 2-3 وات إضافية لكل لتر لكل درجة مئوية. استخدم حاسبة السخان للحصول على توصية دقيقة."
+      },
+      "waterGuide": {
+        "title": "معايير جودة الماء",
+        "content": "حافظ على معايير الماء المثالية: pH 6.5-7.5، الأمونيا 0 جزء في المليون، النيتريت 0 جزء في المليون، النيترات أقل من 20 جزء في المليون. اختبر الماء أسبوعياً وقم بتغيير 25-30% من الماء كل أسبوعين. استخدم مكيفات الماء لإزالة الكلور والمعادن الثقيلة."
+      }
+    },
+    "categories": {
+      "title": "تسوق حسب الفئة",
+      "count": "{count} منتج",
+      "filters": "المرشحات",
+      "heaters": "السخانات",
+      "plantLighting": "إضاءة النباتات",
+      "waterCare": "العناية بالماء",
+      "plantsFertilizers": "أسمدة النباتات",
+      "air": "مضخات الهواء",
+      "hardscape": "ديكور الصخور",
+      "tests": "اختبارات المياه"
+    }
+  },
+  "footer": {
+    "shop": "ØªØ³ÙˆÙ‚",
+    "support": "Ø§Ù„Ø¯Ø¹Ù…",
+    "about": "Ø¹Ù† Ø§Ù„Ù…ØªØ¬Ø±",
+    "followUs": "ØªØ§Ø¨Ø¹Ù†Ø§",
+    "newsletter": "Ø§Ù„Ù†Ø´Ø±Ø© Ø§Ù„Ø¥Ø®Ø¨Ø§Ø±ÙŠØ©",
+    "trustBadgesTitle": "Ù„Ù…Ø§Ø°Ø§ ØªØ®ØªØ§Ø±Ù†Ø§",
+    "shopLinks": {
+      "allProducts": "Ø¬Ù…ÙŠØ¹ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª",
+      "filters": "Ù…Ø±Ø´Ø­Ø§Øª",
+      "heaters": "Ø³Ø®Ø§Ù†Ø§Øª",
+      "lighting": "إضاءة",
+      "waterCare": "Ø¹Ù†Ø§ÙŠØ© Ø§Ù„Ù…Ø§Ø¡",
+      "plants": "Ù†Ø¨Ø§ØªØ§Øª ÙˆØ£Ø³Ù…Ø¯Ø©"
+    },
+    "supportLinks": {
+      "contact": "Ø§ØªØµÙ„ Ø¨Ù†Ø§",
+      "shipping": "Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ø´Ø­Ù†",
+      "returns": "Ø³ÙŠØ§Ø³Ø© Ø§Ù„Ø¥Ø±Ø¬Ø§Ø¹",
+      "faq": "Ø§Ù„Ø£Ø³Ø¦Ù„Ø© Ø§Ù„Ø´Ø§Ø¦Ø¹Ø©",
+      "trackOrder": "ØªØªØ¨Ø¹ Ø§Ù„Ø·Ù„Ø¨",
+      "sizeGuide": "Ø¯Ù„ÙŠÙ„ Ø§Ù„Ù…Ù‚Ø§Ø³Ø§Øª"
+    },
+    "aboutLinks": {
+      "aboutUs": "Ù…Ù† Ù†Ø­Ù†",
+      "blog": "Ø§Ù„Ù…Ø¯ÙˆÙ†Ø©",
+      "gallery": "Ù…Ø¹Ø±Ø¶ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª",
+      "careers": "Ø§Ù„ÙˆØ¸Ø§Ø¦Ù",
+      "privacy": "Ø³ÙŠØ§Ø³Ø© Ø§Ù„Ø®ØµÙˆØµÙŠØ©",
+      "terms": "Ø§Ù„Ø´Ø±ÙˆØ· ÙˆØ§Ù„Ø£Ø­ÙƒØ§Ù…"
+    },
+    "newsletterTitle": "Ø§Ø´ØªØ±Ùƒ ÙÙŠ Ù†Ø´Ø±ØªÙ†Ø§ Ø§Ù„Ø¥Ø®Ø¨Ø§Ø±ÙŠØ©",
+    "newsletterDescription": "Ø§Ø­ØµÙ„ Ø¹Ù„Ù‰ Ø¢Ø®Ø± Ø§Ù„Ø¹Ø±ÙˆØ¶ ÙˆØ§Ù„Ù…Ù†ØªØ¬Ø§Øª Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©",
+    "emailPlaceholder": "Ø£Ø¯Ø®Ù„ Ø¨Ø±ÙŠØ¯Ùƒ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ",
+    "subscribeButton": "Ø§Ø´ØªØ±Ùƒ",
+    "privacyNotice": "Ù†Ø­ØªØ±Ù… Ø®ØµÙˆØµÙŠØªÙƒ. Ù„Ù† Ù†Ø´Ø§Ø±Ùƒ Ø¨Ø±ÙŠØ¯Ùƒ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ.",
+    "subscribeSuccess": "ØªÙ… Ø§Ù„Ø§Ø´ØªØ±Ø§Ùƒ Ø¨Ù†Ø¬Ø§Ø­!",
+    "alreadySubscribed": "أنت مشترك بالفعل",
+    "subscribeError": "فشل الاشتراك. يرجى المحاولة مرة أخرى.",
+    "invalidEmail": "ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø¨Ø±ÙŠØ¯ Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ ØµØ§Ù„Ø­",
+    "trustBadges": {
+      "cod": {
+        "title": "Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…",
+        "description": "Ø§Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ø³ØªÙ„Ø§Ù… Ø·Ù„Ø¨Ùƒ"
+      },
+      "returns": {
+        "title": "Ø¥Ø±Ø¬Ø§Ø¹ Ø®Ù„Ø§Ù„ 14 ÙŠÙˆÙ…",
+        "description": "Ø¥Ø±Ø¬Ø§Ø¹ Ù…Ø¬Ø§Ù†ÙŠ ÙˆØ³Ù‡Ù„"
+      },
+      "delivery": {
+        "title": "ØªÙˆØµÙŠÙ„ Ù„Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø¹Ø±Ø§Ù‚",
+        "description": "Ø´Ø­Ù† Ø³Ø±ÙŠØ¹ ÙˆØ¢Ù…Ù†"
+      },
+      "support": {
+        "title": "Ø¯Ø¹Ù… Ù…Ø­Ù„ÙŠ",
+        "description": "ÙØ±ÙŠÙ‚ Ø¯Ø¹Ù… ÙŠØªØ­Ø¯Ø« Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©"
+      }
+    },
+    "socialMedia": {
+      "facebook": "ØªØ§Ø¨Ø¹Ù†Ø§ Ø¹Ù„Ù‰ ÙÙŠØ³Ø¨ÙˆÙƒ",
+      "instagram": "ØªØ§Ø¨Ø¹Ù†Ø§ Ø¹Ù„Ù‰ Ø¥Ù†Ø³ØªØºØ±Ø§Ù…",
+      "twitter": "ØªØ§Ø¨Ø¹Ù†Ø§ Ø¹Ù„Ù‰ ØªÙˆÙŠØªØ±",
+      "youtube": "ØªØ§Ø¨Ø¹Ù†Ø§ Ø¹Ù„Ù‰ ÙŠÙˆØªÙŠÙˆØ¨",
+      "whatsapp": "ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ Ø¹Ø¨Ø± ÙˆØ§ØªØ³Ø§Ø¨"
+    },
+    "contact": {
+      "phone": "Ø§Ù„Ù‡Ø§ØªÙ",
+      "email": "Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ",
+      "address": "Ø§Ù„Ø¹Ù†ÙˆØ§Ù†",
+      "hours": "Ø³Ø§Ø¹Ø§Øª Ø§Ù„Ø¹Ù…Ù„"
+    },
+    "paymentMethods": "Ø·Ø±Ù‚ Ø§Ù„Ø¯ÙØ¹ Ø§Ù„Ù…ØªØ§Ø­Ø©",
+    "copyright": "Â© {year} FISH WEB. Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ‚ Ù…Ø­ÙÙˆØ¸Ø©."
+  },
+  "product": {
+    "badges": {
+      "new": "جديد",
+      "bestSeller": "الأكثر مبيعاً",
+      "outOfStock": "نفد من المخزون",
+      "discount": "خصم {percent}%"
+    },
+    "actions": {
+      "addToCart": "أضف إلى العربة",
+      "quickView": "نظرة سريعة",
+      "addToWishlist": "أضف إلى المفضلة",
+      "removeFromWishlist": "إزالة من المفضلة",
+      "viewDetails": "عرض التفاصيل"
+    },
+    "specs": {
+      "flow": "التدفق",
+      "flowUnit": "لتر/ساعة",
+      "power": "القدرة",
+      "powerUnit": "واط",
+      "compatibility": "التوافق",
+      "compatibilityUpTo": "حتى {value} لتر",
+      "compatibilityRange": "للأحواض {min}-{max} لتر",
+      "compatibilityFrom": "ابتداءً من {value} لتر",
+      "upTo": "حتى {size} لتر",
+      "forTanks": "للأحواض {min}-{max} لتر"
+    },
+    "stock": {
+      "inStock": "متوفر",
+      "outOfStock": "نفد من المخزون",
+      "lowStock": "متبقي {count} فقط!",
+      "lastItems": "آخر القطع"
+    },
+    "rating": {
+      "stars": "{rating} نجوم",
+      "reviews": "({count} تقييم)",
+      "noReviews": "لا توجد تقييمات بعد",
+      "outOf": "من 5"
+    },
+    "price": {
+      "from": "من",
+      "originalPrice": "السعر الأصلي",
+      "discountedPrice": "السعر بعد الخصم",
+      "save": "وفر {amount}"
+    },
+    "quickView": {
+      "title": "نظرة سريعة",
+      "description": "الوصف",
+      "specifications": "المواصفات",
+      "brand": "الماركة",
+      "category": "الفئة",
+      "availability": "التوفر"
+    },
+    "a11y": {
+      "productImage": "صورة {productName}",
+      "wishlistButton": "إضافة {productName} إلى المفضلة",
+      "quickViewButton": "عرض تفاصيل {productName}",
+      "addToCartButton": "إضافة {productName} إلى العربة",
+      "ratingStars": "تقييم {rating} من 5 نجوم"
+    }
+  },
+  "gallery": {
+    "title": "معرض الإعدادات",
+    "description": "اكتشف أحواضاً حقيقية من مجتمعنا",
+    "pageTitle": "معرض الإعدادات",
+    "pageSubtitle": "تصفح إعدادات المجتمع، استكشف النقاط التفاعلية، وتسوق نفس المعدات.",
+    "featured": "إعدادات مميزة",
+    "setup": {
+      "tankSize": "حجم الحوض",
+      "tankSizeValue": "{size} لتر",
+      "style": "النمط",
+      "viewCount": "{count, plural, one {{countFormatted} مشاهدة} other {{countFormatted} مشاهدة}}",
+      "mediaCount": "{count, plural, one {{countFormatted} ملف وسائط} other {{countFormatted} ملفات وسائط}}",
+      "productCount": "{count, plural, one {{countFormatted} منتج} other {{countFormatted} منتجات}}",
+      "submittedBy": "بواسطة {name}",
+      "submittedByAnonymous": "بواسطة المجتمع",
+      "productsHeading": "المنتجات"
+    },
+    "styles": {
+      "planted": "مزروع",
+      "reef": "شعاب",
+      "community": "مجتمعي",
+      "biotope": "بيوتوب",
+      "nano": "نانو",
+      "other": "أخرى"
+    },
+    "sizes": {
+      "all": "جميع الأحجام",
+      "nano": "نانو (≤ 40 لتر)",
+      "small": "صغير (41–120 لتر)",
+      "medium": "متوسط (121–250 لتر)",
+      "large": "كبير (251 لتر+)"
+    },
+    "hotspots": {
+      "clickToView": "انقر على العلامة لعرض المنتج",
+      "addHotspot": "إضافة نقطة",
+      "editHotspot": "تعديل النقطة",
+      "deleteHotspot": "حذف النقطة",
+      "clickToTag": "انقر على الصورة لوضع نقطة",
+      "selectProduct": "اختر منتجاً",
+      "maxHotspots": "تم بلوغ الحد الأقصى للنقاط"
+    },
+    "actions": {
+      "shopThisSetup": "تسوق هذا الإعداد",
+      "submitSetup": "أرسل إعدادك",
+      "viewSetup": "عرض الإعداد",
+      "editSetup": "تعديل الإعداد",
+      "deleteSetup": "حذف الإعداد",
+      "addingToCart": "جاري الإضافة {current} من {total}..."
+    },
+    "filters": {
+      "tankSize": "حجم الحوض",
+      "style": "النمط",
+      "search": "ابحث عن الإعدادات",
+      "sort": "الترتيب",
+      "applyFilters": "تطبيق المرشحات"
+    },
+    "form": {
+      "title": "العنوان",
+      "description": "الوصف",
+      "tankSize": "حجم الحوض (لتر)",
+      "style": "النمط",
+      "uploadMedia": "رفع الوسائط",
+      "addHotspots": "إضافة نقاط",
+      "submit": "إرسال الإعداد",
+      "submitting": "جاري الإرسال...",
+      "pending": "تم إرسال إعدادك وبانتظار الموافقة.",
+      "signInRequired": "سجّل الدخول لإرسال إعدادك.",
+      "uploadMediaFirst": "قم برفع ملف وسائط واحد على الأقل لإضافة النقاط.",
+      "reviewSummary": "راجع \"{title}\" قبل الإرسال.",
+      "summary": {
+        "mediaCount": "{count, plural, one {{countFormatted} ملف وسائط محدد} other {{countFormatted} ملفات وسائط محددة}}",
+        "hotspotCount": "{count, plural, one {{countFormatted} نقطة مضافة} other {{countFormatted} نقاط مضافة}}"
+      },
+      "untitled": "إعداد بدون عنوان"
+    },
+    "validation": {
+      "titleRequired": "العنوان مطلوب",
+      "tankSizeRequired": "حجم الحوض مطلوب",
+      "styleRequired": "النمط مطلوب",
+      "mediaRequired": "مطلوب صورة واحدة على الأقل",
+      "maxMedia": "يمكنك رفع حتى 5 ملفات",
+      "maxHotspots": "يمكنك إضافة حتى 10 نقاط"
+    },
+    "success": {
+      "created": "تم إرسال الإعداد للمراجعة",
+      "updated": "تم تحديث الإعداد",
+      "deleted": "تم حذف الإعداد"
+    },
+    "errors": {
+      "loadFailed": "فشل تحميل الإعدادات",
+      "createFailed": "فشل إرسال الإعداد",
+      "updateFailed": "فشل تحديث الإعداد",
+      "deleteFailed": "فشل حذف الإعداد",
+      "notFound": "الإعداد غير موجود"
+    },
+    "empty": {
+      "title": "لا توجد إعدادات بعد",
+      "titleWithStyle": "لا توجد إعدادات {style} بعد",
+      "description": "كن أول من يشارك إعداد حوضك",
+      "browseAll": "تصفح الكل",
+      "submitSetup": "أرسل إعدادك"
+    }
+  },
+  "plp": {
+    "title": "المنتجات",
+    "description": "تصفح مجموعتنا الكاملة من معدات الأحواض المائية",
+    "allProducts": "جميع المنتجات",
+    "sort": {
+      "label": "ترتيب حسب",
+      "bestSelling": "الأكثر مبيعاً",
+      "highestRated": "الأعلى تقييماً",
+      "lowestPrice": "الأقل سعراً",
+      "newest": "الأحدث"
+    },
+    "filters": {
+      "title": "الفلاتر",
+      "showFilters": "إظهار الفلاتر",
+      "hideFilters": "إخفاء الفلاتر",
+      "applyFilters": "تطبيق الفلاتر",
+      "resetFilters": "إعادة تعيين",
+      "clearAll": "مسح الكل",
+      "type": {
+        "label": "النوع",
+        "hob": "HOB",
+        "canister": "Canister",
+        "sponge": "إسفنجي",
+        "internal": "داخلي"
+      },
+      "tankSize": {
+        "label": "حجم الحوض",
+        "upTo": "حتى (لتر)",
+        "from": "من",
+        "to": "إلى",
+        "placeholder": "أدخل الحجم"
+      },
+      "flowRate": {
+        "label": "التدفق",
+        "from": "من (لتر/ساعة)",
+        "to": "إلى (لتر/ساعة)",
+        "placeholder": "أدخل التدفق"
+      },
+      "brand": {
+        "label": "الماركة",
+        "all": "جميع الماركات"
+      }
+    },
+    "results": {
+      "showing": "عرض {count} منتج",
+      "showingRange": "عرض {from}-{to} من {total} منتج",
+      "noResults": "لم يتم العثور على منتجات",
+      "noResultsDescription": "جرب تعديل الفلاتر أو البحث عن شيء آخر",
+      "loading": "جاري تحميل المنتجات...",
+      "error": "حدث خطأ في تحميل المنتجات"
+    },
+    "activeFilters": {
+      "title": "الفلاتر النشطة",
+      "clear": "مسح",
+      "type": "النوع: {value}",
+      "tankSize": "حجم الحوض: {min}-{max}L",
+      "flowRate": "التدفق: {min}-{max}L/h",
+      "brand": "الماركة: {value}"
+    }
+  },
+  "calculators": {
+    "title": "الحاسبات",
+    "description": "حاسبات مجانية لمساعدتك في اختيار المعدات المناسبة لحوضك",
+    "pageTitle": "حاسبات الأحواض المائية",
+    "pageSubtitle": "احسب المعدات المثالية لحوضك بدقة",
+    "tabs": {
+      "heater": "حاسبة السخان",
+      "filter": "حاسبة الفلترة",
+      "salinity": "حاسبة الملوحة"
+    },
+    "heater": {
+      "title": "حاسبة السخان",
+      "description": "احسب القدرة المطلوبة للسخان بناءً على حجم الحوض ودرجة الحرارة المطلوبة",
+      "tankVolume": "حجم الحوض (لتر)",
+      "currentTemp": "درجة الحرارة الحالية (\\u00B0م)",
+      "targetTemp": "درجة الحرارة المستهدفة (\\u00B0م)",
+      "calculate": "احسب",
+      "result": "القدرة المطلوبة",
+      "resultUnit": "واط",
+      "formula": "المعادلة: 1 وات/لتر + 2.5 وات/لتر لكل درجة مئوية",
+      "helpText": "للحصول على أفضل النتائج، اختر سخاناً بقدرة أعلى بقليل من المحسوبة",
+      "validation": {
+        "tankVolumeRequired": "يرجى إدخال حجم الحوض",
+        "tankVolumeMin": "يجب أن يكون حجم الحوض أكبر من 1 لتر",
+        "tempRequired": "يرجى إدخال درجات الحرارة",
+        "targetHigher": "درجة الحرارة المطلوبة يجب أن تكون أعلى من الحالية",
+        "tankVolumeMax": "يجب ألا يتجاوز حجم الحوض 10,000 لتر",
+        "tempOutOfRange": "يجب أن تتراوح درجات الحرارة بين 0° و40° مئوية"
+      },
+      "recommendationText": "نوصي باستخدام سخان بقدرة {wattage} وات لضمان ثبات درجة الحرارة."
+    },
+    "filter": {
+      "title": "حاسبة الفلترة",
+      "description": "احسب معدل التدفق المطلوب للفلتر بناءً على حجم الحوض والحمل الحيوي",
+      "tankVolume": "حجم الحوض (لتر)",
+      "bioload": "الحمل الحيوي",
+      "bioloadLow": "منخفض (أسماك قليلة، نباتات كثيرة)",
+      "bioloadMedium": "متوسط (أسماك متوسطة)",
+      "bioloadHigh": "عالي (أسماك كثيرة، تغذية مكثفة)",
+      "calculate": "احسب",
+      "result": "معدل التدفق المطلوب",
+      "resultUnit": "لتر/ساعة",
+      "formula": "المعادلة: {multiplier}× حجم الحوض / الساعة",
+      "helpText": "اختر فلتراً بمعدل تدفق يساوي أو يزيد عن المحسوب",
+      "validation": {
+        "tankVolumeRequired": "يرجى إدخال حجم الحوض",
+        "bioloadRequired": "يرجى اختيار مستوى الحمل الحيوي",
+        "tankVolumeMin": "يجب أن يكون حجم الحوض أكبر من 1 لتر",
+        "tankVolumeMax": "يجب ألا يتجاوز حجم الحوض 10,000 لتر"
+      },
+      "recommendationText": "اختر فلترًا بمعدل تدفق لا يقل عن {flow} لتر/ساعة ليناسب احتياجات حوضك."
+    },
+    "salinity": {
+      "title": "حاسبة الملوحة",
+      "description": "احسب كمية الملح المطلوبة للوصول إلى الكثافة النوعية المطلوبة",
+      "comingSoon": "قريباً",
+      "comingSoonDescription": "هذه الميزة قيد التطوير وستكون متاحة قريباً"
+    },
+    "results": {
+      "optimal": "مثالي",
+      "adequate": "مناسب",
+      "insufficient": "غير كافٍ",
+      "yourResult": "نتيجتك",
+      "recommendation": "التوصية",
+      "range": "{min} - {max} {unit}"
+    },
+    "recommendations": {
+      "title": "المنتجات الموصى بها",
+      "description": "بناءً على حسابك، نوصي بهذه المنتجات",
+      "noProducts": "لم يتم العثور على منتجات مطابقة",
+      "viewAll": "عرض جميع {category}",
+      "matchesYourNeeds": "يطابق احتياجاتك",
+      "loading": "جاري تحميل المنتجات المقترحة..."
+    },
+    "save": {
+      "button": "حفظ الحساب",
+      "signInRequired": "سجل دخولك لحفظ الحسابات",
+      "saved": "تم الحفظ بنجاح",
+      "error": "حدث خطأ في الحفظ",
+      "viewSaved": "عرض الحسابات المحفوظة",
+      "saving": "جاري الحفظ..."
+    },
+    "common": {
+      "calculate": "احسب",
+      "reset": "إعادة تعيين",
+      "clear": "مسح",
+      "unit": {
+        "liters": "لتر",
+        "watts": "واط",
+        "celsius": "\\u00B0م",
+        "lph": "لتر/ساعة"
+      }
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": "تسجيل الدخول",
+      "subtitle": "مرحباً بك في FISH WEB"
+    },
+    "tabs": {
+      "signin": "تسجيل الدخول",
+      "signup": "إنشاء حساب",
+      "phone": "رقم الهاتف"
+    },
+    "signin": {
+      "title": "تسجيل الدخول",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "submit": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "signupLink": "إنشاء حساب",
+      "orContinueWith": "أو تابع باستخدام"
+    },
+    "signup": {
+      "title": "إنشاء حساب جديد",
+      "fullName": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "submit": "إنشاء حساب",
+      "haveAccount": "لديك حساب بالفعل؟",
+      "signinLink": "تسجيل الدخول",
+      "terms": "بإنشاء حساب، أنت توافق على {termsLink} و {privacyLink}",
+      "termsLink": "الشروط والأحكام",
+      "privacyLink": "سياسة الخصوصية",
+      "passwordHelper": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل."
+    },
+    "phone": {
+      "title": "تسجيل الدخول برقم الهاتف",
+      "phoneNumber": "رقم الهاتف",
+      "phoneHint": "مثال: +9647XXXXXXXXX",
+      "sendOtp": "إرسال رمز التحقق",
+      "otpSent": "تم إرسال رمز التحقق إلى {phone}",
+      "verificationCode": "رمز التحقق",
+      "verifyCode": "تحقق",
+      "resendCode": "إعادة إرسال الرمز",
+      "resendIn": "إعادة الإرسال خلال {seconds} ثانية",
+      "changeNumber": "تغيير الرقم"
+    },
+    "oauth": {
+      "google": "تابع باستخدام Google",
+      "signinWith": "تسجيل الدخول باستخدام {provider}",
+      "signupWith": "إنشاء حساب باستخدام {provider}"
+    },
+    "validation": {
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "emailInvalid": "البريد الإلكتروني غير صالح",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "passwordMin": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+      "passwordMismatch": "كلمات المرور غير متطابقة",
+      "fullNameRequired": "الاسم الكامل مطلوب",
+      "phoneRequired": "رقم الهاتف مطلوب",
+      "phoneInvalid": "رقم الهاتف غير صالح (استخدم الصيغة +9647XXXXXXXXX)",
+      "otpRequired": "رمز التحقق مطلوب",
+      "otpInvalid": "رمز التحقق غير صالح"
+    },
+    "success": {
+      "signupComplete": "تم إنشاء الحساب بنجاح!",
+      "signinComplete": "مرحباً بعودتك!",
+      "emailSent": "تم إرسال رابط التحقق إلى بريدك الإلكتروني",
+      "otpSent": "تم إرسال رمز التحقق",
+      "signoutComplete": "تم تسجيل الخروج بنجاح"
+    },
+    "errors": {
+      "validation": "يرجى تصحيح الحقول المحددة.",
+      "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+      "emailExists": "البريد الإلكتروني مستخدم بالفعل",
+      "phoneExists": "رقم الهاتف مستخدم بالفعل",
+      "tooManyRequests": "طلبات كثيرة جداً. يرجى المحاولة لاحقاً",
+      "networkError": "حدث خطأ في الاتصال. حاول مرة أخرى",
+      "unknownError": "حدث خطأ غير متوقع",
+      "emailNotConfirmed": "يرجى التحقق من بريدك الإلكتروني للمتابعة.",
+      "usernameExists": "اسم المستخدم مستخدم بالفعل",
+      "unauthenticated": "يجب تسجيل الدخول للمتابعة"
+    }
+  },
+  "account": {
+    "title": "حسابي",
+    "description": "إدارة حسابك ومعلوماتك الشخصية",
+    "welcome": "مرحباً، {name}",
+    "tabs": {
+      "profile": "الملف الشخصي",
+      "orders": "الطلبات",
+      "wishlist": "المفضلة",
+      "addresses": "العناوين",
+      "loyalty": "الولاء",
+      "referrals": "الإحالات",
+      "settings": "الإعدادات"
+    },
+    "profile": {
+      "title": "معلومات الملف الشخصي",
+      "fullName": "الاسم الكامل",
+      "username": "اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "save": "حفظ التغييرات",
+      "saving": "جاري الحفظ...",
+      "saved": "تم حفظ التغييرات بنجاح"
+    },
+    "orders": {
+      "title": "طلباتي",
+      "noOrders": "لا توجد طلبات بعد",
+      "startShopping": "ابدأ التسوق",
+      "comingSoon": "قريباً"
+    },
+    "wishlist": {
+      "title": "قائمة المفضلة",
+      "noItems": "قائمة المفضلة فارغة",
+      "addItems": "أضف منتجات",
+      "comingSoon": "قريباً",
+      "removeItem": "إزالة من المفضلة",
+      "moveToCart": "نقل للعربة",
+      "moveAllToCart": "نقل الكل للعربة",
+      "clearWishlist": "مسح المفضلة",
+      "itemsCount": "{count} منتج"
+    },
+    "addresses": {
+      "title": "العناوين المحفوظة",
+      "description": "إدارة العناوين المحفوظة للتوصيل.",
+      "addNew": "إضافة عنوان جديد",
+      "addAddressTitle": "إضافة عنوان",
+      "editAddressTitle": "تعديل العنوان",
+      "loading": "جاري تحميل العناوين...",
+      "noAddresses": "لا توجد عناوين محفوظة",
+      "unknownLabel": "عنوان بدون اسم",
+      "default": "افتراضي",
+      "label": "التسمية",
+      "recipientName": "اسم المستلم",
+      "phone": "رقم الهاتف",
+      "addressLine1": "العنوان (السطر 1)",
+      "addressLine2": "العنوان (السطر 2)",
+      "city": "المدينة",
+      "governorate": "المحافظة",
+      "postalCode": "الرمز البريدي",
+      "setDefault": "تعيين كافتراضي",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "save": "حفظ العنوان",
+      "cancel": "إلغاء",
+      "deleteConfirm": "هل أنت متأكد من حذف هذا العنوان؟"
+    },
+    "loyalty": {
+      "title": "نقاط الولاء",
+      "subtitle": "تابع رصيد النقاط وآخر عمليات الكسب والاستبدال.",
+      "balance": "الرصيد الحالي",
+      "pointsValue": "{points} نقطة",
+      "potentialDiscount": "تعادل خصماً بقيمة {amount}",
+      "totalEarned": "إجمالي النقاط المكتسبة",
+      "totalRedeemed": "إجمالي النقاط المستبدلة",
+      "latestActivity": "أحدث النشاطات",
+      "noActivity": "لا يوجد نشاط ولاء حتى الآن. ابدأ التسوق لكسب النقاط."
+    },
+    "referrals": {
+      "title": "برنامج الإحالة",
+      "subtitle": "احصل على {reward} عند أول طلب لأصدقائك ويحصلون هم على {friendReward}.",
+      "rewardPointsLabel": "تم كسب {points} نقطة",
+      "rewardPointsTitle": "النقاط المكتسبة",
+      "noCodeTitle": "ابدأ بمشاركة رمز الإحالة",
+      "noCodeDescription": "أنشئ رمز الإحالة الخاص بك لدعوة الأصدقاء وكسب المكافآت.",
+      "generateCode": "إنشاء رمز الإحالة",
+      "referralCodeLabel": "رمز الإحالة: {code}"
+    },
+    "settings": {
+      "title": "الإعدادات",
+      "changePassword": "تغيير كلمة المرور",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+      "updatePassword": "تحديث كلمة المرور",
+      "passwordUpdated": "تم تحديث كلمة المرور بنجاح.",
+      "notificationPreferences": "تفضيلات الإشعارات",
+      "emailOrderUpdates": "إشعارات الطلبات (البريد الإلكتروني)",
+      "emailShippingUpdates": "تحديثات الشحن (البريد الإلكتروني)",
+      "emailStockAlerts": "تنبيهات المخزون (البريد الإلكتروني)",
+      "emailMarketing": "العروض والتحديثات (البريد الإلكتروني)",
+      "inappNotifications": "الإشعارات داخل التطبيق",
+      "emailPreferences": "تفضيلات البريد الإلكتروني",
+      "marketingEmails": "رسائل العروض والتحديثات",
+      "orderEmails": "رسائل الطلبات",
+      "newsletter": "النشرة الإخبارية",
+      "savePreferences": "حفظ التفضيلات",
+      "preferencesSaved": "تم حفظ التفضيلات.",
+      "dangerZone": "منطقة خطرة",
+      "signOutDescription": "تسجيل الخروج من الحساب الحالي.",
+      "deleteAccountWarning": "هذا الإجراء لا يمكن التراجع عنه.",
+      "deleteAccountConfirm": "هل أنت متأكد من حذف حسابك؟",
+      "signOut": "تسجيل الخروج",
+      "deleteAccount": "حذف الحساب"
+    }
+  },
+  "loyalty": {
+    "invalidPoints": "يرجى إدخال عدد نقاط صالح.",
+    "notEnoughPoints": "ليس لديك نقاط كافية.",
+    "minRedemption": "تحتاج إلى {points} نقطة على الأقل للاستبدال.",
+    "maxRedemptionExceeded": "لا يمكنك استخدام أكثر من 50٪ من إجمالي الطلب بالنقاط.",
+    "redemptionFailed": "تعذّر تطبيق نقاطك. يرجى المحاولة مرة أخرى."
+  },
+  "pdp": {
+    "titleTemplate": "{productName} - {brand} | FISH WEB",
+    "descriptionTemplate": "{description} - متوفر الآن في العراق مع توصيل سريع ودفع عند الاستلام",
+    "breadcrumb": {
+      "home": "الرئيسية",
+      "products": "المنتجات",
+      "currentProduct": "{name}"
+    },
+    "cta": {
+      "addToCart": "أضف إلى العربة",
+      "buyNow": "اشتر الآن",
+      "addToWishlist": "أضف إلى المفضلة",
+      "removeFromWishlist": "إزالة من المفضلة",
+      "contactWhatsApp": "تواصل عبر واتساب",
+      "shareProduct": "مشاركة المنتج",
+      "notifyWhenAvailable": "أخبرني عند التوفر"
+    },
+    "tabs": {
+      "description": "الوصف",
+      "specifications": "المواصفات",
+      "usageGuide": "دليل الاستخدام",
+      "reviews": "التقييمات",
+      "faq": "الأسئلة الشائعة"
+    },
+    "specs": {
+      "title": "المواصفات التقنية",
+      "brand": "الماركة",
+      "category": "الفئة",
+      "subcategory": "الفئة الفرعية",
+      "sku": "رمز المنتج",
+      "dimensions": "الأبعاد",
+      "weight": "الوزن",
+      "flow": "معدل التدفق",
+      "power": "القدرة الكهربائية",
+      "compatibility": "التوافق",
+      "dimensionsValue": "{length} × {width} × {height} سم",
+      "weightValue": "{weight} كجم"
+    },
+    "socialProof": {
+      "viewedToday": "{count} شخص شاهد هذا اليوم",
+      "boughtThisWeek": "{count} شخص اشترى هذا الأسبوع",
+      "inCart": "{count} شخص لديه هذا في العربة",
+      "trending": "رائج الآن"
+    },
+    "related": {
+      "title": "منتجات ذات صلة",
+      "subtitle": "قد تعجبك أيضاً",
+      "viewAll": "عرض الكل",
+      "complementary": "منتجات مكملة",
+      "similarProducts": "منتجات مشابهة"
+    },
+    "usageGuide": {
+      "title": "دليل الاستخدام",
+      "placeholder": "دليل الاستخدام التفصيلي قريباً",
+      "installation": "التركيب",
+      "maintenance": "الصيانة",
+      "tips": "نصائح مفيدة"
+    },
+    "faq": {
+      "title": "الأسئلة الشائعة",
+      "q1": {
+        "question": "كيف أختار الحجم المناسب؟",
+        "answer": "استخدم حاسباتنا المجانية لتحديد الحجم المثالي بناءً على حجم حوضك ومتطلباتك."
+      },
+      "q2": {
+        "question": "ما هي مدة الضمان؟",
+        "answer": "جميع منتجاتنا تأتي مع ضمان الشركة المصنعة. المدة تختلف حسب الماركة والمنتج."
+      },
+      "q3": {
+        "question": "هل التوصيل مجاني؟",
+        "answer": "نعم، التوصيل مجاني للطلبات فوق 100,000 دينار عراقي."
+      },
+      "q4": {
+        "question": "هل يمكنني الإرجاع؟",
+        "answer": "نعم، لديك 14 يوماً لإرجاع المنتج إذا لم يكن مناسباً."
+      }
+    },
+    "gallery": {
+      "zoom": "تكبير",
+      "viewFullscreen": "عرض بملء الشاشة",
+      "previousImage": "الصورة السابقة",
+      "nextImage": "الصورة التالية",
+      "closeGallery": "إغلاق المعرض",
+      "imageCount": "صورة {current} من {total}"
+    },
+    "share": {
+      "title": "مشاركة المنتج",
+      "copyLink": "نسخ الرابط",
+      "linkCopied": "تم نسخ الرابط",
+      "whatsapp": "مشاركة عبر واتساب",
+      "facebook": "مشاركة على فيسبوك",
+      "twitter": "مشاركة على تويتر"
+    },
+    "reviews": {
+      "placeholder": "قسم المراجعات قيد الإطلاق قريباً. نعمل على جمع أولى تجارب مجتمعنا.",
+      "cta": "هل اشتريت هذا المنتج؟ شارك رأيك قريباً وكن من أوائل المراجعين."
+    },
+    "calculator": {
+      "title": "احسب التوافق",
+      "description": "استخدم الحاسبة لتحديد ما إذا كان هذا المنتج مناسباً لحوضك",
+      "suitableFor": "هذا المنتج مناسب لـ",
+      "tankSizeRange": "أحواض {min}-{max} لتر"
+    }
+  },
+  "cart": {
+    "title": "سلة التسوق",
+    "description": "راجع منتجاتك واستكمل عملية الشراء",
+    "yourCart": "سلتك",
+    "itemsCount": "{count} منتج",
+    "itemsCountSingular": "منتج واحد",
+    "summary": {
+      "title": "ملخص الطلب",
+      "subtotal": "المجموع الفرعي",
+      "shipping": "الشحن",
+      "shippingFree": "مجاني",
+      "shippingCalculated": "يحسب عند الدفع",
+      "total": "المجموع الكلي",
+      "proceedToCheckout": "إتمام الطلب",
+      "continueShopping": "متابعة التسوق"
+    },
+    "freeShipping": {
+      "threshold": "100,000",
+      "progress": "أضف {amount} للحصول على شحن مجاني",
+      "qualified": "مبروك! حصلت على شحن مجاني",
+      "almostThere": "أنت قريب من الشحن المجاني!"
+    },
+    "item": {
+      "quantity": "الكمية",
+      "price": "السعر",
+      "total": "المجموع",
+      "remove": "إزالة",
+      "saveForLater": "حفظ لاحقاً",
+      "moveToCart": "نقل للعربة",
+      "outOfStock": "نفد من المخزون",
+      "lowStock": "متبقي {count} فقط",
+      "maxQuantity": "الحد الأقصى {max}",
+      "quantityExceeded": "الكمية المطلوبة تتجاوز المخزون المتاح"
+    },
+    "quantity": {
+      "increase": "زيادة الكمية",
+      "decrease": "تقليل الكمية",
+      "update": "تحديث الكمية",
+      "max": "الحد الأقصى",
+      "min": "الحد الأدنى"
+    },
+    "empty": {
+      "title": "سلتك فارغة",
+      "description": "ابدأ بإضافة منتجات إلى سلتك",
+      "startShopping": "ابدأ التسوق",
+      "savedItems": "لديك {count} منتج محفوظ",
+      "viewSaved": "عرض المنتجات المحفوظة"
+    },
+    "savedForLater": {
+      "title": "محفوظ للاحقاً",
+      "empty": "لا توجد منتجات محفوظة",
+      "moveToCart": "نقل للعربة",
+      "remove": "إزالة"
+    },
+    "upsell": {
+      "title": "أكمل إعدادك",
+      "subtitle": "العملاء اشتروا أيضاً",
+      "addToCart": "أضف للعربة",
+      "viewAll": "عرض الكل"
+    },
+    "calculator": {
+      "needHelp": "تحتاج مساعدة في اختيار الحجم؟",
+      "useCalculator": "استخدم الحاسبة",
+      "calculateSize": "احسب الحجم المناسب"
+    },
+    "actions": {
+      "addToCart": "أضف للعربة",
+      "updateCart": "تحديث العربة",
+      "clearCart": "إفراغ العربة",
+      "viewCart": "عرض العربة",
+      "closeCart": "إغلاق العربة"
+    },
+    "success": {
+      "added": "تمت الإضافة إلى العربة",
+      "removed": "تمت الإزالة من العربة",
+      "updated": "تم تحديث الكمية",
+      "savedForLater": "تم الحفظ للاحقاً",
+      "movedToCart": "تم النقل للعربة"
+    },
+    "errors": {
+      "outOfStock": "هذا المنتج نفد من المخزون",
+      "quantityExceeded": "الكمية المطلوبة تتجاوز المخزون المتاح",
+      "invalidQuantity": "كمية غير صالحة",
+      "loadFailed": "فشل تحميل العربة",
+      "updateFailed": "فشل تحديث العربة"
+    }
+  },
+  "checkout": {
+    "title": "إتمام الطلب",
+    "description": "أكمل طلبك بأمان وسهولة",
+    "pageTitle": "إتمام الطلب",
+    "pageSubtitle": "خطوات بسيطة لإكمال طلبك",
+    "steps": {
+      "shipping": "معلومات الشحن",
+      "payment": "طريقة الدفع",
+      "review": "مراجعة الطلب",
+      "stepOf": "الخطوة {current} من {total}"
+    },
+    "shipping": {
+      "title": "معلومات الشحن",
+      "description": "أين نرسل طلبك؟",
+      "useExisting": "استخدم عنواناً محفوظاً",
+      "addNew": "أضف عنواناً جديداً",
+      "selectAddress": "اختر عنواناً",
+      "noSavedAddresses": "لا توجد عناوين محفوظة",
+      "guestEmail": "البريد الإلكتروني (لتأكيد الطلب)",
+      "guestEmailHint": "سنرسل تفاصيل الطلب إلى هذا البريد",
+      "saveAddress": "حفظ هذا العنوان لطلبات مستقبلية",
+      "continue": "متابعة إلى الدفع"
+    },
+    "payment": {
+      "title": "طريقة الدفع",
+      "description": "كيف تريد الدفع؟",
+      "cod": "الدفع عند الاستلام (COD)",
+      "codDescription": "ادفع نقداً عند استلام طلبك",
+      "codBenefits": "آمن ومريح - لا حاجة لبطاقة ائتمان",
+      "comingSoon": "طرق دفع إضافية قريباً",
+      "continue": "متابعة إلى المراجعة"
+    },
+    "review": {
+      "title": "مراجعة الطلب",
+      "description": "راجع طلبك قبل التأكيد",
+      "shippingAddress": "عنوان الشحن",
+      "paymentMethod": "طريقة الدفع",
+      "orderItems": "المنتجات ({count})",
+      "orderSummary": "ملخص الطلب",
+      "edit": "تعديل",
+      "placeOrder": "تأكيد الطلب",
+      "placingOrder": "جاري إنشاء الطلب...",
+      "termsAgree": "بتأكيد الطلب، أنت توافق على {termsLink} و {privacyLink}"
+    },
+    "coupon": {
+      "label": "رمز الخصم",
+      "placeholder": "أدخل رمز الخصم",
+      "apply": "تطبيق",
+      "remove": "إزالة",
+      "applied": "تم تطبيق الخصم",
+      "discount": "الخصم",
+      "invalidCode": "رمز خصم غير صالح",
+      "expired": "رمز الخصم منتهي الصلاحية",
+      "minOrderNotMet": "الحد الأدنى للطلب {amount}",
+      "usageLimitReached": "تم استخدام هذا الرمز بالكامل"
+    },
+    "shippingCost": {
+      "calculating": "جاري حساب تكلفة الشحن...",
+      "free": "شحن مجاني",
+      "standard": "شحن قياسي",
+      "governorate": "الشحن إلى {governorate}",
+      "estimatedDelivery": "التوصيل المتوقع: {days} أيام"
+    },
+    "summary": {
+      "subtotal": "المجموع الفرعي",
+      "shipping": "الشحن",
+      "discount": "الخصم",
+      "loyaltyDiscount": "خصم النقاط",
+      "total": "المجموع الكلي",
+      "itemsCount": "{count} منتج"
+    },
+    "validation": {
+      "addressRequired": "يرجى اختيار أو إدخال عنوان الشحن",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "emailInvalid": "بريد إلكتروني غير صالح",
+      "paymentRequired": "يرجى اختيار طريقة الدفع",
+      "termsRequired": "يجب الموافقة على الشروط والأحكام"
+    },
+    "success": {
+      "orderPlaced": "تم إنشاء طلبك بنجاح!",
+      "orderNumber": "رقم الطلب: {orderNumber}",
+      "emailSent": "تم إرسال تأكيد الطلب إلى {email}"
+    },
+    "errors": {
+      "orderFailed": "فشل إنشاء الطلب. يرجى المحاولة مرة أخرى",
+      "emptyCart": "سلتك فارغة. أضف منتجات قبل الطلب",
+      "stockUnavailable": "بعض المنتجات نفدت من المخزون",
+      "emailFailed": "فشل إرسال البريد الإلكتروني. سنحاول مرة أخرى"
+    }
+  },
+  "orderConfirmation": {
+    "title": "تأكيد الطلب",
+    "description": "تم استلام طلبك بنجاح",
+    "thankYou": "شكراً لطلبك!",
+    "orderPlaced": "تم استلام طلبك وسنبدأ بمعالجته قريباً",
+    "orderNumber": "رقم الطلب",
+    "orderDate": "تاريخ الطلب",
+    "estimatedDelivery": "التوصيل المتوقع",
+    "deliveryDays": "{days} أيام عمل",
+    "emailSent": "تم إرسال تأكيد الطلب إلى {email}",
+    "checkEmail": "تحقق من بريدك الإلكتروني للحصول على التفاصيل الكاملة",
+    "details": {
+      "title": "تفاصيل الطلب",
+      "items": "المنتجات",
+      "shippingAddress": "عنوان الشحن",
+      "paymentMethod": "طريقة الدفع",
+      "orderSummary": "ملخص الطلب"
+    },
+    "nextSteps": {
+      "title": "الخطوات التالية",
+      "processing": "سنقوم بمعالجة طلبك خلال 24 ساعة",
+      "notification": "ستتلقى إشعاراً عند شحن الطلب",
+      "contact": "يمكنك التواصل معنا عبر واتساب للاستفسارات"
+    },
+    "actions": {
+      "trackOrder": "تتبع الطلب",
+      "continueShopping": "متابعة التسوق",
+      "viewOrders": "عرض طلباتي",
+      "contactSupport": "تواصل مع الدعم",
+      "printOrder": "طباعة الطلب"
+    }
+  },
+  "wishlist": {
+    "title": "قائمة المفضلة",
+    "description": "المنتجات المحفوظة للشراء لاحقاً",
+    "pageTitle": "قائمة المفضلة",
+    "pageSubtitle": "المنتجات التي أعجبتك",
+    "actions": {
+      "addToWishlist": "أضف للمفضلة",
+      "removeFromWishlist": "إزالة من المفضلة",
+      "moveToCart": "نقل للعربة",
+      "moveAllToCart": "نقل الكل للعربة",
+      "clearAll": "مسح الكل",
+      "continueShopping": "متابعة التسوق",
+      "cancel": "إلغاء"
+    },
+    "bulkActions": {
+      "confirmMoveAllTitle": "نقل كل العناصر إلى السلة؟",
+      "confirmMoveAllDescription": "سيتم إضافة كل عناصر المفضلة إلى سلة التسوق وإزالتها من قائمة المفضلة.",
+      "confirmMoveAllDetails": "قد يستغرق نقل {count} عنصرًا بعض الوقت. سنبقي العناصر متزامنة من أجلك.",
+      "confirmMoveAllCta": "نعم، انقل كل العناصر",
+      "disabledLargeList": "تم تعطيل النقل الجماعي للقوائم الكبيرة. يرجى نقل العناصر يدويًا."
+    },
+    "stock": {
+      "inStock": "متوفر",
+      "outOfStock": "نفد من المخزون",
+      "lowStock": "متبقي {count} فقط",
+      "notifyMe": "أخبرني عند التوفر"
+    },
+    "notifyMe": {
+      "title": "أخبرني عند التوفر",
+      "description": "سنرسل لك بريداً إلكترونياً عندما يتوفر هذا المنتج",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل بريدك الإلكتروني",
+      "submit": "أخبرني",
+      "success": "شكراً! سنخبرك عندما يتوفر المنتج",
+      "alreadyRequested": "لقد طلبت الإشعار مسبقاً",
+      "error": "حدث خطأ. يرجى المحاولة مرة أخرى"
+    },
+    "empty": {
+      "title": "قائمة المفضلة فارغة",
+      "description": "احفظ المنتجات التي تعجبك للشراء لاحقاً",
+      "startShopping": "ابدأ التسوق",
+      "browseProducts": "تصفح المنتجات"
+    },
+    "success": {
+      "added": "تمت الإضافة للمفضلة",
+      "removed": "تمت الإزالة من المفضلة",
+      "movedToCart": "تم النقل للعربة",
+      "cleared": "تم مسح المفضلة"
+    }
+  },
+  "search": {
+    "autocomplete": {
+      "products": "المنتجات",
+      "brands": "الماركات",
+      "categories": "الفئات",
+      "viewAll": "عرض الكل ({count})",
+      "noResults": "لا توجد نتائج",
+      "recentSearches": "عمليات البحث الأخيرة",
+      "popularSearches": "عمليات البحث الشائعة",
+      "inCategory": "في {category}"
+    },
+    "voice": {
+      "listening": "جاري الاستماع...",
+      "speak": "تحدث الآن",
+      "stopListening": "إيقاف الاستماع",
+      "tryAgain": "حاول مرة أخرى",
+      "notSupported": "البحث الصوتي غير مدعوم في متصفحك",
+      "permissionDenied": "تم رفض إذن الميكروفون",
+      "noSpeech": "لم يتم اكتشاف كلام. حاول مرة أخرى",
+      "error": "حدث خطأ في التعرف على الصوت",
+      "tapToSpeak": "اضغط للتحدث"
+    },
+    "results": {
+      "title": "نتائج البحث",
+      "resultsFor": "نتائج البحث عن '{query}'",
+      "showing": "عرض {count} نتيجة",
+      "showingFor": "عرض {count} نتيجة لـ '{query}'",
+      "noResults": "لا توجد نتائج",
+      "noResultsFor": "لا توجد نتائج لـ '{query}'",
+      "tryDifferent": "جرب كلمات مفتاحية مختلفة",
+      "checkSpelling": "تحقق من الإملاء",
+      "tryBroader": "جرب مصطلحات أوسع",
+      "browseCategories": "تصفح الفئات",
+      "suggestions": "اقتراحات:",
+      "didYouMean": "هل تقصد '{suggestion}'؟",
+      "description": "ابحث في كتالوج معدات الأحواض المميزة لدينا"
+    },
+    "filters": {
+      "all": "الكل",
+      "inStock": "متوفر فقط",
+      "onSale": "العروض",
+      "newArrivals": "المنتجات الجديدة",
+      "clearSearch": "مسح البحث"
+    },
+    "actions": {
+      "search": "بحث",
+      "clearSearch": "مسح البحث",
+      "voiceSearch": "البحث الصوتي",
+      "viewProduct": "عرض المنتج",
+      "searchIn": "البحث في {category}"
+    },
+    "hints": {
+      "minLength": "أدخل حرفين على الأقل للبحث",
+      "pressEnter": "اضغط Enter للبحث",
+      "useVoice": "أو استخدم البحث الصوتي",
+      "examples": "مثال: فلتر، سخان، إضاءة"
+    }
+  },
+  "reviews": {
+    "title": "التقييمات والمراجعات",
+    "subtitle": "آراء العملاء الحقيقية",
+    "writeReview": "اكتب مراجعة",
+    "yourReview": "مراجعتك",
+    "customerReviews": "مراجعات العملاء",
+    "averageRating": "متوسط التقييم",
+    "basedOn": "بناءً على {count} تقييم",
+    "ratingDistribution": "توزيع التقييمات",
+    "stars": "{count} نجوم",
+    "outOf5": "من 5",
+    "form": {
+      "title": "اكتب مراجعتك",
+      "rating": "التقييم",
+      "ratingLabel": "اختر تقييمك (1-5 نجوم)",
+      "reviewTitle": "عنوان المراجعة",
+      "reviewTitlePlaceholder": "لخص تجربتك في جملة",
+      "comment": "المراجعة",
+      "commentPlaceholder": "شارك تجربتك التفصيلية مع هذا المنتج...",
+      "images": "الصور (اختياري)",
+      "imagesHint": "أضف حتى 5 صور (الحد الأقصى 5 ميجابايت لكل صورة)",
+      "uploadImages": "رفع الصور",
+      "dragDrop": "اسحب وأفلت الصور هنا أو انقر للاختيار",
+      "submit": "نشر المراجعة",
+      "submitting": "جاري النشر...",
+      "update": "تحديث المراجعة",
+      "cancel": "إلغاء",
+      "delete": "حذف المراجعة"
+    },
+    "validation": {
+      "ratingRequired": "يرجى اختيار تقييم",
+      "titleRequired": "عنوان المراجعة مطلوب",
+      "titleMax": "العنوان يجب أن يكون أقل من 100 حرف",
+      "commentRequired": "نص المراجعة مطلوب",
+      "commentMin": "المراجعة يجب أن تكون 10 أحرف على الأقل",
+      "commentMax": "المراجعة يجب أن تكون أقل من 1000 حرف",
+      "imagesMax": "الحد الأقصى 5 صور",
+      "imageSizeMax": "حجم الصورة يجب أن يكون أقل من 5 ميجابايت",
+      "imageTypeInvalid": "نوع الملف غير مدعوم. استخدم JPG أو PNG أو WebP",
+      "alreadyReviewed": "لقد قمت بمراجعة هذا المنتج مسبقاً"
+    },
+    "helpful": {
+      "helpful": "مفيد",
+      "notHelpful": "غير مفيد",
+      "wasHelpful": "هل كانت هذه المراجعة مفيدة؟",
+      "thankYou": "شكراً على تقييمك",
+      "peopleFound": "{count} شخص وجد هذا مفيداً"
+    },
+    "filters": {
+      "all": "جميع التقييمات",
+      "5stars": "5 نجوم",
+      "4stars": "4 نجوم وأعلى",
+      "3stars": "3 نجوم وأعلى",
+      "withImages": "مع صور",
+      "verified": "مشتريات موثقة",
+      "clear": "مسح المرشحات"
+    },
+    "sort": {
+      "recent": "الأحدث",
+      "helpful": "الأكثر إفادة",
+      "highest": "الأعلى تقييماً",
+      "lowest": "الأقل تقييماً"
+    },
+    "empty": {
+      "noReviews": "لا توجد مراجعات بعد",
+      "beFirst": "كن أول من يراجع هذا المنتج",
+      "shareExperience": "شارك تجربتك لمساعدة الآخرين"
+    },
+    "success": {
+      "submitted": "تم نشر مراجعتك بنجاح!",
+      "pending": "مراجعتك قيد المراجعة وستظهر قريباً",
+      "updated": "تم تحديث مراجعتك",
+      "deleted": "تم حذف مراجعتك",
+      "voteRecorded": "تم تسجيل تقييمك"
+    },
+    "errors": {
+      "submitFailed": "فشل نشر المراجعة. يرجى المحاولة مرة أخرى",
+      "loadFailed": "فشل تحميل المراجعات",
+      "uploadFailed": "فشل رفع الصور",
+      "authRequired": "يجب تسجيل الدخول لكتابة مراجعة",
+      "purchaseRequired": "يجب شراء المنتج أولاً لكتابة مراجعة",
+      "deleteConfirm": "هل أنت متأكد من حذف هذه المراجعة؟",
+      "noMatches": "لا توجد مراجعات مطابقة لمرشحاتك"
+    },
+    "moderation": {
+      "pending": "قيد المراجعة",
+      "approved": "موافق عليها",
+      "rejected": "مرفوضة",
+      "awaitingApproval": "في انتظار الموافقة"
+    },
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي"
+    }
+  },
+  "blog": {
+    "title": "المدونة",
+    "description": "دليلك الشامل لعالم الأحواض المائية - نصائح، إرشادات، ومقالات تعليمية",
+    "pageTitle": "مدونة FISH WEB",
+    "pageSubtitle": "نصائح وإرشادات من خبراء الأحواض المائية",
+    "home": "الرئيسية",
+    "categories": {
+      "all": "جميع المقالات",
+      "filter-guide": {
+        "title": "دليل الفلاتر",
+        "description": "كل ما تحتاج معرفته عن فلاتر الأحواض المائية"
+      },
+      "plant-care": {
+        "title": "العناية بالنباتات",
+        "description": "دليل شامل للنباتات المائية والعناية بها"
+      },
+      "fish-compatibility": {
+        "title": "توافق الأسماك",
+        "description": "تعرف على الأسماك المتوافقة لحوضك"
+      },
+      "setup-tips": {
+        "title": "نصائح الإعداد",
+        "description": "خطوات إعداد الحوض المثالي"
+      }
+    },
+    "author": "الكاتب",
+    "publishedOn": "نُشر في",
+    "updatedOn": "آخر تحديث",
+    "readingTime": "{minutes} دقيقة قراءة",
+    "category": "الفئة",
+    "tags": "الوسوم",
+    "inCategory": "في {category}",
+    "readMore": "اقرأ المزيد",
+    "readArticle": "اقرأ المقال",
+    "viewAll": "عرض الكل",
+    "viewAllInCategory": "عرض جميع مقالات {category}",
+    "shareArticle": "مشاركة المقال",
+    "relatedArticles": "مقالات ذات صلة",
+    "relatedProducts": "منتجات ذات صلة",
+    "backToBlog": "العودة للمدونة",
+    "browseByCategory": "تصفح حسب الفئة",
+    "noPosts": "لا توجد مقالات بعد",
+    "noPostsInCategory": "لا توجد مقالات في {category}",
+    "comingSoon": "مقالات جديدة قريباً",
+    "browseAll": "تصفح جميع المقالات",
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي",
+      "page": "صفحة",
+      "of": "من",
+      "showing": "عرض {start}-{end} من {total} مقالة"
+    },
+    "metaTitleTemplate": "{title} | مدونة FISH WEB",
+    "metaDescriptionTemplate": "{excerpt} - دليلك الشامل للأحواض المائية في العراق"
+  },
+  "marketing": {
+    "flashSales": {
+      "title": "العروض السريعة",
+      "endsIn": "ينتهي خلال",
+      "ended": "انتهى العرض",
+      "soldOut": "نفد المخزون",
+      "limitedStock": "مخزون محدود - {remaining} متبقي",
+      "save": "وفر {amount}",
+      "percentOff": "خصم {percent}%",
+      "viewAll": "عرض جميع العروض السريعة",
+      "active": "نشط الآن",
+      "upcoming": "قريباً",
+      "flashSale": "عرض سريع",
+      "flashPrice": "سعر العرض السريع",
+      "hurryUp": "أسرع! عرض محدود"
+    },
+    "bundles": {
+      "title": "عروض الحزم",
+      "saveWithBundle": "وفر {amount} مع هذه الحزمة",
+      "bundleIncludes": "تتضمن الحزمة:",
+      "totalValue": "القيمة الإجمالية",
+      "bundlePrice": "سعر الحزمة",
+      "youSave": "توفر",
+      "addBundleToCart": "أضف الحزمة للعربة",
+      "viewBundle": "عرض تفاصيل الحزمة",
+      "completeSetup": "إعداد كامل",
+      "starterKit": "طقم المبتدئين",
+      "bundleDeal": "عرض حزمة",
+      "items": "{count} منتج"
+    },
+    "loyalty": {
+      "title": "نقاط الولاء",
+      "yourPoints": "نقاطك",
+      "pointsBalance": "رصيد النقاط",
+      "earnPoints": "اكسب نقاط",
+      "redeemPoints": "استبدل النقاط",
+      "pointsEarned": "نقاط مكتسبة",
+      "pointsRedeemed": "نقاط مستبدلة",
+      "earnRate": "اكسب {points} نقطة لكل {amount} إنفاق",
+      "redeemRate": "{points} نقطة = {amount} خصم",
+      "transactionHistory": "سجل النقاط",
+      "earned": "مكتسب",
+      "redeemed": "مستبدل",
+      "expired": "منتهي الصلاحية",
+      "applyPoints": "استخدم {points} نقطة",
+      "notEnoughPoints": "ليس لديك نقاط كافية",
+      "minRedemption": "الحد الأدنى للاستبدال {points} نقطة",
+      "points": "نقطة",
+      "youHave": "لديك {balance} نقطة",
+      "discount": "خصم {amount}",
+      "enterPoints": "أدخل النقاط للاستبدال",
+      "apply": "تطبيق",
+      "remove": "إزالة",
+      "applied": "تم تطبيق {points} نقطة",
+      "invalidPoints": "عدد نقاط غير صحيح",
+      "maxRedemptionExceeded": "لا يمكن استخدام أكثر من 50% من قيمة الطلب",
+      "redemptionFailed": "فشل استبدال النقاط",
+      "loginRequired": "سجّل الدخول لاستبدال نقاط الولاء",
+      "noTransactions": "لا توجد معاملات بعد. ابدأ التسوق لكسب النقاط!",
+      "howItWorks": "كيف يعمل",
+      "earnInfo": "اكسب نقطة واحدة لكل 1,000 دينار عراقي تنفقه",
+      "redeemInfo": "استبدل 100 نقطة بخصم 5,000 دينار عراقي"
+    },
+    "referrals": {
+      "title": "برنامج الإحالة",
+      "yourCode": "رمز الإحالة الخاص بك",
+      "shareLink": "شارك الرابط",
+      "copyLink": "نسخ الرابط",
+      "linkCopied": "تم نسخ الرابط",
+      "inviteFriends": "ادع أصدقاءك",
+      "earnReward": "احصل على {reward} عندما يشتري صديقك",
+      "friendGets": "صديقك يحصل على {reward}",
+      "totalReferrals": "إجمالي الإحالات",
+      "pendingRewards": "مكافآت معلقة",
+      "completedReferrals": "إحالات مكتملة",
+      "howItWorks": "كيف يعمل",
+      "step1": "شارك رابط الإحالة الخاص بك",
+      "step2": "صديقك يسجل ويشتري",
+      "step3": "كلاكما يحصل على مكافأة",
+      "inviteNow": "ادع الآن",
+      "referralCode": "رمز الإحالة",
+      "invitedBy": "تمت الدعوة من قبل {name}",
+      "welcomeBonus": "مكافأة الترحيب",
+      "signupBonus": "سجل الآن واحصل على {points} نقطة",
+      "benefits": "المزايا",
+      "freeShipping": "شحن مجاني على أول طلب فوق 100,000 دينار",
+      "exclusiveDeals": "الوصول إلى عروض حصرية",
+      "expertAdvice": "نصائح خبراء الأحواض",
+      "signUp": "سجل الآن",
+      "browseProducts": "تصفح المنتجات",
+      "copyFailed": "تعذّر نسخ الرابط. الرجاء المحاولة مرة أخرى.",
+      "shareFailed": "تعذّر استخدام المشاركة. انسخ الرابط بدلاً من ذلك.",
+      "generateFailed": "تعذّر إنشاء رمز الإحالة. حاول مرة أخرى.",
+      "referralCodeLabel": "رمز الإحالة: {code}"
+    },
+    "admin": {
+      "dashboard": {
+        "title": "لوحة التحكم",
+        "welcome": "مرحباً، {name}",
+        "overview": "نظرة عامة",
+        "stats": {
+          "totalOrders": "إجمالي الطلبات",
+          "totalRevenue": "إجمالي الإيرادات",
+          "totalCustomers": "إجمالي العملاء",
+          "totalProducts": "إجمالي المنتجات",
+          "pendingOrders": "طلبات معلقة",
+          "lowStockProducts": "منتجات منخفضة المخزون",
+          "pendingReviews": "مراجعات معلقة",
+          "activeFlashSales": "عروض فلاش نشطة"
+        },
+        "quickActions": "إجراءات سريعة",
+        "recentOrders": "الطلبات الأخيرة",
+        "lowStockAlert": "تنبيه المخزون المنخفض"
+      },
+      "products": {
+        "title": "إدارة المنتجات",
+        "addProduct": "إضافة منتج",
+        "editProduct": "تعديل المنتج",
+        "deleteProduct": "حذف المنتج",
+        "productDetails": "تفاصيل المنتج",
+        "brand": "العلامة التجارية",
+        "category": "الفئة",
+        "subcategory": "الفئة الفرعية",
+        "description": "الوصف",
+        "basicInfo": "المعلومات الأساسية",
+        "pricing": "التسعير",
+        "inventory": "المخزون",
+        "specifications": "المواصفات",
+        "images": "الصور",
+        "seo": "تحسين محركات البحث",
+        "isNew": "تمييز كمنتج جديد",
+        "isBestSeller": "تمييز كأكثر مبيعاً",
+        "deleteConfirm": "هل أنت متأكد من حذف هذا المنتج؟",
+        "productDeleted": "تم حذف المنتج",
+        "productCreated": "تم إنشاء المنتج",
+        "productUpdated": "تم تحديث المنتج"
+      },
+      "orders": {
+        "title": "إدارة الطلبات",
+        "orderDetails": "تفاصيل الطلب",
+        "updateStatus": "تحديث الحالة",
+        "printInvoice": "طباعة الفاتورة",
+        "trackingNumber": "رقم التتبع",
+        "carrier": "شركة الشحن",
+        "notes": "ملاحظات داخلية",
+        "statusUpdated": "تم تحديث حالة الطلب",
+        "filterByStatus": "تصفية حسب الحالة",
+        "allOrders": "جميع الطلبات",
+        "total": "الإجمالي",
+        "createdAt": "تاريخ الإنشاء",
+        "statusLabels": {
+          "pending": "معلق",
+          "confirmed": "مؤكد",
+          "shipped": "تم الشحن",
+          "delivered": "تم التسليم",
+          "cancelled": "ملغي"
+        },
+        "errors": {
+          "orderNotFound": "لم يتم العثور على الطلب",
+          "invalidTransition": "لا يمكن تغيير الحالة إلى هذا الخيار",
+          "updateFailed": "فشل تحديث الطلب. يرجى المحاولة مرة أخرى."
+        }
+      },
+      "inventory": {
+        "title": "إدارة المخزون",
+        "updateStock": "تحديث المخزون",
+        "lowStockAlert": "تنبيه المخزون المنخفض",
+        "outOfStock": "نفد من المخزون",
+        "stockUpdated": "تم تحديث المخزون",
+        "restockProduct": "إعادة تخزين المنتج",
+        "stockHistory": "سجل المخزون"
+      },
+      "reports": {
+        "title": "التقارير والإحصائيات",
+        "salesReport": "تقرير المبيعات",
+        "revenueChart": "مخطط الإيرادات",
+        "bestSellers": "الأكثر مبيعاً",
+        "categoryDistribution": "توزيع الفئات",
+        "dateRange": "نطاق التاريخ",
+        "last7Days": "آخر 7 أيام",
+        "last30Days": "آخر 30 يوماً",
+        "last90Days": "آخر 90 يوماً",
+        "custom": "مخصص",
+        "exportReport": "تصدير التقرير"
+      },
+      "users": {
+        "title": "إدارة المستخدمين",
+        "totalUsers": "إجمالي المستخدمين",
+        "viewUser": "عرض المستخدم",
+        "userDetails": "تفاصيل المستخدم",
+        "userOrders": "طلبات المستخدم",
+        "userReviews": "مراجعات المستخدم",
+        "approveReview": "الموافقة على المراجعة",
+        "rejectReview": "رفض المراجعة",
+        "reviewApproved": "تمت الموافقة على المراجعة",
+        "reviewRejected": "تم رفض المراجعة"
+      },
+      "common": {
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "delete": "حذف",
+        "edit": "تعديل",
+        "view": "عرض",
+        "search": "بحث",
+        "filter": "تصفية",
+        "export": "تصدير",
+        "import": "استيراد",
+        "refresh": "تحديث",
+        "close": "إغلاق",
+        "previous": "السابق",
+        "next": "التالي",
+        "noResults": "لا توجد سجلات",
+        "rows": "صفوف"
+      },
+      "validation": {
+        "nameRequired": "اسم المنتج مطلوب",
+        "brandRequired": "العلامة التجارية مطلوبة",
+        "categoryRequired": "الفئة مطلوبة",
+        "subcategoryRequired": "الفئة الفرعية مطلوبة",
+        "descriptionRequired": "الوصف مطلوب",
+        "priceInvalid": "أدخل سعراً صالحاً أكبر من صفر",
+        "originalPriceInvalid": "يجب أن يكون السعر الأصلي أعلى من السعر الحالي",
+        "stockInvalid": "يجب أن يكون المخزون صفراً أو أكثر",
+        "stockInteger": "يجب أن يكون المخزون رقماً صحيحاً",
+        "lowStockThresholdInvalid": "أدخل حد مخزون منخفض صالح",
+        "imageCountExceeded": "عدد الصور كبير جداً. قم بإزالة بعضها وحاول مرة أخرى.",
+        "imageSizeMax": "الصورة كبيرة جداً. الحجم الأقصى 5 ميجابايت.",
+        "imageTypeInvalid": "نوع الصورة غير مدعوم. استخدم JPG أو PNG أو WebP.",
+        "imageUrlInvalid": "فشل تحميل الصورة. يرجى المحاولة مرة أخرى.",
+        "specificationsRequired": "مواصفات المنتج مطلوبة",
+        "flowOrPowerRequired": "يرجى إدخال معدل التدفق أو القدرة",
+        "compatibilityRequired": "بيانات التوافق مطلوبة",
+        "statusInvalid": "اختر حالة صالحة",
+        "trackingRequired": "رقم التتبع مطلوب للطلبات المشحونة",
+        "carrierRequired": "شركة الشحن مطلوبة للطلبات المشحونة"
+      },
+      "errors": {
+        "imageUploadFailed": "فشل رفع الصورة. يرجى المحاولة مرة أخرى.",
+        "imageUploadInProgress": "يرجى الانتظار حتى تكتمل عملية رفع الصور قبل الحفظ.",
+        "productValidation": "بعض حقول المنتج تحتاج إلى مراجعة",
+        "productCreateFailed": "تعذر إنشاء المنتج. يرجى المحاولة مرة أخرى.",
+        "productNotFound": "لم يتم العثور على المنتج",
+        "productUpdateFailed": "فشل تحديث المنتج. يرجى المحاولة مرة أخرى.",
+        "productDeleteFailed": "فشل حذف المنتج. يرجى المحاولة مرة أخرى.",
+        "stockUpdateFailed": "فشل تحديث المخزون. يرجى المحاولة مرة أخرى."
+      }
+    },
+    "newsletter": {
+      "title": "النشرة الإخبارية",
+      "subscribe": "اشترك في النشرة",
+      "subscribed": "تم الاشتراك بنجاح!",
+      "welcomeEmailSent": "تم إرسال بريد الترحيب",
+      "alreadySubscribed": "أنت مشترك بالفعل",
+      "unsubscribe": "إلغاء الاشتراك",
+      "managePreferences": "إدارة التفضيلات",
+      "categories": "الفئات المفضلة",
+      "frequency": "التكرار",
+      "weekly": "أسبوعياً",
+      "monthly": "شهرياً",
+      "subscriptionFailed": "فشل الاشتراك. حاول مرة أخرى",
+      "unsubscribeFailed": "فشل إلغاء الاشتراك",
+      "thankYou": "شكراً لاشتراكك!",
+      "stayUpdated": "ابق على اطلاع بآخر المنتجات والعروض"
+    }
+  },
+  "pwa": {
+    "install": {
+      "title": "تثبيت تطبيق FISH WEB",
+      "description": "احصل على وصول أسرع وتصفح بدون اتصال بالإنترنت",
+      "benefits": {
+        "offline": "تصفح المنتجات بدون اتصال",
+        "faster": "تحميل أسرع للصفحات",
+        "homeScreen": "أيقونة على الشاشة الرئيسية",
+        "notifications": "إشعارات فورية"
+      },
+      "install": "تثبيت التطبيق",
+      "notNow": "ليس الآن",
+      "alreadyInstalled": "التطبيق مثبت بالفعل",
+      "installSuccess": "تم تثبيت التطبيق بنجاح!",
+      "installFailed": "فشل تثبيت التطبيق. حاول مرة أخرى"
+    },
+    "offline": {
+      "indicator": "أنت غير متصل بالإنترنت. بعض الميزات قد لا تكون متاحة.",
+      "dismiss": "إغلاق",
+      "browsing": "التصفح بدون اتصال",
+      "dataAvailable": "البيانات متاحة بدون اتصال",
+      "syncWhenOnline": "سيتم المزامنة عند الاتصال بالإنترنت",
+      "limitedFeatures": "ميزات محدودة في وضع عدم الاتصال",
+      "cannotCheckout": "لا يمكن إتمام الطلب بدون اتصال",
+      "cannotAuth": "لا يمكن تسجيل الدخول بدون اتصال"
+    },
+    "update": {
+      "available": "تحديث متاح",
+      "description": "إصدار جديد من التطبيق متاح",
+      "reload": "إعادة تحميل",
+      "updateNow": "تحديث الآن",
+      "later": "لاحقاً"
+    },
+    "cache": {
+      "clearing": "جاري مسح ذاكرة التخزين المؤقت...",
+      "cleared": "تم مسح ذاكرة التخزين المؤقت",
+      "size": "حجم ذاكرة التخزين المؤقت: {size} ميجابايت",
+      "clearCache": "مسح ذاكرة التخزين المؤقت",
+      "clearConfirm": "هل أنت متأكد من مسح جميع البيانات المخزنة؟"
+    }
+  }
+}

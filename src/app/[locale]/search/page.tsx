@@ -9,7 +9,7 @@ import {
 } from '@/components/search';
 import { getProducts, getProductsWithFlashSales } from '@/lib/data/products';
 import { searchProducts } from '@/lib/search/search-utils';
-import { searchProductsSupabase } from '@/lib/search/supabase-search';
+import { searchProductsFTS } from '@/lib/search/postgres-search';
 import type { Locale, Product, SearchPageProps } from '@/types';
 
 export const revalidate = 1800; // 30 minutes ISR
@@ -51,10 +51,10 @@ export default async function SearchPage({
   let products: Product[] = [];
 
   try {
-    products = await searchProductsSupabase(query, locale as Locale, 60);
+    products = await searchProductsFTS(query, locale as Locale, 60);
   } catch (error) {
     if (process.env.NODE_ENV !== 'production') {
-      console.error('[search/page] Supabase search failed', error);
+      console.error('[search/page] Postgres search failed', error);
     }
   }
 

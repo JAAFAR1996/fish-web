@@ -18,10 +18,6 @@ export function getJWTSecret(): string {
     'your-secret-key-change-in-production-minimum-32-chars';
 }
 
-export function getSupabaseUrl(): string {
-  return validateEnv('NEXT_PUBLIC_SUPABASE_URL', process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
-
-export function getSupabaseAnonKey(): string {
-  return validateEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+export function getR2PublicUrl(): string {
+  return validateEnv('NEXT_PUBLIC_R2_PUBLIC_URL', process.env.NEXT_PUBLIC_R2_PUBLIC_URL);
 }

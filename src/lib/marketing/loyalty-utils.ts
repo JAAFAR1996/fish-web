@@ -1,29 +1,73 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { loyaltyPoints, profiles } from '@shared/schema';
+import { and, desc, eq, sql } from 'drizzle-orm';
+
 import type { LoyaltyPointsTransaction, LoyaltyPointsSummary } from '@/types';
 import { calculatePointsEarned, calculatePointsDiscount, validatePointsRedemption } from './loyalty-helpers';
+
+const toIsoString = (value: Date | string | null | undefined): string =>
+  value instanceof Date ? value.toISOString() : value ?? new Date(0).toISOString();
+
+type LoyaltyPointsRow = typeof loyaltyPoints.$inferSelect;
+
+function transformLoyaltyTransaction(row: LoyaltyPointsRow): LoyaltyPointsTransaction {
+  return {
+    id: row.id,
+    user_id: row.userId,
+    transaction_type: row.transactionType as LoyaltyPointsTransaction['transaction_type'],
+    points: row.points,
+    order_id: row.orderId ?? null,
+    description: row.description ?? null,
+    created_at: toIsoString(row.createdAt),
+  };
+}
 
 /**
  * Get user's current loyalty points balance
  */
 export async function getUserPointsBalance(userId: string): Promise<number> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    const [row] = await db
+      .select({ balance: profiles.loyaltyPointsBalance })
+      .from(profiles)
+      .where(eq(profiles.id, userId))
+      .limit(1);
 
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('loyalty_points_balance')
-    .eq('id', userId)
-    .maybeSingle();
-
-  if (error || !data) {
+    return row?.balance ?? 0;
+  } catch (error) {
     console.error(`[Loyalty] Error fetching balance for user ${userId}:`, error);
     return 0;
   }
-
-  return data.loyalty_points_balance || 0;
 }
 
 // Re-export helper functions for backward compatibility
 export { calculatePointsEarned, calculatePointsDiscount, validatePointsRedemption };
+
+/**
+ * Award points to user within a transaction
+ */
+export async function awardPointsInTransaction(
+  tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
+  userId: string,
+  points: number,
+  orderId: string,
+  description: string
+): Promise<void> {
+  await tx.insert(loyaltyPoints).values({
+    userId,
+    transactionType: 'earned',
+    points,
+    orderId,
+    description,
+  });
+
+  await tx
+    .update(profiles)
+    .set({
+      loyaltyPointsBalance: sql`${profiles.loyaltyPointsBalance} + ${points}`,
+    })
+    .where(eq(profiles.id, userId));
+}
 
 /**
  * Award points to user (called when order confirmed)
@@ -34,32 +78,12 @@ export async function awardPoints(
   orderId: string,
   description: string
 ): Promise<void> {
-  const supabase = await createServerSupabaseClient();
-
-  // Insert transaction record
-  const { error: transactionError } = await supabase
-    .from('loyalty_points')
-    .insert({
-      user_id: userId,
-      transaction_type: 'earned',
-      points,
-      order_id: orderId,
-      description,
+  try {
+    await db.transaction(async (tx) => {
+      await awardPointsInTransaction(tx, userId, points, orderId, description);
     });
-
-  if (transactionError) {
-    console.error(`[Loyalty] Error creating transaction for user ${userId}:`, transactionError);
-    return;
-  }
-
-  // RPC parameters must match SQL signature (p_user_id, p_amount)
-  const { error: balanceError } = await supabase.rpc('increment_loyalty_balance', {
-    p_user_id: userId,
-    p_amount: points,
-  });
-
-  if (balanceError) {
-    console.error(`[Loyalty] Error updating balance for user ${userId}:`, balanceError);
+  } catch (error) {
+    console.error(`[Loyalty] Error awarding points for user ${userId}:`, error);
   }
 }
 
@@ -71,33 +95,48 @@ export async function redeemPoints(
   points: number,
   orderId: string,
   description: string
-): Promise<void> {
-  const supabase = await createServerSupabaseClient();
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    let updateResult: Array<{ id: string }> = [];
 
-  // Insert transaction record (negative points)
-  const { error: transactionError } = await supabase
-    .from('loyalty_points')
-    .insert({
-      user_id: userId,
-      transaction_type: 'redeemed',
-      points: -points,
-      order_id: orderId,
-      description,
+    await db.transaction(async (tx) => {
+      updateResult = await tx
+        .update(profiles)
+        .set({
+          loyaltyPointsBalance: sql`${profiles.loyaltyPointsBalance} - ${points}`,
+        })
+        .where(
+          and(
+            eq(profiles.id, userId),
+            sql`${profiles.loyaltyPointsBalance} >= ${points}`
+          )
+        )
+        .returning({ id: profiles.id });
+
+      if (updateResult.length === 0) {
+        throw new Error('Insufficient loyalty points balance');
+      }
+
+      await tx.insert(loyaltyPoints).values({
+        userId,
+        transactionType: 'redeemed',
+        points: -points,
+        orderId,
+        description,
+      });
     });
 
-  if (transactionError) {
-    console.error(`[Loyalty] Error creating redemption transaction for user ${userId}:`, transactionError);
-    return;
-  }
+    if (updateResult.length === 0) {
+      return { success: false, error: 'Insufficient loyalty points balance' };
+    }
 
-  // RPC parameters must match SQL signature (p_user_id, p_amount)
-  const { error: balanceError } = await supabase.rpc('increment_loyalty_balance', {
-    p_user_id: userId,
-    p_amount: -points,
-  });
-
-  if (balanceError) {
-    console.error(`[Loyalty] Error updating balance for user ${userId}:`, balanceError);
+    return { success: true };
+  } catch (error) {
+    console.error(`[Loyalty] Error redeeming points for user ${userId}:`, error);
+    if (error instanceof Error && error.message === 'Insufficient loyalty points balance') {
+      return { success: false, error: 'Insufficient loyalty points balance' };
+    }
+    return { success: false, error: 'Failed to redeem points' };
   }
 }
 
@@ -105,21 +144,19 @@ export async function redeemPoints(
  * Get user's loyalty points transaction history
  */
 export async function getPointsHistory(userId: string, limit: number = 10): Promise<LoyaltyPointsTransaction[]> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    const rows = await db
+      .select()
+      .from(loyaltyPoints)
+      .where(eq(loyaltyPoints.userId, userId))
+      .orderBy(desc(loyaltyPoints.createdAt))
+      .limit(limit);
 
-  const { data, error } = await supabase
-    .from('loyalty_points')
-    .select('*')
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false })
-    .limit(limit);
-
-  if (error) {
+    return rows.map(transformLoyaltyTransaction);
+  } catch (error) {
     console.error(`[Loyalty] Error fetching history for user ${userId}:`, error);
     return [];
   }
-
-  return data as LoyaltyPointsTransaction[];
 }
 
 /**

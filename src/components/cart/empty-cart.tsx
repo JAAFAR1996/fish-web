@@ -5,6 +5,8 @@ import { useTranslations } from 'next-intl';
 import { Button, Icon } from '@/components/ui';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+import { FEATURES } from '@/lib/config/features';
+import { EmptyCartLottie } from './EmptyCartLottie';
 
 export type EmptyCartProps = {
   savedItemsCount?: number;
@@ -27,7 +29,11 @@ export function EmptyCart({
           className
         )}
       >
-        <Icon name="cart" size="lg" className="text-muted-foreground" />
+        {FEATURES.lottie ? (
+          <EmptyCartLottie variant="sidebar" />
+        ) : (
+          <Icon name="cart" size="lg" className="text-muted-foreground" />
+        )}
         <p className="text-sm font-medium text-foreground">{t('title')}</p>
         <p className="text-xs text-muted-foreground">{t('description')}</p>
         <Button
@@ -50,7 +56,11 @@ export function EmptyCart({
         className
       )}
     >
-      <Icon name="cart" size="xl" className="text-muted-foreground" />
+      {FEATURES.lottie ? (
+        <EmptyCartLottie variant="full" />
+      ) : (
+        <Icon name="cart" size="xl" className="text-muted-foreground" />
+      )}
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold text-foreground">
           {t('title')}

@@ -5,7 +5,7 @@ export const extractPathFromUrl = (url: string): string | null => {
   const index = url.indexOf(marker);
 
   if (index === -1) {
-    return null;
+    return url.replace(/^\/+/, '') || null;
   }
 
   return url.slice(index + marker.length);

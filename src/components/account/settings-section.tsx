@@ -6,18 +6,18 @@ import { useTranslations } from 'next-intl';
 
 import { PasswordInput } from '@/components/auth';
 import { Button, Card, CardContent, CardHeader, CardTitle, Checkbox } from '@/components/ui';
-import { useAuth } from '@/components/providers/SupabaseAuthProvider';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { updatePassword, deleteAccount } from '@/lib/auth/actions';
 import { updateNotificationPreferencesAction } from '@/lib/notifications/notification-actions';
-import { createBrowserSupabaseClient } from '@/lib/supabase/client';
 import type { FormStatus, NotificationPreferences } from '@/types';
 
 interface SettingsSectionProps {
   user: AuthUser;
   session: { user: AuthUser | null } | null;
+  initialNotificationPrefs: NotificationPreferences;
 }
 
-export function SettingsSection({ user }: SettingsSectionProps) {
+export function SettingsSection({ user, initialNotificationPrefs }: SettingsSectionProps) {
   const t = useTranslations('account.settings');
   const tAuth = useTranslations('auth');
   const { signOut } = useAuth();
@@ -26,42 +26,18 @@ export function SettingsSection({ user }: SettingsSectionProps) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordStatus, setPasswordStatus] = useState<FormStatus>('idle');
   const [passwordMessage, setPasswordMessage] = useState<string | null>(null);
-  const [notificationPrefs, setNotificationPrefs] = useState<NotificationPreferences>({
-    email_order_updates: true,
-    email_shipping_updates: true,
-    email_stock_alerts: true,
-    email_marketing: false,
-    inapp_notifications_enabled: true,
-  });
+  const [notificationPrefs, setNotificationPrefs] = useState<NotificationPreferences>(
+    initialNotificationPrefs,
+  );
   const [savingPrefs, setSavingPrefs] = useState<FormStatus>('idle');
   const [prefsMessage, setPrefsMessage] = useState<string | null>(null);
   const [isPendingPassword, startPasswordTransition] = useTransition();
   const [isPendingPrefs, startPrefsTransition] = useTransition();
   const [isDeleting, startDeleteTransition] = useTransition();
 
-  // Fetch current preferences from profiles
   useEffect(() => {
-    const fetchPreferences = async () => {
-      const supabase = createBrowserSupabaseClient();
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('email_order_updates, email_shipping_updates, email_stock_alerts, email_marketing, inapp_notifications_enabled')
-        .eq('id', user.id)
-        .single();
-
-      if (!error && data) {
-        setNotificationPrefs({
-          email_order_updates: data.email_order_updates ?? true,
-          email_shipping_updates: data.email_shipping_updates ?? true,
-          email_stock_alerts: data.email_stock_alerts ?? true,
-          email_marketing: data.email_marketing ?? false,
-          inapp_notifications_enabled: data.inapp_notifications_enabled ?? true,
-        });
-      }
-    };
-
-    fetchPreferences();
-  }, [user.id]);
+    setNotificationPrefs(initialNotificationPrefs);
+  }, [initialNotificationPrefs]);
 
   const handlePasswordChange = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

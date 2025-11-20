@@ -1,4 +1,6 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import 'server-only';
+
+import { deleteFile, deleteFiles } from '@/lib/storage/r2';
 
 import { PRODUCT_IMAGES_BUCKET } from './constants';
 
@@ -7,7 +9,7 @@ const extractPathFromUrl = (url: string): string | null => {
   const index = url.indexOf(marker);
 
   if (index === -1) {
-    return null;
+    return url.replace(/^\/+/, '') || null;
   }
 
   return url.slice(index + marker.length);
@@ -20,13 +22,14 @@ export async function deleteProductImage(imageUrl: string): Promise<void> {
     return;
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.storage
-    .from(PRODUCT_IMAGES_BUCKET)
-    .remove([path]);
-
-  if (error) {
-    console.error('Failed to delete product image', error);
+  try {
+    await deleteFile(PRODUCT_IMAGES_BUCKET, path);
+  } catch (error) {
+    console.error('[Admin] Failed to delete product image', {
+      imageUrl,
+      path,
+      error,
+    });
   }
 }
 
@@ -39,12 +42,13 @@ export async function deleteProductImages(imageUrls: string[]): Promise<void> {
     return;
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.storage
-    .from(PRODUCT_IMAGES_BUCKET)
-    .remove(paths);
-
-  if (error) {
-    console.error('Failed to delete product images', error);
+  try {
+    await deleteFiles(PRODUCT_IMAGES_BUCKET, paths);
+  } catch (error) {
+    console.error('[Admin] Failed to delete product images', {
+      imageUrls,
+      paths,
+      error,
+    });
   }
 }

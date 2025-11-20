@@ -10,7 +10,7 @@ import {
   Icon,
   StarRating,
 } from '@/components/ui';
-import { useAuth } from '@/components/providers/SupabaseAuthProvider';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { ImageLightbox } from '@/components/pdp/image-lightbox';
 import { canEditReview } from '@/lib/reviews/review-validation';
 import { formatReviewDate } from '@/lib/reviews/review-utils';

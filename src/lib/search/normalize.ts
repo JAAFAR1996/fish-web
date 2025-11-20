@@ -15,8 +15,8 @@ export interface SupabaseProductRow {
   stock: number;
   specifications: ProductSpecifications | null;
   // Snake case variants
-  created_at?: string;
-  updated_at?: string;
+  created_at?: string | Date;
+  updated_at?: string | Date;
   original_price?: number;
   review_count?: number;
   low_stock_threshold?: number;
@@ -24,8 +24,8 @@ export interface SupabaseProductRow {
   is_new?: boolean;
   is_best_seller?: boolean;
   // Camel case variants
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
   originalPrice?: number;
   reviewCount?: number;
   lowStockThreshold?: number;
@@ -136,8 +136,24 @@ function normalizeSpecifications(value: unknown): ProductSpecifications {
 export function normalizeSupabaseProduct(row: SupabaseProductRow): Product {
   const specifications = normalizeSpecifications(row.specifications);
   const stock = normalizeNumber(row.stock);
-  const createdAt = normalizeString(row.created_at ?? row.createdAt ?? '');
-  const updatedAt = normalizeString(row.updated_at ?? row.updatedAt ?? '');
+
+  const createdAtRaw = row.created_at ?? row.createdAt ?? null;
+  const createdAtString =
+    typeof createdAtRaw === 'string'
+      ? createdAtRaw
+      : createdAtRaw instanceof Date
+        ? createdAtRaw.toISOString()
+        : '';
+  const createdAt = normalizeString(createdAtString);
+
+  const updatedAtRaw = row.updated_at ?? row.updatedAt ?? null;
+  const updatedAtString =
+    typeof updatedAtRaw === 'string'
+      ? updatedAtRaw
+      : updatedAtRaw instanceof Date
+        ? updatedAtRaw.toISOString()
+        : '';
+  const updatedAt = normalizeString(updatedAtString);
 
   return {
     id: normalizeString(row.id),

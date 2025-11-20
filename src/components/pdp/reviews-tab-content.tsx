@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { Button, Icon } from '@/components/ui';
-import { useAuth } from '@/components/providers/SupabaseAuthProvider';
+import { useAuth } from '@/components/providers/AuthProvider';
 import {
   deleteReviewAction,
 } from '@/lib/reviews/review-actions';

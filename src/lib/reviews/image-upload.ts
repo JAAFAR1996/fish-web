@@ -1,10 +1,8 @@
 import 'server-only';
 
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { deleteFile, deleteFiles } from '@/lib/storage/r2';
 
-import {
-  STORAGE_BUCKET,
-} from './constants';
+import { STORAGE_BUCKET } from './constants';
 
 /**
  * This module contains server-only review image operations.
@@ -16,16 +14,18 @@ import { extractPathFromUrl } from './url-utils';
 
 export async function deleteReviewImage(imageUrl: string): Promise<void> {
   const filePath = extractPathFromUrl(imageUrl);
-
   if (!filePath) {
     return;
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.storage.from(STORAGE_BUCKET).remove([filePath]);
-
-  if (error) {
-    console.error('Failed to delete review image', error);
+  try {
+    await deleteFile(STORAGE_BUCKET, filePath);
+  } catch (error) {
+    console.error('[Reviews] Failed to delete review image', {
+      imageUrl,
+      filePath,
+      error,
+    });
   }
 }
 
@@ -38,12 +38,13 @@ export async function deleteReviewImages(imageUrls: string[]): Promise<void> {
     return;
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.storage.from(STORAGE_BUCKET).remove(paths);
-
-  if (error) {
-    console.error('Failed to delete review images', error);
+  try {
+    await deleteFiles(STORAGE_BUCKET, paths);
+  } catch (error) {
+    console.error('[Reviews] Failed to delete review images', {
+      imageUrls,
+      paths,
+      error,
+    });
   }
 }
-
-

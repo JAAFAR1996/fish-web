@@ -2,15 +2,20 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache';
 
+import { eq, desc } from 'drizzle-orm';
+
+import { db } from '@server/db';
+import { products } from '@shared/schema';
+
 import { slugify } from '@/lib/blog/content-utils';
 import { requireAdmin } from '@/lib/auth/utils';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { normalizeSupabaseProduct } from '@/lib/search/normalize';
 import { triggerBackInStockAlerts } from '@/lib/notifications/trigger-stock-alerts';
 import { routing } from '@/i18n/routing';
 import { logError, logWarn, normalizeError } from '@/lib/logger';
 
 import type { Product, ProductFormData } from '@/types';
+import type { SupabaseProductRow } from '@/lib/search/normalize';
 
 import { AUDIT_ACTIONS, ENTITY_TYPES } from './constants';
 import { createAuditLog } from './audit-utils';
@@ -34,12 +39,48 @@ const revalidateProductPaths = () => {
   revalidateTag('products');
 };
 
+interface ProductInsertPayload {
+  id: string;
+  slug: string;
+  name: string;
+  brand: string;
+  category: string;
+  subcategory: string;
+  description: string;
+  price: number;
+  original_price: number | null;
+  currency: string;
+  images: string[];
+  thumbnail: string;
+  rating: number;
+  review_count: number;
+  stock: number;
+  low_stock_threshold: number | null;
+  is_new: boolean;
+  is_best_seller: boolean;
+  specifications: Record<string, unknown>;
+}
+
+const normalizeSpecificationsForDb = (
+  specifications: ProductFormData['specifications'],
+): Record<string, unknown> => {
+  if (!specifications) {
+    return {};
+  }
+
+  try {
+    return structuredClone(specifications) as unknown as Record<string, unknown>;
+  } catch {
+    return JSON.parse(JSON.stringify(specifications)) as unknown as Record<string, unknown>;
+  }
+};
+
 const mapToDatabasePayload = (
   formData: ProductFormData,
   slug: string,
   productId: string,
-  overrides: Partial<Record<string, unknown>> = {},
-): Record<string, unknown> => {
+  overrides: Partial<ProductInsertPayload> = {},
+): ProductInsertPayload => {
   const imageUrls = (formData.images ?? []).map((url) => url.trim()).filter(Boolean);
 
   return {
@@ -51,17 +92,17 @@ const mapToDatabasePayload = (
     subcategory: formData.subcategory.trim(),
     description: formData.description.trim(),
     price: formData.price,
-    original_price: formData.originalPrice,
+    original_price: formData.originalPrice ?? null,
     currency: formData.currency ?? 'IQD',
     images: imageUrls,
     thumbnail: imageUrls[0] ?? '',
     rating: 0,
     review_count: 0,
     stock: formData.stock,
-    low_stock_threshold: formData.lowStockThreshold,
+    low_stock_threshold: formData.lowStockThreshold ?? null,
     is_new: formData.isNew ?? false,
     is_best_seller: formData.isBestSeller ?? false,
-    specifications: formData.specifications,
+    specifications: normalizeSpecificationsForDb(formData.specifications),
     ...overrides,
   };
 };
@@ -86,10 +127,32 @@ export async function createProductAction(
       : Date.now().toString();
 
   const payload = mapToDatabasePayload(formData, slug, productId);
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.from('products').insert(payload);
+  const dbPayload = {
+    id: payload.id,
+    slug: payload.slug,
+    name: payload.name,
+    brand: payload.brand,
+    category: payload.category,
+    subcategory: payload.subcategory,
+    description: payload.description,
+    price: payload.price.toString(),
+    originalPrice:
+      payload.original_price !== null ? payload.original_price.toString() : null,
+    currency: payload.currency,
+    images: payload.images,
+    thumbnail: payload.thumbnail,
+    rating: payload.rating.toString(),
+    reviewCount: payload.review_count,
+    stock: payload.stock,
+    lowStockThreshold: payload.low_stock_threshold ?? undefined,
+    isNew: payload.is_new,
+    isBestSeller: payload.is_best_seller,
+    specifications: payload.specifications,
+  };
 
-  if (error) {
+  try {
+    await db.insert(products).values(dbPayload);
+  } catch (error) {
     const { errorMessage, errorStack } = normalizeError(error);
     logError('Failed to create product', {
       action: 'createProduct',
@@ -115,27 +178,27 @@ export async function updateProductAction(
   formData: Partial<ProductFormData>,
 ): Promise<ProductActionResult> {
   const admin = await requireAdmin();
-  const supabase = await createServerSupabaseClient();
+  const [existingProductRow] = await db
+    .select()
+    .from(products)
+    .where(eq(products.id, productId))
+    .limit(1);
 
-  const { data: existingProductRow, error: fetchError } = await supabase
-    .from('products')
-    .select('*')
-    .eq('id', productId)
-    .single();
-
-  if (fetchError || !existingProductRow) {
-    const { errorMessage, errorStack } = normalizeError(fetchError);
+  if (!existingProductRow) {
     logError('Failed to fetch product for update', {
       action: 'updateProduct',
       adminId: admin.id,
       productId,
-      errorMessage,
-      errorStack,
+      errorMessage: 'Product not found',
+      errorStack: undefined,
     });
     return { success: false, error: 'errors.productNotFound' };
   }
 
-  const existingProduct = normalizeSupabaseProduct(existingProductRow) as Product;
+  const existingProduct = normalizeSupabaseProduct(
+    existingProductRow as unknown as SupabaseProductRow,
+  ) as Product;
+
   const mergedFormData: ProductFormData = {
     ...existingProduct,
     images: formData.images ?? (existingProduct.images ?? []),
@@ -244,7 +307,7 @@ export async function updateProductAction(
   }
 
   if (formData.specifications) {
-    updates.specifications = formData.specifications;
+    updates.specifications = normalizeSpecificationsForDb(formData.specifications);
     changes.specifications = {
       before: existingProduct.specifications,
       after: formData.specifications,
@@ -281,12 +344,49 @@ export async function updateProductAction(
     return { success: true };
   }
 
-  const { error: updateError } = await supabase
-    .from('products')
-    .update(updates)
-    .eq('id', productId);
+  const dbUpdates: Record<string, unknown> = {};
+  Object.entries(updates).forEach(([key, value]) => {
+    switch (key) {
+      case 'price':
+        dbUpdates.price = typeof value === 'number' ? value.toString() : value;
+        break;
+      case 'original_price':
+        dbUpdates.originalPrice =
+          value === null
+            ? null
+            : typeof value === 'number'
+              ? value.toString()
+              : value;
+        break;
+      case 'low_stock_threshold':
+        dbUpdates.lowStockThreshold = value;
+        break;
+      case 'rating':
+        dbUpdates.rating = typeof value === 'number' ? value.toString() : value;
+        break;
+      case 'is_new':
+        dbUpdates.isNew = value;
+        break;
+      case 'is_best_seller':
+        dbUpdates.isBestSeller = value;
+        break;
+      case 'review_count':
+        dbUpdates.reviewCount = value;
+        break;
+      case 'specifications':
+        dbUpdates.specifications = value;
+        break;
+      default:
+        dbUpdates[key] = value;
+    }
+  });
 
-  if (updateError) {
+  try {
+    await db
+      .update(products)
+      .set(dbUpdates)
+      .where(eq(products.id, productId));
+  } catch (updateError) {
     const { errorMessage, errorStack } = normalizeError(updateError);
     logError('Failed to update product', {
       action: 'updateProduct',
@@ -326,22 +426,19 @@ export async function updateProductAction(
 
 export async function deleteProductAction(productId: string): Promise<ProductActionResult> {
   const admin = await requireAdmin();
-  const supabase = await createServerSupabaseClient();
+  const [product] = await db
+    .select()
+    .from(products)
+    .where(eq(products.id, productId))
+    .limit(1);
 
-  const { data: product, error: fetchError } = await supabase
-    .from('products')
-    .select('*')
-    .eq('id', productId)
-    .single();
-
-  if (fetchError || !product) {
-    const { errorMessage, errorStack } = normalizeError(fetchError);
+  if (!product) {
     logError('Failed to load product for deletion', {
       action: 'deleteProduct',
       adminId: admin.id,
       productId,
-      errorMessage,
-      errorStack,
+      errorMessage: 'Product not found',
+      errorStack: undefined,
     });
     return { success: false, error: 'errors.productNotFound' };
   }
@@ -350,9 +447,9 @@ export async function deleteProductAction(productId: string): Promise<ProductAct
     await deleteProductImages(product.images as string[]);
   }
 
-  const { error } = await supabase.from('products').delete().eq('id', productId);
-
-  if (error) {
+  try {
+    await db.delete(products).where(eq(products.id, productId));
+  } catch (error) {
     const { errorMessage, errorStack } = normalizeError(error);
     logError('Failed to delete product', {
       action: 'deleteProduct',
@@ -378,34 +475,31 @@ export async function updateProductStockAction(
   newStock: number,
 ): Promise<ProductActionResult> {
   const admin = await requireAdmin();
-  const supabase = await createServerSupabaseClient();
+  const [productRow] = await db
+    .select()
+    .from(products)
+    .where(eq(products.id, productId))
+    .limit(1);
 
-  const { data: productRow, error: fetchError } = await supabase
-    .from('products')
-    .select('*')
-    .eq('id', productId)
-    .single();
-
-  if (fetchError || !productRow) {
-    const { errorMessage, errorStack } = normalizeError(fetchError);
+  if (!productRow) {
     logError('Failed to load product for stock update', {
       action: 'updateProductStock',
       adminId: admin.id,
       productId,
-      errorMessage,
-      errorStack,
+      errorMessage: 'Product not found',
+      errorStack: undefined,
     });
     return { success: false, error: 'errors.productNotFound' };
   }
 
   const prevStock = Number(productRow.stock ?? 0);
 
-  const { error } = await supabase
-    .from('products')
-    .update({ stock: newStock })
-    .eq('id', productId);
-
-  if (error) {
+  try {
+    await db
+      .update(products)
+      .set({ stock: newStock })
+      .where(eq(products.id, productId));
+  } catch (error) {
     const { errorMessage, errorStack } = normalizeError(error);
     logError('Failed to update product stock', {
       action: 'updateProductStock',
@@ -419,7 +513,9 @@ export async function updateProductStockAction(
 
   if (prevStock === 0 && newStock > 0) {
     try {
-      const normalized = normalizeSupabaseProduct(productRow);
+      const normalized = normalizeSupabaseProduct(
+        productRow as unknown as SupabaseProductRow,
+      );
       await triggerBackInStockAlerts({
         ...normalized,
         stock: newStock,
@@ -448,24 +544,22 @@ export async function updateProductStockAction(
 
 export async function fetchAdminProducts(): Promise<Product[]> {
   await requireAdmin();
-  const supabase = await createServerSupabaseClient();
+  try {
+    const rows = await db
+      .select()
+      .from(products)
+      .orderBy(desc(products.createdAt));
 
-  const { data, error } = await supabase
-    .from('products')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error || !data) {
-    if (error) {
-      const { errorMessage, errorStack } = normalizeError(error);
-      logError('Failed to load admin products', {
-        action: 'getAdminProducts',
-        errorMessage,
-        errorStack,
-      });
-    }
+    return rows.map((row) =>
+      normalizeSupabaseProduct(row as unknown as SupabaseProductRow),
+    );
+  } catch (error) {
+    const { errorMessage, errorStack } = normalizeError(error);
+    logError('Failed to load admin products', {
+      action: 'getAdminProducts',
+      errorMessage,
+      errorStack,
+    });
     return [];
   }
-
-  return data.map((row) => normalizeSupabaseProduct(row));
 }

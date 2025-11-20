@@ -9,3 +9,4 @@ export * from './sidebar-cart';
 export * from './upsell-section';
 export * from './empty-cart';
 export * from './calculator-link';
+export * from './EmptyCartLottie';

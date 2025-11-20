@@ -1,13 +1,24 @@
+import { db } from '@server/db';
+import { helpfulVotes, profiles, reviews } from '@shared/schema';
 import {
+  and,
+  asc,
+  desc,
+  eq,
+  gte,
+  inArray,
+  sql,
+} from 'drizzle-orm';
+
+import type {
   HelpfulVote,
   Review,
   ReviewSummary,
   ReviewWithUser,
 } from '@/types';
 
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-
-import { getReviewSummary } from './review-utils';
+type ReviewRow = typeof reviews.$inferSelect;
+type ProfileRow = typeof profiles.$inferSelect | null;
 
 type ReviewSortOption = 'recent' | 'helpful' | 'highest' | 'lowest';
 
@@ -16,216 +27,280 @@ interface ProductReviewFilters {
   sortBy?: ReviewSortOption;
 }
 
+const toIsoString = (value: Date | string | null | undefined): string =>
+  value instanceof Date ? value.toISOString() : value ?? new Date(0).toISOString();
+
+function transformUserProfile(userId: string, profile?: ProfileRow): ReviewWithUser['user'] {
+  return {
+    id: profile?.id ?? userId,
+    full_name: profile?.fullName ?? null,
+    avatar_url: profile?.avatarUrl ?? null,
+  };
+}
+
+function transformReview(review: ReviewRow): Review {
+  const ratingValue =
+    typeof review.rating === 'number'
+      ? review.rating
+      : Number.parseFloat(String(review.rating ?? 0));
+
+  return {
+    id: review.id,
+    product_id: review.productId,
+    user_id: review.userId,
+    rating: Number.isNaN(ratingValue) ? 0 : ratingValue,
+    title: review.title ?? '',
+    comment: review.comment ?? '',
+    images: Array.isArray(review.images) ? review.images : [],
+    is_approved: Boolean(review.isApproved),
+    helpful_count: Number(review.helpfulCount ?? 0),
+    not_helpful_count: Number(review.notHelpfulCount ?? 0),
+    created_at: toIsoString(review.createdAt),
+    updated_at: toIsoString(review.updatedAt),
+  };
+}
+
+function transformReviewWithUser(
+  review: ReviewRow,
+  profile?: ProfileRow,
+): ReviewWithUser {
+  return {
+    ...transformReview(review),
+    user: transformUserProfile(review.userId, profile),
+  };
+}
+
+function transformHelpfulVote(vote: typeof helpfulVotes.$inferSelect): HelpfulVote {
+  return {
+    id: vote.id,
+    review_id: vote.reviewId,
+    user_id: vote.userId,
+    vote_type: vote.voteType as HelpfulVote['vote_type'],
+    created_at: toIsoString(vote.createdAt),
+  };
+}
+
 export async function getProductReviews(
   productId: string,
   filters: ProductReviewFilters = {},
 ): Promise<ReviewWithUser[]> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    const conditions = [
+      eq(reviews.productId, productId),
+      eq(reviews.isApproved, true),
+    ];
 
-  let query = supabase
-    .from('reviews')
-    .select(
-      'id, product_id, user_id, rating, title, comment, images, is_approved, helpful_count, not_helpful_count, created_at, updated_at, user:profiles_public(id, full_name, avatar_url)',
-    )
-    .eq('product_id', productId)
-    .eq('is_approved', true);
-
-  if (filters.rating) {
-    if (filters.rating >= 5) {
-      query = query.eq('rating', filters.rating);
-    } else {
-      query = query.gte('rating', filters.rating);
+    if (filters.rating) {
+      if (filters.rating >= 5) {
+        conditions.push(eq(reviews.rating, filters.rating));
+      } else {
+        conditions.push(gte(reviews.rating, filters.rating));
+      }
     }
-  }
 
-  const sortBy = filters.sortBy ?? 'recent';
-  let orderColumn: 'created_at' | 'helpful_count' | 'rating' = 'created_at';
-  let ascending = false;
+    const sortBy = filters.sortBy ?? 'recent';
+    const orderings: Array<ReturnType<typeof asc> | ReturnType<typeof desc>> = [];
 
-  switch (sortBy) {
-    case 'helpful':
-      orderColumn = 'helpful_count';
-      ascending = false;
-      break;
-    case 'highest':
-      orderColumn = 'rating';
-      ascending = false;
-      break;
-    case 'lowest':
-      orderColumn = 'rating';
-      ascending = true;
-      break;
-    case 'recent':
-    default:
-      orderColumn = 'created_at';
-      ascending = false;
-      break;
-  }
+    switch (sortBy) {
+      case 'helpful':
+        orderings.push(desc(reviews.helpfulCount));
+        break;
+      case 'highest':
+        orderings.push(desc(reviews.rating));
+        break;
+      case 'lowest':
+        orderings.push(asc(reviews.rating));
+        break;
+      case 'recent':
+      default:
+        orderings.push(desc(reviews.createdAt));
+        break;
+    }
 
-  query = query.order(orderColumn, { ascending });
+    if (sortBy !== 'recent') {
+      orderings.push(desc(reviews.createdAt));
+    }
 
-  if (orderColumn !== 'created_at') {
-    query = query.order('created_at', { ascending: false });
-  }
+    const rows = await db
+      .select({
+        review: reviews,
+        profile: profiles,
+      })
+      .from(reviews)
+      .leftJoin(profiles, eq(reviews.userId, profiles.id))
+      .where(and(...conditions))
+      .orderBy(...orderings);
 
-  const { data, error } = await query;
-
-  if (error) {
+    return rows.map(({ review, profile }) =>
+      transformReviewWithUser(review, profile),
+    );
+  } catch (error) {
     console.error('Failed to fetch product reviews', error);
     return [];
   }
-
-  // Transform the data to match ReviewWithUser type
-  // Supabase returns user as an array, but we need it as an object
-  return (data ?? []).map((review: unknown) => {
-    const r = review as Record<string, unknown>;
-    return {
-      ...r,
-      user: Array.isArray(r.user) ? r.user[0] : r.user,
-    };
-  }) as ReviewWithUser[];
 }
 
 export async function getUserReview(
   userId: string,
   productId: string,
 ): Promise<Review | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('reviews')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('product_id', productId)
-    .maybeSingle();
+  try {
+    const [row] = await db
+      .select()
+      .from(reviews)
+      .where(
+        and(eq(reviews.userId, userId), eq(reviews.productId, productId)),
+      )
+      .limit(1);
 
-  if (error) {
+    return row ? transformReview(row) : null;
+  } catch (error) {
     console.error('Failed to fetch user review', error);
     return null;
   }
-
-  return data ?? null;
 }
 
 export async function getReviewById(reviewId: string): Promise<ReviewWithUser | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('reviews')
-    .select(
-      'id, product_id, user_id, rating, title, comment, images, is_approved, helpful_count, not_helpful_count, created_at, updated_at, user:profiles_public(id, full_name, avatar_url)',
-    )
-    .eq('id', reviewId)
-    .maybeSingle();
+  try {
+    const [row] = await db
+      .select({
+        review: reviews,
+        profile: profiles,
+      })
+      .from(reviews)
+      .leftJoin(profiles, eq(reviews.userId, profiles.id))
+      .where(eq(reviews.id, reviewId))
+      .limit(1);
 
-  if (error) {
+    if (!row) {
+      return null;
+    }
+
+    return transformReviewWithUser(row.review, row.profile);
+  } catch (error) {
     console.error('Failed to fetch review by id', error);
     return null;
   }
-
-  if (!data) {
-    return null;
-  }
-
-  // Transform the data to match ReviewWithUser type
-  // Supabase returns user as an array, but we need it as an object
-  const review = data as Record<string, unknown>;
-  return {
-    ...review,
-    user: Array.isArray(review.user) ? review.user[0] : review.user,
-  } as ReviewWithUser;
 }
 
 export async function getProductReviewSummary(productId: string): Promise<ReviewSummary> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('reviews')
-    .select('rating')
-    .eq('product_id', productId)
-    .eq('is_approved', true);
+  try {
+    const [result] = await db
+      .select({
+        average: sql<number>`COALESCE(ROUND(AVG(${reviews.rating})::numeric, 1), 0)`,
+        total: sql<number>`COUNT(*)::int`,
+        rating1: sql<number>`COUNT(*) FILTER (WHERE ${reviews.rating} = 1)::int`,
+        rating2: sql<number>`COUNT(*) FILTER (WHERE ${reviews.rating} = 2)::int`,
+        rating3: sql<number>`COUNT(*) FILTER (WHERE ${reviews.rating} = 3)::int`,
+        rating4: sql<number>`COUNT(*) FILTER (WHERE ${reviews.rating} = 4)::int`,
+        rating5: sql<number>`COUNT(*) FILTER (WHERE ${reviews.rating} = 5)::int`,
+      })
+      .from(reviews)
+      .where(
+        and(eq(reviews.productId, productId), eq(reviews.isApproved, true)),
+      );
 
-  if (error) {
+    if (!result) {
+      return {
+        averageRating: 0,
+        totalReviews: 0,
+        ratingDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+      };
+    }
+
+    return {
+      averageRating: result.average ?? 0,
+      totalReviews: result.total ?? 0,
+      ratingDistribution: {
+        1: result.rating1 ?? 0,
+        2: result.rating2 ?? 0,
+        3: result.rating3 ?? 0,
+        4: result.rating4 ?? 0,
+        5: result.rating5 ?? 0,
+      },
+    };
+  } catch (error) {
     console.error('Failed to fetch product review summary', error);
-    return getReviewSummary([]);
+    return {
+      averageRating: 0,
+      totalReviews: 0,
+      ratingDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+    };
   }
-
-  return getReviewSummary((data ?? []) as Review[]);
 }
 
 export async function getUserHelpfulVote(
   userId: string,
   reviewId: string,
 ): Promise<HelpfulVote | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('helpful_votes')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('review_id', reviewId)
-    .maybeSingle();
+  try {
+    const [vote] = await db
+      .select()
+      .from(helpfulVotes)
+      .where(
+        and(eq(helpfulVotes.userId, userId), eq(helpfulVotes.reviewId, reviewId)),
+      )
+      .limit(1);
 
-  if (error) {
+    return vote ? transformHelpfulVote(vote) : null;
+  } catch (error) {
     console.error('Failed to fetch helpful vote', error);
     return null;
   }
-
-  return data ?? null;
 }
 
 export async function getReviewHelpfulVotes(
   reviewId: string,
 ): Promise<{ helpful: number; notHelpful: number }> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('helpful_votes')
-    .select('vote_type')
-    .eq('review_id', reviewId);
+  try {
+    const votes = await db
+      .select({
+        voteType: helpfulVotes.voteType,
+      })
+      .from(helpfulVotes)
+      .where(eq(helpfulVotes.reviewId, reviewId));
 
-  if (error) {
+    let helpful = 0;
+    let notHelpful = 0;
+
+    for (const vote of votes) {
+      if (vote.voteType === 'helpful') {
+        helpful += 1;
+      } else if (vote.voteType === 'not_helpful') {
+        notHelpful += 1;
+      }
+    }
+
+    return { helpful, notHelpful };
+  } catch (error) {
     console.error('Failed to fetch review helpful votes', error);
     return { helpful: 0, notHelpful: 0 };
   }
-
-  let helpful = 0;
-  let notHelpful = 0;
-
-  for (const vote of data ?? []) {
-    if (vote.vote_type === 'helpful') {
-      helpful += 1;
-    } else if (vote.vote_type === 'not_helpful') {
-      notHelpful += 1;
-    }
-  }
-
-  return { helpful, notHelpful };
 }
 
 export async function getUserReviews(
   userId: string,
   limit = 10,
 ): Promise<ReviewWithUser[]> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('reviews')
-    .select(
-      'id, product_id, user_id, rating, title, comment, images, is_approved, helpful_count, not_helpful_count, created_at, updated_at, user:profiles_public(id, full_name, avatar_url)',
-    )
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false })
-    .limit(limit);
+  try {
+    const rows = await db
+      .select({
+        review: reviews,
+        profile: profiles,
+      })
+      .from(reviews)
+      .leftJoin(profiles, eq(reviews.userId, profiles.id))
+      .where(eq(reviews.userId, userId))
+      .orderBy(desc(reviews.createdAt))
+      .limit(limit);
 
-  if (error) {
+    return rows.map(({ review, profile }) =>
+      transformReviewWithUser(review, profile),
+    );
+  } catch (error) {
     console.error('Failed to fetch user reviews', error);
     return [];
   }
-
-  // Transform the data to match ReviewWithUser type
-  // Supabase returns user as an array, but we need it as an object
-  return (data ?? []).map((review: unknown) => {
-    const r = review as Record<string, unknown>;
-    return {
-      ...r,
-      user: Array.isArray(r.user) ? r.user[0] : r.user,
-    };
-  }) as ReviewWithUser[];
 }
 
 export async function getHelpfulVotesForUser(
@@ -236,22 +311,27 @@ export async function getHelpfulVotesForUser(
     return {};
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('helpful_votes')
-    .select('*')
-    .eq('user_id', userId)
-    .in('review_id', reviewIds);
+  try {
+    const votes = await db
+      .select()
+      .from(helpfulVotes)
+      .where(
+        and(
+          eq(helpfulVotes.userId, userId),
+          inArray(helpfulVotes.reviewId, reviewIds),
+        ),
+      );
 
-  if (error) {
+    const mapped: Record<string, HelpfulVote> = {};
+
+    for (const vote of votes) {
+      const transformed = transformHelpfulVote(vote);
+      mapped[transformed.review_id] = transformed;
+    }
+
+    return mapped;
+  } catch (error) {
     console.error('Failed to fetch helpful votes for user', error);
     return {};
   }
-
-  const votes: Record<string, HelpfulVote> = {};
-  for (const vote of data ?? []) {
-    votes[vote.review_id] = vote as HelpfulVote;
-  }
-
-  return votes;
 }

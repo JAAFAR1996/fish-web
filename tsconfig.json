@@ -1,7 +1,16 @@
 {
   "compilerOptions": {
     "target": "ES2015",
-    "lib": ["dom", "dom.iterable", "ES2015", "ES2017", "ES2018", "ES2019", "ES2020", "ES2021"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2015",
+      "ES2017",
+      "ES2018",
+      "ES2019",
+      "ES2020",
+      "ES2021"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -21,11 +30,32 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@server/*": ["./server/*"],
-      "@shared/*": ["./shared/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ],
+      "@server/*": [
+        "./server/*"
+      ],
+      "@shared/*": [
+        "./shared/*"
+      ]
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "strictNullChecks": true,
+    "moduleDetection": "force",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

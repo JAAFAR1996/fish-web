@@ -16,7 +16,7 @@ import {
   Icon,
 } from '@/components/ui';
 import { AuthModal } from '@/components/auth';
-import { useAuth } from '@/components/providers/SupabaseAuthProvider';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { useCart } from '@/components/providers/CartProvider';
 import { NotificationCenter } from '@/components/notifications';
 import { Link } from '@/i18n/navigation';

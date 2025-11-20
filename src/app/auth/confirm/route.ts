@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { users } from '@shared/schema';
+import { eq } from 'drizzle-orm';
+import { createSession } from '@server/auth';
+import { setSessionCookie } from '@server/middleware';
 
 function sanitizeNext(next?: string | null) {
   if (!next || typeof next !== 'string') return '/account';
@@ -20,27 +24,34 @@ function resolveRedirectUrl(request: NextRequest, path: string) {
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
-  const tokenHash = url.searchParams.get('token_hash');
-  const type = url.searchParams.get('type');
+  const token = url.searchParams.get('token') ?? url.searchParams.get('token_hash');
   const next = sanitizeNext(url.searchParams.get('next'));
 
-  if (!tokenHash || type !== 'email') {
+  if (!token) {
     return NextResponse.redirect(
-      resolveRedirectUrl(request, '/auth/error?message=verification_failed')
+      resolveRedirectUrl(request, '/auth/error?message=verification_failed'),
     );
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.auth.verifyOtp({
-    token_hash: tokenHash,
-    type: 'email',
-  });
+  const [userRow] = await db
+    .select({ id: users.id, emailVerified: users.emailVerified })
+    .from(users)
+    .where(eq(users.verificationToken, token))
+    .limit(1);
 
-  if (error) {
+  if (!userRow) {
     return NextResponse.redirect(
-      resolveRedirectUrl(request, '/auth/error?message=verification_failed')
+      resolveRedirectUrl(request, '/auth/error?message=verification_failed'),
     );
   }
 
-  return NextResponse.redirect(resolveRedirectUrl(request, next));
+  await db
+    .update(users)
+    .set({ emailVerified: true, verificationToken: null })
+    .where(eq(users.id, userRow.id));
+
+  const sessionToken = await createSession(userRow.id);
+  const response = NextResponse.redirect(resolveRedirectUrl(request, next));
+  setSessionCookie(response, sessionToken);
+  return response;
 }

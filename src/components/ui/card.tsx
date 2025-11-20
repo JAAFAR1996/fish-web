@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'react';
+import { forwardRef, type HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -9,12 +9,10 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean;
 }
 
-export function Card({
-  variant = 'default',
-  hoverable = false,
-  className,
-  ...props
-}: CardProps) {
+export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
+  { variant = 'default', hoverable = false, className, ...props },
+  ref,
+) {
   const variantClasses: Record<CardVariant, string> = {
     default: 'border border-border shadow-sm',
     bordered: 'border-2 border-border shadow-sm',
@@ -30,6 +28,7 @@ export function Card({
 
   return (
     <div
+      ref={ref}
       className={cn(
         'relative flex flex-col overflow-hidden rounded-lg bg-background transition-shadow motion-safe:transition-shadow',
         variantClasses[variant],
@@ -39,7 +38,7 @@ export function Card({
       {...props}
     />
   );
-}
+});
 
 export function CardHeader({
   className,

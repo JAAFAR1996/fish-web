@@ -1,3 +1,5 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import createMDX from '@next/mdx';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
@@ -30,30 +32,6 @@ const securityHeaders = [
   },
 ];
 
-function getSupabaseHostname() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-
-  if (!url) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(
-        'NEXT_PUBLIC_SUPABASE_URL is not set; Supabase image remote pattern will be disabled in development.'
-      );
-      return null;
-    }
-    throw new Error('NEXT_PUBLIC_SUPABASE_URL is required for image hosting configuration');
-  }
-
-  try {
-    return new URL(url).hostname;
-  } catch (error) {
-    throw new Error(
-      `Invalid NEXT_PUBLIC_SUPABASE_URL: ${
-        error instanceof Error ? error.message : String(error)
-      }`
-    );
-  }
-}
-
 function getAdditionalImageHosts() {
   const raw = process.env.NEXT_PUBLIC_IMAGE_HOSTS;
   if (!raw) {
@@ -66,43 +44,26 @@ function getAdditionalImageHosts() {
     .filter(Boolean);
 }
 
-function createSupabasePattern(hostname, path) {
-  const escapedHost = hostname.replace(/\./g, '\\.');
-  return new RegExp(`^https://${escapedHost}${path}`, 'i');
+function getR2Hostname() {
+  const url = process.env.NEXT_PUBLIC_R2_PUBLIC_URL;
+  if (!url) {
+    return null;
+  }
+
+  try {
+    return new URL(url).hostname;
+  } catch (error) {
+    console.warn(
+      `Invalid NEXT_PUBLIC_R2_PUBLIC_URL: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
+    return null;
+  }
 }
 
-function buildRuntimeCaching(supabaseHostname) {
+function buildRuntimeCaching() {
   const caching = [
-    ...(supabaseHostname
-      ? [
-          {
-            urlPattern: createSupabasePattern(
-              supabaseHostname,
-              '/storage/v1/object/public/.*'
-            ),
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'supabase-images',
-              expiration: {
-                maxEntries: 200,
-                maxAgeSeconds: 30 * 24 * 60 * 60,
-              },
-            },
-          },
-          {
-            urlPattern: createSupabasePattern(supabaseHostname, '/rest/v1/.*'),
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'supabase-rest',
-              networkTimeoutSeconds: 10,
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60,
-              },
-            },
-          },
-        ]
-      : []),
     {
       urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
       handler: 'CacheFirst',
@@ -127,10 +88,6 @@ function buildRuntimeCaching(supabaseHostname) {
     },
   ];
 
-  if (!supabaseHostname) {
-    console.warn('Supabase hostname not configured; skipping Supabase runtime caching.');
-  }
-
   return caching;
 }
 
@@ -147,9 +104,9 @@ const withMDX = createMDX({
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
-const supabaseHostname = getSupabaseHostname();
+const r2Hostname = getR2Hostname();
 const additionalHosts = getAdditionalImageHosts();
-const runtimeCaching = buildRuntimeCaching(supabaseHostname);
+const runtimeCaching = buildRuntimeCaching();
 
 const pwaConfig = {
   dest: 'public',
@@ -162,11 +119,11 @@ const pwaConfig = {
 };
 
 const remoteImagePatterns = [
-  ...(supabaseHostname
+  ...(r2Hostname
     ? [
         {
           protocol: 'https',
-          hostname: supabaseHostname,
+          hostname: r2Hostname,
         },
       ]
     : []),
@@ -175,6 +132,15 @@ const remoteImagePatterns = [
     hostname,
   })),
 ];
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+if (!process.env.WS_NO_BUFFER_UTIL) {
+  process.env.WS_NO_BUFFER_UTIL = '1';
+}
+if (!process.env.WS_NO_UTF_8_VALIDATE) {
+  process.env.WS_NO_UTF_8_VALIDATE = '1';
+}
 
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
@@ -188,6 +154,13 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
     optimizePackageImports: ['recharts', 'lucide-react', 'fuse.js'],
+  },
+  webpack(config) {
+    config.resolve = config.resolve || {};
+    config.resolve.alias = config.resolve.alias || {};
+    config.resolve.alias['bufferutil'] = path.resolve(__dirname, 'bufferutil.cjs');
+    config.resolve.alias['utf-8-validate'] = false;
+    return config;
   },
   async headers() {
     return [

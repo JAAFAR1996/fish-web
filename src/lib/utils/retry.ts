@@ -1,7 +1,5 @@
 import 'server-only';
 
-import type { PostgrestError } from '@supabase/postgrest-js';
-
 import { logWarn, normalizeError } from '@/lib/logger';
 
 type RetryOptions = {
@@ -25,26 +23,12 @@ class TimeoutError extends Error {
   }
 }
 
-class SupabaseTransientError extends Error {
-  public readonly cause: PostgrestError;
-
-  constructor(operationName: string, cause: PostgrestError) {
-    super(`Supabase transient error during "${operationName}": ${cause.message}`);
-    this.name = 'SupabaseTransientError';
-    this.cause = cause;
-  }
-}
-
 function shouldRetryError(error: unknown): boolean {
   if (!error) {
     return false;
   }
 
   if (error instanceof TimeoutError) {
-    return true;
-  }
-
-  if (error instanceof SupabaseTransientError) {
     return true;
   }
 
@@ -122,42 +106,6 @@ export async function runWithRetries<T>(
   }
 
   throw lastError ?? new Error(`Operation "${operationName}" failed after ${attempts} attempts.`);
-}
-
-function shouldRetrySupabaseError(error: PostgrestError | null): boolean {
-  if (!error) {
-    return false;
-  }
-
-  // Type guard to check if error has a status property
-  const hasStatus = (err: unknown): err is { status: unknown } => {
-    return typeof err === 'object' && err !== null && 'status' in err;
-  };
-
-  const status = hasStatus(error) && typeof error.status === 'number'
-    ? error.status
-    : Number(error.code);
-
-  if (Number.isFinite(status) && status >= 500) {
-    return true;
-  }
-
-  const message = error.message?.toLowerCase() ?? '';
-  return message.includes('timeout') || message.includes('connection') || message.includes('terminating connection');
-}
-
-export async function withSupabaseRetry<T>(
-  operationName: string,
-  handler: () => Promise<{ data: T; error: PostgrestError | null }>,
-  options?: Partial<RetryOptions>
-): Promise<{ data: T; error: PostgrestError | null }> {
-  return runWithRetries(operationName, async () => {
-    const result = await handler();
-    if (shouldRetrySupabaseError(result.error)) {
-      throw new SupabaseTransientError(operationName, result.error!);
-    }
-    return result;
-  }, options);
 }
 
 export async function withResendRetry<T>(

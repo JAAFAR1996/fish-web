@@ -1,21 +1,17 @@
-import { createClient } from '@/lib/supabase/client';
-
 import {
   ALLOWED_GALLERY_IMAGE_TYPES,
   GALLERY_IMAGES_BUCKET,
   MAX_GALLERY_IMAGE_SIZE,
 } from './constants';
-
-const sanitizeFileName = (fileName: string): string =>
-  fileName
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-zA-Z0-9.\-_]/g, '');
+import { sanitizeFileName } from '@/lib/uploads/sanitize';
 
 export const extractGalleryPathFromUrl = (url: string): string | null => {
   const marker = `${GALLERY_IMAGES_BUCKET}/`;
   const index = url.indexOf(marker);
-  if (index === -1) return null;
+  if (index === -1) {
+    const relative = url.replace(/^\/+/, '');
+    return relative || null;
+  }
   return url.slice(index + marker.length);
 };
 
@@ -31,24 +27,32 @@ export async function uploadGalleryImage(
     return { url: null, error: 'gallery.validation.mediaRequired' };
   }
 
-  const supabase = createClient();
   const sanitizedName = sanitizeFileName(file.name) || 'media';
-  const filePath = `${userId}/${setupId}/${Date.now()}-${sanitizedName}`;
+  const formData = new FormData();
+  formData.append('file', file, sanitizedName);
+  formData.append('userId', userId);
+  formData.append('setupId', setupId);
 
-  const { error: uploadError } = await supabase.storage
-    .from(GALLERY_IMAGES_BUCKET)
-    .upload(filePath, file, { cacheControl: '3600', upsert: false });
+  try {
+    const response = await fetch('/api/upload/gallery', {
+      method: 'POST',
+      body: formData,
+    });
 
-  if (uploadError) {
-    console.error('Failed to upload gallery image', uploadError);
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({}));
+      return {
+        url: null,
+        error: errorBody.error ?? 'gallery.errors.createFailed',
+      };
+    }
+
+    const data = await response.json();
+    return { url: data.url as string };
+  } catch (error) {
+    console.error('Failed to upload gallery image', error);
     return { url: null, error: 'gallery.errors.createFailed' };
   }
-
-  const { data } = supabase.storage
-    .from(GALLERY_IMAGES_BUCKET)
-    .getPublicUrl(filePath);
-
-  return { url: data.publicUrl };
 }
 
 export async function uploadGalleryImages(

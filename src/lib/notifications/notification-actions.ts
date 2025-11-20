@@ -1,16 +1,25 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { eq } from 'drizzle-orm';
+
 import { getUser } from '@/lib/auth/utils';
-import type { NotificationData, NotificationType, NotificationPreferences } from '@/types';
+import type {
+  Notification,
+  NotificationData,
+  NotificationPreferences,
+  NotificationType,
+} from '@/types';
 import {
-  markNotificationAsRead,
-  markAllNotificationsAsRead,
-  deleteNotification,
   clearAllNotifications,
   createNotification,
+  deleteNotification,
+  getUserNotifications,
+  markAllNotificationsAsRead,
+  markNotificationAsRead,
 } from './notification-queries';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { profiles } from '@shared/schema';
 
 export async function markAsReadAction(notificationId: string): Promise<{ success: boolean }> {
   const user = await getUser();
@@ -45,7 +54,7 @@ export async function markAllAsReadAction(): Promise<{ success: boolean }> {
 }
 
 export async function deleteNotificationAction(
-  notificationId: string
+  notificationId: string,
 ): Promise<{ success: boolean }> {
   const user = await getUser();
 
@@ -84,7 +93,7 @@ export async function createNotificationAction(
   title: string,
   message: string,
   data?: NotificationData,
-  link?: string
+  link?: string,
 ): Promise<{ success: boolean; notificationId?: string }> {
   const notification = await createNotification(userId, type, title, message, data, link);
 
@@ -97,7 +106,7 @@ export async function createNotificationAction(
 }
 
 export async function updateNotificationPreferencesAction(
-  preferences: NotificationPreferences
+  preferences: NotificationPreferences,
 ): Promise<{ success: boolean; error?: string }> {
   const user = await getUser();
 
@@ -105,24 +114,32 @@ export async function updateNotificationPreferencesAction(
     return { success: false, error: 'User not authenticated' };
   }
 
-  const supabase = await createServerSupabaseClient();
-
-  const { error } = await supabase
-    .from('profiles')
-    .update({
-      email_order_updates: preferences.email_order_updates,
-      email_shipping_updates: preferences.email_shipping_updates,
-      email_stock_alerts: preferences.email_stock_alerts,
-      email_marketing: preferences.email_marketing,
-      inapp_notifications_enabled: preferences.inapp_notifications_enabled,
-    })
-    .eq('id', user.id);
-
-  if (error) {
+  try {
+    await db
+      .update(profiles)
+      .set({
+        emailOrderUpdates: preferences.email_order_updates,
+        emailShippingUpdates: preferences.email_shipping_updates,
+        emailStockAlerts: preferences.email_stock_alerts,
+        emailMarketing: preferences.email_marketing,
+        inappNotificationsEnabled: preferences.inapp_notifications_enabled,
+      })
+      .where(eq(profiles.id, user.id));
+  } catch (error) {
     console.error('Error updating notification preferences:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: 'Failed to update preferences' };
   }
 
   revalidatePath('/[locale]/account');
   return { success: true };
+}
+
+export async function getUserNotificationsAction(): Promise<Notification[]> {
+  const user = await getUser();
+
+  if (!user) {
+    return [];
+  }
+
+  return getUserNotifications(user.id);
 }

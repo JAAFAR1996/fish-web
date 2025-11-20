@@ -59,7 +59,7 @@ export const mdxComponents: MDXComponents = {
     // Filter out props that aren't compatible with Link component
     const { popover: _popover, ...linkCompatibleProps } = props as Record<string, unknown>;
 
-    if (isInternal) {
+    if (isInternal && href) {
       return (
         <Link
           href={href}
@@ -71,7 +71,7 @@ export const mdxComponents: MDXComponents = {
       );
     }
 
-    if (isExternal) {
+    if (isExternal && href) {
       return (
         <a
           href={href}
@@ -88,7 +88,7 @@ export const mdxComponents: MDXComponents = {
 
     return (
       <a
-        href={href}
+        href={href ?? '#'}
         className="text-aqua-500 hover:underline transition-colors"
         {...props}
       >

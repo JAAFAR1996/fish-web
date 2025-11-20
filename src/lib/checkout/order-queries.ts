@@ -1,13 +1,17 @@
+import { desc, eq } from 'drizzle-orm';
+
+import { db } from '@server/db';
+import { orderItems, orders } from '@shared/schema';
+
 import type {
   Order,
   OrderItem,
   OrderStatus,
   OrderWithItems,
   PaymentMethod,
+  ProductSnapshot,
   ShippingAddressSnapshot,
 } from '@/types';
-
-import { createServerSupabaseClient } from '@/lib/supabase/server';
 
 interface CreateOrderInput {
   order_number: string;
@@ -27,101 +31,163 @@ interface CreateOrderInput {
   notes: string | null;
 }
 
-export async function createOrder(orderData: CreateOrderInput): Promise<Order> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('orders')
-    .insert(orderData)
-    .select()
-    .single();
+const toNumber = (value: unknown): number =>
+  typeof value === 'number' ? value : Number(value ?? 0);
 
-  if (error) {
+const toIsoString = (value: Date | string | null | undefined): string => {
+  if (value instanceof Date) return value.toISOString();
+  if (typeof value === 'string') return value;
+  return new Date().toISOString();
+};
+
+export function transformOrder(row: typeof orders.$inferSelect): Order {
+  return {
+    id: row.id,
+    order_number: row.orderNumber,
+    user_id: row.userId ?? null,
+    guest_email: row.guestEmail ?? null,
+    shipping_address_id: row.shippingAddressId ?? null,
+    shipping_address: row.shippingAddress as ShippingAddressSnapshot,
+    payment_method: row.paymentMethod as PaymentMethod,
+    status: row.status as OrderStatus,
+    subtotal: toNumber(row.subtotal),
+    shipping_cost: toNumber(row.shippingCost),
+    discount: toNumber(row.discount),
+    loyalty_discount: toNumber(row.loyaltyDiscount),
+    loyalty_points_used: row.loyaltyPointsUsed ?? 0,
+    total: toNumber(row.total),
+    coupon_code: row.couponCode ?? null,
+    notes: row.notes ?? null,
+    tracking_number: row.trackingNumber ?? null,
+    carrier: row.carrier ?? null,
+    created_at: toIsoString(row.createdAt),
+    updated_at: toIsoString(row.updatedAt),
+  };
+}
+
+export function transformOrderItem(row: typeof orderItems.$inferSelect): OrderItem {
+  return {
+    id: row.id,
+    order_id: row.orderId,
+    product_id: row.productId,
+    product_snapshot: row.productSnapshot as ProductSnapshot,
+    quantity: row.quantity,
+    unit_price: toNumber(row.unitPrice),
+    subtotal: toNumber(row.subtotal),
+    created_at: toIsoString(row.createdAt),
+  };
+}
+
+export async function createOrder(orderData: CreateOrderInput): Promise<Order> {
+  try {
+    const [row] = await db
+      .insert(orders)
+      .values({
+        orderNumber: orderData.order_number,
+        userId: orderData.user_id,
+        guestEmail: orderData.guest_email,
+        shippingAddressId: orderData.shipping_address_id,
+        shippingAddress: orderData.shipping_address,
+        paymentMethod: orderData.payment_method,
+        status: orderData.status,
+        subtotal: orderData.subtotal.toString(),
+        shippingCost: orderData.shipping_cost.toString(),
+        discount: orderData.discount.toString(),
+        loyaltyDiscount: orderData.loyalty_discount.toString(),
+        loyaltyPointsUsed: orderData.loyalty_points_used,
+        total: orderData.total.toString(),
+        couponCode: orderData.coupon_code,
+        notes: orderData.notes,
+      })
+      .returning();
+
+    if (!row) {
+      throw new Error('checkout.errors.orderFailed');
+    }
+
+    return transformOrder(row);
+  } catch (error) {
     throw error;
   }
-
-  if (!data) {
-    throw new Error('checkout.errors.orderFailed');
-  }
-
-  return data as Order;
 }
 
 export async function createOrderItems(
-  orderItems: Omit<OrderItem, 'id' | 'created_at'>[]
+  items: Omit<OrderItem, 'id' | 'created_at'>[],
 ): Promise<OrderItem[]> {
-  if (!orderItems.length) {
+  if (!items.length) {
     return [];
   }
 
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('order_items')
-    .insert(orderItems)
-    .select();
+  try {
+    const rows = await db
+      .insert(orderItems)
+      .values(
+        items.map((item) => ({
+          orderId: item.order_id,
+          productId: item.product_id,
+          productSnapshot: item.product_snapshot,
+          quantity: item.quantity,
+          unitPrice: item.unit_price.toString(),
+          subtotal: item.subtotal.toString(),
+        })),
+      )
+      .returning();
 
-  if (error) {
+    if (!rows.length) {
+      throw new Error('checkout.errors.orderFailed');
+    }
+
+    return rows.map(transformOrderItem);
+  } catch (error) {
     throw error;
   }
-
-  if (!data) {
-    throw new Error('checkout.errors.orderFailed');
-  }
-
-  return data as OrderItem[];
 }
 
 export async function getOrderById(orderId: string): Promise<Order | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('orders')
-    .select('*')
-    .eq('id', orderId)
-    .maybeSingle();
+  try {
+    const [row] = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.id, orderId))
+      .limit(1);
 
-  if (error) {
+    return row ? transformOrder(row) : null;
+  } catch (error) {
     console.error('Failed to get order by id', error);
     return null;
   }
-
-  return (data as Order) ?? null;
 }
 
-export async function getOrderByOrderNumber(
-  orderNumber: string
-): Promise<Order | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('orders')
-    .select('*')
-    .eq('order_number', orderNumber)
-    .maybeSingle();
+export async function getOrderByOrderNumber(orderNumber: string): Promise<Order | null> {
+  try {
+    const [row] = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.orderNumber, orderNumber))
+      .limit(1);
 
-  if (error) {
+    return row ? transformOrder(row) : null;
+  } catch (error) {
     console.error('Failed to get order by order_number', error);
     return null;
   }
-
-  return (data as Order) ?? null;
 }
 
 export async function getOrderItems(orderId: string): Promise<OrderItem[]> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('order_items')
-    .select('*')
-    .eq('order_id', orderId);
+  try {
+    const rows = await db
+      .select()
+      .from(orderItems)
+      .where(eq(orderItems.orderId, orderId));
 
-  if (error) {
+    return rows.map(transformOrderItem);
+  } catch (error) {
     console.error('Failed to get order items', error);
     return [];
   }
-
-  return (data as OrderItem[]) ?? [];
 }
 
-export async function getOrderWithItems(
-  orderId: string
-): Promise<OrderWithItems | null> {
+export async function getOrderWithItems(orderId: string): Promise<OrderWithItems | null> {
   const order = await getOrderById(orderId);
   if (!order) {
     return null;
@@ -134,37 +200,29 @@ export async function getOrderWithItems(
   };
 }
 
-export async function getUserOrders(
-  userId: string,
-  limit: number = 10
-): Promise<Order[]> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('orders')
-    .select('*')
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false })
-    .limit(limit);
+export async function getUserOrders(userId: string, limit: number = 10): Promise<Order[]> {
+  try {
+    const rows = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.userId, userId))
+      .orderBy(desc(orders.createdAt))
+      .limit(limit);
 
-  if (error) {
+    return rows.map(transformOrder);
+  } catch (error) {
     console.error('Failed to fetch user orders', error);
     return [];
   }
-
-  return (data as Order[]) ?? [];
 }
 
-export async function updateOrderStatus(
-  orderId: string,
-  status: OrderStatus
-): Promise<void> {
-  const supabase = await createServerSupabaseClient();
-  const { error } = await supabase
-    .from('orders')
-    .update({ status })
-    .eq('id', orderId);
-
-  if (error) {
-    throw new Error(error.message);
+export async function updateOrderStatus(orderId: string, status: OrderStatus): Promise<void> {
+  try {
+    await db
+      .update(orders)
+      .set({ status })
+      .where(eq(orders.id, orderId));
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : String(error));
   }
 }

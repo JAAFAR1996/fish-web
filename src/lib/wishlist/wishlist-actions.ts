@@ -2,14 +2,17 @@
 
 import { revalidatePath } from 'next/cache';
 
-import type { LocalStorageWishlistItem } from '@/types';
+import type { LocalStorageWishlistItem, Wishlist } from '@/types';
 
 import { getUser } from '@/lib/auth/utils';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { notifyMeRequests } from '@shared/schema';
+import { and, eq } from 'drizzle-orm';
 
 import {
   addToWishlist,
   clearUserWishlist,
+  getUserWishlist,
   isInWishlist,
   removeFromWishlist,
 } from './wishlist-queries';
@@ -123,7 +126,6 @@ export async function createNotifyMeRequestAction(
   email?: string
 ): Promise<{ success: boolean; error?: string }> {
   const user = await getUser();
-  const supabase = await createServerSupabaseClient();
 
   const trimmedEmail = email?.trim();
 
@@ -131,24 +133,56 @@ export async function createNotifyMeRequestAction(
     return { success: false, error: 'wishlist.notifyMe.error' };
   }
 
-  const payload = {
-    product_id: productId,
-    email: user ? null : trimmedEmail,
-    user_id: user?.id ?? null,
-  };
+  try {
+    let existing: Array<{ id: string }> = [];
 
-  const { error } = await supabase
-    .from('notify_me_requests')
-    .insert(payload);
+    if (user) {
+      existing = await db
+        .select({ id: notifyMeRequests.id })
+        .from(notifyMeRequests)
+        .where(
+          and(
+            eq(notifyMeRequests.productId, productId),
+            eq(notifyMeRequests.userId, user.id)
+          )
+        )
+        .limit(1);
+    } else if (trimmedEmail) {
+      existing = await db
+        .select({ id: notifyMeRequests.id })
+        .from(notifyMeRequests)
+        .where(
+          and(
+            eq(notifyMeRequests.productId, productId),
+            eq(notifyMeRequests.email, trimmedEmail)
+          )
+        )
+        .limit(1);
+    }
 
-  if (error) {
-    if (error.code === '23505') {
+    if (existing.length > 0) {
       return { success: true };
     }
 
+    await db.insert(notifyMeRequests).values({
+      productId,
+      email: user ? null : trimmedEmail ?? null,
+      userId: user?.id ?? null,
+    });
+
+    return { success: true };
+  } catch (error) {
     console.error('Failed to create notify me request', error);
     return { success: false, error: 'wishlist.notifyMe.error' };
   }
+}
 
-  return { success: true };
+export async function getWishlistItemsAction(): Promise<Wishlist[]> {
+  const user = await getUser();
+
+  if (!user) {
+    return [];
+  }
+
+  return getUserWishlist(user.id);
 }

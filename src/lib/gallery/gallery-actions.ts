@@ -2,14 +2,27 @@
 
 import { revalidatePath } from 'next/cache';
 
+import { db } from '@server/db';
+import { gallerySetups } from '@shared/schema';
+import { eq, sql } from 'drizzle-orm';
+
 import { routing } from '@/i18n/routing';
 import { requireAdmin, requireUser } from '@/lib/auth/utils';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { createAuditLog } from '@/lib/admin/audit-utils';
 import { AUDIT_ACTIONS, ENTITY_TYPES } from '@/lib/admin/constants';
 import { deleteGalleryImages } from './image-upload';
 import type { GalleryMedia, GalleryStyle, Hotspot } from '@/types';
-import { GALLERY_STYLES, MAX_GALLERY_MEDIA, MAX_HOTSPOTS_PER_IMAGE, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, MIN_TANK_SIZE, MAX_TANK_SIZE } from './constants';
+import {
+  GALLERY_STYLES,
+  MAX_GALLERY_MEDIA,
+  MAX_HOTSPOTS_PER_IMAGE,
+  MIN_TITLE_LENGTH,
+  MAX_TITLE_LENGTH,
+  MIN_TANK_SIZE,
+  MAX_TANK_SIZE,
+} from './constants';
+
+type GalleryInsert = typeof gallerySetups.$inferInsert;
 
 function revalidateGallery() {
   routing.locales.forEach((locale) => {
@@ -25,11 +38,10 @@ export async function createSetupAction(
     style: string;
     mediaUrls: Array<string | GalleryMedia>;
     hotspots: Hotspot[];
-  }
+  },
 ): Promise<{ success: boolean; error?: string; id?: string }> {
   const user = await requireUser();
 
-  // Validate URL-based media submission
   const title = (payload.title ?? '').trim();
   if (title.length < MIN_TITLE_LENGTH || title.length > MAX_TITLE_LENGTH) {
     return { success: false, error: 'gallery.validation.titleRequired' };
@@ -50,42 +62,58 @@ export async function createSetupAction(
     return { success: false, error: 'gallery.validation.maxHotspots' };
   }
 
-  const supabase = await createServerSupabaseClient();
-  const insertPayload = {
-    user_id: user.id,
+  const insertValues = {
+    userId: user.id,
     title: payload.title.trim(),
     description: payload.description?.trim() || null,
-    tank_size: payload.tankSize,
+    tankSize: payload.tankSize,
     style: payload.style,
-    media_urls: payload.mediaUrls,
+    mediaUrls: payload.mediaUrls,
     hotspots: payload.hotspots,
-    is_approved: false,
+    isApproved: false,
     featured: false,
   };
 
-  const { data, error } = await supabase
-    .from('gallery_setups')
-    .insert(insertPayload)
-    .select('id')
-    .single();
+  try {
+    const [created] = await db
+      .insert(gallerySetups)
+      .values(insertValues)
+      .returning({ id: gallerySetups.id });
 
-  if (error || !data) {
+    if (!created) {
+      return { success: false, error: 'gallery.errors.createFailed' };
+    }
+
+    try {
+      await createAuditLog(
+        user.id,
+        AUDIT_ACTIONS.GALLERY_SETUP_CREATED,
+        ENTITY_TYPES.GALLERY_SETUP,
+        created.id,
+        {
+          after: {
+            user_id: insertValues.userId,
+            title: insertValues.title,
+            description: insertValues.description,
+            tank_size: insertValues.tankSize,
+            style: insertValues.style,
+            media_urls: insertValues.mediaUrls,
+            hotspots: insertValues.hotspots,
+            is_approved: insertValues.isApproved,
+            featured: insertValues.featured,
+          },
+        },
+      );
+    } catch {
+      // Audit logging failure should not block creation
+    }
+
+    revalidateGallery();
+    return { success: true, id: created.id };
+  } catch (error) {
     console.error('Failed to create gallery setup', error);
     return { success: false, error: 'gallery.errors.createFailed' };
   }
-
-  try {
-    await createAuditLog(
-      user.id,
-      AUDIT_ACTIONS.GALLERY_SETUP_CREATED,
-      ENTITY_TYPES.GALLERY_SETUP,
-      data.id,
-      { after: insertPayload }
-    );
-  } catch {}
-
-  revalidateGallery();
-  return { success: true, id: data.id };
 }
 
 export async function updateSetupAction(
@@ -97,122 +125,195 @@ export async function updateSetupAction(
     style: string;
     mediaUrls: Array<string | GalleryMedia>;
     hotspots: Hotspot[];
-  }>
+  }>,
 ): Promise<{ success: boolean; error?: string }> {
   const user = await requireUser();
-  const supabase = await createServerSupabaseClient();
 
-  const { data: existing, error: fetchError } = await supabase
-    .from('gallery_setups')
-    .select('*')
-    .eq('id', id)
-    .maybeSingle();
+  try {
+    const [existing] = await db
+      .select({ userId: gallerySetups.userId })
+      .from(gallerySetups)
+      .where(eq(gallerySetups.id, id))
+      .limit(1);
 
-  if (fetchError || !existing) {
-    return { success: false, error: 'gallery.errors.notFound' };
-  }
+    if (!existing) {
+      return { success: false, error: 'gallery.errors.notFound' };
+    }
 
-  if (existing.user_id !== user.id) {
-    return { success: false, error: 'auth.errors.unauthenticated' };
-  }
+    if (existing.userId !== user.id) {
+      return { success: false, error: 'auth.errors.unauthenticated' };
+    }
 
-  const updates: Record<string, unknown> = {};
-  if (payload.title !== undefined) updates.title = payload.title.trim();
-  if (payload.description !== undefined) updates.description = payload.description?.trim() || null;
-  if (payload.tankSize !== undefined) updates.tank_size = payload.tankSize;
-  if (payload.style !== undefined) updates.style = payload.style;
-  if (payload.hotspots !== undefined) updates.hotspots = payload.hotspots;
-  if (payload.mediaUrls !== undefined) updates.media_urls = payload.mediaUrls;
+    // Validate provided fields
+    if (payload.title !== undefined) {
+      const title = payload.title.trim();
+      if (title.length < MIN_TITLE_LENGTH || title.length > MAX_TITLE_LENGTH) {
+        return { success: false, error: 'gallery.validation.titleRequired' };
+      }
+    }
 
-  const { error: updateError } = await supabase
-    .from('gallery_setups')
-    .update(updates)
-    .eq('id', id);
+    if (payload.tankSize !== undefined) {
+      if (payload.tankSize < MIN_TANK_SIZE || payload.tankSize > MAX_TANK_SIZE) {
+        return { success: false, error: 'gallery.validation.tankSizeRequired' };
+      }
+    }
 
-  if (updateError) {
-    console.error('Failed to update gallery setup', updateError);
+    if (payload.style !== undefined) {
+      if (!GALLERY_STYLES.includes(payload.style as GalleryStyle)) {
+        return { success: false, error: 'gallery.validation.styleRequired' };
+      }
+    }
+
+    if (payload.mediaUrls !== undefined) {
+      if (!Array.isArray(payload.mediaUrls) || payload.mediaUrls.length < 1) {
+        return { success: false, error: 'gallery.validation.mediaRequired' };
+      }
+      if (payload.mediaUrls.length > MAX_GALLERY_MEDIA) {
+        return { success: false, error: 'gallery.validation.maxMedia' };
+      }
+    }
+
+    if (payload.hotspots !== undefined) {
+      if (Array.isArray(payload.hotspots) && payload.hotspots.length > MAX_HOTSPOTS_PER_IMAGE) {
+        return { success: false, error: 'gallery.validation.maxHotspots' };
+      }
+    }
+
+    const updates: Partial<GalleryInsert> = {};
+    if (payload.title !== undefined) updates.title = payload.title.trim();
+    if (payload.description !== undefined) {
+      updates.description = payload.description?.trim() || null;
+    }
+    if (payload.tankSize !== undefined) updates.tankSize = payload.tankSize;
+    if (payload.style !== undefined) updates.style = payload.style;
+    if (payload.hotspots !== undefined) updates.hotspots = payload.hotspots;
+    if (payload.mediaUrls !== undefined) updates.mediaUrls = payload.mediaUrls;
+
+    if (Object.keys(updates).length === 0) {
+      return { success: true };
+    }
+
+    await db
+      .update(gallerySetups)
+      .set(updates)
+      .where(eq(gallerySetups.id, id));
+
+    revalidateGallery();
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to update gallery setup', error);
     return { success: false, error: 'gallery.errors.updateFailed' };
   }
-
-  revalidateGallery();
-  return { success: true };
 }
 
-export async function deleteSetupAction(id: string, imageUrls: string[]): Promise<{ success: boolean; error?: string }> {
+export async function deleteSetupAction(
+  id: string,
+  imageUrls: string[],
+): Promise<{ success: boolean; error?: string }> {
   const user = await requireUser();
-  const supabase = await createServerSupabaseClient();
 
-  const { data: existing, error: fetchError } = await supabase
-    .from('gallery_setups')
-    .select('user_id')
-    .eq('id', id)
-    .maybeSingle();
+  try {
+    const [existing] = await db
+      .select({ userId: gallerySetups.userId })
+      .from(gallerySetups)
+      .where(eq(gallerySetups.id, id))
+      .limit(1);
 
-  if (fetchError || !existing) {
-    return { success: false, error: 'gallery.errors.notFound' };
-  }
+    if (!existing) {
+      return { success: false, error: 'gallery.errors.notFound' };
+    }
 
-  if (existing.user_id !== user.id) {
-    return { success: false, error: 'auth.errors.unauthenticated' };
-  }
+    if (existing.userId !== user.id) {
+      return { success: false, error: 'auth.errors.unauthenticated' };
+    }
 
-  if (Array.isArray(imageUrls) && imageUrls.length) {
-    await deleteGalleryImages(imageUrls);
-  }
+    if (Array.isArray(imageUrls) && imageUrls.length) {
+      await deleteGalleryImages(imageUrls);
+    }
 
-  const { error } = await supabase.from('gallery_setups').delete().eq('id', id);
-  if (error) {
+    await db
+      .delete(gallerySetups)
+      .where(eq(gallerySetups.id, id));
+
+    revalidateGallery();
+    return { success: true };
+  } catch (error) {
     console.error('Failed to delete gallery setup', error);
     return { success: false, error: 'gallery.errors.deleteFailed' };
   }
-
-  revalidateGallery();
-  return { success: true };
 }
 
 export async function incrementViewCountAction(id: string): Promise<void> {
-  const supabase = await createServerSupabaseClient();
-  await supabase.rpc('increment_gallery_view_count', { p_id: id });
+  try {
+    await db
+      .update(gallerySetups)
+      .set({ viewCount: sql`${gallerySetups.viewCount} + 1` })
+      .where(eq(gallerySetups.id, id));
+  } catch (error) {
+    console.error('Failed to increment gallery view count', error);
+  }
 }
 
-export async function approveSetupAction(id: string, approved: boolean): Promise<{ success: boolean; error?: string }> {
+export async function approveSetupAction(
+  id: string,
+  approved: boolean,
+): Promise<{ success: boolean; error?: string }> {
   const admin = await requireAdmin();
-  const supabase = await createServerSupabaseClient();
-
-  const { error } = await supabase
-    .from('gallery_setups')
-    .update({ is_approved: approved })
-    .eq('id', id);
-
-  if (error) {
-    return { success: false, error: 'gallery.errors.updateFailed' };
-  }
 
   try {
-    await createAuditLog(admin.id, AUDIT_ACTIONS.GALLERY_SETUP_APPROVED, ENTITY_TYPES.GALLERY_SETUP, id, { approved });
-  } catch {}
+    await db
+      .update(gallerySetups)
+      .set({ isApproved: approved })
+      .where(eq(gallerySetups.id, id));
 
-  revalidateGallery();
-  return { success: true };
+    try {
+      await createAuditLog(
+        admin.id,
+        AUDIT_ACTIONS.GALLERY_SETUP_APPROVED,
+        ENTITY_TYPES.GALLERY_SETUP,
+        id,
+        { approved },
+      );
+    } catch {
+      // Ignore audit failures
+    }
+
+    revalidateGallery();
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to update gallery approval status', error);
+    return { success: false, error: 'gallery.errors.updateFailed' };
+  }
 }
 
-export async function featureSetupAction(id: string, featured: boolean): Promise<{ success: boolean; error?: string }> {
+export async function featureSetupAction(
+  id: string,
+  featured: boolean,
+): Promise<{ success: boolean; error?: string }> {
   const admin = await requireAdmin();
-  const supabase = await createServerSupabaseClient();
-
-  const { error } = await supabase
-    .from('gallery_setups')
-    .update({ featured })
-    .eq('id', id);
-
-  if (error) {
-    return { success: false, error: 'gallery.errors.updateFailed' };
-  }
 
   try {
-    await createAuditLog(admin.id, AUDIT_ACTIONS.GALLERY_SETUP_FEATURED, ENTITY_TYPES.GALLERY_SETUP, id, { featured });
-  } catch {}
+    await db
+      .update(gallerySetups)
+      .set({ featured })
+      .where(eq(gallerySetups.id, id));
 
-  revalidateGallery();
-  return { success: true };
+    try {
+      await createAuditLog(
+        admin.id,
+        AUDIT_ACTIONS.GALLERY_SETUP_FEATURED,
+        ENTITY_TYPES.GALLERY_SETUP,
+        id,
+        { featured },
+      );
+    } catch {
+      // Ignore audit failures
+    }
+
+    revalidateGallery();
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to update gallery featured status', error);
+    return { success: false, error: 'gallery.errors.updateFailed' };
+  }
 }

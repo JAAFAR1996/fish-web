@@ -29,6 +29,7 @@ interface ModalContextValue {
   title: string;
   description?: string;
   showCloseButton: boolean;
+  variant: 'default' | 'glass';
 }
 
 const ModalContext = createContext<ModalContextValue | null>(null);
@@ -52,6 +53,7 @@ export interface ModalProps
   closeOnEscape?: boolean;
   closeOnBackdrop?: boolean;
   showCloseButton?: boolean;
+  variant?: 'default' | 'glass';
   children: ReactNode;
 }
 
@@ -72,6 +74,7 @@ export function Modal({
   closeOnEscape = true,
   closeOnBackdrop = true,
   showCloseButton = true,
+  variant = 'default',
   className,
   children,
   ...props
@@ -242,16 +245,26 @@ export function Modal({
       title,
       description,
       showCloseButton,
+      variant,
     }),
-    [close, description, descriptionId, showCloseButton, title, titleId]
+    [close, description, descriptionId, showCloseButton, title, titleId, variant]
   );
+
+  const dialogBaseClasses =
+    'fixed inset-0 z-50 m-auto w-full max-h-[calc(100vh-2rem)] overflow-hidden rounded-lg border p-0 transition-[transform,opacity] motion-safe:duration-200 data-[state=open]:animate-fade-in';
+
+  const variantClasses =
+    variant === 'glass'
+      ? 'glass-overlay border-white/20 bg-transparent shadow-2xl backdrop:bg-black/30 backdrop:backdrop-blur-md'
+      : 'border-border bg-background shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm';
 
   return (
     <ModalContext.Provider value={contextValue}>
       <dialog
         ref={dialogRef}
         className={cn(
-          'fixed inset-0 z-50 m-auto w-full max-h-[calc(100vh-2rem)] overflow-hidden rounded-lg border border-border bg-background p-0 shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm transition-[transform,opacity] motion-safe:duration-200 data-[state=open]:animate-fade-in',
+          dialogBaseClasses,
+          variantClasses,
           sizeClasses[size],
           className
         )}
@@ -269,16 +282,35 @@ export function Modal({
   );
 }
 
-export function ModalHeader({ className, children }: HTMLAttributes<HTMLDivElement>) {
-  const { title, description, titleId, descriptionId, close, showCloseButton } =
-    useModalContext('ModalHeader');
+export function ModalHeader({
+  className,
+  children,
+  style,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
+  const {
+    title,
+    description,
+    titleId,
+    descriptionId,
+    close,
+    showCloseButton,
+    variant,
+  } = useModalContext('ModalHeader');
+
+  const headerClasses = cn(
+    'flex items-start justify-between gap-4 p-6',
+    variant === 'glass'
+      ? 'border-b border-white/20 bg-white/20 backdrop-blur backdrop-saturate-150 dark:bg-black/20'
+      : 'border-b border-border',
+    className
+  );
 
   return (
     <div
-      className={cn(
-        'flex items-start justify-between gap-4 border-b border-border p-6',
-        className
-      )}
+      className={headerClasses}
+      style={style}
+      {...props}
     >
       <div className="flex flex-col gap-1.5">
         <h2 id={titleId} className="text-xl font-semibold leading-snug">
@@ -296,7 +328,7 @@ export function ModalHeader({ className, children }: HTMLAttributes<HTMLDivEleme
           type="button"
           variant="ghost"
           size="sm"
-          className="ms-auto rounded-full p-2"
+          className="ms-auto rounded-full p-2 glass-focus"
           onClick={close}
           aria-label="Close dialog"
         >
@@ -319,13 +351,25 @@ export function ModalBody({ className, ...props }: HTMLAttributes<HTMLDivElement
   );
 }
 
-export function ModalFooter({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+export function ModalFooter({
+  className,
+  style,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
+  const { variant } = useModalContext('ModalFooter');
+
+  const footerClasses = cn(
+    'flex flex-col-reverse gap-2 p-6 pt-4 sm:flex-row sm:items-center sm:justify-end sm:gap-3 sm:pt-0',
+    variant === 'glass'
+      ? 'border-t border-white/20 bg-white/15 backdrop-blur backdrop-saturate-150 dark:bg-black/25'
+      : 'border-t border-border',
+    className
+  );
+
   return (
     <div
-      className={cn(
-        'flex flex-col-reverse gap-2 border-t border-border p-6 pt-4 sm:flex-row sm:items-center sm:justify-end sm:gap-3 sm:pt-0',
-        className
-      )}
+      className={footerClasses}
+      style={style}
       {...props}
     />
   );

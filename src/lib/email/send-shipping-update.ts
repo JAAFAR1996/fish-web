@@ -1,8 +1,10 @@
 import { getResend, FROM_EMAIL, SUPPORT_EMAIL } from './resend-client';
 import { renderShippingUpdateEmailEn } from './templates/shipping-update-en';
 import { renderShippingUpdateEmailAr } from './templates/shipping-update-ar';
-import { adminClient } from '@/lib/supabase/admin';
 import type { Order, Locale } from '@/types';
+import { db } from '@server/db';
+import { users } from '@shared/schema';
+import { eq } from 'drizzle-orm';
 
 interface SendShippingUpdateEmailParams {
   order: Order;
@@ -14,9 +16,13 @@ interface SendShippingUpdateEmailParams {
 async function resolveRecipientEmail(order: Order): Promise<string | null> {
   if (order.user_id) {
     try {
-      const { data, error } = await adminClient.auth.admin.getUserById(order.user_id);
-      if (!error && data?.user?.email) {
-        return data.user.email;
+      const [row] = await db
+        .select({ email: users.email })
+        .from(users)
+        .where(eq(users.id, order.user_id))
+        .limit(1);
+      if (row?.email) {
+        return row.email;
       }
     } catch (error) {
       console.error('Failed to fetch user email for shipping update', error);

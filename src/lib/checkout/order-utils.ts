@@ -8,6 +8,7 @@ import type {
 } from '@/types';
 
 import { ORDER_NUMBER_PREFIX } from './constants';
+import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 
 function padNumber(num: number, size: number) {
   let value = String(num);
@@ -74,7 +75,7 @@ export function mapCartItemsToOrderItems(
   orderId: string
 ): Omit<OrderItem, 'id' | 'created_at'>[] {
   return cartItems.map((item) => {
-    const unitPrice = item.unit_price ?? item.product.price;
+    const unitPrice = item.unit_price ?? getEffectiveUnitPrice(item.product);
     const snapshot = createProductSnapshot(item.product);
 
     return {

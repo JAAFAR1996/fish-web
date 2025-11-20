@@ -1,76 +1,97 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { db } from '@server/db';
+import { bundles } from '@shared/schema';
+import { and, eq, gte, isNull, lte, or, sql } from 'drizzle-orm';
+
 import { getProducts } from '@/lib/data/products';
 import type { Bundle, BundleWithProducts, Product, CartItemWithProduct } from '@/types';
+
+const toIsoString = (value: Date | string | null | undefined): string =>
+  value instanceof Date ? value.toISOString() : value ?? new Date(0).toISOString();
+
+type BundleRow = typeof bundles.$inferSelect;
+
+function transformBundle(row: BundleRow): Bundle {
+  return {
+    id: row.id,
+    name: row.name,
+    description: row.description ?? '',
+    product_ids: Array.isArray(row.productIds) ? (row.productIds as string[]) : [],
+    discount_type: row.discountType as Bundle['discount_type'],
+    discount_value: Number.parseFloat(String(row.discountValue ?? 0)),
+    bundle_price: Number.parseFloat(String(row.bundlePrice ?? 0)),
+    is_active: row.isActive,
+    starts_at: row.startsAt ? toIsoString(row.startsAt) : null,
+    ends_at: row.endsAt ? toIsoString(row.endsAt) : null,
+    created_at: toIsoString(row.createdAt),
+    updated_at: toIsoString(row.updatedAt),
+  };
+}
 
 /**
  * Get all active bundles
  */
 export async function getActiveBundles(): Promise<Bundle[]> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    const now = new Date();
 
-  const { data, error } = await supabase
-    .from('bundles')
-    .select('*')
-    .eq('is_active', true);
+    const rows = await db
+      .select()
+      .from(bundles)
+      .where(
+        and(
+          eq(bundles.isActive, true),
+          or(isNull(bundles.startsAt), lte(bundles.startsAt, now)),
+          or(isNull(bundles.endsAt), gte(bundles.endsAt, now))
+        )
+      );
 
-  if (error) {
+    return rows.map(transformBundle);
+  } catch (error) {
     console.error('[Bundles] Error fetching active bundles:', error);
     return [];
   }
-
-  const now = new Date();
-
-  return (data as Bundle[]).filter((bundle) => {
-    const startsAt = bundle.starts_at ? new Date(bundle.starts_at) : null;
-    const endsAt = bundle.ends_at ? new Date(bundle.ends_at) : null;
-
-    if (startsAt && now < startsAt) {
-      return false;
-    }
-
-    if (endsAt && now >= endsAt) {
-      return false;
-    }
-
-    return true;
-  });
 }
 
 /**
  * Get bundle by ID with products
  */
 export async function getBundleById(bundleId: string): Promise<BundleWithProducts | null> {
-  const supabase = await createServerSupabaseClient();
+  try {
+    const [row] = await db
+      .select()
+      .from(bundles)
+      .where(eq(bundles.id, bundleId))
+      .limit(1);
 
-  const { data: bundle, error } = await supabase
-    .from('bundles')
-    .select('*')
-    .eq('id', bundleId)
-    .maybeSingle();
+    if (!row) {
+      return null;
+    }
 
-  if (error || !bundle) {
+    const bundle = transformBundle(row);
+
+    // Fetch all products and filter by bundle product IDs
+    const allProducts = await getProducts();
+    const bundleProducts = allProducts.filter((product) =>
+      bundle.product_ids.includes(product.id),
+    );
+
+    // Calculate totals
+    const totalOriginalPrice = bundleProducts.reduce(
+      (sum, product) => sum + (product.originalPrice ?? product.price),
+      0,
+    );
+    const savings = totalOriginalPrice - bundle.bundle_price;
+
+    return {
+      ...bundle,
+      products: bundleProducts,
+      totalOriginalPrice,
+      savings,
+    } as BundleWithProducts;
+  } catch (error) {
     console.error(`[Bundles] Error fetching bundle ${bundleId}:`, error);
     return null;
   }
-
-  // Fetch all products and filter by bundle product IDs
-  const allProducts = await getProducts();
-  const bundleProducts = allProducts.filter(p => (bundle.product_ids as string[]).includes(p.id));
-
-  // Calculate totals
-  const totalOriginalPrice = bundleProducts.reduce(
-    (sum, product) => sum + (product.originalPrice ?? product.price),
-    0
-  );
-  const savings = totalOriginalPrice - bundle.bundle_price;
-
-  return {
-    ...bundle,
-    product_ids: bundle.product_ids as string[],
-    products: bundleProducts,
-    totalOriginalPrice,
-    savings,
-  } as BundleWithProducts;
 }
 
 /**

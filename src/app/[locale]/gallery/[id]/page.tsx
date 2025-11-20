@@ -6,6 +6,7 @@ import { GalleryDetailView } from '@/components/gallery';
 import { getSetupById } from '@/lib/gallery/gallery-queries';
 import { incrementViewCountAction } from '@/lib/gallery/gallery-actions';
 import { getProducts } from '@/lib/data/products';
+import { getUser } from '@/lib/auth/utils';
 import type { GallerySetup, GallerySetupWithProducts, Hotspot, Locale } from '@/types';
 
 export const dynamic = 'force-dynamic';
@@ -15,9 +16,8 @@ export async function generateMetadata({ params }: { params: { locale: Locale; i
   const { locale, id } = params;
   const t = await getTranslations({ locale, namespace: 'gallery' });
   const setup = await getSetupById(id);
-  const supabase = await (await import('@/lib/supabase/server')).createServerSupabaseClient();
-  const { data: auth } = await supabase.auth.getUser();
-  const currentUserId = auth.user?.id;
+  const currentUser = await getUser();
+  const currentUserId = currentUser?.id;
   if (!setup || (!setup.is_approved && setup.user_id !== currentUserId)) {
     return { title: t('pageTitle'), description: t('description') };
   }
@@ -66,9 +66,8 @@ export default async function GalleryDetailPage({ params }: { params: { locale: 
   setRequestLocale(locale);
 
   const setupRow = await getSetupById(id);
-  const supabase = await (await import('@/lib/supabase/server')).createServerSupabaseClient();
-  const { data: auth } = await supabase.auth.getUser();
-  const currentUserId = auth.user?.id;
+  const currentUser = await getUser();
+  const currentUserId = currentUser?.id;
   if (!setupRow || (!setupRow.is_approved && setupRow.user_id !== currentUserId)) {
     notFound();
   }

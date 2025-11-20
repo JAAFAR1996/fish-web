@@ -65,10 +65,10 @@ function applySecurityHeaders(
   const reportOnly = process.env.NODE_ENV !== 'production';
   const cspDirectives = [
     "default-src 'self'",
-    `script-src 'self' https://*.supabase.co https://plausible.io 'nonce-${cspNonce}'`,
+    `script-src 'self' https://plausible.io 'nonce-${cspNonce}'`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https:",
-    "connect-src 'self' https://*.supabase.co https://plausible.io",
+    "connect-src 'self' https://plausible.io",
     "font-src 'self' https://fonts.gstatic.com",
     "frame-ancestors 'self'",
     `report-uri ${CSP_REPORT_URI}`,

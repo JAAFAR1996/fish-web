@@ -2,6 +2,8 @@
 
 import { FormEvent, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import type { Route } from 'next';
 
 import { Button, Input } from '@/components/ui';
 import { PasswordInput } from './password-input';
@@ -22,6 +24,7 @@ export function EmailSigninForm({
   onSwitchToSignup,
 }: EmailSigninFormProps) {
   const t = useTranslations('auth');
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fieldErrors, setFieldErrors] = useState<ValidationErrors>({});
@@ -60,13 +63,19 @@ export function EmailSigninForm({
 
       if (!result.success) {
         setStatus('error');
-        const error = typeof result.error === 'string' ? result.error : String(result.error);
-        setFormError(error);
+        setFormError('error' in result ? result.error : 'auth.errors.unknownError');
         return;
       }
 
       setStatus('success');
       setFormError(null);
+      window.dispatchEvent(new Event('auth-change'));
+      const target = result.redirect ?? window.location.pathname;
+      if (target === window.location.pathname) {
+        router.refresh();
+      } else {
+        router.push(target as Route);
+      }
       onSuccess();
     });
   };

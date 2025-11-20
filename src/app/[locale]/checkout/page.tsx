@@ -6,8 +6,10 @@ import type { SavedAddress } from '@/types';
 import { CheckoutWizard } from '@/components/checkout';
 import { getUser } from '@/lib/auth/utils';
 import { getCartWithItems } from '@/lib/cart/cart-queries';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { getUserPointsBalance } from '@/lib/marketing/loyalty-utils';
+import { db } from '@server/db';
+import { savedAddresses as savedAddressesTable } from '@shared/schema';
+import { desc, eq } from 'drizzle-orm';
 
 export const dynamic = 'force-dynamic';
 
@@ -42,7 +44,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
   setRequestLocale(locale);
 
   const user = await getUser();
-  let savedAddresses: SavedAddress[] = [];
+  let userAddresses: SavedAddress[] = [];
   let loyaltyPointsBalance = 0;
 
   if (user) {
@@ -53,23 +55,39 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
 
     loyaltyPointsBalance = await getUserPointsBalance(user.id);
 
-    const supabase = await createServerSupabaseClient();
-    const { data, error } = await supabase
-      .from('saved_addresses')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('is_default', { ascending: false })
-      .order('created_at', { ascending: false });
+    const rows = await db
+      .select()
+      .from(savedAddressesTable)
+      .where(eq(savedAddressesTable.userId, user.id))
+      .orderBy(desc(savedAddressesTable.isDefault), desc(savedAddressesTable.createdAt));
 
-    if (!error && data) {
-      savedAddresses = data as SavedAddress[];
-    }
+    userAddresses = rows.map((row) => ({
+      id: row.id,
+      user_id: row.userId,
+      label: row.label ?? null,
+      recipient_name: row.recipientName,
+      phone: row.phone ?? null,
+      address_line1: row.addressLine1,
+      address_line2: row.addressLine2 ?? null,
+      city: row.city,
+      governorate: row.governorate,
+      postal_code: row.postalCode ?? null,
+      is_default: row.isDefault ?? false,
+      created_at:
+        row.createdAt instanceof Date
+          ? row.createdAt.toISOString()
+          : row.createdAt ?? new Date().toISOString(),
+      updated_at:
+        row.updatedAt instanceof Date
+          ? row.updatedAt.toISOString()
+          : row.updatedAt ?? new Date().toISOString(),
+    }));
   }
 
   return (
     <CheckoutWizard
       user={user}
-      savedAddresses={savedAddresses}
+      savedAddresses={userAddresses}
       loyaltyPointsBalance={loyaltyPointsBalance}
     />
   );

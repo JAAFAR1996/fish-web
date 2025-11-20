@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import {
   Children,
   cloneElement,
@@ -10,10 +11,17 @@ import {
   type Ref,
 } from 'react';
 
+import { FEATURES } from '@/lib/config/features';
 import { cn, mergeRefs } from '@/lib/utils';
 
 import { Icon } from './icon';
 import { buttonVariants, type Size, type VariantProps } from './variants';
+import { LOTTIE_ANIMATIONS } from '@/components/animations';
+
+const LottieIcon = dynamic(
+  () => import('@/components/animations').then((mod) => ({ default: mod.LottieIcon })),
+  { ssr: false }
+);
 
 type ElementWithRef = ReactElement & { ref?: Ref<unknown> };
 type ButtonVariantOptions = VariantProps<typeof buttonVariants>;
@@ -91,11 +99,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading && (
-          <Icon
-            name="loader"
-            size={size ? (size as Size) : 'md'}
-            className="motion-safe:animate-spin"
-          />
+          FEATURES.lottie ? (
+            <LottieIcon
+              animationUrl={LOTTIE_ANIMATIONS.fishLoader}
+              fallbackIcon="loader"
+              size={size ? (size as Size) : 'md'}
+              loop
+              autoplay
+              speed={1.2}
+              className="lottie-fade-in loaded"
+              ariaHidden
+            />
+          ) : (
+            <Icon
+              name="loader"
+              size={size ? (size as Size) : 'md'}
+              className="motion-safe:animate-spin"
+            />
+          )
         )}
         {children}
       </button>

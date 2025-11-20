@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Carousel } from '@/components/home/carousel';
 import { ProductCard } from '@/components/products';
 import type { CartItemWithProduct, Product } from '@/types';
-import { getComplementaryProducts } from '@/lib/data/products-client';
+import { getComplementaryProductsAction } from '@/lib/data/products-actions';
 import { cn } from '@/lib/utils';
 import { useCart } from '@/components/providers/CartProvider';
 
@@ -39,7 +39,7 @@ export function UpsellSection({
       const collected: Record<string, Product> = {};
 
       for (const item of cartItems) {
-        const complementary = await getComplementaryProducts(item.product, 6);
+        const complementary = await getComplementaryProductsAction(item.product, 6);
         for (const product of complementary) {
           if (cartProductIds.has(product.id)) continue;
           collected[product.id] = product;

@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { Button, Icon } from '@/components/ui';
-import { useAuth } from '@/components/providers/SupabaseAuthProvider';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { toggleHelpfulVoteAction } from '@/lib/reviews/review-actions';
 import { cn } from '@/lib/utils';
 import type { HelpfulVote, Review } from '@/types';

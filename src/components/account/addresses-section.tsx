@@ -17,9 +17,14 @@ import {
   ModalBody,
   ModalFooter,
 } from '@/components/ui';
-import { useAuth } from '@/components/providers/SupabaseAuthProvider';
 import type { SavedAddress } from '@/types';
 import { AddressForm, type AddressFormValues } from './address-form';
+import {
+  deleteAddressAction,
+  listAddressesAction,
+  saveAddressAction,
+  setDefaultAddressAction,
+} from '@/lib/account/address-actions';
 
 interface AddressesSectionProps {
   user: AuthUser;
@@ -28,7 +33,6 @@ interface AddressesSectionProps {
 export function AddressesSection({ user }: AddressesSectionProps) {
   const t = useTranslations('account.addresses');
   const tAuth = useTranslations('auth');
-  const { supabase } = useAuth();
 
   const [addresses, setAddresses] = useState<SavedAddress[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -41,19 +45,15 @@ export function AddressesSection({ user }: AddressesSectionProps) {
   const fetchAddresses = async () => {
     setError(null);
     setIsLoading(true);
-    const { data, error } = await supabase
-      .from('saved_addresses')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('is_default', { ascending: false })
-      .order('created_at', { ascending: false });
-
-    if (error) {
+    try {
+      const data = await listAddressesAction();
+      setAddresses(data);
+    } catch (err) {
+      console.error('Failed to load addresses', err);
       setError('auth.errors.unknownError');
-    } else {
-      setAddresses(data ?? []);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -63,26 +63,10 @@ export function AddressesSection({ user }: AddressesSectionProps) {
 
   const handleSaveAddress = async (values: AddressFormValues) => {
     startSaving(async () => {
-      if (values.is_default) {
-        await supabase
-          .from('saved_addresses')
-          .update({ is_default: false })
-          .eq('user_id', user.id);
-      }
-
-      if (currentAddress) {
-        await supabase
-          .from('saved_addresses')
-          .update({
-            ...values,
-          })
-          .eq('id', currentAddress.id)
-          .eq('user_id', user.id);
-      } else {
-        await supabase.from('saved_addresses').insert({
-          ...values,
-          user_id: user.id,
-        });
+      const result = await saveAddressAction(values, currentAddress?.id);
+      if (!result.success) {
+        setError(result.error ?? 'auth.errors.unknownError');
+        return;
       }
 
       await fetchAddresses();
@@ -93,7 +77,12 @@ export function AddressesSection({ user }: AddressesSectionProps) {
 
   const handleDeleteAddress = async (id: string) => {
     startSaving(async () => {
-      await supabase.from('saved_addresses').delete().eq('id', id).eq('user_id', user.id);
+      const result = await deleteAddressAction(id);
+      if (!result.success) {
+        setError(result.error ?? 'auth.errors.unknownError');
+        return;
+      }
+
       setConfirmDeleteId(null);
       await fetchAddresses();
     });
@@ -197,15 +186,12 @@ export function AddressesSection({ user }: AddressesSectionProps) {
                     size="sm"
                     onClick={async () => {
                       startSaving(async () => {
-                        await supabase
-                          .from('saved_addresses')
-                          .update({ is_default: false })
-                          .eq('user_id', user.id);
-                        await supabase
-                          .from('saved_addresses')
-                          .update({ is_default: true })
-                          .eq('id', address.id)
-                          .eq('user_id', user.id);
+                        const result = await setDefaultAddressAction(address.id);
+                        if (!result.success) {
+                          setError(result.error ?? 'auth.errors.unknownError');
+                          return;
+                        }
+
                         await fetchAddresses();
                       });
                     }}

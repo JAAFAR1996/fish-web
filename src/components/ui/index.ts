@@ -23,6 +23,16 @@ export {
   type CardTitleProps,
 } from './card';
 export {
+  GlassCard,
+  GlassCardHeader,
+  GlassCardTitle,
+  GlassCardDescription,
+  GlassCardContent,
+  GlassCardFooter,
+  type GlassCardProps,
+  type GlassCardTitleProps,
+} from './glass-card';
+export {
   Accordion,
   AccordionItem,
   AccordionTrigger,

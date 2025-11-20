@@ -193,7 +193,7 @@ export interface SavedCalculation {
 
 export type AuthProvider = 'email' | 'google' | 'phone';
 
-export type AuthTab = 'signin' | 'signup' | 'phone';
+export type AuthTab = 'signin' | 'signup';
 
 export interface AuthError {
   message: string;

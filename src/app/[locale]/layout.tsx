@@ -1,9 +1,15 @@
 import '@/app/globals.css';
 
 import type { Metadata } from 'next';
-import { Cairo, Inter } from 'next/font/google';
+import {
+  Cairo,
+  Inter,
+  Montserrat,
+  Noto_Sans_Arabic,
+  Playfair_Display,
+  Raleway,
+} from 'next/font/google';
 import { notFound } from 'next/navigation';
-import dynamic from 'next/dynamic';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import type { ReactNode } from 'react';
@@ -11,16 +17,18 @@ import { headers as nextHeaders } from 'next/headers';
 
 import { Header, Footer } from '@/components/layout';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
-import { SupabaseAuthProvider } from '@/components/providers/SupabaseAuthProvider';
+import { AuthProvider } from '@/components/providers/AuthProvider';
 import { CartProvider } from '@/components/providers/CartProvider';
 import { WishlistProvider } from '@/components/providers/WishlistProvider';
 import { NotificationProvider } from '@/components/providers/NotificationProvider';
 import { routing } from '@/i18n/routing';
-import { getDirection } from '@/lib/utils';
+import { cn, getDirection } from '@/lib/utils';
+import { FEATURES } from '@/lib/config/features';
 import { getUser } from '@/lib/auth/utils';
 import PlausibleAnalytics from '@/components/analytics/plausible-analytics';
 import type { NextWebVitalsMetric } from 'next/app';
 import { reportWebVitals as reportWebVitalsToAnalytics } from '@/lib/analytics/web-vitals';
+import { PwaPrompts } from '@/components/pwa/PwaPrompts';
 
 type Locale = (typeof routing.locales)[number];
 type Params = { locale: string };
@@ -52,29 +60,34 @@ const inter = Inter({
   weight: ['400', '500', '600', '700'],
 });
 
-const OfflineIndicator = dynamic(
-  () =>
-    import('@/components/pwa/offline-indicator').then(
-      (mod) => mod.OfflineIndicator
-    ),
-  { ssr: false }
-);
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+});
 
-const InstallPrompt = dynamic(
-  () =>
-    import('@/components/pwa/install-prompt').then(
-      (mod) => mod.InstallPrompt
-    ),
-  { ssr: false }
-);
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
 
-const UpdatePrompt = dynamic(
-  () =>
-    import('@/components/pwa/update-prompt').then(
-      (mod) => mod.UpdatePrompt
-    ),
-  { ssr: false }
-);
+const raleway = Raleway({
+  subsets: ['latin'],
+  variable: '--font-raleway',
+  display: 'swap',
+  weight: ['400', '500', '600'],
+});
+
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ['arabic'],
+  variable: '--font-noto-arabic',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
 
 const BASE_URL = 'https://fishweb.iq';
 
@@ -156,30 +169,39 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
     <html
       lang={locale}
       dir={dir}
-      className={`${cairo.variable} ${inter.variable}`}
+      className={cn(
+        cairo.variable,
+        inter.variable,
+        playfairDisplay.variable,
+        montserrat.variable,
+        raleway.variable,
+        notoSansArabic.variable,
+        FEATURES.gsap ? 'gsap-enabled' : 'gsap-disabled',
+      )}
       suppressHydrationWarning
     >
+      <head>
+        <meta charSet="UTF-8" />
+      </head>
       <body className="flex min-h-screen flex-col bg-background text-foreground font-sans antialiased transition-colors duration-300">
-        <SupabaseAuthProvider>
-          <NotificationProvider userId={user?.id}>
-            <CartProvider>
-              <WishlistProvider>
-                <ThemeProvider>
-                  <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages}>
+          <AuthProvider>
+            <NotificationProvider userId={user?.id}>
+              <CartProvider>
+                <WishlistProvider>
+                  <ThemeProvider>
                     <Header />
-                    <OfflineIndicator />
-                    <InstallPrompt />
-                    <UpdatePrompt />
+                    <PwaPrompts />
                     <main id="main-content" className="flex-1 pt-16">
                       {children}
                     </main>
                     <Footer />
-                  </NextIntlClientProvider>
-                </ThemeProvider>
-              </WishlistProvider>
-            </CartProvider>
-          </NotificationProvider>
-        </SupabaseAuthProvider>
+                  </ThemeProvider>
+                </WishlistProvider>
+              </CartProvider>
+            </NotificationProvider>
+          </AuthProvider>
+        </NextIntlClientProvider>
         {process.env.NODE_ENV === 'production' && <PlausibleAnalytics nonce={cspNonce} />}
       </body>
     </html>

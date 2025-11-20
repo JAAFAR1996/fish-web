@@ -1,18 +1,10 @@
- 'use client';
-
-import { createClient } from '@/lib/supabase/client';
+'use client';
 
 import {
   ALLOWED_PRODUCT_IMAGE_TYPES,
   MAX_PRODUCT_IMAGE_SIZE,
-  PRODUCT_IMAGES_BUCKET,
 } from './constants';
-
-const sanitizeFileName = (fileName: string): string =>
-  fileName
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-zA-Z0-9.\-_]/g, '');
+import { sanitizeFileName } from '@/lib/uploads/sanitize';
 
 export async function uploadProductImage(
   file: File,
@@ -26,25 +18,29 @@ export async function uploadProductImage(
     return { url: null, error: 'admin.validation.imageTypeInvalid' };
   }
 
-  const supabase = createClient();
   const sanitizedName = sanitizeFileName(file.name) || 'image';
-  const filePath = `products/${productSlug}/${Date.now()}-${sanitizedName}`;
+  const formData = new FormData();
+  formData.append('file', file, sanitizedName);
+  formData.append('slug', productSlug);
 
-  const { error: uploadError } = await supabase.storage
-    .from(PRODUCT_IMAGES_BUCKET)
-    .upload(filePath, file, {
-      cacheControl: '3600',
-      upsert: false,
+  try {
+    const response = await fetch('/api/upload/product', {
+      method: 'POST',
+      body: formData,
     });
 
-  if (uploadError) {
-    console.error('Failed to upload product image', uploadError);
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({}));
+      return {
+        url: null,
+        error: errorBody.error ?? 'errors.imageUploadFailed',
+      };
+    }
+
+    const data = await response.json();
+    return { url: data.url as string };
+  } catch (error) {
+    console.error('Failed to upload product image', error);
     return { url: null, error: 'errors.imageUploadFailed' };
   }
-
-  const { data } = supabase.storage
-    .from(PRODUCT_IMAGES_BUCKET)
-    .getPublicUrl(filePath);
-
-  return { url: data.publicUrl };
 }

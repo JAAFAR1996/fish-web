@@ -1,17 +1,11 @@
-import { getSupabaseUrl } from '@/lib/env';
-import { createClient } from '@/lib/supabase/client';
+import { getR2PublicUrl } from '@/lib/env';
+import { sanitizeFileName } from '@/lib/uploads/sanitize';
 
 import {
   ALLOWED_IMAGE_TYPES,
   MAX_IMAGE_SIZE,
   STORAGE_BUCKET,
 } from './constants';
-
-const sanitizeFileName = (fileName: string): string =>
-  fileName
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-zA-Z0-9.\-_]/g, '');
 
 export { extractPathFromUrl } from './url-utils';
 
@@ -28,25 +22,32 @@ export async function uploadReviewImage(
     return { url: null, error: 'reviews.validation.imageTypeInvalid' };
   }
 
-  const supabase = createClient();
   const sanitizedName = sanitizeFileName(file.name) || 'image';
-  const filePath = `${userId}/${reviewId}/${Date.now()}-${sanitizedName}`;
+  const formData = new FormData();
+  formData.append('file', file, sanitizedName);
+  formData.append('userId', userId);
+  formData.append('reviewId', reviewId);
 
-  const { error: uploadError } = await supabase.storage
-    .from(STORAGE_BUCKET)
-    .upload(filePath, file, {
-      cacheControl: '3600',
-      upsert: false,
+  try {
+    const response = await fetch('/api/upload/review', {
+      method: 'POST',
+      body: formData,
     });
 
-  if (uploadError) {
-    console.error('Failed to upload review image', uploadError);
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({}));
+      return {
+        url: null,
+        error: errorBody.error ?? 'reviews.errors.uploadFailed',
+      };
+    }
+
+    const data = await response.json();
+    return { url: data.url as string };
+  } catch (error) {
+    console.error('Failed to upload review image', error);
     return { url: null, error: 'reviews.errors.uploadFailed' };
   }
-
-  const { data } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(filePath);
-
-  return { url: data.publicUrl };
 }
 
 export async function uploadReviewImages(
@@ -77,10 +78,10 @@ export async function uploadReviewImages(
 }
 
 export const getImageUrl = (filePath: string): string => {
-  const baseUrl = getSupabaseUrl().replace(/\/+$/, '');
+  const baseUrl = getR2PublicUrl().replace(/\/+$/, '');
   const cleanPath = filePath.replace(/^\/+/, '');
 
-  return `${baseUrl}/storage/v1/object/public/${STORAGE_BUCKET}/${cleanPath}`;
+  return `${baseUrl}/${STORAGE_BUCKET}/${cleanPath}`;
 };
 
 export async function optimizeImage(file: File): Promise<File> {

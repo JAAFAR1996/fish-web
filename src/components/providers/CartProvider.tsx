@@ -20,13 +20,14 @@ import type {
   SavedForLaterItem,
 } from '@/types';
 
-import { getProductsWithFlashSalesClient } from '@/lib/data/products-client';
+import { getProductsWithFlashSalesAction } from '@/lib/data/products-actions';
 import { getEffectiveUnitPrice } from '@/lib/marketing/flash-sales-helpers';
 import {
   addToCartAction,
   clearCartAction,
   removeFromCartAction,
   syncGuestCartAction,
+  getServerCartForUser,
   updateQuantityAction,
 } from '@/lib/cart/cart-actions';
 import {
@@ -47,7 +48,7 @@ import {
   getTotalItemCount,
 } from '@/lib/cart/cart-utils';
 import { MAX_QUANTITY } from '@/lib/cart/constants';
-import { useAuth } from './SupabaseAuthProvider';
+import { useAuth } from './AuthProvider';
 import { SidebarCart } from '@/components/cart/sidebar-cart';
 import { trackEvent } from '@/components/analytics/plausible-analytics';
 
@@ -104,7 +105,7 @@ function mapSavedItemsToProducts(
 }
 
 export function CartProvider({ children }: Props) {
-  const { user, supabase } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const [items, setItems] = useState<CartItemWithProduct[]>([]);
   const [savedItems, setSavedItems] = useState<CartItemWithProduct[]>([]);
@@ -117,7 +118,7 @@ export function CartProvider({ children }: Props) {
     if (productsRef.current) {
       return productsRef.current;
     }
-    const products = await getProductsWithFlashSalesClient();
+    const products = await getProductsWithFlashSalesAction();
     productsRef.current = products;
     return products;
   }, []);
@@ -132,19 +133,10 @@ export function CartProvider({ children }: Props) {
   }, [loadProducts]);
 
   const loadUserData = useCallback(async () => {
-    if (!user || !supabase) return;
+    if (!user) return;
 
     const products = await loadProducts();
-    const { data: cart, error } = await supabase
-      .from('carts')
-      .select('id')
-      .eq('user_id', user.id)
-      .eq('status', 'active')
-      .maybeSingle();
-
-    if (error) {
-      console.error('Failed to load user cart', error);
-    }
+    const cart = await getServerCartForUser();
 
     if (!cart) {
       setItems([]);
@@ -152,27 +144,17 @@ export function CartProvider({ children }: Props) {
       return;
     }
 
-    const { data: cartItems, error: itemsError } = await supabase
-      .from('cart_items')
-      .select('id, cart_id, product_id, quantity, unit_price, created_at, updated_at')
-      .eq('cart_id', cart.id);
-
-    if (itemsError) {
-      console.error('Failed to load cart items', itemsError);
-      setItems([]);
-      setSavedItems([]);
-      return;
-    }
-
     const pendingPriceSync: Array<{ productId: string; quantity: number }> = [];
 
-    const mappedItems = (cartItems ?? [])
+    const mappedItems = (cart.items ?? [])
       .map((item) => {
         const product = products.find((p) => p.id === item.product_id);
         if (!product) return null;
-        const nextUnitPrice = getEffectiveUnitPrice(product);
 
-        if (item.unit_price !== nextUnitPrice) {
+        const nextUnitPrice = getEffectiveUnitPrice(product);
+        const currentUnitPrice = Number(item.unit_price ?? nextUnitPrice);
+
+        if (currentUnitPrice !== nextUnitPrice) {
           pendingPriceSync.push({
             productId: item.product_id,
             quantity: item.quantity,
@@ -201,7 +183,7 @@ export function CartProvider({ children }: Props) {
         console.error('Failed to sync cart item pricing', error);
       }
     }
-  }, [loadProducts, supabase, user]);
+  }, [loadProducts, user]);
 
   const loadCart = useCallback(async () => {
     setIsLoading(true);
