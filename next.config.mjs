@@ -160,6 +160,8 @@ const nextConfig = {
     config.resolve.alias = config.resolve.alias || {};
     config.resolve.alias['bufferutil'] = path.resolve(__dirname, 'bufferutil.cjs');
     config.resolve.alias['utf-8-validate'] = false;
+    config.resolve.alias['@server'] = path.resolve(__dirname, 'server');
+    config.resolve.alias['@shared'] = path.resolve(__dirname, 'shared');
     return config;
   },
   async headers() {

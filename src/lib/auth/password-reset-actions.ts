@@ -5,8 +5,8 @@ import { eq, and, gt } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
 import { Resend } from 'resend';
 
-import { db } from '@/server/db';
-import { users, passwordResetTokens } from '@/shared/schema';
+import { db } from '@server/db';
+import { users, passwordResetTokens } from '@shared/schema';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.FROM_EMAIL || 'orders@fishweb.iq';
