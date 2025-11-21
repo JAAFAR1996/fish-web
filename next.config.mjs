@@ -152,6 +152,13 @@ if (!process.env.WS_NO_UTF_8_VALIDATE) {
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
+  // Exclude local/dev artifacts from Lambda traces to keep serverless bundles small
+  outputFileTracingIgnores: [
+    path.join(__dirname, '**/.next/cache/**'),
+    path.join(__dirname, '**/.git/**'),
+    path.join(__dirname, '**/.local/**'),
+    path.join(__dirname, '**/tmp/**'),
+  ],
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: remoteImagePatterns,
