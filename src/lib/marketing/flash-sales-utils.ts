@@ -5,6 +5,14 @@ import { and, asc, eq, gte, lte, sql } from 'drizzle-orm';
 import type { FlashSale } from '@/types';
 export { isFlashSaleActive, calculateTimeRemaining, formatCountdown } from './flash-sales-helpers';
 
+let flashSalesErrorLogged = false;
+
+function logFlashSaleFallback(error: unknown) {
+  if (flashSalesErrorLogged) return;
+  flashSalesErrorLogged = true;
+  console.warn('[Flash Sales] Falling back to empty flash sales; database query failed', error);
+}
+
 const toIsoString = (value: Date | string | null | undefined): string =>
   value instanceof Date ? value.toISOString() : value ?? new Date(0).toISOString();
 
@@ -47,7 +55,7 @@ export async function getActiveFlashSales(): Promise<FlashSale[]> {
 
     return rows.map(transformFlashSale);
   } catch (error) {
-    console.error('[Flash Sales] Error fetching active flash sales:', error);
+    logFlashSaleFallback(error);
     return [];
   }
 }
@@ -74,7 +82,7 @@ export async function getFlashSaleForProduct(productId: string): Promise<FlashSa
 
     return row ? transformFlashSale(row) : null;
   } catch (error) {
-    console.error(`[Flash Sales] Error fetching flash sale for product ${productId}:`, error);
+    logFlashSaleFallback(error);
     return null;
   }
 }

@@ -1,16 +1,36 @@
 import type { MetadataRoute } from 'next';
-import { getProducts } from '@/lib/data/products';
-import { getAllBlogPosts } from '@/lib/blog/mdx-utils';
-import { getGallerySetups } from '@/lib/gallery/gallery-queries';
 import { CATEGORIES } from '@/components/layout/navigation-data';
+import productsData from '@/data/products.json';
+import { getAllBlogPosts } from '@/lib/blog/mdx-utils';
+import type { GallerySetupWithUser, Product } from '@/types';
+
+async function getProductsForSitemap(): Promise<Product[]> {
+  try {
+    const { getProducts } = await import('@/lib/data/products');
+    return await getProducts();
+  } catch (error) {
+    console.warn('[sitemap] Using static products fallback for sitemap generation', error);
+    return JSON.parse(JSON.stringify(productsData)) as Product[];
+  }
+}
+
+async function getGallerySetupsForSitemap(): Promise<GallerySetupWithUser[]> {
+  try {
+    const { getGallerySetups } = await import('@/lib/gallery/gallery-queries');
+    return await getGallerySetups({ isApproved: true });
+  } catch (error) {
+    console.warn('[sitemap] Skipping gallery entries in sitemap (database unavailable)', error);
+    return [];
+  }
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://fishweb.iq';
 
   const [products, posts, gallerySetups] = await Promise.all([
-    getProducts(),
+    getProductsForSitemap(),
     getAllBlogPosts(),
-    getGallerySetups({ isApproved: true }),
+    getGallerySetupsForSitemap(),
   ]);
 
   const staticPages: MetadataRoute.Sitemap = [

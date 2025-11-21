@@ -18,6 +18,14 @@ import type {
   Product,
 } from '@/types';
 
+let galleryErrorLogged = false;
+
+function logGalleryFallback(error: unknown) {
+  if (galleryErrorLogged) return;
+  galleryErrorLogged = true;
+  console.warn('Failed to fetch gallery data from database, falling back to empty results', error);
+}
+
 const toIsoString = (value: Date | string | null | undefined): string =>
   value instanceof Date ? value.toISOString() : value ?? new Date(0).toISOString();
 
@@ -119,7 +127,7 @@ export async function getGallerySetups(options?: {
       attachUser(transformSetup(setup), user),
     );
   } catch (error) {
-    console.error('Failed to fetch gallery setups', error);
+    logGalleryFallback(error);
     return [];
   }
 }
@@ -142,7 +150,7 @@ export async function getSetupById(id: string): Promise<GallerySetupWithUser | n
 
     return attachUser(transformSetup(row.setup), row.user);
   } catch (error) {
-    console.error('Failed to fetch gallery setup by id', error);
+    logGalleryFallback(error);
     return null;
   }
 }
@@ -173,7 +181,7 @@ export async function getFeaturedSetups(limit = 8): Promise<GallerySetupWithUser
       attachUser(transformSetup(setup), user),
     );
   } catch (error) {
-    console.error('Failed to fetch featured setups', error);
+    logGalleryFallback(error);
     return [];
   }
 }
@@ -207,7 +215,7 @@ export async function getRelatedSetups(
       attachUser(transformSetup(setup), user),
     );
   } catch (error) {
-    console.error('Failed to fetch related setups', error);
+    logGalleryFallback(error);
     return [];
   }
 }
@@ -238,7 +246,7 @@ export async function getGalleryStats(): Promise<{
       featured: featuredResult[0]?.count ?? 0,
     };
   } catch (error) {
-    console.error('Failed to fetch gallery stats', error);
+    logGalleryFallback(error);
     return {
       total: 0,
       approved: 0,

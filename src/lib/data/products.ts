@@ -14,6 +14,14 @@ import { normalizeSupabaseProduct } from '@/lib/search/normalize';
 import type { SupabaseProductRow } from '@/lib/search/normalize';
 import type { FlashSale, Product, ProductFilters, ProductWithFlashSale } from '@/types';
 
+let productsErrorLogged = false;
+
+function logProductsFallback(error: unknown) {
+  if (productsErrorLogged) return;
+  productsErrorLogged = true;
+  console.warn('Failed to fetch products from database, using static fallback data', error);
+}
+
 // This module uses server-only dependencies (database access) and can only
 // be imported in Server Components, Server Actions, or API Routes.
 // For client-side product fetching, use @/lib/data/products-client instead.
@@ -47,7 +55,7 @@ const fetchProductsInternal = async (): Promise<{
       hadError: false,
     };
   } catch (error) {
-    console.error('Failed to fetch products', error);
+    logProductsFallback(error);
     const fallback = (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
       Object.freeze({ ...product }),
     );
