@@ -3,9 +3,6 @@
   "functions": {
     "app/**": {
       "excludeFiles": ".next/cache/**\n.local/**\n.git/**\ntmp/**"
-    },
-    "api/**": {
-      "excludeFiles": ".next/cache/**\n.local/**\n.git/**\ntmp/**"
     }
   }
 }
