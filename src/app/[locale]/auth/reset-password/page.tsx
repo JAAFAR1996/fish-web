@@ -1,9 +1,13 @@
-import { Metadata } from 'next';
+import { Metadata, type Route } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { redirect } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
 
 import { ResetPasswordForm } from '@/components/auth/reset-password-form';
 import { verifyResetTokenAction } from '@/lib/auth/password-reset-actions';
+import { defaultLocale, routing } from '@/i18n/routing';
+
+type Locale = (typeof routing.locales)[number];
 
 export const metadata: Metadata = {
   title: 'إعادة تعيين كلمة المرور',
@@ -12,16 +16,22 @@ export const metadata: Metadata = {
 };
 
 export default async function ResetPasswordPage({
+  params,
   searchParams,
 }: {
+  params: { locale: string };
   searchParams: { token?: string };
 }) {
   const t = await getTranslations();
+  const locale = routing.locales.includes(params.locale as Locale)
+    ? (params.locale as Locale)
+    : defaultLocale;
+  const forgotPasswordHref: Route = `/${locale}/auth/forgot-password` as Route;
   const token = searchParams.token;
 
   // Verify token on server side
   if (!token) {
-    redirect('/ar/auth/forgot-password');
+    redirect(forgotPasswordHref);
   }
 
   const verification = await verifyResetTokenAction(token);
@@ -52,12 +62,12 @@ export default async function ResetPasswordPage({
             <p className="text-muted-foreground mb-6">
               {t('auth.passwordReset.tokenExpired')}
             </p>
-            <a
-              href="/ar/auth/forgot-password"
+            <Link
+              href={forgotPasswordHref}
               className="inline-flex items-center justify-center px-6 py-3 bg-aqua-600 text-white rounded-lg hover:bg-aqua-700 transition-colors"
             >
               {t('auth.passwordReset.requestNewLink')}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

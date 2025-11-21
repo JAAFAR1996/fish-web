@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import Link from 'next/link';
+import type { Route } from 'next';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { resetPasswordAction } from '@/lib/auth/password-reset-actions';
 import { PasswordInput } from './password-input';
+import { defaultLocale } from '@/i18n/routing';
 
 interface ResetPasswordFormProps {
   token: string;
@@ -15,10 +17,12 @@ interface ResetPasswordFormProps {
 export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   const t = useTranslations();
   const router = useRouter();
+  const locale = useLocale() || defaultLocale;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const homePath: Route = `/${locale}` as Route;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,12 +49,12 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       const result = await resetPasswordAction(formData);
 
       if (result.success) {
-        // Redirect to signin with success message
-        router.push('/ar/auth/signin?reset=success' as any);
+        // Redirect to the localized home page so users can sign in again
+        router.push(homePath);
       } else {
         setError(t(result.message || 'auth.errors.generic'));
       }
-    } catch (err) {
+    } catch {
       setError(t('auth.errors.generic'));
     } finally {
       setIsLoading(false);
@@ -159,12 +163,9 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
       {/* Back to Sign In */}
       <div className="text-center pt-4">
-        <a
-          href="/ar/auth/signin"
-          className="text-sm text-aqua-600 dark:text-aqua-400 hover:underline"
-        >
+        <Link href={homePath} className="text-sm text-aqua-600 dark:text-aqua-400 hover:underline">
           {t('auth.passwordReset.backToSignIn')}
-        </a>
+        </Link>
       </div>
     </form>
   );

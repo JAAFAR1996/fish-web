@@ -107,6 +107,12 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const r2Hostname = getR2Hostname();
 const additionalHosts = getAdditionalImageHosts();
 const runtimeCaching = buildRuntimeCaching();
+const defaultRemoteImagePatterns = [
+  {
+    protocol: 'https',
+    hostname: 'images.unsplash.com',
+  },
+];
 
 const pwaConfig = {
   dest: 'public',
@@ -119,6 +125,7 @@ const pwaConfig = {
 };
 
 const remoteImagePatterns = [
+  ...defaultRemoteImagePatterns,
   ...(r2Hostname
     ? [
         {

@@ -1,8 +1,11 @@
-import { Metadata } from 'next';
+import { Metadata, type Route } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
 import { ForgotPasswordForm } from '@/components/auth/forgot-password-form';
+import { defaultLocale, routing } from '@/i18n/routing';
+
+type Locale = (typeof routing.locales)[number];
 
 export const metadata: Metadata = {
   title: 'نسيت كلمة المرور',
@@ -10,7 +13,15 @@ export const metadata: Metadata = {
   robots: 'noindex, nofollow',
 };
 
-export default async function ForgotPasswordPage() {
+export default async function ForgotPasswordPage({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const locale = routing.locales.includes(params.locale as Locale)
+    ? (params.locale as Locale)
+    : defaultLocale;
+  const signInHref: Route = `/${locale}` as Route;
   const t = await getTranslations();
 
   return (
@@ -47,7 +58,7 @@ export default async function ForgotPasswordPage() {
         {/* Back to Sign In */}
         <div className="mt-6 text-center">
           <Link
-            href={"/ar/auth/signin" as any}
+            href={signInHref}
             className="text-sm text-aqua-600 dark:text-aqua-400 hover:underline inline-flex items-center gap-2"
           >
             <svg
