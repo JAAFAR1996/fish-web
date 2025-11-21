@@ -281,18 +281,19 @@ export function Hero() {
             </div>
 
             {/* CTAs */}
-            <div ref={ctaRef} className="hero-animate-4 flex flex-col sm:flex-row gap-4" data-gsap="cta">
+            <div ref={ctaRef} className="hero-animate-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6" data-gsap="cta">
               <Button variant="primary" size="lg" asChild>
                 <Link href="/products">
                   {t('ctaPrimary')}
                   <Icon name="arrow-right" size="sm" className="ms-2" flipRtl />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link href="/calculators">
-                  {t('ctaSecondary')}
-                </Link>
-              </Button>
+              <Link
+                href="/calculators"
+                className="text-base font-medium text-aqua-700 underline-offset-4 hover:underline dark:text-aqua-300"
+              >
+                {t('ctaSecondary')}
+              </Link>
             </div>
 
             {/* Trust Indicators */}

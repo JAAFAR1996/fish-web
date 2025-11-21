@@ -5,5 +5,6 @@ export const defaultLocale = 'ar';
 export const routing = defineRouting({
   locales: ['ar', 'en'],
   defaultLocale,
-  localePrefix: 'as-needed',
+  // Always prefix locale to match the /[locale]/... route structure
+  localePrefix: 'always',
 });

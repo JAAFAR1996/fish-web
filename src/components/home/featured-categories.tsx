@@ -37,6 +37,15 @@ const CATEGORY_IMAGES: Record<CategoryKey, string> = {
 export async function FeaturedCategories() {
   const categoryCounts = await getCategoryCounts();
 
+  const categoriesWithProducts = FEATURED_CATEGORIES.filter(
+    (categoryKey) => (categoryCounts[categoryKey] ?? 0) > 0,
+  );
+
+  if (categoriesWithProducts.length === 0) {
+    // Avoid rendering an empty/zeroed-out section when there is no data.
+    return null;
+  }
+
   return (
     <section
       aria-labelledby="featured-categories-heading"
@@ -45,7 +54,7 @@ export async function FeaturedCategories() {
       <div className="mb-10 text-center">
         <FeaturedCategoryClient 
           headingId="featured-categories-heading"
-          categories={FEATURED_CATEGORIES.map(categoryKey => ({
+          categories={categoriesWithProducts.map(categoryKey => ({
             key: categoryKey,
             iconName: CATEGORY_ICONS[categoryKey],
             imageSrc: CATEGORY_IMAGES[categoryKey],

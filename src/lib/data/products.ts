@@ -226,8 +226,19 @@ export async function getCategoryCounts(): Promise<Record<string, number>> {
   const products = await getProducts();
   const counts: Record<string, number> = {};
 
+  // Map legacy/static category keys to the navigation keys so the UI
+  // doesn't show "0" for every category when using the JSON fallback.
+  const categoryMap: Record<string, string> = {
+    filtration: 'filters',
+    heating: 'heaters',
+    lighting: 'plantLighting',
+    circulation: 'air',
+    waterCare: 'waterCare',
+  };
+
   for (const product of products) {
-    counts[product.category] = (counts[product.category] ?? 0) + 1;
+    const normalizedCategory = categoryMap[product.category] ?? product.category;
+    counts[normalizedCategory] = (counts[normalizedCategory] ?? 0) + 1;
   }
 
   return counts;
