@@ -193,7 +193,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     {category.subcategories.map((subcategory) => (
                       <li key={subcategory}>
                         <Link
-                          href={`/products/${category.key}/${subcategory}`}
+                          href={{
+                            pathname: '/products',
+                            query: { category: category.key, subcategory },
+                          }}
                           className="block rounded-md px-3 py-2 text-sm text-foreground transition-colors duration-150 hover:bg-muted focus:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                           onClick={onClose}
                         >
@@ -206,6 +209,37 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               </AccordionItem>
             ))}
           </Accordion>
+
+          <div className="mt-6 space-y-2">
+            <Link
+              href="/search"
+              className="block rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted focus:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              onClick={onClose}
+            >
+              {locale === 'ar' ? 'البحث' : 'Search'}
+            </Link>
+            <Link
+              href="/auth"
+              className="block rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted focus:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              onClick={onClose}
+            >
+              {locale === 'ar' ? 'تسجيل الدخول' : 'Sign in'}
+            </Link>
+            <Link
+              href="/about"
+              className="block rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted focus:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              onClick={onClose}
+            >
+              {locale === 'ar' ? 'من نحن' : 'About'}
+            </Link>
+            <Link
+              href="/support"
+              className="block rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted focus:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              onClick={onClose}
+            >
+              {locale === 'ar' ? 'الدعم' : 'Support'}
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -1,902 +1,5078 @@
 [
   {
     "id": "1",
-    "slug": "aquaclear-70-hob-filter",
-    "name": "AquaClear 70 Power Filter",
-    "brand": "AquaClear",
-    "category": "filtration",
-    "subcategory": "hob",
-    "description": "The AquaClear 70 Power Filter provides superior contact time with filter media and energy-efficient operation, suitable for 40-70 gallon aquariums.",
-    "price": 45000,
-    "originalPrice": 50000,
+    "slug": "hygger-hg978-18w",
+    "name": "HYGGER HG978-18W",
+    "brand": "A&B Holdings",
+    "category": "plantLighting",
+    "subcategory": "general",
+    "description": "LED Light 45-60cm",
+    "price": 16751,
+    "originalPrice": 18426,
     "currency": "IQD",
-    "images": ["/images/products/aquaclear-70-1.jpg", "/images/products/aquaclear-70-2.jpg"],
-    "thumbnail": "/images/products/aquaclear-70-thumb.jpg",
-    "rating": 4.7,
-    "reviewCount": 324,
-    "stock": 15,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/hygger-hg978-18w/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hygger-hg978-18w/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
-    "isBestSeller": true,
+    "isBestSeller": false,
     "specifications": {
-      "flow": 1135,
-      "power": 8,
+      "flow": null,
+      "power": null,
       "compatibility": {
-        "minTankSize": 151,
-        "maxTankSize": 265,
-        "displayText": "151-265L"
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 18.5,
-        "width": 16,
-        "height": 14.5
-      },
-      "weight": 0.68
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.273Z",
+    "updated_at": "2025-11-21T20:44:11.273Z"
   },
   {
     "id": "2",
-    "slug": "fluval-407-canister-filter",
-    "name": "Fluval 407 Performance Canister Filter",
-    "brand": "Fluval",
-    "category": "filtration",
-    "subcategory": "canister",
-    "description": "Multi-stage canister filter for aquariums up to 100 gallons, featuring Smart Pump technology and a flow rate of 1450 L/h.",
-    "price": 180000,
-    "originalPrice": null,
+    "slug": "hygger-hg978-22w",
+    "name": "HYGGER HG978-22W",
+    "brand": "A&B Holdings",
+    "category": "plantLighting",
+    "subcategory": "general",
+    "description": "LED Light 60-76cm",
+    "price": 20953,
+    "originalPrice": 23048,
     "currency": "IQD",
-    "images": ["/images/products/fluval-407-1.jpg", "/images/products/fluval-407-2.jpg"],
-    "thumbnail": "/images/products/fluval-407-thumb.jpg",
-    "rating": 4.9,
-    "reviewCount": 582,
-    "stock": 8,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/hygger-hg978-22w/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hygger-hg978-22w/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
     "inStock": true,
-    "isNew": true,
-    "isBestSeller": true,
+    "isNew": false,
+    "isBestSeller": false,
     "specifications": {
-      "flow": 1450,
-      "power": 20,
+      "flow": null,
+      "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 379,
-        "displayText": "Up to 379L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 20,
-        "width": 20,
-        "height": 42
-      },
-      "weight": 5.2
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.287Z",
+    "updated_at": "2025-11-21T20:44:11.287Z"
   },
   {
     "id": "3",
-    "slug": "eheim-classic-250-canister",
-    "name": "EHEIM Classic 250 External Canister Filter",
-    "brand": "EHEIM",
-    "category": "filtration",
-    "subcategory": "canister",
-    "description": "German-engineered external filter with reliable performance and whisper-quiet operation for aquariums up to 250 liters.",
-    "price": 120000,
-    "originalPrice": 135000,
+    "slug": "hygger-hg978-26w",
+    "name": "HYGGER HG978-26W",
+    "brand": "A&B Holdings",
+    "category": "plantLighting",
+    "subcategory": "general",
+    "description": "LED Light 76-91cm",
+    "price": 24901,
+    "originalPrice": 27391,
     "currency": "IQD",
-    "images": ["/images/products/eheim-classic-250-1.jpg", "/images/products/eheim-classic-250-2.jpg"],
-    "thumbnail": "/images/products/eheim-classic-250-thumb.jpg",
-    "rating": 4.8,
-    "reviewCount": 412,
-    "stock": 12,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/hygger-hg978-26w/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hygger-hg978-26w/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
-    "isBestSeller": true,
+    "isBestSeller": false,
     "specifications": {
-      "flow": 440,
-      "power": 8,
+      "flow": null,
+      "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 250,
-        "displayText": "Up to 250L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 18,
-        "width": 18,
-        "height": 35
-      },
-      "weight": 2.8
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.287Z",
+    "updated_at": "2025-11-21T20:44:11.287Z"
   },
   {
     "id": "4",
-    "slug": "hikari-bacto-surge-foam",
-    "name": "Hikari Bacto-Surge High Density Foam Filter",
-    "brand": "Hikari",
-    "category": "filtration",
-    "subcategory": "sponge",
-    "description": "High-density sponge filter perfect for breeding tanks, fry tanks, and shrimp aquariums. Gentle filtration with biological benefits.",
-    "price": 12000,
-    "originalPrice": null,
+    "slug": "small-fish-feed-06mm-105g",
+    "name": "Small Fish Feed 0.6mm 105g",
+    "brand": "Weifang Yipin",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "Feed 0.6mm",
+    "price": 1692,
+    "originalPrice": 1861,
     "currency": "IQD",
-    "images": ["/images/products/hikari-sponge-1.jpg", "/images/products/hikari-sponge-2.jpg"],
-    "thumbnail": "/images/products/hikari-sponge-thumb.jpg",
-    "rating": 4.5,
-    "reviewCount": 198,
-    "stock": 45,
-    "lowStockThreshold": 10,
+    "images": [
+      "https://images.unsplash.com/seed/small-fish-feed-06mm-105g/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/small-fish-feed-06mm-105g/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 25,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 150,
+      "flow": null,
       "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 75,
-        "displayText": "Up to 75L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 8,
-        "width": 8,
-        "height": 15
-      },
-      "weight": 0.15
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.287Z",
+    "updated_at": "2025-11-21T20:44:11.287Z"
   },
   {
     "id": "5",
-    "slug": "aqueon-quietflow-30",
-    "name": "Aqueon QuietFlow LED PRO 30",
-    "brand": "Aqueon",
-    "category": "filtration",
-    "subcategory": "hob",
-    "description": "Hang-on-back filter with self-priming pump and 5-stage filtration for crystal clear water. LED indicators show when to change cartridges.",
-    "price": 32000,
-    "originalPrice": null,
+    "slug": "betta-fish-food-08mm-130g",
+    "name": "Betta Fish Food 0.8mm 130g",
+    "brand": "Weifang Yipin",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "Feed 0.8mm",
+    "price": 1904,
+    "originalPrice": 2094,
     "currency": "IQD",
-    "images": ["/images/products/aqueon-quietflow-1.jpg", "/images/products/aqueon-quietflow-2.jpg"],
-    "thumbnail": "/images/products/aqueon-quietflow-thumb.jpg",
-    "rating": 4.3,
-    "reviewCount": 267,
-    "stock": 22,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/betta-fish-food-08mm-130g/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/betta-fish-food-08mm-130g/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 20,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 680,
-      "power": 6,
+      "flow": null,
+      "power": null,
       "compatibility": {
-        "minTankSize": 57,
-        "maxTankSize": 114,
-        "displayText": "57-114L"
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 13,
-        "width": 12,
-        "height": 18
-      },
-      "weight": 0.5
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.287Z",
+    "updated_at": "2025-11-21T20:44:11.287Z"
   },
   {
     "id": "6",
-    "slug": "penn-plax-cascade-1000",
-    "name": "Penn-Plax Cascade 1000 Canister Filter",
-    "brand": "Penn-Plax",
-    "category": "filtration",
-    "subcategory": "canister",
-    "description": "Multi-stage canister filter with a flow rate of 1000 L/h, ideal for larger aquariums up to 380 liters. Features push-button priming.",
-    "price": 95000,
-    "originalPrice": 110000,
+    "slug": "voonline-small-plastic-aquarium-salt-freshwater-fish-salt-for-fish-tanks-water-filters-disease-treatment",
+    "name": "VOONLINE Small Plastic Aquarium Salt Freshwater Fish Salt for Fish Tanks Water Filters Disease Treatment",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/VOONLINE-Small-Plastic-Aquarium-Salt-Freshwater_1601310251547.html?utm_source=chatgpt.com",
+    "price": 3878,
+    "originalPrice": 4266,
     "currency": "IQD",
-    "images": ["/images/products/cascade-1000-1.jpg", "/images/products/cascade-1000-2.jpg"],
-    "thumbnail": "/images/products/cascade-1000-thumb.jpg",
-    "rating": 4.4,
-    "reviewCount": 189,
-    "stock": 3,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/voonline-small-plastic-aquarium-salt-freshwater-fish-salt-for-fish-tanks-water-filters-disease-treatment/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/voonline-small-plastic-aquarium-salt-freshwater-fish-salt-for-fish-tanks-water-filters-disease-treatment/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 1000,
-      "power": 15,
+      "flow": null,
+      "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 380,
-        "displayText": "Up to 380L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 19,
-        "width": 19,
-        "height": 38
-      },
-      "weight": 4.1
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.287Z",
+    "updated_at": "2025-11-21T20:44:11.287Z"
   },
   {
     "id": "7",
-    "slug": "marina-slim-s15",
-    "name": "Marina Slim S15 Internal Filter",
-    "brand": "Marina",
-    "category": "filtration",
-    "subcategory": "internal",
-    "description": "Space-saving internal filter for small to medium tanks. Adjustable flow rate and easy maintenance for aquariums up to 57 liters.",
-    "price": 18000,
-    "originalPrice": null,
+    "slug": "ammonia-cleansing-series-760ml",
+    "name": "Ammonia Cleansing Series 760ml",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "Cleaner 760ml",
+    "price": 4935,
+    "originalPrice": 5429,
     "currency": "IQD",
-    "images": ["/images/products/marina-slim-1.jpg", "/images/products/marina-slim-2.jpg"],
-    "thumbnail": "/images/products/marina-slim-thumb.jpg",
-    "rating": 4.2,
-    "reviewCount": 142,
-    "stock": 28,
-    "lowStockThreshold": 10,
+    "images": [
+      "https://images.unsplash.com/seed/ammonia-cleansing-series-760ml/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/ammonia-cleansing-series-760ml/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 230,
-      "power": 3,
+      "flow": null,
+      "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 57,
-        "displayText": "Up to 57L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 6.5,
-        "width": 5,
-        "height": 17
-      },
-      "weight": 0.25
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.287Z",
+    "updated_at": "2025-11-21T20:44:11.287Z"
   },
   {
     "id": "8",
-    "slug": "tetra-whisper-ex70",
-    "name": "Tetra Whisper EX70 Power Filter",
-    "brand": "Tetra",
-    "category": "filtration",
-    "subcategory": "hob",
-    "description": "Ultra-quiet hang-on-back filter with advanced 3-stage filtration system. Perfect for 45-135 liter tanks with easy cartridge changes.",
-    "price": 38000,
-    "originalPrice": 42000,
+    "slug": "nitrite-test-kit-100-tests",
+    "name": "Nitrite Test Kit (100 tests)",
+    "brand": "Weifang Yipin",
+    "category": "tests",
+    "subcategory": "general",
+    "description": "Test 100 tests",
+    "price": 3948,
+    "originalPrice": 4343,
     "currency": "IQD",
-    "images": ["/images/products/tetra-whisper-1.jpg", "/images/products/tetra-whisper-2.jpg"],
-    "thumbnail": "/images/products/tetra-whisper-thumb.jpg",
+    "images": [
+      "https://images.unsplash.com/seed/nitrite-test-kit-100-tests/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/nitrite-test-kit-100-tests/800/800?auto=format&fit=crop&w=800&q=80",
     "rating": 4.6,
-    "reviewCount": 298,
-    "stock": 0,
-    "lowStockThreshold": 5,
-    "inStock": false,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
     "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 850,
-      "power": 7,
+      "flow": null,
+      "power": null,
       "compatibility": {
-        "minTankSize": 45,
-        "maxTankSize": 135,
-        "displayText": "45-135L"
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 14,
-        "width": 13,
-        "height": 19
-      },
-      "weight": 0.6
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
   },
   {
     "id": "9",
-    "slug": "aquatop-cf400uv-canister",
-    "name": "Aquatop CF-400UV Canister Filter with UV Sterilizer",
-    "brand": "Aquatop",
-    "category": "filtration",
-    "subcategory": "canister",
-    "description": "Advanced canister filter with built-in 9W UV sterilizer for clear, algae-free water. Suitable for aquariums up to 400 liters.",
-    "price": 145000,
-    "originalPrice": null,
+    "slug": "yan-911-novice-9-in-1-kit-50-tests",
+    "name": "YAN-911 Novice 9-in-1 Kit (50 tests)",
+    "brand": "Weifang Yipin",
+    "category": "tests",
+    "subcategory": "general",
+    "description": "Kit 50 tests",
+    "price": 6345,
+    "originalPrice": 6980,
     "currency": "IQD",
-    "images": ["/images/products/aquatop-cf400-1.jpg", "/images/products/aquatop-cf400-2.jpg"],
-    "thumbnail": "/images/products/aquatop-cf400-thumb.jpg",
-    "rating": 4.7,
-    "reviewCount": 156,
-    "stock": 6,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/yan-911-novice-9-in-1-kit-50-tests/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/yan-911-novice-9-in-1-kit-50-tests/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
     "inStock": true,
-    "isNew": true,
+    "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 1400,
-      "power": 25,
+      "flow": null,
+      "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 400,
-        "displayText": "Up to 400L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 21,
-        "width": 21,
-        "height": 44
-      },
-      "weight": 5.8
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
   },
   {
     "id": "10",
-    "slug": "fluval-u2-internal",
-    "name": "Fluval U2 Underwater Filter",
-    "brand": "Fluval",
-    "category": "filtration",
-    "subcategory": "internal",
-    "description": "Versatile internal filter with 3-stage filtration, adjustable output, and multiple mounting options for tanks up to 110 liters.",
-    "price": 28000,
-    "originalPrice": null,
+    "slug": "nitrifying-bacteria-capsules-100",
+    "name": "Nitrifying Bacteria Capsules 100",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "Capsules 100",
+    "price": 5358,
+    "originalPrice": 5894,
     "currency": "IQD",
-    "images": ["/images/products/fluval-u2-1.jpg", "/images/products/fluval-u2-2.jpg"],
-    "thumbnail": "/images/products/fluval-u2-thumb.jpg",
-    "rating": 4.5,
-    "reviewCount": 223,
-    "stock": 18,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/nitrifying-bacteria-capsules-100/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/nitrifying-bacteria-capsules-100/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
-    "isBestSeller": true,
+    "isBestSeller": false,
     "specifications": {
-      "flow": 400,
-      "power": 5,
+      "flow": null,
+      "power": null,
       "compatibility": {
-        "minTankSize": 45,
-        "maxTankSize": 110,
-        "displayText": "45-110L"
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 9,
-        "width": 8,
-        "height": 20
-      },
-      "weight": 0.35
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
   },
   {
     "id": "11",
-    "slug": "seachem-tidal-75",
-    "name": "Seachem Tidal 75 Power Filter",
-    "brand": "Seachem",
-    "category": "filtration",
-    "subcategory": "hob",
-    "description": "Innovative HOB filter with self-priming pump, surface skimmer, and adjustable flow control for aquariums up to 284 liters.",
-    "price": 52000,
-    "originalPrice": null,
+    "slug": "algaecide-500ml-new-style",
+    "name": "Algaecide 500ml New Style",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "Algaecide 500ml",
+    "price": 2538,
+    "originalPrice": 2792,
     "currency": "IQD",
-    "images": ["/images/products/seachem-tidal-1.jpg", "/images/products/seachem-tidal-2.jpg"],
-    "thumbnail": "/images/products/seachem-tidal-thumb.jpg",
-    "rating": 4.8,
-    "reviewCount": 178,
-    "stock": 11,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/algaecide-500ml-new-style/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/algaecide-500ml-new-style/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
     "inStock": true,
-    "isNew": true,
+    "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 1135,
-      "power": 10,
+      "flow": null,
+      "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 284,
-        "displayText": "Up to 284L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 17,
-        "width": 15,
-        "height": 16
-      },
-      "weight": 0.75
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
   },
   {
     "id": "12",
-    "slug": "aquael-turbo-filter-2000",
-    "name": "Aquael Turbo Filter 2000",
-    "brand": "Aquael",
-    "category": "filtration",
-    "subcategory": "internal",
-    "description": "High-performance internal filter with adjustable water flow and spray bar. Ideal for tanks up to 350 liters with biological filtration.",
-    "price": 42000,
-    "originalPrice": 48000,
+    "slug": "biological-algaecide-600ml",
+    "name": "Biological Algaecide 600ml",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "Bio Algaecide 600ml",
+    "price": 2538,
+    "originalPrice": 2792,
     "currency": "IQD",
-    "images": ["/images/products/aquael-turbo-1.jpg", "/images/products/aquael-turbo-2.jpg"],
-    "thumbnail": "/images/products/aquael-turbo-thumb.jpg",
-    "rating": 4.4,
-    "reviewCount": 134,
-    "stock": 9,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/biological-algaecide-600ml/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/biological-algaecide-600ml/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 2000,
-      "power": 18,
+      "flow": null,
+      "power": null,
       "compatibility": {
-        "minTankSize": 150,
-        "maxTankSize": 350,
-        "displayText": "150-350L"
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 11,
-        "width": 10,
-        "height": 28
-      },
-      "weight": 0.9
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
   },
   {
     "id": "13",
-    "slug": "jbl-crystalprofi-e902",
-    "name": "JBL CristalProfi e902 Greenline",
-    "brand": "JBL",
-    "category": "filtration",
-    "subcategory": "canister",
-    "description": "Energy-efficient external filter with pre-filter for coarse dirt and fine filter baskets. Suitable for aquariums from 90-300 liters.",
-    "price": 135000,
-    "originalPrice": null,
+    "slug": "imitation-red-worm-feed-05mm",
+    "name": "Imitation Red Worm Feed 0.5mm",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 1340,
+    "originalPrice": 1474,
     "currency": "IQD",
-    "images": ["/images/products/jbl-e902-1.jpg", "/images/products/jbl-e902-2.jpg"],
-    "thumbnail": "/images/products/jbl-e902-thumb.jpg",
+    "images": [
+      "https://images.unsplash.com/seed/imitation-red-worm-feed-05mm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/imitation-red-worm-feed-05mm/800/800?auto=format&fit=crop&w=800&q=80",
     "rating": 4.6,
-    "reviewCount": 245,
-    "stock": 7,
-    "lowStockThreshold": 5,
+    "reviewCount": 0,
+    "stock": 30,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
-    "isBestSeller": true,
+    "isBestSeller": false,
     "specifications": {
-      "flow": 900,
-      "power": 12,
+      "flow": null,
+      "power": null,
       "compatibility": {
-        "minTankSize": 90,
-        "maxTankSize": 300,
-        "displayText": "90-300L"
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 19,
-        "width": 19,
-        "height": 41
-      },
-      "weight": 4.5
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
   },
   {
     "id": "14",
-    "slug": "hydor-professional-250",
-    "name": "Hydor Professional External Filter 250",
-    "brand": "Hydor",
-    "category": "filtration",
-    "subcategory": "canister",
-    "description": "Professional canister filter with large capacity media baskets and easy priming system. Perfect for planted and freshwater tanks up to 250L.",
-    "price": 98000,
-    "originalPrice": 115000,
+    "slug": "competition-grade-45-protein-15mm",
+    "name": "Competition Grade 45% Protein (1.5mm)",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 2538,
+    "originalPrice": 2792,
     "currency": "IQD",
-    "images": ["/images/products/hydor-250-1.jpg", "/images/products/hydor-250-2.jpg"],
-    "thumbnail": "/images/products/hydor-250-thumb.jpg",
-    "rating": 4.5,
-    "reviewCount": 167,
-    "stock": 10,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/competition-grade-45-protein-15mm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/competition-grade-45-protein-15mm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 1,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 880,
-      "power": 16,
+      "flow": null,
+      "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 250,
-        "displayText": "Up to 250L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 18,
-        "width": 18,
-        "height": 39
-      },
-      "weight": 3.8
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
   },
   {
     "id": "15",
-    "slug": "oase-biomaster-thermo-350",
-    "name": "Oase BioMaster Thermo 350",
-    "brand": "Oase",
-    "category": "filtration",
-    "subcategory": "canister",
-    "description": "Premium canister filter with integrated 300W heater. Pre-filter system and quiet operation for aquariums up to 350 liters.",
-    "price": 225000,
-    "originalPrice": null,
+    "slug": "shelled-eggs-feeder-80g-150ml",
+    "name": "Shelled Eggs + Feeder 80g 150ml",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 2609,
+    "originalPrice": 2870,
     "currency": "IQD",
-    "images": ["/images/products/oase-thermo-1.jpg", "/images/products/oase-thermo-2.jpg"],
-    "thumbnail": "/images/products/oase-thermo-thumb.jpg",
-    "rating": 4.9,
-    "reviewCount": 134,
-    "stock": 4,
-    "lowStockThreshold": 5,
+    "images": [
+      "https://images.unsplash.com/seed/shelled-eggs-feeder-80g-150ml/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/shelled-eggs-feeder-80g-150ml/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 1,
+    "lowStockThreshold": 3,
     "inStock": true,
-    "isNew": true,
+    "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 1050,
-      "power": 19,
+      "flow": null,
+      "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 350,
-        "displayText": "Up to 350L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 20,
-        "width": 20,
-        "height": 43
-      },
-      "weight": 6.2
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
   },
   {
     "id": "16",
-    "slug": "hygger-xy-2831-sponge",
-    "name": "Hygger XY-2831 Double Sponge Filter",
-    "brand": "Hygger",
-    "category": "filtration",
-    "subcategory": "sponge",
-    "description": "Double sponge design for enhanced biological filtration. Ideal for breeding tanks, hospital tanks, and nano aquariums up to 60L.",
-    "price": 15000,
-    "originalPrice": null,
+    "slug": "aqua-hermit-crab-specialized-food",
+    "name": "Aqua-Hermit Crab Specialized Food",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 2115,
+    "originalPrice": 2327,
     "currency": "IQD",
-    "images": ["/images/products/hygger-sponge-1.jpg", "/images/products/hygger-sponge-2.jpg"],
-    "thumbnail": "/images/products/hygger-sponge-thumb.jpg",
-    "rating": 4.3,
-    "reviewCount": 189,
-    "stock": 35,
-    "lowStockThreshold": 10,
+    "images": [
+      "https://images.unsplash.com/seed/aqua-hermit-crab-specialized-food/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/aqua-hermit-crab-specialized-food/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 1,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 180,
+      "flow": null,
       "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 60,
-        "displayText": "Up to 60L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 7,
-        "width": 7,
-        "height": 18
-      },
-      "weight": 0.12
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
   },
   {
     "id": "17",
-    "slug": "sobo-wp-3880-internal",
-    "name": "Sobo WP-3880 Submersible Filter",
-    "brand": "Sobo",
-    "category": "filtration",
-    "subcategory": "internal",
-    "description": "Compact submersible filter with adjustable flow and spray bar. Energy-efficient design for aquariums up to 180 liters.",
-    "price": 24000,
-    "originalPrice": 28000,
+    "slug": "fish-feed-coated-paper-hanger",
+    "name": "Fish Feed Coated Paper Hanger",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 493,
+    "originalPrice": 542,
     "currency": "IQD",
-    "images": ["/images/products/sobo-wp3880-1.jpg", "/images/products/sobo-wp3880-2.jpg"],
-    "thumbnail": "/images/products/sobo-wp3880-thumb.jpg",
-    "rating": 4.1,
-    "reviewCount": 156,
-    "stock": 19,
-    "lowStockThreshold": 10,
-    "inStock": true,
-    "isNew": false,
-    "isBestSeller": false,
-    "specifications": {
-      "flow": 650,
-      "power": 8,
-      "compatibility": {
-        "minTankSize": 60,
-        "maxTankSize": 180,
-        "displayText": "60-180L"
-      },
-      "dimensions": {
-        "length": 8.5,
-        "width": 7.5,
-        "height": 22
-      },
-      "weight": 0.45
-    }
-  },
-  {
-    "id": "18",
-    "slug": "sunsun-hw-303b-canister",
-    "name": "SunSun HW-303B External Canister Filter",
-    "brand": "SunSun",
-    "category": "filtration",
-    "subcategory": "canister",
-    "description": "Budget-friendly canister filter with 3-stage filtration and UV sterilizer. Suitable for aquariums up to 300 liters.",
-    "price": 78000,
-    "originalPrice": 92000,
-    "currency": "IQD",
-    "images": ["/images/products/sunsun-hw303-1.jpg", "/images/products/sunsun-hw303-2.jpg"],
-    "thumbnail": "/images/products/sunsun-hw303-thumb.jpg",
-    "rating": 4.2,
-    "reviewCount": 298,
-    "stock": 14,
-    "lowStockThreshold": 5,
-    "inStock": true,
-    "isNew": false,
-    "isBestSeller": true,
-    "specifications": {
-      "flow": 1400,
-      "power": 24,
-      "compatibility": {
-        "minTankSize": null,
-        "maxTankSize": 300,
-        "displayText": "Up to 300L"
-      },
-      "dimensions": {
-        "length": 19,
-        "width": 19,
-        "height": 40
-      },
-      "weight": 4.8
-    }
-  },
-  {
-    "id": "19",
-    "slug": "aquaclear-20-mini-hob",
-    "name": "AquaClear 20 Power Filter",
-    "brand": "AquaClear",
-    "category": "filtration",
-    "subcategory": "hob",
-    "description": "Compact hang-on-back filter perfect for nano tanks and small aquariums. Energy-efficient with adjustable flow rate up to 76L.",
-    "price": 28000,
-    "originalPrice": null,
-    "currency": "IQD",
-    "images": ["/images/products/aquaclear-20-1.jpg", "/images/products/aquaclear-20-2.jpg"],
-    "thumbnail": "/images/products/aquaclear-20-thumb.jpg",
+    "images": [
+      "https://images.unsplash.com/seed/fish-feed-coated-paper-hanger/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/fish-feed-coated-paper-hanger/800/800?auto=format&fit=crop&w=800&q=80",
     "rating": 4.6,
-    "reviewCount": 412,
-    "stock": 26,
-    "lowStockThreshold": 5,
-    "inStock": true,
-    "isNew": false,
-    "isBestSeller": true,
-    "specifications": {
-      "flow": 380,
-      "power": 4,
-      "compatibility": {
-        "minTankSize": 19,
-        "maxTankSize": 76,
-        "displayText": "19-76L"
-      },
-      "dimensions": {
-        "length": 12,
-        "width": 10,
-        "height": 12
-      },
-      "weight": 0.35
-    }
-  },
-  {
-    "id": "20",
-    "slug": "fluval-306-canister",
-    "name": "Fluval 306 External Canister Filter",
-    "brand": "Fluval",
-    "category": "filtration",
-    "subcategory": "canister",
-    "description": "Reliable canister filter with AquaStop valves and multi-stage filtration. Perfect for aquariums from 200-300 liters.",
-    "price": 155000,
-    "originalPrice": 175000,
-    "currency": "IQD",
-    "images": ["/images/products/fluval-306-1.jpg", "/images/products/fluval-306-2.jpg"],
-    "thumbnail": "/images/products/fluval-306-thumb.jpg",
-    "rating": 4.7,
-    "reviewCount": 367,
-    "stock": 9,
-    "lowStockThreshold": 5,
-    "inStock": true,
-    "isNew": false,
-    "isBestSeller": true,
-    "specifications": {
-      "flow": 1150,
-      "power": 17,
-      "compatibility": {
-        "minTankSize": 200,
-        "maxTankSize": 300,
-        "displayText": "200-300L"
-      },
-      "dimensions": {
-        "length": 18,
-        "width": 18,
-        "height": 40
-      },
-      "weight": 4.2
-    }
-  },
-  {
-    "id": "21",
-    "slug": "jaebo-wp-40-wavemaker",
-    "name": "Jebao WP-40 Wavemaker Pump",
-    "brand": "Jebao",
-    "category": "circulation",
-    "subcategory": "wavemaker",
-    "description": "Powerful circulation pump with wireless controller and multiple wave patterns. Ideal for reef and marine aquariums up to 500L.",
-    "price": 95000,
-    "originalPrice": null,
-    "currency": "IQD",
-    "images": ["/images/products/jebao-wp40-1.jpg", "/images/products/jebao-wp40-2.jpg"],
-    "thumbnail": "/images/products/jebao-wp40-thumb.jpg",
-    "rating": 4.5,
-    "reviewCount": 234,
-    "stock": 12,
-    "lowStockThreshold": 5,
+    "reviewCount": 0,
+    "stock": 15,
+    "lowStockThreshold": 3,
     "inStock": true,
     "isNew": false,
     "isBestSeller": false,
     "specifications": {
-      "flow": 10000,
-      "power": 26,
-      "compatibility": {
-        "minTankSize": 200,
-        "maxTankSize": 500,
-        "displayText": "200-500L"
-      },
-      "dimensions": {
-        "length": 11,
-        "width": 8,
-        "height": 8
-      },
-      "weight": 0.65
-    }
-  },
-  {
-    "id": "22",
-    "slug": "eheim-jager-300w-heater",
-    "name": "EHEIM Jager 300W Aquarium Heater",
-    "brand": "EHEIM",
-    "category": "heating",
-    "subcategory": "submersible",
-    "description": "Precision-calibrated submersible heater with TruTemp dial and shatter-proof construction. Ideal for aquariums up to 400 liters.",
-    "price": 45000,
-    "originalPrice": null,
-    "currency": "IQD",
-    "images": ["/images/products/eheim-jager-1.jpg", "/images/products/eheim-jager-2.jpg"],
-    "thumbnail": "/images/products/eheim-jager-thumb.jpg",
-    "rating": 4.8,
-    "reviewCount": 456,
-    "stock": 18,
-    "lowStockThreshold": 5,
-    "inStock": true,
-    "isNew": false,
-    "isBestSeller": true,
-    "specifications": {
       "flow": null,
-      "power": 300,
-      "compatibility": {
-        "minTankSize": 300,
-        "maxTankSize": 400,
-        "displayText": "300-400L"
-      },
-      "dimensions": {
-        "length": 5,
-        "width": 5,
-        "height": 36
-      },
-      "weight": 0.55
-    }
-  },
-  {
-    "id": "23",
-    "slug": "nicrew-classicled-plus",
-    "name": "NICREW ClassicLED Plus Planted Tank Light",
-    "brand": "NICREW",
-    "category": "lighting",
-    "subcategory": "led",
-    "description": "Full spectrum LED light with adjustable brightness for planted aquariums. Energy-efficient with extendable brackets for 75-105cm tanks.",
-    "price": 65000,
-    "originalPrice": 75000,
-    "currency": "IQD",
-    "images": ["/images/products/nicrew-led-1.jpg", "/images/products/nicrew-led-2.jpg"],
-    "thumbnail": "/images/products/nicrew-led-thumb.jpg",
-    "rating": 4.6,
-    "reviewCount": 389,
-    "stock": 16,
-    "lowStockThreshold": 5,
-    "inStock": true,
-    "isNew": true,
-    "isBestSeller": false,
-    "specifications": {
-      "flow": null,
-      "power": 18,
-      "compatibility": {
-        "minTankSize": 100,
-        "maxTankSize": 200,
-        "displayText": "100-200L"
-      },
-      "dimensions": {
-        "length": 90,
-        "width": 12,
-        "height": 2
-      },
-      "weight": 1.2
-    }
-  },
-  {
-    "id": "24",
-    "slug": "fluval-plant-spectrum-3.0",
-    "name": "Fluval Plant Spectrum 3.0 LED",
-    "brand": "Fluval",
-    "category": "lighting",
-    "subcategory": "led",
-    "description": "Smart LED with Bluetooth app control and full spectrum. Programmable sunrise/sunset and weather effects for planted tanks up to 150L.",
-    "price": 145000,
-    "originalPrice": null,
-    "currency": "IQD",
-    "images": ["/images/products/fluval-spectrum-1.jpg", "/images/products/fluval-spectrum-2.jpg"],
-    "thumbnail": "/images/products/fluval-spectrum-thumb.jpg",
-    "rating": 4.9,
-    "reviewCount": 278,
-    "stock": 7,
-    "lowStockThreshold": 5,
-    "inStock": true,
-    "isNew": true,
-    "isBestSeller": true,
-    "specifications": {
-      "flow": null,
-      "power": 32,
-      "compatibility": {
-        "minTankSize": 80,
-        "maxTankSize": 150,
-        "displayText": "80-150L"
-      },
-      "dimensions": {
-        "length": 84,
-        "width": 14,
-        "height": 2.5
-      },
-      "weight": 1.8
-    }
-  },
-  {
-    "id": "25",
-    "slug": "hygger-mini-sponge-filter",
-    "name": "Hygger Mini Corner Sponge Filter",
-    "brand": "Hygger",
-    "category": "filtration",
-    "subcategory": "sponge",
-    "description": "Ultra-compact corner sponge filter perfect for shrimp tanks, fry tanks, and quarantine setups. Gentle filtration for nano tanks up to 20L.",
-    "price": 8000,
-    "originalPrice": null,
-    "currency": "IQD",
-    "images": ["/images/products/hygger-mini-1.jpg", "/images/products/hygger-mini-2.jpg"],
-    "thumbnail": "/images/products/hygger-mini-thumb.jpg",
-    "rating": 4.4,
-    "reviewCount": 267,
-    "stock": 52,
-    "lowStockThreshold": 15,
-    "inStock": true,
-    "isNew": false,
-    "isBestSeller": false,
-    "specifications": {
-      "flow": 80,
       "power": null,
       "compatibility": {
         "minTankSize": null,
-        "maxTankSize": 20,
-        "displayText": "Up to 20L"
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "dimensions": {
-        "length": 5,
-        "width": 5,
-        "height": 12
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.288Z",
+    "updated_at": "2025-11-21T20:44:11.288Z"
+  },
+  {
+    "id": "18",
+    "slug": "hygger-hg085-titanium-heater-200w",
+    "name": "Hygger HG085 Titanium Heater 200W",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 29131,
+    "originalPrice": 32044,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hygger-hg085-titanium-heater-200w/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hygger-hg085-titanium-heater-200w/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
       },
-      "weight": 0.08
-    }
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "19",
+    "slug": "yee-thicken-quartz-fish-tank-heater-rod-50w-power-inline-aquarium-heater-with-rotating-fixed-precise-temperature",
+    "name": "Yee Thicken Quartz Fish Tank Heater Rod 50W Power Inline Aquarium Heater With Rotating Fixed Precise Temperature",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 4258,
+    "originalPrice": 4684,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/yee-thicken-quartz-fish-tank-heater-rod-50w-power-inline-aquarium-heater-with-rotating-fixed-precise-temperature/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/yee-thicken-quartz-fish-tank-heater-rod-50w-power-inline-aquarium-heater-with-rotating-fixed-precise-temperature/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "20",
+    "slug": "hg153-10w",
+    "name": "HG153-10W",
+    "brand": "Hygger",
+    "category": "filters",
+    "subcategory": "general",
+    "description": "منتج فلاتر ماء",
+    "price": 5964,
+    "originalPrice": 6560,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg153-10w/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg153-10w/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "21",
+    "slug": "hg153-18w",
+    "name": "HG153-18W",
+    "brand": "Hygger",
+    "category": "filters",
+    "subcategory": "general",
+    "description": "منتج فلاتر ماء",
+    "price": 7078,
+    "originalPrice": 7786,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg153-18w/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg153-18w/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "22",
+    "slug": "hg101uv-1200l",
+    "name": "HG101UV-1200L",
+    "brand": "Hygger",
+    "category": "filters",
+    "subcategory": "general",
+    "description": "منتج فلاتر ماء",
+    "price": 70007,
+    "originalPrice": 77008,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg101uv-1200l/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg101uv-1200l/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "23",
+    "slug": "hg101uv-1800l",
+    "name": "HG101UV-1800L",
+    "brand": "Hygger",
+    "category": "filters",
+    "subcategory": "general",
+    "description": "منتج فلاتر ماء",
+    "price": 92158,
+    "originalPrice": 101374,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg101uv-1800l/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg101uv-1800l/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "24",
+    "slug": "sunsun-hw-302-1000lh",
+    "name": "SUNSUN HW-302 1000L/h",
+    "brand": "Sunsun",
+    "category": "filters",
+    "subcategory": "general",
+    "description": "منتج فلاتر ماء",
+    "price": 40326,
+    "originalPrice": 44359,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sunsun-hw-302-1000lh/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sunsun-hw-302-1000lh/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "25",
+    "slug": "sunsun-hw-303b-outside-filter-uv",
+    "name": "SUNSUN HW-303B Outside Filter UV",
+    "brand": "Sunsun",
+    "category": "filters",
+    "subcategory": "general",
+    "description": "منتج فلاتر ماء",
+    "price": 49350,
+    "originalPrice": 54285,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sunsun-hw-303b-outside-filter-uv/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sunsun-hw-303b-outside-filter-uv/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "26",
+    "slug": "hg150",
+    "name": "HG150",
+    "brand": "Hygger",
+    "category": "filters",
+    "subcategory": "general",
+    "description": "منتج فلاتر ماء",
+    "price": 22081,
+    "originalPrice": 24289,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg150/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg150/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "27",
+    "slug": "hg087-15w",
+    "name": "HG087-1.5W 🔋",
+    "brand": "Hygger",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 11788,
+    "originalPrice": 12967,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg087-15w/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg087-15w/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "28",
+    "slug": "sobo-sb1102",
+    "name": "SOBO SB‑1102",
+    "brand": "Sobo",
+    "category": "air",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/SOBO-Fish-Tank-Oxygenation-Pump-SB_1601264871089.html?spm=a2700.galleryofferlist.normal_offer.d_title.6b0f13a0EdrBti",
+    "price": 3948,
+    "originalPrice": 4343,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sobo-sb1102/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sobo-sb1102/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 12,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "29",
+    "slug": "sobo-sb1106",
+    "name": "SOBO SB‑1106",
+    "brand": "Sobo",
+    "category": "air",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/SOBO-Fish-Tank-Oxygenation-Pump-SB_1601264871089.html?spm=a2700.galleryofferlist.normal_offer.d_title.6b0f13a0EdrBti",
+    "price": 8601,
+    "originalPrice": 9461,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sobo-sb1106/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sobo-sb1106/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "30",
+    "slug": "sunsun-ct-202",
+    "name": "SunSun CT-202",
+    "brand": "Sunsun",
+    "category": "air",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/SUNSUN-CT-Series-Aquarium-Aerator-Ultra_62313696450.html?chatToken=TDFKeWNGRlpkWFZTWmtkNFRYRnZjVWxhVTBsU2RVcHNkRVpKVTJsMlRteERiM0ZyWlhrM2VHMXhZeTkwTVVSb2RIQnFRMGxKTmtONE9GSllWWFFyVGtSdUsyRjBjMHN3WTJGbU1tSlBOakI0VG1oaU5rWkdTbk13VFdaa1drcFhRVmw1UVZveldUQm9ZVWR5VVRaSFptZGxWWEU0TVRJM1ZsUmxaVkEzUWtOcWMzVkdUR3hUVlV0clFXNUVaalJsWW5VdlYxSkJQVDA9JnZlcnNpb249Mi4wLjA%3D&encryptTargetLoginId=8pctgRBMALPQCqZKjTRLNCKTcA1xqox86wdkfYSa%2Bs4%3D",
+    "price": 5132,
+    "originalPrice": 5645,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sunsun-ct-202/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sunsun-ct-202/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "31",
+    "slug": "sunsun-ct-404",
+    "name": "SunSun ct-404",
+    "brand": "Sunsun",
+    "category": "air",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/SUNSUN-CT-Series-Aquarium-Aerator-Ultra_62313696450.html?chatToken=TDFKeWNGRlpkWFZTWmtkNFRYRnZjVWxhVTBsU2RVcHNkRVpKVTJsMlRteERiM0ZyWlhrM2VHMXhZeTkwTVVSb2RIQnFRMGxKTmtONE9GSllWWFFyVGtSdUsyRjBjMHN3WTJGbU1tSlBOakI0VG1oaU5rWkdTbk13VFdaa1drcFhRVmw1UVZveldUQm9ZVWR5VVRaSFptZGxWWEU0TVRJM1ZsUmxaVkEzUWtOcWMzVkdUR3hUVlV0clFXNUVaalJsWW5VdlYxSkJQVDA9JnZlcnNpb249Mi4wLjA%3D&encryptTargetLoginId=8pctgRBMALPQCqZKjTRLNCKTcA1xqox86wdkfYSa%2Bs4%3D",
+    "price": 17202,
+    "originalPrice": 18922,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sunsun-ct-404/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sunsun-ct-404/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "32",
+    "slug": "sunsun-ct-402",
+    "name": "SunSun ct-402",
+    "brand": "Sunsun",
+    "category": "air",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/SUNSUN-CT-Series-Aquarium-Aerator-Ultra_62313696450.html?chatToken=TDFKeWNGRlpkWFZTWmtkNFRYRnZjVWxhVTBsU2RVcHNkRVpKVTJsMlRteERiM0ZyWlhrM2VHMXhZeTkwTVVSb2RIQnFRMGxKTmtONE9GSllWWFFyVGtSdUsyRjBjMHN3WTJGbU1tSlBOakI0VG1oaU5rWkdTbk13VFdaa1drcFhRVmw1UVZveldUQm9ZVWR5VVRaSFptZGxWWEU0TVRJM1ZsUmxaVkEzUWtOcWMzVkdUR3hUVlV0clFXNUVaalJsWW5VdlYxSkJQVDA9JnZlcnNpb249Mi4wLjA%3D&encryptTargetLoginId=8pctgRBMALPQCqZKjTRLNCKTcA1xqox86wdkfYSa%2Bs4%3D",
+    "price": 10152,
+    "originalPrice": 11167,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sunsun-ct-402/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sunsun-ct-402/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "33",
+    "slug": "yee-yeb-901s",
+    "name": "YEE YEB-901S",
+    "brand": "Weifang Yipin",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 7755,
+    "originalPrice": 8531,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/yee-yeb-901s/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/yee-yeb-901s/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "34",
+    "slug": "amazon-normalblack-15l",
+    "name": "Amazon (Normal/Black 1.5L)",
+    "brand": "Weifang Yipin",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 2115,
+    "originalPrice": 2327,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/amazon-normalblack-15l/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/amazon-normalblack-15l/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "35",
+    "slug": "nepal-powderblack-15l",
+    "name": "Nepal (Powder/Black 1.5L)",
+    "brand": "Weifang Yipin",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 1579,
+    "originalPrice": 1737,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/nepal-powderblack-15l/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/nepal-powderblack-15l/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "36",
+    "slug": "3l-jiwo-normal",
+    "name": "3L Jiwo – Normal",
+    "brand": "Weifang Yipin",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 3751,
+    "originalPrice": 4126,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/3l-jiwo-normal/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/3l-jiwo-normal/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "37",
+    "slug": "amazon-normalblack-3l",
+    "name": "Amazon (Normal/Black 3L",
+    "brand": "Weifang Yipin",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 4230,
+    "originalPrice": 4653,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/amazon-normalblack-3l/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/amazon-normalblack-3l/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "38",
+    "slug": "sunsun-wgm-3l",
+    "name": "SUNSUN WGM 3L",
+    "brand": "Sunsun",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 4230,
+    "originalPrice": 4653,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sunsun-wgm-3l/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sunsun-wgm-3l/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "39",
+    "slug": "sunsun-wgm-5l",
+    "name": "SUNSUN WGM 5L",
+    "brand": "Sunsun",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 4230,
+    "originalPrice": 4653,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sunsun-wgm-5l/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sunsun-wgm-5l/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "40",
+    "slug": "yee-50mm-150mm",
+    "name": "YEE 50mm-150mm",
+    "brand": "Weifang Yipin",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 1396,
+    "originalPrice": 1536,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/yee-50mm-150mm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/yee-50mm-150mm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 15,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "41",
+    "slug": "various-sizes-round-aquarium-air-stones-cylinder-bubble-diffuser-airstone-fish-tank-bubbler",
+    "name": "Various Sizes Round Aquarium Air Stones Cylinder Bubble Diffuser Airstone Fish Tank Bubbler",
+    "brand": "Quanzhou Wangwangyi Technology",
+    "category": "air",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Various-Sizes-Round-Aquarium-Air-Stones_1600958075005.html",
+    "price": 987,
+    "originalPrice": 1086,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/various-sizes-round-aquarium-air-stones-cylinder-bubble-diffuser-airstone-fish-tank-bubbler/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/various-sizes-round-aquarium-air-stones-cylinder-bubble-diffuser-airstone-fish-tank-bubbler/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 25,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "42",
+    "slug": "aquarium-sponge-filter-quiet-fish-tank-filters-fit-for-fry-breeding-shrimp-betta-fish-tank",
+    "name": "Aquarium Sponge Filter Quiet Fish Tank Filters Fit for Fry Breeding Shrimp Betta Fish Tank",
+    "brand": "Quanzhou Wangwangyi Technology",
+    "category": "air",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Aquarium-Sponge-Filter-Quiet-Fish-Tank_1601078026859.html?chatToken=TDFKeWNGRlpkWFZTWmtkNFRYRnZjVWxhVTBsU2RVcHNkRVpKVTJsMlRteERiM0ZyWlhrM2VHMXhZeTkwTVVSb2RIQnFRMGxKTmtONE9GSllWWFFyVGtOSVdrRTNkbmhXTjJSSWVrbHRiMkZLTXpoMVRsVnBZa0Z1UVhKcmRWbzRSMGxzZVRONVVqaFNUbVFyUW5OV1NsQjVhRUZ6YkdOT1RGVk5WalUzUkdsQ2FsYzFOR2czT0ZCMlZDczJNRTgzTlhGMGJITXJOMkZPUzBVMFJGSkphWFpZUm5GblJqTllhRFJaUFE9PSZ2ZXJzaW9uPTIuMC4w&encryptTargetLoginId=8pctgRBMALPPjclnQSDMmVjzv5UnzV%2Bp6wdkfYSa%2Bs4%3D",
+    "price": 931,
+    "originalPrice": 1024,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/aquarium-sponge-filter-quiet-fish-tank-filters-fit-for-fry-breeding-shrimp-betta-fish-tank/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/aquarium-sponge-filter-quiet-fish-tank-filters-fit-for-fry-breeding-shrimp-betta-fish-tank/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "43",
+    "slug": "aquarium-aluminum-alloy-retractable-koi-fish-net",
+    "name": "Aquarium Aluminum Alloy Retractable Koi Fish Net",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Aquarium-Aluminum-Alloy-Retractable-Koi-Fish_1600122433677.html?spm=a2700.shop_plser.41413.59.f64c17d0PsrjyG",
+    "price": 4850,
+    "originalPrice": 5335,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/aquarium-aluminum-alloy-retractable-koi-fish-net/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/aquarium-aluminum-alloy-retractable-koi-fish-net/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "44",
+    "slug": "small-wholesale-aquarium-special-nylon-fishing-net",
+    "name": "small Wholesale Aquarium Special Nylon Fishing Net",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Wholesale-Aquarium-Special-Nylon-Fishing-Net_1600075873215.html?spm=a2700.shop_plser.41413.57.f64c17d0PsrjyG",
+    "price": 705,
+    "originalPrice": 776,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/small-wholesale-aquarium-special-nylon-fishing-net/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/small-wholesale-aquarium-special-nylon-fishing-net/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "45",
+    "slug": "aquarium-fish-tank-stainless-steel-telescopic-square-fishnet-three-section-fishing-net-mediam",
+    "name": "Aquarium Fish Tank Stainless Steel Telescopic Square Fishnet Three-section Fishing Net  MEDIAM",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Aquarium-Fish-Tank-Stainless-Steel-Telescopic_1601583422955.html?spm=a2700.shop_plser.41413.25.f64c17d0PsrjyG",
+    "price": 987,
+    "originalPrice": 1086,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/aquarium-fish-tank-stainless-steel-telescopic-square-fishnet-three-section-fishing-net-mediam/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/aquarium-fish-tank-stainless-steel-telescopic-square-fishnet-three-section-fishing-net-mediam/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "46",
+    "slug": "aquarium-fish-tank-five-in-one-cleaning-tool-fish-net-scraper-algae-knife-aquatic-clip",
+    "name": "Aquarium Fish Tank Five-in-one Cleaning Tool Fish Net Scraper Algae Knife Aquatic Clip",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Aquarium-Fish-Tank-Five-in-one_1600849518417.html?spm=a2700.shop_plser.41413.3.f64c17d0PsrjyG",
+    "price": 1974,
+    "originalPrice": 2171,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/aquarium-fish-tank-five-in-one-cleaning-tool-fish-net-scraper-algae-knife-aquatic-clip/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/aquarium-fish-tank-five-in-one-cleaning-tool-fish-net-scraper-algae-knife-aquatic-clip/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "47",
+    "slug": "hgy0001-m",
+    "name": "HGY0001-M",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 10716,
+    "originalPrice": 11788,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hgy0001-m/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hgy0001-m/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "48",
+    "slug": "3-in-1-quick-water-changer-aquarium-siphon-bottom-filter-kit-filter-vacuum-gravel-cleaner-fish-tank-tool-accessory",
+    "name": "3 in 1 Quick Water Changer Aquarium Siphon Bottom Filter Kit Filter Vacuum Gravel Cleaner Fish Tank Tool Accessory",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/3-in-1-Quick-Water-Changer_1601430584780.html?spm=a2700.7724857.0.0.3f63339dkvQ0t8",
+    "price": 959,
+    "originalPrice": 1055,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/3-in-1-quick-water-changer-aquarium-siphon-bottom-filter-kit-filter-vacuum-gravel-cleaner-fish-tank-tool-accessory/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/3-in-1-quick-water-changer-aquarium-siphon-bottom-filter-kit-filter-vacuum-gravel-cleaner-fish-tank-tool-accessory/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 15,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "49",
+    "slug": "betta-koi-tank-desktop-glass-reptile-small-reef-plastic-aquarium-brush-cleaner-algae-scraper",
+    "name": "Betta Koi tank Desktop Glass Reptile Small Reef Plastic Aquarium Brush Cleaner Algae Scraper",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 6119,
+    "originalPrice": 6731,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/betta-koi-tank-desktop-glass-reptile-small-reef-plastic-aquarium-brush-cleaner-algae-scraper/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/betta-koi-tank-desktop-glass-reptile-small-reef-plastic-aquarium-brush-cleaner-algae-scraper/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "50",
+    "slug": "yee-wholesale-electric-fish-tank-cleaner-water-changer-fish-tank-cleaner-aquarium-fish-gravel-filter",
+    "name": "Yee -Wholesale Electric Fish Tank Cleaner Water Changer Fish Tank Cleaner Aquarium Fish Gravel Filter",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 11125,
+    "originalPrice": 12238,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/yee-wholesale-electric-fish-tank-cleaner-water-changer-fish-tank-cleaner-aquarium-fish-gravel-filter/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/yee-wholesale-electric-fish-tank-cleaner-water-changer-fish-tank-cleaner-aquarium-fish-gravel-filter/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.289Z",
+    "updated_at": "2025-11-21T20:44:11.289Z"
+  },
+  {
+    "id": "51",
+    "slug": "yee-aquarium-cleaner-multifunctional-removable-aquarium-gravel-vacuum-cleaner-fish-tank-water-changer-filter",
+    "name": "Yee Aquarium Cleaner Multifunctional Removable Aquarium Gravel Vacuum Cleaner Fish Tank Water Changer Filter",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 479,
+    "originalPrice": 527,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/yee-aquarium-cleaner-multifunctional-removable-aquarium-gravel-vacuum-cleaner-fish-tank-water-changer-filter/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/yee-aquarium-cleaner-multifunctional-removable-aquarium-gravel-vacuum-cleaner-fish-tank-water-changer-filter/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "52",
+    "slug": "hg124-s",
+    "name": "HG124-S",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 3666,
+    "originalPrice": 4033,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg124-s/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg124-s/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 4,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "53",
+    "slug": "hg124-m",
+    "name": "HG124-M",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 5358,
+    "originalPrice": 5894,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg124-m/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg124-m/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "54",
+    "slug": "hg124-l",
+    "name": "HG124-L",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 8601,
+    "originalPrice": 9461,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg124-l/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg124-l/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "55",
+    "slug": "hg953-m",
+    "name": "HG953-M",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 16497,
+    "originalPrice": 18147,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg953-m/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg953-m/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 4,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "56",
+    "slug": "chubby-thermometer",
+    "name": "Chubby thermometer",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Aquarium-High-Accurate-Waterproof-Glass-Thermometer_1600313606099.html?spm=a2700.shop_plgr.41413.23.981f71218lzter",
+    "price": 141,
+    "originalPrice": 155,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/chubby-thermometer/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/chubby-thermometer/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 15,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "57",
+    "slug": "suction-cup-thermometer",
+    "name": "Suction cup thermometer",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Fish-Tank-Glass-Thermometer-Turtle-Tank_1600898402702.html?spm=a2700.shop_plser.41413.9.174c1b67bWGMgd",
+    "price": 226,
+    "originalPrice": 249,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/suction-cup-thermometer/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/suction-cup-thermometer/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 20,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "58",
+    "slug": "factory-wholesale-bulk-koi-tropical-fish-spirulina-flake-food-color-enhancing-flakes-for-aquarium-fish",
+    "name": "Factory Wholesale Bulk Koi Tropical Fish Spirulina Flake Food Color Enhancing Flakes for Aquarium Fish",
+    "brand": "Weifang Yipin",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "منتج طعام الأسماك",
+    "price": 1128,
+    "originalPrice": 1241,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/factory-wholesale-bulk-koi-tropical-fish-spirulina-flake-food-color-enhancing-flakes-for-aquarium-fish/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/factory-wholesale-bulk-koi-tropical-fish-spirulina-flake-food-color-enhancing-flakes-for-aquarium-fish/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "59",
+    "slug": "hygger-hg-957-36w",
+    "name": "Hygger HG-957 36W",
+    "brand": "Hygger",
+    "category": "plantLighting",
+    "subcategory": "general",
+    "description": "منتج إضاءات",
+    "price": 29159,
+    "originalPrice": 32075,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hygger-hg-957-36w/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hygger-hg-957-36w/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "60",
+    "slug": "hygger-hg-957",
+    "name": "Hygger HG-957",
+    "brand": "Hygger",
+    "category": "plantLighting",
+    "subcategory": "general",
+    "description": "منتج إضاءات",
+    "price": 33671,
+    "originalPrice": 37038,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hygger-hg-957/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hygger-hg-957/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "61",
+    "slug": "brine-shrimp-flake-oem-and-bulk-small-fish-food",
+    "name": "Brine Shrimp Flake OEM and Bulk Small Fish Food",
+    "brand": "0",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Brine-Shrimp-Flake-OEM-and-Bulk_1600808118888.html?chatToken=TDFKeWNGRlpkWFZTWmtkNFRYRnZjVWxhVTBsU2RVcHNkRVpKVTJsMlRteERiM0ZyWlhrM2VHMXhZeTkwTVVSb2RIQnFRMGxKTmtONE9GSllWWFFyVGpnMVdVdEdVR2hCTlV4WFZGYzFlVE4zVW5SRFRtdERkazB5V2toRVIxaDJVR3N4TlVKRmEySnJja2xKYVZObVEwNWhkSE5zY2pKc2FXbHhSWFYxUTJwemRIYzFibTVDVG1GTlIyTk1ZM2x1Wm5sTVFtVXJNazlJWVdwNFlUSnJMMjQ0TlRkdmNIaG9iazlyUFE9PSZ2ZXJzaW9uPTIuMC4w&encryptTargetLoginId=8pctgRBMALP9PVOGSpzFeIdN5J94dFy06wdkfYSa%2Bs4%3D",
+    "price": 536,
+    "originalPrice": 590,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/brine-shrimp-flake-oem-and-bulk-small-fish-food/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/brine-shrimp-flake-oem-and-bulk-small-fish-food/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "62",
+    "slug": "hygger-tropical-fish-enhance-color-flake-fish-food",
+    "name": "Hygger Tropical Fish Enhance Color Flake  fish food",
+    "brand": "Hygger",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "منتج طعام الأسماك",
+    "price": 4230,
+    "originalPrice": 4653,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hygger-tropical-fish-enhance-color-flake-fish-food/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hygger-tropical-fish-enhance-color-flake-fish-food/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "63",
+    "slug": "aquarium-betta-guppy-spirulina-patch-biozym-fish-food",
+    "name": "Aquarium Betta Guppy Spirulina Patch BIOZYM Fish Food",
+    "brand": "Generic",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Aquarium-Betta-Guppy-Spirulina-Patch-BIOZYM_1600073777709.html?spm=a2700.shop_plgr.41413.25.64d771212z7VVk",
+    "price": 2256,
+    "originalPrice": 2482,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/aquarium-betta-guppy-spirulina-patch-biozym-fish-food/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/aquarium-betta-guppy-spirulina-patch-biozym-fish-food/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "64",
+    "slug": "02mm-210g-small-fish-compound-feed",
+    "name": "0.2mm 210g small fish compound feed",
+    "brand": "Weifang Yipin",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "منتج طعام الأسماك",
+    "price": 1974,
+    "originalPrice": 2171,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/02mm-210g-small-fish-compound-feed/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/02mm-210g-small-fish-compound-feed/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "65",
+    "slug": "aquarium-sun-sun-guppy-slow-sinking-fish-food-feed-tropical-fish-fish-food-feed",
+    "name": "Aquarium SUN SUN Guppy Slow Sinking Fish Food Feed Tropical Fish Fish Food Feed",
+    "brand": "Generic",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Aquarium-SUN-SUN-Guppy-Slow-Sinking_1600443191621.html?spm=a2700.shop_plgr.41413.55.64d77121x4ujL9",
+    "price": 1410,
+    "originalPrice": 1551,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/aquarium-sun-sun-guppy-slow-sinking-fish-food-feed-tropical-fish-fish-food-feed/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/aquarium-sun-sun-guppy-slow-sinking-fish-food-feed-tropical-fish-fish-food-feed/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "66",
+    "slug": "goldfish-koi-special-small-particles-to-enhance-color-and-promote-growth-of-fish-food",
+    "name": "Goldfish Koi Special Small Particles to Enhance Color and Promote Growth of Fish Food",
+    "brand": "Generic",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Goldfish-Koi-Special-Small-Particles-to_1600055215903.html?spm=a2700.shop_plser.41413.3.5a9279efCmwh6X",
+    "price": 2115,
+    "originalPrice": 2327,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/goldfish-koi-special-small-particles-to-enhance-color-and-promote-growth-of-fish-food/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/goldfish-koi-special-small-particles-to-enhance-color-and-promote-growth-of-fish-food/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "67",
+    "slug": "shrimp-hatchery-440ml-artemia-eggs-diy-aquatic-animal-tool-incubator-aquarium-brine-shrimp-eggs-hatching-tool-hatchery-kits",
+    "name": "Shrimp Hatchery 440ml Artemia Eggs DIY Aquatic Animal Tool Incubator Aquarium Brine Shrimp Eggs Hatching Tool Hatchery Kits",
+    "brand": "Generic",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Incubator-for-bine-shrimp-eggs_1600749988908.html?utm_source=chatgpt.com",
+    "price": 7050,
+    "originalPrice": 7755,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/shrimp-hatchery-440ml-artemia-eggs-diy-aquatic-animal-tool-incubator-aquarium-brine-shrimp-eggs-hatching-tool-hatchery-kits/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/shrimp-hatchery-440ml-artemia-eggs-diy-aquatic-animal-tool-incubator-aquarium-brine-shrimp-eggs-hatching-tool-hatchery-kits/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "68",
+    "slug": "artemia-140g-200ml",
+    "name": "Artemia 140g 200ml",
+    "brand": "Weifang Yipin",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "منتج طعام الأسماك",
+    "price": 3807,
+    "originalPrice": 4188,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/artemia-140g-200ml/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/artemia-140g-200ml/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "69",
+    "slug": "yee-pet-food-high-protein-freeze-dried-shrimp-antarctic-krill-dried-prawn-aquarium-products-fish-food",
+    "name": "YEE Pet Food High Protein Freeze-dried Shrimp Antarctic Krill Dried Prawn Aquarium Products Fish Food",
+    "brand": "Weifang Yipin",
+    "category": "plantsFertilizers",
+    "subcategory": "general",
+    "description": "منتج طعام الأسماك",
+    "price": 3384,
+    "originalPrice": 3722,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/yee-pet-food-high-protein-freeze-dried-shrimp-antarctic-krill-dried-prawn-aquarium-products-fish-food/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/yee-pet-food-high-protein-freeze-dried-shrimp-antarctic-krill-dried-prawn-aquarium-products-fish-food/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "70",
+    "slug": "sunsun-adp",
+    "name": "SUNSUN ADP",
+    "brand": "Generic",
+    "category": "plantLighting",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/SUNSUN-ADP-Series-Fish-Tank-LED_1600172915551.html?spm=a2700.shop_pl.41413.71.6b7f7121ePscxG",
+    "price": 3737,
+    "originalPrice": 4111,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/sunsun-adp/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/sunsun-adp/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 7,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "71",
+    "slug": "jeneca-sc",
+    "name": "Jeneca sc",
+    "brand": "Generic",
+    "category": "plantLighting",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Fish-tank-Lamp-Aquarium-Lamp-Led_1601603423837.html?spm=a2700.shop_plgr.41413.7.5c507121NBWpAm",
+    "price": 5640,
+    "originalPrice": 6204,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/jeneca-sc/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/jeneca-sc/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "72",
+    "slug": "hg978-36w",
+    "name": "HG978-36W",
+    "brand": "Hygger",
+    "category": "plantLighting",
+    "subcategory": "general",
+    "description": "منتج إضاءات",
+    "price": 28990,
+    "originalPrice": 31889,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg978-36w/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg978-36w/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 4,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "73",
+    "slug": "easy-testing-pond-aquarium-test-kit-0-5-ppm-50",
+    "name": "Easy Testing Pond & Aquarium Test Kit 0-5 Ppm 50",
+    "brand": "Generic",
+    "category": "tests",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Easy-Testing-Pond-Aquarium-Test-Kit_1601457942215.html?spm=a2700.7724857.0.0.6a8935d8oejA5s",
+    "price": 4301,
+    "originalPrice": 4731,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/easy-testing-pond-aquarium-test-kit-0-5-ppm-50/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/easy-testing-pond-aquarium-test-kit-0-5-ppm-50/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "74",
+    "slug": "hygger-water-quality-meter",
+    "name": "hygger Water Quality Meter",
+    "brand": "Hygger",
+    "category": "tests",
+    "subcategory": "general",
+    "description": "منتج مجموعات الاختبار",
+    "price": 18330,
+    "originalPrice": 20163,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hygger-water-quality-meter/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hygger-water-quality-meter/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 4,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "75",
+    "slug": "9-in-one-water-quality-test-paper-aluminum-foil-bag",
+    "name": "9 in one water quality test paper aluminum foil bag",
+    "brand": "Weifang Yipin",
+    "category": "tests",
+    "subcategory": "general",
+    "description": "منتج مجموعات الاختبار",
+    "price": 2496,
+    "originalPrice": 2746,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/9-in-one-water-quality-test-paper-aluminum-foil-bag/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/9-in-one-water-quality-test-paper-aluminum-foil-bag/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "76",
+    "slug": "fish-tank-algae-remover-550ml1-bottle",
+    "name": "Fish Tank Algae Remover 550ml*1 Bottle",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://indonesian.alibaba.com/product-detail/Fish-tank-Nitrifying-Bacteria-Water-Quality-1601606323224.html",
+    "price": 973,
+    "originalPrice": 1070,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/fish-tank-algae-remover-550ml1-bottle/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/fish-tank-algae-remover-550ml1-bottle/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 20,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "77",
+    "slug": "fish-tank-descaling-agent",
+    "name": "fish tank descaling agent",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 973,
+    "originalPrice": 1070,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/fish-tank-descaling-agent/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/fish-tank-descaling-agent/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 15,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "78",
+    "slug": "vastocean-250ml-fish-tank-po4-remover",
+    "name": "Vastocean 250ml Fish Tank PO4 Remover",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Vastocean-250ml-500ml-Fish-Tank-PO4_1600486691212.html",
+    "price": 8460,
+    "originalPrice": 9306,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/vastocean-250ml-fish-tank-po4-remover/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/vastocean-250ml-fish-tank-po4-remover/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.290Z",
+    "updated_at": "2025-11-21T20:44:11.290Z"
+  },
+  {
+    "id": "79",
+    "slug": "vastocean-500ml-fish-tank-po4-remover",
+    "name": "Vastocean  500ml Fish Tank PO4 Remover",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Vastocean-250ml-500ml-Fish-Tank-PO4_1600486691212.html",
+    "price": 8460,
+    "originalPrice": 9306,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/vastocean-500ml-fish-tank-po4-remover/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/vastocean-500ml-fish-tank-po4-remover/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.291Z",
+    "updated_at": "2025-11-21T20:44:11.291Z"
+  },
+  {
+    "id": "80",
+    "slug": "xinyou-xy-2835-aquarium-filter-shrimp-fish-tank-air-pump-biochemical",
+    "name": "XINYOU XY-2835 Aquarium Filter Shrimp Fish Tank Air Pump Biochemical",
+    "brand": "Generic",
+    "category": "air",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/XINYOU-XY-2835-Aquarium-Filter-Shrimp_1601249928936.html?spm=a2700.shop_plser.41413.1.49c130bdEKIhgO",
+    "price": 19937,
+    "originalPrice": 21931,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/xinyou-xy-2835-aquarium-filter-shrimp-fish-tank-air-pump-biochemical/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/xinyou-xy-2835-aquarium-filter-shrimp-fish-tank-air-pump-biochemical/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 4,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.291Z",
+    "updated_at": "2025-11-21T20:44:11.291Z"
+  },
+  {
+    "id": "81",
+    "slug": "voonline-liquid-fertilizer-300ml",
+    "name": "VOONLINE Liquid fertilizer 300ml",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/VOONLINE-All-In-One-Liquid-Aquarium_1601110302981.html",
+    "price": 3694,
+    "originalPrice": 4063,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/voonline-liquid-fertilizer-300ml/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/voonline-liquid-fertilizer-300ml/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 4,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.291Z",
+    "updated_at": "2025-11-21T20:44:11.291Z"
+  },
+  {
+    "id": "82",
+    "slug": "voonline-potash-300ml",
+    "name": "VOONLINE Potash 300ml",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/VOONLINE-All-In-One-Liquid-Aquarium_1601110302981.html",
+    "price": 3694,
+    "originalPrice": 4063,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/voonline-potash-300ml/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/voonline-potash-300ml/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 4,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.291Z",
+    "updated_at": "2025-11-21T20:44:11.291Z"
+  },
+  {
+    "id": "83",
+    "slug": "voonline-iron-fertilizer-300ml",
+    "name": "VOONLINE Iron fertilizer 300ml",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/VOONLINE-All-In-One-Liquid-Aquarium_1601110302981.html",
+    "price": 3694,
+    "originalPrice": 4063,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/voonline-iron-fertilizer-300ml/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/voonline-iron-fertilizer-300ml/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 4,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "84",
+    "slug": "bb1701-nitrogen-rapid-decreasing-nitrite-50-tablets",
+    "name": "BB1701 Nitrogen (rapid-decreasing nitrite) 50 tablets",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/Baiyinmei-Nitrification-Bacteria-Fish-tank-Water_1600881960232.html?spm=a2700.shop_plser.41413.1.1d392157w2JWHQ",
+    "price": 10998,
+    "originalPrice": 12098,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/bb1701-nitrogen-rapid-decreasing-nitrite-50-tablets/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/bb1701-nitrogen-rapid-decreasing-nitrite-50-tablets/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "85",
+    "slug": "8mm-aquarium-fish-tank-crystal-shrimp-mineral-tourmaline-ball",
+    "name": "8mm Aquarium Fish Tank Crystal Shrimp Mineral Tourmaline Ball",
+    "brand": "Generic",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "https://www.alibaba.com/product-detail/8mm-Aquarium-Fish-Tank-Crystal-Shrimp_60319033252.html?spm=a2700.7724857.0.0.68b84e0d0iQTfH",
+    "price": 141,
+    "originalPrice": 155,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/8mm-aquarium-fish-tank-crystal-shrimp-mineral-tourmaline-ball/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/8mm-aquarium-fish-tank-crystal-shrimp-mineral-tourmaline-ball/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 100,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "86",
+    "slug": "yee-thicken-quartz-fish-tank-heater-rod-100w-power-inline-aquarium-heater-with-rotating-fixed-precise-temperature",
+    "name": "Yee Thicken Quartz Fish Tank Heater Rod 100W Power Inline Aquarium Heater With Rotating Fixed Precise Temperature",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 4977,
+    "originalPrice": 5475,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/yee-thicken-quartz-fish-tank-heater-rod-100w-power-inline-aquarium-heater-with-rotating-fixed-precise-temperature/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/yee-thicken-quartz-fish-tank-heater-rod-100w-power-inline-aquarium-heater-with-rotating-fixed-precise-temperature/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "87",
+    "slug": "yee-thicken-quartz-fish-tank-heater-rod-300w-power-inline-aquarium-heater-with-rotating-fixed-precise-temperature",
+    "name": "Yee Thicken Quartz Fish Tank Heater Rod 300W Power Inline Aquarium Heater With Rotating Fixed Precise Temperature",
+    "brand": "Weifang Yipin",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 5259,
+    "originalPrice": 5785,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/yee-thicken-quartz-fish-tank-heater-rod-300w-power-inline-aquarium-heater-with-rotating-fixed-precise-temperature/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/yee-thicken-quartz-fish-tank-heater-rod-300w-power-inline-aquarium-heater-with-rotating-fixed-precise-temperature/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "88",
+    "slug": "dophin-electric-skimmer",
+    "name": "DoPhin Electric Skimmer",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "filters",
+    "subcategory": "general",
+    "description": "منتج فلاتر ماء",
+    "price": 3595,
+    "originalPrice": 3955,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/dophin-electric-skimmer/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/dophin-electric-skimmer/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "89",
+    "slug": "hc004-s",
+    "name": "HC004-S",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج خلفيات أحواض",
+    "price": 860,
+    "originalPrice": 946,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hc004-s/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hc004-s/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "90",
+    "slug": "hc004-m",
+    "name": "HC004-M",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج خلفيات أحواض",
+    "price": 1354,
+    "originalPrice": 1489,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hc004-m/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hc004-m/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "91",
+    "slug": "hc004-l",
+    "name": "HC004-L",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج خلفيات أحواض",
+    "price": 1777,
+    "originalPrice": 1955,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hc004-l/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hc004-l/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 15,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "92",
+    "slug": "hc004-xl",
+    "name": "HC004-XL",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج خلفيات أحواض",
+    "price": 2637,
+    "originalPrice": 2901,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hc004-xl/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hc004-xl/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 12,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "93",
+    "slug": "led",
+    "name": "led屏显温度计",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أجهزة القياس والحرارة",
+    "price": 2115,
+    "originalPrice": 2327,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/led/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/led/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 8,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "94",
+    "slug": "rhododendron-5055cm",
+    "name": "Rhododendron 50–55cm",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 6514,
+    "originalPrice": 7165,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/rhododendron-5055cm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/rhododendron-5055cm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "95",
+    "slug": "rhododendron-3035cm",
+    "name": "Rhododendron 30–35cm",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 3906,
+    "originalPrice": 4297,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/rhododendron-3035cm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/rhododendron-3035cm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "96",
+    "slug": "rhododendron-root-3045cm",
+    "name": "Rhododendron Root 30–45cm",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 7346,
+    "originalPrice": 8081,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/rhododendron-root-3045cm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/rhododendron-root-3045cm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "97",
+    "slug": "brazilian-trees",
+    "name": "Brazilian Trees",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 13790,
+    "originalPrice": 15169,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/brazilian-trees/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/brazilian-trees/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "98",
+    "slug": "moss-tree-20-30cm",
+    "name": "Moss Tree 20-30cm",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 2679,
+    "originalPrice": 2947,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/moss-tree-20-30cm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/moss-tree-20-30cm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "99",
+    "slug": "polished-driftwood5-8cm",
+    "name": "Polished Driftwood5-8cm",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 197,
+    "originalPrice": 217,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/polished-driftwood5-8cm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/polished-driftwood5-8cm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "100",
+    "slug": "polished-driftwood8-10cm",
+    "name": "Polished Driftwood8-10cm",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 296,
+    "originalPrice": 326,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/polished-driftwood8-10cm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/polished-driftwood8-10cm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "101",
+    "slug": "polished-driftwood10-15cm",
+    "name": "Polished Driftwood10-15cm",
+    "brand": "Binzhou Houyi Aquatic Products Co",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 705,
+    "originalPrice": 776,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/polished-driftwood10-15cm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/polished-driftwood10-15cm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "102",
+    "slug": "polished-driftwood15-20cm",
+    "name": "Polished Driftwood15-20cm",
+    "brand": "Binzhou Houyi Aquatic Products Co",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 1269,
+    "originalPrice": 1396,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/polished-driftwood15-20cm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/polished-driftwood15-20cm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "103",
+    "slug": "mountain-wood",
+    "name": "Mountain wood",
+    "brand": "Binzhou Houyi Aquatic Products Co",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 4794,
+    "originalPrice": 5273,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/mountain-wood/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/mountain-wood/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "104",
+    "slug": "large-selected-sinking-wood-kg",
+    "name": "Large selected sinking wood (kg)",
+    "brand": "Binzhou Houyi Aquatic Products Co",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "I hope you managed to send me her photos before shipping",
+    "price": 4089,
+    "originalPrice": 4498,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/large-selected-sinking-wood-kg/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/large-selected-sinking-wood-kg/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "105",
+    "slug": "thai-branche-peeled",
+    "name": "Thai branche Peeled",
+    "brand": "Binzhou Houyi Aquatic Products Co",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ديكور",
+    "price": 16215,
+    "originalPrice": 17837,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/thai-branche-peeled/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/thai-branche-peeled/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 1,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "106",
+    "slug": "pumice-small-bag3-6mm",
+    "name": "Pumice Small bag/3-6mm",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 10857,
+    "originalPrice": 11943,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/pumice-small-bag3-6mm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/pumice-small-bag3-6mm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "107",
+    "slug": "aquatic-plants-base-fertilizer-500g",
+    "name": "Aquatic plants base fertilizer 500g",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 2919,
+    "originalPrice": 3211,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/aquatic-plants-base-fertilizer-500g/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/aquatic-plants-base-fertilizer-500g/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "108",
+    "slug": "river-sand-1-2mm",
+    "name": "River sand 1-2mm",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 409,
+    "originalPrice": 450,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/river-sand-1-2mm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/river-sand-1-2mm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 30,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "109",
+    "slug": "no-need-to-clean-stream-sand-2-6mm",
+    "name": "No need to clean, stream sand 2-6mm",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 451,
+    "originalPrice": 496,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/no-need-to-clean-stream-sand-2-6mm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/no-need-to-clean-stream-sand-2-6mm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 20,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "110",
+    "slug": "south-american-sands-new-1-2mm",
+    "name": "South American Sands New 1-2mm",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 451,
+    "originalPrice": 496,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/south-american-sands-new-1-2mm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/south-american-sands-new-1-2mm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 15,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "111",
+    "slug": "white-sand",
+    "name": "White sand",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 268,
+    "originalPrice": 295,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/white-sand/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/white-sand/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "112",
+    "slug": "dutch-sand",
+    "name": "Dutch Sand",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج ترب نباتية",
+    "price": 451,
+    "originalPrice": 496,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/dutch-sand/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/dutch-sand/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "113",
+    "slug": "blue-dragon-flake",
+    "name": "Blue Dragon – flake",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج صخور",
+    "price": 536,
+    "originalPrice": 590,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/blue-dragon-flake/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/blue-dragon-flake/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 4,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "114",
+    "slug": "black-slate",
+    "name": "Black slate",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج صخور",
+    "price": 550,
+    "originalPrice": 605,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/black-slate/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/black-slate/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "115",
+    "slug": "volcanic-black-35cm",
+    "name": "Volcanic black 3–5cm",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج صخور",
+    "price": 268,
+    "originalPrice": 295,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/volcanic-black-35cm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/volcanic-black-35cm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "116",
+    "slug": "boutique",
+    "name": "Boutique",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "hardscape",
+    "subcategory": "general",
+    "description": "منتج صخور",
+    "price": 578,
+    "originalPrice": 636,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/boutique/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/boutique/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 1,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "117",
+    "slug": "planting-ring-5226mm",
+    "name": "Planting ring 52×26mm",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "plantLighting",
+    "subcategory": "general",
+    "description": "منتج إضاءات",
+    "price": 113,
+    "originalPrice": 124,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/planting-ring-5226mm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/planting-ring-5226mm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 30,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.299Z",
+    "updated_at": "2025-11-21T20:44:11.299Z"
+  },
+  {
+    "id": "118",
+    "slug": "moss-glue-5g-white-ca-gel",
+    "name": "Moss Glue 5g White (CA Gel)",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 282,
+    "originalPrice": 310,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/moss-glue-5g-white-ca-gel/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/moss-glue-5g-white-ca-gel/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 40,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "119",
+    "slug": "moss-glue-20g-white",
+    "name": "Moss Glue 20g White",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 2439,
+    "originalPrice": 2683,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/moss-glue-20g-white/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/moss-glue-20g-white/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "120",
+    "slug": "instant-glue-50g-ca-liquid",
+    "name": "Instant Glue 50g (CA Liquid)",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 592,
+    "originalPrice": 651,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/instant-glue-50g-ca-liquid/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/instant-glue-50g-ca-liquid/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 20,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "121",
+    "slug": "silicone-12113",
+    "name": "Silicone 121/13",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 5598,
+    "originalPrice": 6158,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/silicone-12113/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/silicone-12113/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 2,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "122",
+    "slug": "ceramic-ring",
+    "name": "Ceramic ring",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 578,
+    "originalPrice": 636,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/ceramic-ring/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/ceramic-ring/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 12,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "123",
+    "slug": "breathing-ring-white",
+    "name": "Breathing ring – white",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 987,
+    "originalPrice": 1086,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/breathing-ring-white/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/breathing-ring-white/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 6,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "124",
+    "slug": "activated-carbon",
+    "name": "Activated carbon",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 564,
+    "originalPrice": 620,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/activated-carbon/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/activated-carbon/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "125",
+    "slug": "white-cotton-305025",
+    "name": "White cotton 30×50×2.5",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 282,
+    "originalPrice": 310,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/white-cotton-305025/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/white-cotton-305025/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 30,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "126",
+    "slug": "terminalia-leaves",
+    "name": "Terminalia Leaves",
+    "brand": "Binzhou Houyi Aquatic Products",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 42,
+    "originalPrice": 46,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/terminalia-leaves/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/terminalia-leaves/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 200,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "127",
+    "slug": "foam-glue",
+    "name": "Foam Glue",
+    "brand": "Binzhou Houyi Aquatic Products Co",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 2820,
+    "originalPrice": 3102,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/foam-glue/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/foam-glue/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "128",
+    "slug": "medium-cotton-brown-50g",
+    "name": "Medium cotton brown 50g",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 1692,
+    "originalPrice": 1861,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/medium-cotton-brown-50g/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/medium-cotton-brown-50g/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "129",
+    "slug": "medium-cotton-grey-50g",
+    "name": "Medium cotton grey 50g",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 1481,
+    "originalPrice": 1629,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/medium-cotton-grey-50g/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/medium-cotton-grey-50g/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "130",
+    "slug": "check-valve-round-red",
+    "name": "Check valve round red",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 42,
+    "originalPrice": 46,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/check-valve-round-red/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/check-valve-round-red/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 100,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "131",
+    "slug": "control-valve-4mm",
+    "name": "Control valve 4mm",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 42,
+    "originalPrice": 46,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/control-valve-4mm/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/control-valve-4mm/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 100,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "132",
+    "slug": "4mm-t",
+    "name": "4mm T通",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 42,
+    "originalPrice": 46,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/4mm-t/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/4mm-t/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 200,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "133",
+    "slug": "4mm-i",
+    "name": "4mm I",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 14,
+    "originalPrice": 15,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/4mm-i/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/4mm-i/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 200,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "134",
+    "slug": "4mm-y",
+    "name": "4mm Y",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 28,
+    "originalPrice": 31,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/4mm-y/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/4mm-y/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 200,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "135",
+    "slug": "4-port-blue",
+    "name": "4 port blue",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 1340,
+    "originalPrice": 1474,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/4-port-blue/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/4-port-blue/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "136",
+    "slug": "6-port-blue",
+    "name": "6 port blue",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 1974,
+    "originalPrice": 2171,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/6-port-blue/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/6-port-blue/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "137",
+    "slug": "stainless-steel-shunt-4",
+    "name": "Stainless steel shunt 4",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 3032,
+    "originalPrice": 3335,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/stainless-steel-shunt-4/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/stainless-steel-shunt-4/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "138",
+    "slug": "stainless-steel-shunt6",
+    "name": "Stainless steel shunt6头",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "air",
+    "subcategory": "general",
+    "description": "منتج مضخات هواء",
+    "price": 4484,
+    "originalPrice": 4932,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/stainless-steel-shunt6/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/stainless-steel-shunt6/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 5,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "139",
+    "slug": "tracheal-suction-cup",
+    "name": "Tracheal suction cup",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 42,
+    "originalPrice": 46,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/tracheal-suction-cup/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/tracheal-suction-cup/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 300,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "140",
+    "slug": "155m-double-ended-spring-brush-bluehose-brush",
+    "name": "1.55m double-ended spring brush (blue)Hose brush",
+    "brand": "Binzhou Houyi Aquatic Products Co.",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 1791,
+    "originalPrice": 1970,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/155m-double-ended-spring-brush-bluehose-brush/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/155m-double-ended-spring-brush-bluehose-brush/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 10,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
+  },
+  {
+    "id": "141",
+    "slug": "hg239",
+    "name": "HG239",
+    "brand": "Hygger",
+    "category": "waterCare",
+    "subcategory": "general",
+    "description": "منتج أحواض مائية",
+    "price": 17470,
+    "originalPrice": 19217,
+    "currency": "IQD",
+    "images": [
+      "https://images.unsplash.com/seed/hg239/800/800?auto=format&fit=crop&w=800&q=80"
+    ],
+    "thumbnail": "https://images.unsplash.com/seed/hg239/800/800?auto=format&fit=crop&w=800&q=80",
+    "rating": 4.6,
+    "reviewCount": 0,
+    "stock": 3,
+    "lowStockThreshold": 3,
+    "inStock": true,
+    "isNew": false,
+    "isBestSeller": false,
+    "specifications": {
+      "flow": null,
+      "power": null,
+      "compatibility": {
+        "minTankSize": null,
+        "maxTankSize": null,
+        "displayText": ""
+      },
+      "dimensions": null,
+      "weight": null
+    },
+    "created_at": "2025-11-21T20:44:11.300Z",
+    "updated_at": "2025-11-21T20:44:11.300Z"
   }
 ]

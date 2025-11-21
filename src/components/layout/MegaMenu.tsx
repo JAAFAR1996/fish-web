@@ -228,7 +228,10 @@ export function MegaMenu({ className }: MegaMenuProps) {
                     {category.subcategories.map((subcategory) => (
                       <Link
                         key={subcategory}
-                        href={`/products/${category.key}/${subcategory}`}
+                        href={{
+                          pathname: '/products',
+                          query: { category: category.key, subcategory },
+                        }}
                         className="group flex flex-col gap-1 rounded-md p-3 transition-colors duration-150 hover:bg-muted focus:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         onClick={() => setActiveCategory(null)}
                       >

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import {
   Badge,
@@ -29,9 +29,9 @@ import { SearchBar } from './SearchBar';
 export const Header = () => {
   const t = useTranslations('nav');
   const tAuth = useTranslations('auth');
+  const locale = useLocale();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
   const { user, isLoading, signOut } = useAuth();
   const { itemCount, openSidebar } = useCart();
 
@@ -100,6 +100,33 @@ export const Header = () => {
             >
               <Link href="/calculators">{t('calculators')}</Link>
             </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hidden sm:inline-flex"
+              asChild
+            >
+              <Link href="/search">
+                <Icon name="search" size="sm" className="me-2" />
+                {locale === 'ar' ? 'البحث' : 'Search'}
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hidden sm:inline-flex"
+              asChild
+            >
+              <Link href="/about">{locale === 'ar' ? 'من نحن' : 'About'}</Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hidden sm:inline-flex"
+              asChild
+            >
+              <Link href="/support">{locale === 'ar' ? 'الدعم' : 'Support'}</Link>
+            </Button>
             {isLoading ? (
               <div className="h-10 w-10 animate-pulse rounded-full bg-muted" aria-hidden="true" />
             ) : user ? (
@@ -159,18 +186,22 @@ export const Header = () => {
                   size="sm"
                   className="rounded-full p-2 sm:hidden"
                   aria-label={tAuth('modal.title')}
-                  onClick={() => setAuthModalOpen(true)}
+                  asChild
                 >
-                  <Icon name="user" size="md" aria-hidden="true" />
+                  <Link href="/auth">
+                    <Icon name="user" size="md" aria-hidden="true" />
+                  </Link>
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setAuthModalOpen(true)}
                   className="hidden sm:inline-flex"
+                  asChild
                 >
-                  <Icon name="user" size="sm" className="me-2" />
-                  {tAuth('modal.title')}
+                  <Link href="/auth">
+                    <Icon name="user" size="sm" className="me-2" />
+                    {tAuth('modal.title')}
+                  </Link>
                 </Button>
               </>
             )}
@@ -206,15 +237,8 @@ export const Header = () => {
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
       />
-
-      <AuthModal
-        isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
-        defaultTab="signin"
-      />
     </>
   );
 };
 
 export default Header;
-
