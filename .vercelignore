@@ -1,0 +1,12 @@
+.git
+.next/cache
+.next/cache/**
+.local
+.local/**
+node_modules
+build.log
+build-output.log
+build-check.log
+start.log
+*.tsbuildinfo
+*.log
