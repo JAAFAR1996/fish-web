@@ -1,6 +1,6 @@
 import { FEATURES } from '@/lib/config/features';
 
-type AnyFunction = (...args: any[]) => any;
+type AnyFunction = (...args: unknown[]) => unknown;
 
 export interface ThrottleOptions {
   leading?: boolean;
@@ -69,6 +69,8 @@ export const throttle = <T extends AnyFunction>(
     ...args: Parameters<T>
   ) {
     const currentTime = now();
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this;
 
     if (lastCallTime === 0 && !leading) {
       lastCallTime = currentTime;
@@ -76,7 +78,7 @@ export const throttle = <T extends AnyFunction>(
 
     const remaining = delay - (currentTime - lastCallTime);
     lastArgs = args;
-    lastContext = this;
+    lastContext = context;
 
     if (remaining <= 0 || remaining > delay) {
       if (timeoutId) {
@@ -143,8 +145,10 @@ export const debounce = <T extends AnyFunction>(
     this: unknown,
     ...args: Parameters<T>
   ): ReturnType<T> | undefined {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this;
     lastArgs = args;
-    lastContext = this;
+    lastContext = context;
 
     const shouldCallNow = leading && timeoutId == null;
 
@@ -217,8 +221,10 @@ export const rafThrottle = <T extends AnyFunction>(callback: T): ThrottledFuncti
     this: unknown,
     ...args: Parameters<T>
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this;
     lastArgs = args;
-    lastContext = this;
+    lastContext = context;
     if (frameId == null) {
       frameId = window.requestAnimationFrame(invoke);
     }

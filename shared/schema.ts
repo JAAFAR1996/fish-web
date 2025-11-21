@@ -24,6 +24,19 @@ export const sessions = pgTable('sessions', {
   expiresAtIdx: index('idx_sessions_expires_at').on(table.expiresAt),
 }));
 
+export const passwordResetTokens = pgTable('password_reset_tokens', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  token: text('token').notNull().unique(),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  used: boolean('used').notNull().default(false),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+}, (table) => ({
+  userIdIdx: index('idx_password_reset_tokens_user_id').on(table.userId),
+  tokenIdx: index('idx_password_reset_tokens_token').on(table.token),
+  expiresAtIdx: index('idx_password_reset_tokens_expires_at').on(table.expiresAt),
+}));
+
 export const profiles = pgTable('profiles', {
   id: uuid('id').primaryKey().references(() => users.id, { onDelete: 'cascade' }),
   username: text('username').unique(),

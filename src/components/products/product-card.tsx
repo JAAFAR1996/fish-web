@@ -152,7 +152,7 @@ export function ProductCard({
     },
     { scope: cardRef, dependencies: [product.id] },
   );
-  const safeContext = contextSafe ?? ((fn: Function) => fn);
+  const safeContext = contextSafe ?? ((fn: (...args: unknown[]) => unknown) => fn);
 
   const isWishlisted = wishlistContains(product.id);
   const isWishlistPrimaryAction =

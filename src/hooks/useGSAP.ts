@@ -13,11 +13,11 @@ import {
   STAGGER,
 } from '@/lib/config/motion-tokens';
 
-type ContextSafeFunc = <T extends Function>(func: T) => T;
-type ContextFunc = (context: gsap.Context, contextSafe?: ContextSafeFunc) => any;
+type ContextSafeFunc = <T extends (...args: unknown[]) => unknown>(func: T) => T;
+type ContextFunc = (context: gsap.Context, contextSafe?: ContextSafeFunc) => void | (() => void);
 
 interface UseGSAPConfig {
-  scope?: RefObject<any> | Element | string | null;
+  scope?: RefObject<Element> | Element | string | null;
   dependencies?: unknown[];
   revertOnUpdate?: boolean;
 }
