@@ -158,8 +158,8 @@ const nextConfig = {
     deviceSizes: [...IMAGE_DEVICE_SIZES],
     imageSizes: [...IMAGE_SIZES],
   },
+  typedRoutes: true,
   experimental: {
-    typedRoutes: true,
     optimizePackageImports: ['recharts', 'lucide-react', 'fuse.js'],
   },
   webpack(config) {
