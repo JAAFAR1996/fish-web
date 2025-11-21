@@ -152,19 +152,6 @@ if (!process.env.WS_NO_UTF_8_VALIDATE) {
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
-  // Exclude local/dev artifacts from serverless bundles to keep function size small
-  outputFileTracingExcludes: {
-    '*': [
-      // Drop Next build cache artifacts
-      '**/.next/cache/**',
-      // Drop VCS and local tool state
-      '**/.git/**',
-      '**/.local/**',
-      '**/tmp/**',
-      '**/temp/**',
-      '**/node_modules/.cache/**',
-    ],
-  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: remoteImagePatterns,
@@ -174,6 +161,17 @@ const nextConfig = {
   typedRoutes: true,
   experimental: {
     optimizePackageImports: ['recharts', 'lucide-react', 'fuse.js'],
+    // Exclude local/dev artifacts from serverless bundles to keep function size small
+    outputFileTracingExcludes: {
+      '*': [
+        '**/.next/cache/**',
+        '**/.git/**',
+        '**/.local/**',
+        '**/tmp/**',
+        '**/temp/**',
+        '**/node_modules/.cache/**',
+      ],
+    },
   },
   webpack(config) {
     config.resolve = config.resolve || {};
