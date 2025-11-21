@@ -47,7 +47,7 @@ export default async function ForgotPasswordPage() {
         {/* Back to Sign In */}
         <div className="mt-6 text-center">
           <Link
-            href="/ar/auth/signin"
+            href={"/ar/auth/signin" as any}
             className="text-sm text-aqua-600 dark:text-aqua-400 hover:underline inline-flex items-center gap-2"
           >
             <svg

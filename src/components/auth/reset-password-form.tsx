@@ -46,7 +46,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
       if (result.success) {
         // Redirect to signin with success message
-        router.push('/ar/auth/signin?reset=success');
+        router.push('/ar/auth/signin?reset=success' as any);
       } else {
         setError(t(result.message || 'auth.errors.generic'));
       }
