@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useId, useMemo, useState } from 'react';
 import type { AuthUser } from '@server/auth';
 import { useTranslations } from 'next-intl';
 
@@ -8,6 +8,7 @@ import { Badge, Button, Icon, Input } from '@/components/ui';
 import type { SavedAddress, ShippingAddressSnapshot } from '@/types';
 
 import { GOVERNORATES } from '@/data/governorates';
+import { getCitySuggestions } from '@/data/city-suggestions';
 import { cn } from '@/lib/utils';
 import { validateShippingInfo } from '@/lib/checkout/validation';
 
@@ -24,7 +25,6 @@ export interface ShippingInfoStepProps {
   user: AuthUser | null;
   savedAddresses: SavedAddress[];
   initialData?: ShippingAddressSnapshot | null;
-  initialGuestEmail?: string | null;
   initialSaveAddress?: boolean;
   selectedAddressId?: string | null;
   onContinue: (payload: ShippingInfoContinuePayload) => void;
@@ -55,11 +55,26 @@ function savedAddressToSnapshot(address: SavedAddress): ShippingAddressSnapshot 
   };
 }
 
+function normalizePhoneInput(value: string): string {
+  const digits = value.replace(/[^\d]/g, '');
+  if (!digits) return '';
+
+  let local = digits;
+  if (local.startsWith('964')) {
+    local = local.slice(3);
+  }
+  if (local.startsWith('0')) {
+    local = local.slice(1);
+  }
+
+  const trimmed = local.slice(0, 10);
+  return trimmed ? `+964${trimmed}` : '';
+}
+
 export function ShippingInfoStep({
   user,
   savedAddresses,
   initialData,
-  initialGuestEmail,
   initialSaveAddress = false,
   selectedAddressId: selectedAddressIdProp,
   onContinue,
@@ -68,6 +83,7 @@ export function ShippingInfoStep({
   const t = useTranslations('checkout.shipping');
   const tAccount = useTranslations('account.addresses');
   const translate = useTranslations();
+  const cityListId = useId();
 
   const defaultAddress = useMemo(() => {
     if (!savedAddresses.length) {
@@ -93,11 +109,14 @@ export function ShippingInfoStep({
   const [newAddress, setNewAddress] = useState<ShippingAddressSnapshot>(
     initialData ?? EMPTY_ADDRESS
   );
-  const [guestEmail, setGuestEmail] = useState(initialGuestEmail ?? '');
   const [saveAddress, setSaveAddress] = useState(initialSaveAddress);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const isGuest = !user;
+  const citySuggestions = useMemo(
+    () => getCitySuggestions(newAddress.governorate).slice(0, 6),
+    [newAddress.governorate]
+  );
 
   const handleModeChange = useCallback(
     (nextMode: Mode) => {
@@ -108,6 +127,40 @@ export function ShippingInfoStep({
       }
     },
     [defaultAddress, selectedAddressId]
+  );
+
+  const validateFieldInline = useCallback(
+    (field: keyof ShippingAddressSnapshot | 'phone') => {
+      const validation = validateShippingInfo(newAddress, null, isGuest);
+
+      setErrors((prev) => {
+        const next = { ...prev };
+        const fieldError = validation.errors[field];
+
+        if (fieldError) {
+          next[field] = fieldError;
+        } else {
+          delete next[field];
+        }
+
+        const hasAddressIssues =
+          Boolean(
+            validation.errors.recipient_name ||
+              validation.errors.address_line1 ||
+              validation.errors.city ||
+              validation.errors.governorate
+          );
+
+        if (!hasAddressIssues && next.address) {
+          delete next.address;
+        } else if (hasAddressIssues && validation.errors.address) {
+          next.address = validation.errors.address;
+        }
+
+        return next;
+      });
+    },
+    [isGuest, newAddress]
   );
 
   const handleAddressFieldChange = useCallback(
@@ -143,6 +196,26 @@ export function ShippingInfoStep({
     [errors]
   );
 
+  const handlePhoneChange = useCallback(
+    (value: string) => {
+      const normalized = normalizePhoneInput(value);
+      setNewAddress((prev) => ({
+        ...prev,
+        phone: normalized,
+      }));
+
+      setErrors((prev) => {
+        if (!prev.phone) {
+          return prev;
+        }
+        const next = { ...prev };
+        delete next.phone;
+        return next;
+      });
+    },
+    []
+  );
+
   const handleContinue = useCallback(() => {
     if (mode === 'select') {
       const address = savedAddresses.find((item) => item.id === selectedAddressId);
@@ -153,14 +226,14 @@ export function ShippingInfoStep({
 
       onContinue({
         shippingAddress: savedAddressToSnapshot(address),
-        guestEmail: isGuest ? guestEmail : null,
+        guestEmail: isGuest ? null : null,
         shippingAddressId: address.id,
         saveAddress: false,
       });
       return;
     }
 
-    const validation = validateShippingInfo(newAddress, guestEmail, isGuest);
+    const validation = validateShippingInfo(newAddress, null, isGuest);
     if (!validation.valid) {
       setErrors(validation.errors);
       return;
@@ -168,14 +241,13 @@ export function ShippingInfoStep({
 
     onContinue({
       shippingAddress: newAddress,
-      guestEmail: isGuest ? guestEmail : null,
+      guestEmail: isGuest ? null : null,
       saveAddress: user ? saveAddress : undefined,
     });
   }, [
     mode,
     savedAddresses,
     selectedAddressId,
-    guestEmail,
     isGuest,
     newAddress,
     onContinue,
@@ -183,11 +255,18 @@ export function ShippingInfoStep({
     user,
   ]);
 
-  const addressErrorMessage = errors.address
-    ? translate(errors.address)
-    : undefined;
-  const phoneErrorMessage = errors.phone ? translate(errors.phone) : undefined;
-  const emailErrorMessage = errors.email ? translate(errors.email) : undefined;
+  const translateError = useCallback(
+    (key?: string) => (key ? translate(key) : undefined),
+    [translate]
+  );
+
+  const addressErrorMessage = translateError(errors.address);
+  const phoneErrorMessage = translateError(errors.phone);
+  const recipientErrorMessage = translateError(errors.recipient_name);
+  const streetErrorMessage = translateError(errors.address_line1);
+  const cityErrorMessage = translateError(errors.city);
+  const governorateErrorMessage = translateError(errors.governorate);
+  const showGuestHint = isGuest;
 
   return (
     <section className={cn('space-y-6', className)}>
@@ -271,116 +350,221 @@ export function ShippingInfoStep({
 
       {mode === 'new' && (
         <div className="space-y-4">
-          {isGuest && (
-            <Input
-              type="email"
-              label={t('guestEmail')}
-              placeholder="name@example.com"
-              value={guestEmail}
-              onChange={(event) => {
-                setGuestEmail(event.target.value);
-                if (errors.email) {
-                  setErrors((prev) => {
-                    const next = { ...prev };
-                    delete next.email;
-                    return next;
-                  });
-                }
-              }}
-              helperText={t('guestEmailHint')}
-              error={emailErrorMessage}
-            />
+          {showGuestHint && (
+            <div className="flex items-start gap-3 rounded-lg border border-border/70 bg-muted/50 px-3 py-2">
+              <span className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-aqua-500/10 text-aqua-600">
+                <Icon name="sparkles" size="sm" aria-hidden />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-foreground">
+                  {t('guestFieldsHint')}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {t('continue')}
+                </p>
+              </div>
+            </div>
           )}
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <Input
-              label={tAccount('label')}
-              value={newAddress.label ?? ''}
-              onChange={(event) => handleAddressFieldChange('label', event.target.value)}
-            />
-            <Input
-              label={tAccount('recipientName')}
-              value={newAddress.recipient_name}
-              onChange={(event) =>
-                handleAddressFieldChange('recipient_name', event.target.value)
-              }
-              error={addressErrorMessage}
-            />
-          </div>
-
-          <Input
-            label={tAccount('addressLine1')}
-            value={newAddress.address_line1}
-            onChange={(event) =>
-              handleAddressFieldChange('address_line1', event.target.value)
-            }
-            error={addressErrorMessage}
-          />
-
-          <Input
-            label={tAccount('addressLine2')}
-            value={newAddress.address_line2 ?? ''}
-            onChange={(event) =>
-              handleAddressFieldChange('address_line2', event.target.value)
-            }
-          />
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <Input
-              label={tAccount('city')}
-              value={newAddress.city}
-              onChange={(event) => handleAddressFieldChange('city', event.target.value)}
-              error={addressErrorMessage}
-            />
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-foreground">
-                {tAccount('governorate')}
-              </label>
-              <select
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                value={newAddress.governorate}
+          {isGuest ? (
+            <>
+              <Input
+                label={tAccount('recipientName')}
+                mobileLabelInside
+                value={newAddress.recipient_name}
                 onChange={(event) =>
-                  handleAddressFieldChange('governorate', event.target.value)
+                  handleAddressFieldChange('recipient_name', event.target.value)
                 }
-              >
-                {GOVERNORATES.map((governorate) => (
-                  <option key={governorate} value={governorate}>
-                    {governorate}
-                  </option>
-                ))}
-              </select>
-              {addressErrorMessage && (
-                <p className="text-sm text-coral-500">{addressErrorMessage}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <Input
-              label={tAccount('postalCode')}
-              value={newAddress.postal_code ?? ''}
-              onChange={(event) =>
-                handleAddressFieldChange('postal_code', event.target.value)
-              }
-            />
-            <Input
-              label={tAccount('phone')}
-              value={newAddress.phone ?? ''}
-              onChange={(event) => handleAddressFieldChange('phone', event.target.value)}
-              error={phoneErrorMessage}
-              placeholder="+9647XXXXXXXXX"
-            />
-          </div>
-
-          {user && (
-            <label className="flex items-center gap-2 text-sm text-foreground">
-              <input
-                type="checkbox"
-                checked={saveAddress}
-                onChange={(event) => setSaveAddress(event.target.checked)}
+                onBlur={() => validateFieldInline('recipient_name')}
+                error={recipientErrorMessage}
+                autoComplete="name"
               />
-              {t('saveAddress')}
-            </label>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <Input
+                  label={tAccount('phone')}
+                  mobileLabelInside
+                  value={newAddress.phone ?? ''}
+                  onChange={(event) => handlePhoneChange(event.target.value)}
+                  onBlur={() => validateFieldInline('phone')}
+                  error={phoneErrorMessage}
+                  placeholder="+964 7XX XXX XXXX"
+                  helperText={t('phoneFormatHint')}
+                  inputMode="tel"
+                  type="tel"
+                  autoComplete="tel-national"
+                />
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium text-foreground">
+                    {tAccount('governorate')}
+                  </label>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    value={newAddress.governorate}
+                    onChange={(event) =>
+                      handleAddressFieldChange('governorate', event.target.value)
+                    }
+                    onBlur={() => validateFieldInline('governorate')}
+                    autoComplete="address-level1"
+                  >
+                    {GOVERNORATES.map((governorate) => (
+                      <option key={governorate} value={governorate}>
+                        {governorate}
+                      </option>
+                    ))}
+                  </select>
+                  {governorateErrorMessage && (
+                    <p className="text-sm text-coral-500">{governorateErrorMessage}</p>
+                  )}
+                </div>
+              </div>
+
+              <Input
+                label={tAccount('city')}
+                mobileLabelInside
+                value={newAddress.city}
+                onChange={(event) => handleAddressFieldChange('city', event.target.value)}
+                onBlur={() => validateFieldInline('city')}
+                error={cityErrorMessage}
+                autoComplete="address-level2"
+                list={cityListId}
+              />
+
+              <Input
+                label={tAccount('addressLine1')}
+                mobileLabelInside
+                value={newAddress.address_line1}
+                onChange={(event) =>
+                  handleAddressFieldChange('address_line1', event.target.value)
+                }
+                onBlur={() => validateFieldInline('address_line1')}
+                error={streetErrorMessage}
+                placeholder={tAccount('addressLine1')}
+                autoComplete="street-address"
+              />
+            </>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <Input
+                  label={tAccount('label')}
+                  mobileLabelInside
+                  value={newAddress.label ?? ''}
+                  onChange={(event) => handleAddressFieldChange('label', event.target.value)}
+                />
+                <Input
+                  label={tAccount('recipientName')}
+                  mobileLabelInside
+                  value={newAddress.recipient_name}
+                  onChange={(event) =>
+                    handleAddressFieldChange('recipient_name', event.target.value)
+                  }
+                  onBlur={() => validateFieldInline('recipient_name')}
+                  error={recipientErrorMessage}
+                  autoComplete="name"
+                />
+              </div>
+
+              <Input
+                label={tAccount('addressLine1')}
+                mobileLabelInside
+                value={newAddress.address_line1}
+                onChange={(event) =>
+                  handleAddressFieldChange('address_line1', event.target.value)
+                }
+                onBlur={() => validateFieldInline('address_line1')}
+                error={streetErrorMessage}
+                autoComplete="street-address"
+              />
+
+              <Input
+                label={tAccount('addressLine2')}
+                value={newAddress.address_line2 ?? ''}
+                onChange={(event) =>
+                  handleAddressFieldChange('address_line2', event.target.value)
+                }
+              />
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <Input
+                label={tAccount('city')}
+                mobileLabelInside
+                value={newAddress.city}
+                onChange={(event) => handleAddressFieldChange('city', event.target.value)}
+                onBlur={() => validateFieldInline('city')}
+                error={cityErrorMessage}
+                autoComplete="address-level2"
+                list={cityListId}
+                />
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium text-foreground">
+                    {tAccount('governorate')}
+                  </label>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    value={newAddress.governorate}
+                    onChange={(event) =>
+                      handleAddressFieldChange('governorate', event.target.value)
+                    }
+                    onBlur={() => validateFieldInline('governorate')}
+                    autoComplete="address-level1"
+                  >
+                    {GOVERNORATES.map((governorate) => (
+                      <option key={governorate} value={governorate}>
+                        {governorate}
+                      </option>
+                    ))}
+                  </select>
+                  {governorateErrorMessage && (
+                    <p className="text-sm text-coral-500">{governorateErrorMessage}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <Input
+                  label={tAccount('postalCode')}
+                  mobileLabelInside
+                  value={newAddress.postal_code ?? ''}
+                  onChange={(event) =>
+                    handleAddressFieldChange('postal_code', event.target.value)
+                  }
+                  autoComplete="postal-code"
+                />
+                <Input
+                  label={tAccount('phone')}
+                  mobileLabelInside
+                  value={newAddress.phone ?? ''}
+                  onChange={(event) => handlePhoneChange(event.target.value)}
+                  onBlur={() => validateFieldInline('phone')}
+                  error={phoneErrorMessage}
+                  placeholder="+964 7XX XXX XXXX"
+                  helperText={t('phoneFormatHint')}
+                  inputMode="tel"
+                  type="tel"
+                  autoComplete="tel-national"
+                />
+              </div>
+
+              {user && (
+                <label className="flex items-center gap-2 text-sm text-foreground">
+                  <input
+                    type="checkbox"
+                    checked={saveAddress}
+                    onChange={(event) => setSaveAddress(event.target.checked)}
+                  />
+                  {t('saveAddress')}
+                </label>
+              )}
+            </>
+          )}
+
+          {citySuggestions.length > 0 && (
+            <datalist id={cityListId}>
+              {citySuggestions.map((city) => (
+                <option key={city} value={city} />
+              ))}
+            </datalist>
           )}
         </div>
       )}

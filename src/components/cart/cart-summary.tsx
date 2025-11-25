@@ -63,7 +63,7 @@ export function CartSummary({
   return (
     <aside
       className={cn(
-        'rounded-lg border border-border/60 bg-card p-5 shadow-sm',
+        'relative rounded-lg border border-border/60 bg-card p-5 shadow-sm pb-32 sm:pb-5',
         variant === 'full' && 'lg:sticky lg:top-24',
         className
       )}
@@ -100,7 +100,7 @@ export function CartSummary({
         type="button"
         variant="primary"
         size="lg"
-        className="mt-4 w-full"
+        className="mt-4 w-full hidden sm:inline-flex"
         onClick={handleCheckout}
         disabled={itemCount === 0}
       >
@@ -112,7 +112,7 @@ export function CartSummary({
           type="button"
           variant="ghost"
           size="lg"
-          className="mt-2 w-full"
+          className="mt-2 hidden w-full sm:inline-flex"
           asChild
         >
           <Link href="/products">
@@ -121,6 +121,34 @@ export function CartSummary({
           </Link>
         </Button>
       )}
+
+      <div className="fixed inset-x-4 bottom-24 z-40 sm:hidden">
+        <Button
+          type="button"
+          variant="primary"
+          size="lg"
+          className="w-full shadow-lg"
+          onClick={handleCheckout}
+          disabled={itemCount === 0}
+        >
+          <Icon name="credit-card" size="sm" className="me-2" />
+          {t('proceedToCheckout')}
+        </Button>
+        {variant === 'full' && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="lg"
+            className="mt-2 w-full shadow-sm"
+            asChild
+          >
+            <Link href="/products">
+              <Icon name="arrow-left" size="sm" className="me-2" flipRtl />
+              {t('continueShopping')}
+            </Link>
+          </Button>
+        )}
+      </div>
     </aside>
   );
 }

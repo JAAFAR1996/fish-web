@@ -51,6 +51,7 @@ import {
   LogOut,
   Lock,
   Gift,
+  Mail,
   PackagePlus,
   PackageSearch,
   Pen,
@@ -71,6 +72,7 @@ import {
   Play,
   Save,
   Search,
+  Send,
   Settings,
   Share2,
   ShieldCheck,
@@ -153,6 +155,7 @@ const iconRegistry = {
   minimize: Minimize,
   moon: Moon,
   package: Package,
+  mail: Mail,
   'package-plus': PackagePlus,
   'package-search': PackageSearch,
   pen: Pen,
@@ -163,6 +166,7 @@ const iconRegistry = {
   'refresh-cw': RefreshCw,
   save: Save,
   search: Search,
+  send: Send,
   settings: Settings,
   share: Share2,
   'shield-check': ShieldCheck,
@@ -195,6 +199,7 @@ const iconRegistry = {
   'smartphone': Smartphone,
   'wifi-off': WifiOff,
   zap: Zap,
+  'message-circle': MessageCircle,
 } satisfies Record<string, LucideIcon>;
 
 export type IconName = keyof typeof iconRegistry;
@@ -204,10 +209,11 @@ export type IconProps = Omit<LucideProps, 'size'> & {
   size?: Size | number;
   flipRtl?: boolean;
   className?: string;
+  'aria-label'?: string;
 };
 
 export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
-  { name, size = 'md', className, flipRtl = false, 'aria-hidden': ariaHidden, ...props },
+  { name, size = 'md', className, flipRtl = false, 'aria-hidden': ariaHidden, 'aria-label': ariaLabel, ...props },
   ref
 ) {
   const locale = useLocale();
@@ -223,7 +229,8 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
         flipRtl && locale === 'ar' && 'rtl-flip',
         className
       )}
-      aria-hidden={ariaHidden ?? true}
+      aria-hidden={ariaHidden ?? !ariaLabel}
+      aria-label={ariaLabel}
       {...props}
     />
   );

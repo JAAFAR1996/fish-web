@@ -186,7 +186,19 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 className="border border-border/60 rounded-lg bg-muted/30 px-2"
               >
                 <AccordionTrigger className="flex w-full items-center justify-between gap-2 py-3 text-start font-medium">
-                  <span>{tCategories(`${category.key}.title`)}</span>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-background text-aqua-600 shadow-sm ring-1 ring-border/70">
+                      <Icon name={category.icon} size="sm" aria-hidden="true" />
+                    </span>
+                    <div className="flex flex-col items-start">
+                      <span className="text-sm font-semibold">
+                        {tCategories(`${category.key}.title`)}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {tCategories(`${category.key}.titleEn`)}
+                      </span>
+                    </div>
+                  </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-3">
                   <ul className="space-y-1">

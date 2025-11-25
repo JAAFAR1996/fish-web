@@ -13,6 +13,7 @@ import { createOrderAction } from '@/lib/checkout/checkout-actions';
 import { useCart } from '@/components/providers/CartProvider';
 import { cn, formatCurrency } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
+import { COD_FEE } from '@/lib/checkout/constants';
 import type {
   Locale,
   PaymentMethod,
@@ -59,6 +60,7 @@ export function OrderReviewStep({
   const tPayment = useTranslations('checkout.payment');
   const tSummary = useTranslations('checkout.summary');
   const tSteps = useTranslations('checkout.steps');
+  const tShippingCost = useTranslations('checkout.shippingCost');
   const translate = useTranslations();
 
   const [couponCode, setCouponCode] = useState<string | null>(null);
@@ -77,10 +79,22 @@ export function OrderReviewStep({
     [items]
   );
 
+  const codFee = paymentMethod === 'cod' ? COD_FEE : 0;
+
   const total = useMemo(
-    () => Math.max(0, subtotal + shippingCost - discount - loyaltyDiscount),
-    [discount, loyaltyDiscount, shippingCost, subtotal]
+    () => Math.max(0, subtotal + shippingCost + codFee - discount - loyaltyDiscount),
+    [codFee, discount, loyaltyDiscount, shippingCost, subtotal]
   );
+
+  const shippingPriceLabel =
+    shippingCost === 0
+      ? tShippingCost('free')
+      : formatCurrency(shippingCost, resolvedLocale);
+
+  const codFeeLabel =
+    codFee === 0
+      ? tShippingCost('free')
+      : formatCurrency(codFee, resolvedLocale);
 
   const errorMessage = useMemo(() => {
     if (!errorKey) {
@@ -279,6 +293,26 @@ export function OrderReviewStep({
                 {shippingAddress.phone && <p>{shippingAddress.phone}</p>}
                 {guestEmail && <p>{guestEmail}</p>}
               </div>
+              <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                <span className="inline-flex items-center gap-2 rounded-full bg-muted/60 px-3 py-1">
+                  <Icon name="truck" className="h-4 w-4 text-aqua-600" aria-hidden="true" />
+                  <span>
+                    {tSummary('shipping')}: {shippingPriceLabel}
+                  </span>
+                </span>
+                {paymentMethod === 'cod' && (
+                  <span className="inline-flex items-center gap-2 rounded-full bg-muted/60 px-3 py-1">
+                    <Icon
+                      name="credit-card"
+                      className="h-4 w-4 text-aqua-600"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      {tSummary('codFee')}: {codFeeLabel}
+                    </span>
+                  </span>
+                )}
+              </div>
             </div>
             <Button
               type="button"
@@ -382,6 +416,7 @@ export function OrderReviewStep({
           shipping={shippingCost}
           discount={discount}
           loyaltyDiscount={loyaltyDiscount}
+          codFee={paymentMethod === 'cod' ? codFee : undefined}
           total={total}
           itemCount={itemCount}
         />

@@ -13,6 +13,7 @@ import { Button, Icon } from '@/components/ui';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { useCart } from '@/components/providers/CartProvider';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { CartItem } from './cart-item';
 import { CartSummary } from './cart-summary';
 import { FreeShippingProgress } from './free-shipping-progress';
@@ -38,9 +39,12 @@ export function SidebarCart() {
     saveForLater,
   } = useCart();
   const t = useTranslations('cart');
+  const tLoyalty = useTranslations('marketing.loyalty');
   const locale = useLocale();
   const isRtl = useMemo(() => locale === 'ar', [locale]);
   const [isVisible, setIsVisible] = useState(false);
+  const { user } = useAuth();
+  const loyaltyBalance = user?.loyaltyPointsBalance ?? 0;
 
   const previouslyFocusedElement = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -179,10 +183,20 @@ export function SidebarCart() {
             aria-label={t('actions.closeCart')}
             onClick={closeSidebar}
             className="rounded-full p-2"
-          >
+        >
             <Icon name="close" size="sm" aria-hidden="true" />
           </Button>
         </header>
+
+        {user && (
+          <div className="mx-4 mt-3 flex items-center justify-between rounded-lg bg-muted/60 px-3 py-2 text-xs font-semibold text-foreground">
+            <span className="inline-flex items-center gap-2">
+              <Icon name="sparkles" className="h-4 w-4 text-aqua-600" aria-hidden />
+              {t('loyaltyBalanceLabel')}
+            </span>
+            <span>{tLoyalty('pointsShort', { points: loyaltyBalance })}</span>
+          </div>
+        )}
 
         <div className="flex-1 overflow-y-auto p-4">
           <FreeShippingProgress subtotal={subtotal} variant="compact" />

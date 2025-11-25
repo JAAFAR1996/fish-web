@@ -15,6 +15,33 @@ export interface ProductMediaProps {
   media?: ProductMediaItem[];
 }
 
+const MAX_MEDIA_ITEMS = 8;
+
+function normalizeMediaFromImages(images: string[], productName: string): ProductMediaItem[] {
+  return images.map((url, index) => {
+    const lower = url.toLowerCase();
+    const isVideo =
+      lower.endsWith('.mp4') ||
+      lower.endsWith('.webm') ||
+      lower.includes('youtube.com/') ||
+      lower.includes('youtu.be/');
+
+    if (isVideo) {
+      return {
+        type: 'video' as const,
+        url,
+        alt: `${productName} video`,
+      };
+    }
+
+    return {
+      type: 'image' as const,
+      url,
+      alt: `${productName} image ${index + 1}`,
+    };
+  });
+}
+
 function toEmbedUrl(url: string): string | null {
   if (url.includes('youtube.com/watch')) {
     const params = new URL(url).searchParams;
@@ -37,20 +64,21 @@ export function ProductMedia({
   className,
 }: ProductMediaProps) {
   const resolvedMedia = useMemo<ProductMediaItem[]>(() => {
-    if (media && media.length > 0) {
-      return media;
-    }
+    const base = media && media.length > 0
+      ? media
+      : normalizeMediaFromImages(images, productName);
 
-    return images.map((url, index) => ({
-      type: 'image' as const,
-      url,
-      alt: `${productName} image ${index + 1}`,
-    }));
+    return base.slice(0, MAX_MEDIA_ITEMS);
   }, [images, media, productName]);
 
   const hasVideo = resolvedMedia.some((item) => item.type === 'video');
   const imageItems = useMemo(
     () => resolvedMedia.filter((item) => item.type === 'image'),
+    [resolvedMedia]
+  );
+
+  const videoItems = useMemo(
+    () => resolvedMedia.filter((item) => item.type === 'video'),
     [resolvedMedia]
   );
 
@@ -178,6 +206,7 @@ export function ProductMedia({
                   fill
                   sizes="80px"
                   className="object-cover"
+                  loading="lazy"
                 />
               ) : (
                 <>
@@ -188,6 +217,7 @@ export function ProductMedia({
                       fill
                       sizes="80px"
                       className="object-cover"
+                      loading="lazy"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-black/70 text-white">

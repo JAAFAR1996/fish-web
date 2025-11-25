@@ -8,8 +8,27 @@ import type {
 import { isValidGovernorate } from '@/data/governorates';
 import { validateEmail } from '@/lib/auth/validation';
 
-const PHONE_REGEX_IQ = /^\+964[0-9]{10}$/;
+const PHONE_REGEX_IQ = /^(?:\+?964|0)?7[0-9]{9}$/;
 const COUPON_CODE_REGEX = /^[A-Z0-9]{4,20}$/;
+
+function normalizeIraqPhone(phone?: string | null): string {
+  if (!phone) return '';
+
+  const digits = phone.replace(/[^\d]/g, '');
+  if (!digits) return '';
+
+  const withoutCountry = digits.startsWith('964') ? digits.slice(3) : digits;
+  const trimmed = withoutCountry.startsWith('0')
+    ? withoutCountry.slice(1)
+    : withoutCountry;
+
+  if (!trimmed.startsWith('7')) {
+    return '';
+  }
+
+  const normalized = trimmed.slice(0, 10);
+  return `+964${normalized}`;
+}
 
 function createValidationResult(errors: Record<string, string>): ValidationResult {
   return {
@@ -25,32 +44,49 @@ export function validateShippingInfo(
 ): ValidationResult {
   const errors: Record<string, string> = {};
 
-  if (
-    !address.recipient_name ||
-    address.recipient_name.trim().length === 0 ||
-    !address.address_line1 ||
-    address.address_line1.trim().length === 0 ||
-    !address.city ||
-    address.city.trim().length === 0 ||
-    !address.governorate ||
-    !isValidGovernorate(address.governorate)
-  ) {
-    errors.address = 'checkout.validation.addressRequired';
+  const name = address.recipient_name?.trim() ?? '';
+  const street = address.address_line1?.trim() ?? '';
+  const city = address.city?.trim() ?? '';
+  const governorate = address.governorate ?? '';
+
+  if (!name) {
+    errors.recipient_name = 'checkout.validation.recipientRequired';
+  }
+  if (!street) {
+    errors.address_line1 = 'checkout.validation.streetRequired';
+  }
+  if (!city) {
+    errors.city = 'checkout.validation.cityRequired';
+  }
+  if (!governorate || !isValidGovernorate(governorate)) {
+    errors.governorate = 'checkout.validation.governorateRequired';
   }
 
+  const normalizedPhone = normalizeIraqPhone(address.phone);
   if (!address.phone || address.phone.trim().length === 0) {
     errors.phone = 'auth.validation.phoneRequired';
-  } else if (!PHONE_REGEX_IQ.test(address.phone.trim())) {
+  } else if (!normalizedPhone || !PHONE_REGEX_IQ.test(normalizedPhone)) {
     errors.phone = 'auth.validation.phoneInvalid';
   }
 
   if (isGuest) {
     const email = guestEmail ?? '';
-    const emailValidation = validateEmail(email);
-    if (!emailValidation.valid) {
-      errors.email =
-        emailValidation.errors.email ?? 'checkout.validation.emailInvalid';
+    if (email.trim().length > 0) {
+      const emailValidation = validateEmail(email);
+      if (!emailValidation.valid) {
+        errors.email =
+          emailValidation.errors.email ?? 'checkout.validation.emailInvalid';
+      }
     }
+  }
+
+  if (
+    errors.recipient_name ||
+    errors.address_line1 ||
+    errors.city ||
+    errors.governorate
+  ) {
+    errors.address = 'checkout.validation.addressRequired';
   }
 
   return createValidationResult(errors);

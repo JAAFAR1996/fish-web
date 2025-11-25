@@ -10,11 +10,16 @@ export interface ProductFiltersProps {
   filters: ProductFilters;
   onChange: (filters: ProductFilters) => void;
   onApply: () => void;
+  priceRange?: { min: number; max: number };
 }
 
-export function ProductFilters({ filters, onChange, onApply }: ProductFiltersProps) {
+const DEFAULT_PRICE_RANGE = { min: 0, max: 500000 };
+
+export function ProductFilters({ filters, onChange, onApply, priceRange }: ProductFiltersProps) {
   const t = useTranslations('plp.filters');
   const brands = getBrandOptions();
+  const priceMin = priceRange?.min ?? DEFAULT_PRICE_RANGE.min;
+  const priceMax = priceRange?.max ?? DEFAULT_PRICE_RANGE.max;
 
   const handleTypeChange = (type: string, checked: boolean) => {
     const newTypes = checked
@@ -28,6 +33,29 @@ export function ProductFilters({ filters, onChange, onApply }: ProductFiltersPro
       ? [...filters.brands, brand]
       : filters.brands.filter((b) => b !== brand);
     onChange({ ...filters, brands: newBrands });
+  };
+
+  const clampPrice = (value: number, fallback: number) =>
+    Math.min(Math.max(value, priceMin), priceMax) || fallback;
+
+  const handlePriceChange = (key: 'priceMin' | 'priceMax', value: number | null) => {
+    let nextMin = filters.priceMin ?? priceMin;
+    let nextMax = filters.priceMax ?? priceMax;
+    if (key === 'priceMin' && value !== null) nextMin = value;
+    if (key === 'priceMax' && value !== null) nextMax = value;
+    if (nextMin > nextMax) {
+      if (key === 'priceMin') nextMax = nextMin;
+      else nextMin = nextMax;
+    }
+    onChange({
+      ...filters,
+      priceMin: key === 'priceMin' ? value : nextMin,
+      priceMax: key === 'priceMax' ? value : nextMax,
+    });
+  };
+
+  const handleRatingChange = (value: number | null) => {
+    onChange({ ...filters, ratingMin: value });
   };
 
   const handleReset = () => {
@@ -168,6 +196,76 @@ export function ProductFilters({ filters, onChange, onApply }: ProductFiltersPro
               }
             />
           </div>
+        </div>
+      </div>
+
+      {/* Price Section */}
+      <div className="space-y-3">
+        <h3 className="text-sm font-medium text-sand-900 dark:text-sand-100">
+          {t('price.label')}
+        </h3>
+        <div className="space-y-2 rounded-md border border-border/60 p-3">
+          <div className="flex items-center gap-3">
+            <input
+              type="range"
+              min={priceMin}
+              max={priceMax}
+              step={1000}
+              value={filters.priceMin ?? priceMin}
+              onChange={(e) => handlePriceChange('priceMin', clampPrice(Number(e.target.value), priceMin))}
+              className="w-full accent-aqua-500"
+            />
+            <input
+              type="range"
+              min={priceMin}
+              max={priceMax}
+              step={1000}
+              value={filters.priceMax ?? priceMax}
+              onChange={(e) => handlePriceChange('priceMax', clampPrice(Number(e.target.value), priceMax))}
+              className="w-full accent-aqua-500"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <Input
+              label={t('price.from')}
+              type="number"
+              min={priceMin}
+              max={filters.priceMax ?? priceMax}
+              value={filters.priceMin ?? ''}
+              onChange={(e) =>
+                handlePriceChange('priceMin', e.target.value ? Number(e.target.value) : null)
+              }
+            />
+            <Input
+              label={t('price.to')}
+              type="number"
+              min={filters.priceMin ?? priceMin}
+              max={priceMax}
+              value={filters.priceMax ?? ''}
+              onChange={(e) =>
+                handlePriceChange('priceMax', e.target.value ? Number(e.target.value) : null)
+              }
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Rating Section */}
+      <div className="space-y-3">
+        <h3 className="text-sm font-medium text-sand-900 dark:text-sand-100">
+          {t('rating.label')}
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {[null, 4, 3].map((value) => (
+            <Button
+              key={String(value ?? 'all')}
+              size="sm"
+              variant={filters.ratingMin === value ? 'primary' : 'outline'}
+              onClick={() => handleRatingChange(value)}
+            >
+              {value ? t('rating.atLeast', { value }) : t('rating.all')}
+            </Button>
+          ))}
         </div>
       </div>
 

@@ -90,7 +90,7 @@ export async function SpecificationsTable({
 
   if (product.specifications.power != null) {
     rows.push({
-      label: t('power', { defaultMessage: 'Power' }),
+      label: t('powerConsumption', { defaultMessage: 'Power Consumption' }),
       value: formatProductSpec(
         product.specifications.power,
         'W',
@@ -104,6 +104,27 @@ export async function SpecificationsTable({
     rows.push({
       label: t('compatibility', { defaultMessage: 'Compatibility' }),
       value: compatibility.displayText,
+    });
+  }
+
+  if (compatibility.minTankSize || compatibility.maxTankSize) {
+    rows.push({
+      label: t('tankSize'),
+      value: t(
+        compatibility.minTankSize && compatibility.maxTankSize
+          ? 'tankSizeValue'
+          : compatibility.minTankSize
+            ? 'tankSizeMin'
+            : 'tankSizeMax',
+        {
+          min: compatibility.minTankSize
+            ? formatNumber(compatibility.minTankSize, locale)
+            : undefined,
+          max: compatibility.maxTankSize
+            ? formatNumber(compatibility.maxTankSize, locale)
+            : undefined,
+        }
+      ),
     });
   }
 

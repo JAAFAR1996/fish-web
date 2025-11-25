@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { getProductsWithFlashSalesStatus } from '@/lib/data/products';
+import { getProductsWithFlashSalesStatus, getRecommendedProducts } from '@/lib/data/products';
 import { ProductListing } from '@/components/products';
 
 interface ProductsPageProps {
@@ -31,6 +31,13 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
   setRequestLocale(locale);
 
   const { products: initialProducts, hadError } = await getProductsWithFlashSalesStatus();
+  const recommendedProducts = await getRecommendedProducts(8);
 
-  return <ProductListing initialProducts={initialProducts} hadError={hadError} />;
+  return (
+    <ProductListing
+      initialProducts={initialProducts}
+      hadError={hadError}
+      recommendedProducts={recommendedProducts}
+    />
+  );
 }

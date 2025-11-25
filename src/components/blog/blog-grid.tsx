@@ -29,7 +29,7 @@ export function BlogGrid({
             post={post}
             locale={locale}
             variant="list"
-            priority={index < 3}
+            priority={index === 0}
           />
         ))}
       </div>
@@ -45,7 +45,7 @@ export function BlogGrid({
             post={post}
             locale={locale}
             variant="grid"
-            priority={index < 3}
+            priority={index === 0}
           />
         ))}
       </div>

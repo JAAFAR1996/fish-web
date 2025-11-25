@@ -85,11 +85,26 @@ export function ImageLightbox({
     setZoomLevel(MIN_ZOOM);
   }, []);
 
+  const handleWheelZoom = useCallback(
+    (event: WheelEvent) => {
+      if (!open) return;
+      if (Math.abs(event.deltaY) < 2) return;
+      event.preventDefault();
+      if (event.deltaY > 0) {
+        handleZoomOut();
+      } else {
+        handleZoomIn();
+      }
+    },
+    [handleZoomIn, handleZoomOut, open]
+  );
+
   useEffect(() => {
     if (!open) {
       return;
     }
 
+    const handleWheel = (event: WheelEvent) => handleWheelZoom(event);
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
@@ -121,10 +136,12 @@ export function ImageLightbox({
     };
 
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('wheel', handleWheel, { passive: false });
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('wheel', handleWheel);
     };
-  }, [goToNext, goToPrevious, handleZoomIn, handleZoomOut, isRtl, open]);
+  }, [goToNext, goToPrevious, handleWheelZoom, handleZoomIn, handleZoomOut, isRtl, open]);
 
   const zoomPercentage = useMemo(
     () => Math.round((zoomLevel / MIN_ZOOM) * 100),

@@ -117,7 +117,6 @@ export function CheckoutWizard({
             user={user}
             savedAddresses={savedAddresses}
             initialData={shippingState?.address ?? null}
-            initialGuestEmail={shippingState?.guestEmail ?? null}
             initialSaveAddress={Boolean(shippingState?.saveAddress)}
             selectedAddressId={shippingState?.shippingAddressId ?? null}
             onContinue={handleShippingContinue}

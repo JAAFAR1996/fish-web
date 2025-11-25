@@ -75,7 +75,7 @@ export function AddressForm({
     <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit}>
       <Input
         label={t('label')}
-        placeholder={t('label')}
+        mobileLabelInside
         value={values.label ?? ''}
         onChange={(event) => handleChange('label', event.target.value)}
         disabled={isLoading}
@@ -83,7 +83,7 @@ export function AddressForm({
 
       <Input
         label={t('recipientName')}
-        placeholder={t('recipientName')}
+        mobileLabelInside
         value={values.recipient_name}
         onChange={(event) => handleChange('recipient_name', event.target.value)}
         required
@@ -92,16 +92,19 @@ export function AddressForm({
 
       <Input
         label={t('phone')}
-        placeholder="+9647XXXXXXXXX"
+        mobileLabelInside
+        placeholder="+964 7XX XXX XXXX"
         value={values.phone ?? ''}
         onChange={(event) => handleChange('phone', event.target.value)}
         required
+        inputMode="tel"
+        type="tel"
         disabled={isLoading}
       />
 
       <Input
         label={t('addressLine1')}
-        placeholder={t('addressLine1')}
+        mobileLabelInside
         value={values.address_line1}
         onChange={(event) => handleChange('address_line1', event.target.value)}
         required
@@ -110,7 +113,7 @@ export function AddressForm({
 
       <Input
         label={t('addressLine2')}
-        placeholder={t('addressLine2')}
+        mobileLabelInside
         value={values.address_line2 ?? ''}
         onChange={(event) => handleChange('address_line2', event.target.value)}
         disabled={isLoading}
@@ -119,7 +122,7 @@ export function AddressForm({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input
           label={t('city')}
-          placeholder={t('city')}
+          mobileLabelInside
           value={values.city}
           onChange={(event) => handleChange('city', event.target.value)}
           required
@@ -147,7 +150,7 @@ export function AddressForm({
 
       <Input
         label={t('postalCode')}
-        placeholder={t('postalCode')}
+        mobileLabelInside
         value={values.postal_code ?? ''}
         onChange={(event) => handleChange('postal_code', event.target.value)}
         disabled={isLoading}

@@ -211,8 +211,8 @@ export async function UsageGuideSection({
   const t = await getTranslations('pdp.usageGuide');
 
   const guideKey = ((): GuideSection => {
-    if (product.category === 'heating') return 'heating';
-    if (product.category === 'filtration') return 'filtration';
+    if (product.category === 'heaters' || product.category === 'heating') return 'heating';
+    if (product.category === 'filters' || product.category === 'filtration' || product.category === 'air') return 'filtration';
     if (product.category === 'plantLighting') return 'lighting';
     if (product.category === 'waterCare') return 'waterCare';
     return 'default';

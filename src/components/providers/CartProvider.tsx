@@ -51,6 +51,7 @@ import { MAX_QUANTITY } from '@/lib/cart/constants';
 import { useAuth } from './AuthProvider';
 import { SidebarCart } from '@/components/cart/sidebar-cart';
 import { trackEvent } from '@/components/analytics/plausible-analytics';
+import { CartToast } from '@/components/cart/cart-toast';
 
 const CartContext = createContext<CartContextValue | null>(null);
 
@@ -111,6 +112,7 @@ export function CartProvider({ children }: Props) {
   const [savedItems, setSavedItems] = useState<CartItemWithProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [lastAddedProduct, setLastAddedProduct] = useState<string | null>(null);
   const productsRef = useRef<Product[] | null>(null);
   const previousUserIdRef = useRef<string | null>(null);
 
@@ -272,7 +274,10 @@ export function CartProvider({ children }: Props) {
           });
         }
         setItems(optimisticItems);
-        setIsSidebarOpen(true);
+        if (quantityToAdd > 0) {
+          setIsSidebarOpen(true);
+          setLastAddedProduct(product.name);
+        }
 
         const response = quantityToAdd > 0
           ? await addToCartAction(product.id, quantityToAdd)
@@ -314,6 +319,7 @@ export function CartProvider({ children }: Props) {
       const products = await loadProducts();
       setItems(mapStorageItemsToProducts(updatedCart.items, products));
       setIsSidebarOpen(true);
+      setLastAddedProduct(product.name);
       trackEvent('Add to Cart', {
         product: product.name,
         price: unitPrice,
@@ -455,6 +461,7 @@ export function CartProvider({ children }: Props) {
 
   const openSidebar = useCallback(() => setIsSidebarOpen(true), []);
   const closeSidebar = useCallback(() => setIsSidebarOpen(false), []);
+  const dismissToast = useCallback(() => setLastAddedProduct(null), []);
 
   const value = useMemo<CartContextValue>(
     () => ({
@@ -501,6 +508,7 @@ export function CartProvider({ children }: Props) {
     <CartContext.Provider value={value}>
       {children}
       <SidebarCart />
+      <CartToast productName={lastAddedProduct} onClose={dismissToast} />
     </CartContext.Provider>
   );
 }

@@ -4,6 +4,8 @@ export const DEFAULT_SHIPPING_RATE = 8_000;
 
 export const DEFAULT_DELIVERY_DAYS = 3;
 
+export const COD_FEE = 0;
+
 export const COUPON_TYPES = {
   PERCENTAGE: 'percentage',
   FIXED: 'fixed',

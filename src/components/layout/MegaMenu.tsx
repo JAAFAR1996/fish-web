@@ -7,10 +7,11 @@ import {
   useRef,
   useState,
 } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { Link } from '@/i18n/navigation';
-import { Icon } from '@/components/ui';
+import { Button, Icon } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
 import { CATEGORIES, type CategoryKey } from './navigation-data';
@@ -40,6 +41,11 @@ export function MegaMenu({ className }: MegaMenuProps) {
   const categoryKeys = useMemo(
     () => CATEGORIES.map((category) => category.key),
     []
+  );
+
+  const activeCategoryConfig = useMemo(
+    () => CATEGORIES.find((category) => category.key === activeCategory) ?? null,
+    [activeCategory]
   );
 
   const clearTimers = useCallback(() => {
@@ -143,7 +149,7 @@ export function MegaMenu({ className }: MegaMenuProps) {
                 }}
                 type="button"
                 className={cn(
-                  'flex flex-col items-start gap-1 rounded-md px-4 py-2 text-sm font-medium text-foreground transition-colors duration-150',
+                  'group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors duration-150',
                   'hover:text-aqua-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                   isActive && 'text-aqua-500'
                 )}
@@ -163,19 +169,24 @@ export function MegaMenu({ className }: MegaMenuProps) {
                 }}
                 onKeyDown={(event) => handleCategoryKeyDown(event, category.key)}
               >
-                <span className="text-base">
-                  {tCategories(`${category.key}.title`)}
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-foreground transition-colors duration-150 group-hover:bg-aqua-50 group-hover:text-aqua-600 dark:group-hover:bg-aqua-500/10 dark:group-hover:text-aqua-400">
+                  <Icon name={category.icon} size="md" aria-hidden="true" />
                 </span>
-                <span className="text-xs text-muted-foreground">
-                  {tCategories(`${category.key}.titleEn`)}
-                </span>
+                <div className="flex flex-col items-start">
+                  <span className="text-sm font-semibold leading-tight">
+                    {tCategories(`${category.key}.title`)}
+                  </span>
+                  <span className="text-xs text-muted-foreground leading-tight">
+                    {tCategories(`${category.key}.titleEn`)}
+                  </span>
+                </div>
                 <Icon
                   name="chevron-down"
                   size="sm"
                   aria-hidden="true"
                   className={cn(
-                    'absolute end-2 top-1/2 -translate-y-1/2 transition-transform duration-200 motion-safe:transition-transform',
-                    isActive ? 'rotate-180' : ''
+                    'ms-auto text-muted-foreground transition-transform duration-200 motion-safe:transition-transform',
+                    isActive ? 'rotate-180 text-aqua-500' : ''
                   )}
                   flipRtl
                 />
@@ -185,7 +196,7 @@ export function MegaMenu({ className }: MegaMenuProps) {
         })}
       </ul>
 
-      {activeCategory && (
+      {activeCategoryConfig && (
         <>
           <div
             className="fixed inset-0 z-40 hidden lg:block"
@@ -193,57 +204,129 @@ export function MegaMenu({ className }: MegaMenuProps) {
             aria-hidden="true"
           />
           <div className="absolute inset-x-0 top-full z-50 mt-2">
-            {CATEGORIES.filter((category) => category.key === activeCategory).map(
-              (category) => (
-                <div
-                  key={category.key}
-                  ref={(element) => {
-                    panelRefs.current[category.key] = element;
-                  }}
-                  onFocusCapture={() => clearTimers()}
-                  onBlurCapture={(event) => {
-                    const target = event.relatedTarget as Node | null;
-                    const panel = panelRefs.current[category.key];
-                    const button = buttonRefs.current[category.key];
-                    if (
-                      !(panel && panel.contains(target)) &&
-                      !(button && button.contains(target))
-                    ) {
-                      scheduleClose();
-                    }
-                  }}
-                  id={`mega-menu-${category.key}`}
-                  role="region"
-                  aria-label={tCategories(`${category.key}.title`)}
-                  className={cn(
-                    'mx-auto w-full max-w-6xl overflow-hidden rounded-lg border border-border bg-background shadow-xl',
-                    'motion-safe:animate-fade-in motion-safe:transform motion-safe:transition-all motion-safe:duration-200'
-                  )}
-                  onMouseEnter={() => {
-                    clearTimers();
-                  }}
-                  onMouseLeave={scheduleClose}
-                >
-                  <div className="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 xl:grid-cols-3">
-                    {category.subcategories.map((subcategory) => (
-                      <Link
-                        key={subcategory}
-                        href={{
-                          pathname: '/products',
-                          query: { category: category.key, subcategory },
-                        }}
-                        className="group flex flex-col gap-1 rounded-md p-3 transition-colors duration-150 hover:bg-muted focus:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            <div
+              key={activeCategoryConfig.key}
+              ref={(element) => {
+                panelRefs.current[activeCategoryConfig.key] = element;
+              }}
+              onFocusCapture={() => clearTimers()}
+              onBlurCapture={(event) => {
+                const target = event.relatedTarget as Node | null;
+                const panel = panelRefs.current[activeCategoryConfig.key];
+                const button = buttonRefs.current[activeCategoryConfig.key];
+                if (
+                  !(panel && panel.contains(target)) &&
+                  !(button && button.contains(target))
+                ) {
+                  scheduleClose();
+                }
+              }}
+              id={`mega-menu-${activeCategoryConfig.key}`}
+              role="region"
+              aria-label={tCategories(`${activeCategoryConfig.key}.title`)}
+              className={cn(
+                'mx-auto w-full max-w-6xl overflow-hidden rounded-2xl border border-border bg-background/95 shadow-2xl ring-1 ring-border/60 backdrop-blur',
+                'motion-safe:animate-fade-in motion-safe:transform motion-safe:transition-all motion-safe:duration-200'
+              )}
+              onMouseEnter={() => {
+                clearTimers();
+              }}
+              onMouseLeave={scheduleClose}
+            >
+              <div className="grid gap-6 p-6 lg:grid-cols-[1.1fr_1.4fr] xl:grid-cols-[1fr_1.6fr]">
+                <div className="relative overflow-hidden rounded-xl border border-border/70 bg-background">
+                  <div
+                    className={cn(
+                      'absolute inset-0 bg-gradient-to-br opacity-80',
+                      activeCategoryConfig.accent
+                    )}
+                    aria-hidden="true"
+                  />
+                  <Image
+                    src={activeCategoryConfig.image}
+                    alt={tCategories(`${activeCategoryConfig.key}.titleEn`)}
+                    fill
+                    sizes="320px"
+                    className="object-cover object-center opacity-70"
+                    loading="lazy"
+                  />
+                  <div className="relative flex h-full flex-col gap-4 p-5 backdrop-blur-sm">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-background/80 text-foreground shadow-sm ring-1 ring-border/70">
+                        <Icon name={activeCategoryConfig.icon} size="md" aria-hidden="true" />
+                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-lg font-semibold text-foreground">
+                          {tCategories(`${activeCategoryConfig.key}.title`)}
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {tCategories(`${activeCategoryConfig.key}.titleEn`)}
+                        </span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {tCategories(`${activeCategoryConfig.key}.tagline`)}
+                    </p>
+                    <div className="mt-auto flex flex-wrap items-center gap-3">
+                      <Button
+                        size="sm"
+                        variant="default"
+                        asChild
+                        className="shadow-md"
                         onClick={() => setActiveCategory(null)}
                       >
-                        <span className="text-sm font-semibold text-foreground transition-colors duration-150 group-hover:text-aqua-500">
-                          {tSubcategories(`${category.key}.${subcategory}`)}
-                        </span>
-                      </Link>
-                    ))}
+                        <Link
+                          href={{
+                            pathname: '/products',
+                            query: { category: activeCategoryConfig.key },
+                          }}
+                        >
+                          {tCategories('cta')}
+                          <Icon name="arrow-right" size="sm" className="ms-2" flipRtl />
+                        </Link>
+                      </Button>
+                      <span className="flex items-center gap-2 rounded-full bg-background/80 px-3 py-1 text-xs text-muted-foreground ring-1 ring-border/70 backdrop-blur">
+                        <Icon name="sparkles" size="sm" className="text-aqua-500" aria-hidden="true" />
+                        {tCategories('bilingual')}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              )
-            )}
+
+                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {activeCategoryConfig.subcategories.map((subcategory) => (
+                    <Link
+                      key={subcategory}
+                      href={{
+                        pathname: '/products',
+                        query: { category: activeCategoryConfig.key, subcategory },
+                      }}
+                      className="group relative flex items-center gap-3 overflow-hidden rounded-xl border border-border/70 bg-muted/40 p-3 transition-all duration-150 hover:-translate-y-0.5 hover:border-aqua-400 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                      onClick={() => setActiveCategory(null)}
+                    >
+                      <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-background text-aqua-600 shadow-sm ring-1 ring-border/60">
+                        <Icon name={activeCategoryConfig.icon} size="sm" aria-hidden="true" />
+                      </span>
+                      <div className="flex min-w-0 flex-col">
+                        <span className="truncate text-sm font-semibold text-foreground">
+                          {tSubcategories(`${activeCategoryConfig.key}.${subcategory}`)}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {tCategories(`${activeCategoryConfig.key}.titleEn`)}
+                        </span>
+                      </div>
+                      <Icon
+                        name="arrow-right"
+                        size="sm"
+                        aria-hidden="true"
+                        className="ms-auto text-muted-foreground transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-aqua-500"
+                        flipRtl
+                      />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </>
       )}

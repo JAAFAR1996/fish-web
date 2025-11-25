@@ -55,6 +55,7 @@
 
   html {
     scroll-behavior: smooth;
+    font-size: 16px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -66,6 +67,8 @@
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   :focus-visible {
@@ -82,6 +85,62 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+
+  /* RTL-aware form alignment and mixed content handling */
+  [dir='rtl'] input,
+  [dir='rtl'] textarea,
+  [dir='rtl'] select {
+    text-align: right;
+  }
+
+  /* Keep numeric/phone fields LTR even in RTL */
+  input[type='tel'],
+  input[type='number'],
+  .dir-ltr {
+    direction: ltr;
+    text-align: left;
+  }
+
+  /* Labels right-aligned for RTL */
+  [dir='rtl'] label {
+    text-align: right;
+  }
+
+  /* Avoid italics/bold heaviness in Arabic */
+  [lang='ar'] em,
+  [dir='rtl'] em,
+  [lang='ar'] i,
+  [dir='rtl'] i {
+    font-style: normal;
+  }
+
+  [lang='ar'] strong,
+  [dir='rtl'] strong,
+  [lang='ar'] b,
+  [dir='rtl'] b {
+    font-weight: 600;
+  }
+
+  /* Skip link */
+  .skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.5rem 0.75rem;
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+    border: 2px solid rgb(var(--color-ring));
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: top 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .skip-to-content:focus {
+    top: 1rem;
+    outline: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 }
 

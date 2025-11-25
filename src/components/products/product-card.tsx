@@ -409,7 +409,7 @@ export function ProductCard({
         )}
         <div className="relative overflow-hidden">
           <Link
-            href={`/products/${product.slug}`}
+            href={`/products/${encodeURIComponent(product.slug)}`}
             aria-label={tA11y('productImage', { productName: product.name })}
             className="block"
           >
@@ -437,11 +437,12 @@ export function ProductCard({
                 alt={tA11y('productImage', { productName: product.name })}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className={cn(
-              'object-cover transition-transform duration-300',
-              !FEATURES.gsap && 'group-hover:scale-105',
-              glassHover && isGlassHovering && 'blur-sm'
-            )}
+                loading={priority ? 'eager' : 'lazy'}
+                className={cn(
+                  'object-cover transition-transform duration-300',
+                  !FEATURES.gsap && 'group-hover:scale-105',
+                  glassHover && isGlassHovering && 'blur-sm'
+                )}
                 priority={priority}
               />
             </div>

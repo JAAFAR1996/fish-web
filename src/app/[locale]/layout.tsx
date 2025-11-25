@@ -16,6 +16,7 @@ import type { ReactNode } from 'react';
 import { headers as nextHeaders } from 'next/headers';
 
 import { Header, Footer } from '@/components/layout';
+import { MobileBottomNav } from '@/components/layout/MobileBottomNav';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { AuthProvider } from '@/components/providers/AuthProvider';
 import { CartProvider } from '@/components/providers/CartProvider';
@@ -184,6 +185,9 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
         <meta charSet="UTF-8" />
       </head>
       <body className="flex min-h-screen flex-col bg-background text-foreground font-sans antialiased transition-colors duration-300">
+        <a href="#main-content" className="skip-to-content">
+          {locale === 'ar' ? 'تخطي إلى المحتوى' : 'Skip to main content'}
+        </a>
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
             <NotificationProvider userId={user?.id}>
@@ -192,9 +196,10 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
                   <ThemeProvider>
                     <Header />
                     <PwaPrompts />
-                    <main id="main-content" className="flex-1 pt-16">
+                    <main id="main-content" className="flex-1 pt-16 pb-24 sm:pb-0">
                       {children}
                     </main>
+                    <MobileBottomNav />
                     <Footer />
                   </ThemeProvider>
                 </WishlistProvider>

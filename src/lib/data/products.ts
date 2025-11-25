@@ -77,9 +77,14 @@ export async function getProductsWithStatus(): Promise<{
   return cachedFetchProducts();
 }
 
+function normalizeSlug(value: string): string {
+  return decodeURIComponent(value).trim().toLowerCase();
+}
+
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+  const target = normalizeSlug(slug);
   const products = await getProducts();
-  return products.find((p) => p.slug === slug);
+  return products.find((p) => normalizeSlug(p.slug) === target);
 }
 
 export { filterProducts, sortProducts } from '@/lib/data/products-shared';
@@ -157,6 +162,28 @@ export async function getProductsByCategory(
   });
 
   return typeof limit === 'number' ? sorted.slice(0, limit) : sorted;
+}
+
+export async function getRecommendedProducts(limit: number = 8): Promise<ProductWithFlashSale[]> {
+  const products = await getProductsWithFlashSales();
+
+  const scored = products
+    .map((product) => {
+      const ratingScore = product.rating * 10;
+      const reviewScore = Math.min(product.reviewCount ?? 0, 500) / 20;
+      const bestSellerBoost = product.isBestSeller ? 15 : 0;
+      const newBoost = product.isNew ? 5 : 0;
+
+      return {
+        product,
+        score: ratingScore + reviewScore + bestSellerBoost + newBoost,
+      };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((entry) => entry.product);
+
+  return scored;
 }
 
 function attachFlashSalesToProducts(
@@ -282,6 +309,8 @@ export async function getComplementaryProducts(
     complementaryCategoryMap[product.category] ?? [product.category];
 
   const products = await getProducts();
+  const tankMin = product.specifications.compatibility.minTankSize;
+  const tankMax = product.specifications.compatibility.maxTankSize;
 
   return products
     .filter(
@@ -289,11 +318,20 @@ export async function getComplementaryProducts(
         candidate.id !== product.id && targetCategories.includes(candidate.category),
     )
     .sort((a, b) => {
+      const aTank = a.specifications.compatibility.minTankSize ?? 0;
+      const bTank = b.specifications.compatibility.minTankSize ?? 0;
+      const tankScore = tankMin && tankMax
+        ? Math.abs(((aTank + bTank) / 2 || 0) - ((tankMin + tankMax) / 2 || 0))
+        : 0;
+
       if (b.rating !== a.rating) {
         return b.rating - a.rating;
       }
       if (b.reviewCount !== a.reviewCount) {
         return b.reviewCount - a.reviewCount;
+      }
+      if (tankScore !== 0) {
+        return tankScore;
       }
       return a.price - b.price;
     })

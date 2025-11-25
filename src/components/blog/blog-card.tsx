@@ -47,6 +47,7 @@ export function BlogCard({
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             priority={priority}
+            loading={priority ? 'eager' : 'lazy'}
           />
           <div className="absolute top-2 start-2">
             <Badge variant="default" className={cn(categoryColor, 'text-white')}>
@@ -81,6 +82,7 @@ export function BlogCard({
                 width={24}
                 height={24}
                 className="rounded-full object-cover"
+                loading="lazy"
               />
             )}
             <span>{post.author.name}</span>

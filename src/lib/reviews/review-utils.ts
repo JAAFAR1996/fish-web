@@ -46,6 +46,11 @@ export const filterReviewsByRating = <T extends Review>(reviews: T[], minRating:
   return reviews.filter((review) => review.rating >= minRating);
 };
 
+export const filterVerifiedReviews = <T extends Review>(reviews: T[]): T[] =>
+  reviews.filter(
+    (review) => Boolean((review as Review).verified) || Boolean((review as Review).verified_purchase),
+  );
+
 export const sortReviews = <T extends Review>(
   reviews: T[],
   sortBy: 'recent' | 'helpful' | 'highest' | 'lowest',

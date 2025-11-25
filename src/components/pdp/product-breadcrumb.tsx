@@ -55,25 +55,29 @@ export async function ProductBreadcrumb({
         'hidden items-center gap-2 text-sm text-muted-foreground sm:flex',
         className
       )}
+      dir="auto"
     >
-      <ol className="flex items-center gap-2">
+      <ol className="flex items-center gap-2 rtl:flex-row-reverse rtl:space-x-reverse">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
-            <li key={`${item.label}-${index}`} className="flex items-center gap-2">
+            <li
+              key={`${item.label}-${index}`}
+              className="flex items-center gap-2 rtl:flex-row-reverse rtl:space-x-reverse"
+            >
               {item.current || isLast ? (
                 <span
                   className="max-w-[220px] truncate font-medium text-foreground"
                   aria-current="page"
                 >
-                  {item.label}
+                  <bdi>{item.label}</bdi>
                 </span>
               ) : (
                 <Link
                   href={item.href}
                   className="transition-colors hover:text-aqua-500"
                 >
-                  {item.label}
+                  <bdi>{item.label}</bdi>
                 </Link>
               )}
               {!isLast && (

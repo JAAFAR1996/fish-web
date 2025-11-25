@@ -189,6 +189,26 @@ export default async function ProductPage({
   const reviewSchemas =
     allReviews.length > 0 ? generateReviewListSchema(allReviews, product) : [];
 
+  const complementaryIds = new Set(complementaryProducts.map((p) => p.id));
+  const combinedRecommendations = [...complementaryProducts, ...relatedProducts].filter(
+    (product, index, self) => self.findIndex((p) => p.id === product.id) === index
+  );
+
+  const smartRecommendations = combinedRecommendations
+    .map((p) => {
+      const ratingScore = (p.rating ?? 0) * 10;
+      const reviewScore = Math.min(p.reviewCount ?? 0, 500) / 20;
+      const bestSellerBoost = p.isBestSeller ? 15 : 0;
+      const complementaryBoost = complementaryIds.has(p.id) ? 10 : 0;
+      const newBoost = p.isNew ? 3 : 0;
+      return {
+        product: p,
+        score: ratingScore + reviewScore + bestSellerBoost + complementaryBoost + newBoost,
+      };
+    })
+    .sort((a, b) => b.score - a.score)
+    .map((entry) => entry.product);
+
   return (
     <div className="relative pb-28">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -219,26 +239,24 @@ export default async function ProductPage({
             reviews={allReviews}
             reviewSummary={reviewSummary}
             userVotes={userVotes}
+            complementaryProducts={complementaryProducts}
+            relatedProducts={relatedProducts}
+            smartRecommendations={smartRecommendations}
+            onAddToCart={addToCartAction}
           />
           <InlineCalculator
             product={product}
             canSave={false}
             onSaveCalculation={saveCalculationAction}
           />
-          {complementaryProducts.length > 0 && (
+          {smartRecommendations.length > 0 && (
             <RelatedProducts
-              products={complementaryProducts}
-              category={complementaryCategory}
-              title={tPdp('related.complementary')}
+              products={smartRecommendations}
+              category={product.category}
+              title={tPdp('related.smart')}
               onAddToCart={addToCartAction}
             />
           )}
-          <RelatedProducts
-            products={relatedProducts}
-            category={product.category}
-            title={tPdp('related.similarProducts')}
-            onAddToCart={addToCartAction}
-          />
         </div>
       </div>
 

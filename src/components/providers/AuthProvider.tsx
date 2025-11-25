@@ -9,6 +9,7 @@ interface AuthUser {
   user_metadata: {
     full_name: string | null;
   };
+  loyaltyPointsBalance?: number;
 }
 
 interface AuthContextType {
@@ -39,6 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           user_metadata: {
             full_name: currentUser.profile?.fullName ?? currentUser.fullName,
           },
+          loyaltyPointsBalance: currentUser.profile?.loyaltyPointsBalance ?? 0,
         });
       } else {
         setUser(null);

@@ -140,7 +140,9 @@ export async function GET(request: Request) {
   }
 
   try {
-    const dbResults = await searchProductsFTS(sanitizedQuery, locale, 20);
+    const dbResults = await searchProductsFTS(sanitizedQuery, locale, 20, {
+      includeAltLocale: true,
+    });
     const suggestions = buildSuggestionsFromProducts(dbResults);
 
     if (suggestions.length > 0) {

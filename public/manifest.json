@@ -74,23 +74,23 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshots/home-mobile.png",
+      "src": "/screenshots/home-mobile.webp",
       "sizes": "390x844",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
       "label": "Home page on mobile"
     },
     {
-      "src": "/screenshots/products-mobile.png",
+      "src": "/screenshots/products-mobile.webp",
       "sizes": "390x844",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
       "label": "Product listing"
     },
     {
-      "src": "/screenshots/home-desktop.png",
+      "src": "/screenshots/home-desktop.webp",
       "sizes": "1920x1080",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "wide",
       "label": "Home page on desktop"
     }

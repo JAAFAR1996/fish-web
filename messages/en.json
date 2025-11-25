@@ -11,12 +11,19 @@
     "account": "Account",
     "calculators": "Calculators",
     "search": "Search",
-    "searchPlaceholder": "Search products...",
+    "searchPlaceholder": "Search products or brands (Arabic / English)",
     "menu": "Menu",
     "closeMenu": "Close Menu",
     "orders": "Orders",
     "wishlist": "Wishlist",
-    "settings": "Settings"
+    "settings": "Settings",
+    "mobile": {
+      "label": "Primary navigation",
+      "home": "Home",
+      "categories": "Categories",
+      "search": "Search",
+      "cart": "Cart"
+    }
   },
   "notifications": {
     "title": "Notifications",
@@ -44,37 +51,47 @@
     }
   },
   "categories": {
+    "cta": "Shop the full collection",
+    "bilingual": "Arabic & English suggestions",
     "filters": {
-      "title": "Filters",
-      "titleEn": "Filters"
+      "title": "Filters & Pumps",
+      "titleEn": "Filters & Pumps",
+      "tagline": "Keep water clear with canisters, HOB, and flow solutions."
     },
     "air": {
       "title": "Air",
-      "titleEn": "Air"
+      "titleEn": "Air",
+      "tagline": "Boost oxygen and circulation for healthy tanks."
     },
     "heaters": {
       "title": "Heaters",
-      "titleEn": "Heaters"
+      "titleEn": "Heaters",
+      "tagline": "Dial-in stable temperatures with trusted heaters."
     },
     "plantLighting": {
       "title": "Plant Lighting",
-      "titleEn": "Plant Lighting"
+      "titleEn": "Plant Lighting",
+      "tagline": "Balanced lighting for lush, vibrant aquascapes."
     },
     "hardscape": {
       "title": "Hardscape",
-      "titleEn": "Hardscape"
+      "titleEn": "Hardscape",
+      "tagline": "Stone, wood, and décor to shape your layout."
     },
     "waterCare": {
       "title": "Water Care",
-      "titleEn": "Water Care"
+      "titleEn": "Water Care",
+      "tagline": "Condition, clarify, and maintain pristine water."
     },
     "plantsFertilizers": {
-      "title": "Plants/Fertilizers",
-      "titleEn": "Plants/Fertilizers"
+      "title": "Plant Care & Fertilizers",
+      "titleEn": "Plant Care & Fertilizers",
+      "tagline": "Everything for planted tanks: live plants, CO2, and tools."
     },
     "tests": {
       "title": "Tests",
-      "titleEn": "Tests"
+      "titleEn": "Tests",
+      "tagline": "Accurate kits to monitor every key parameter."
     }
   },
   "subcategories": {
@@ -158,6 +175,11 @@
       "viewAll": "View All",
       "productsCount": "{count} products"
     },
+    "recommended": {
+      "title": "Recommended for You",
+      "subtitle": "Smart picks based on ratings and best-sellers",
+      "viewAll": "View all recommendations"
+    },
     "bestSellers": {
       "title": "Best Sellers",
       "subtitle": "Our customers' favorite products",
@@ -219,11 +241,11 @@
     "categories": {
       "title": "Shop by Category",
       "count": "{count, plural, one {# product} other {# products}}",
-      "filters": "Filters",
+      "filters": "Filters & Pumps",
       "heaters": "Heaters",
       "plantLighting": "Plant Lighting",
       "waterCare": "Water Care",
-      "plantsFertilizers": "Plants & Fertilizers",
+      "plantsFertilizers": "Plant Care & Fertilizers",
       "air": "Air Pumps",
       "hardscape": "Hardscape",
       "tests": "Water Tests"
@@ -238,11 +260,11 @@
     "trustBadgesTitle": "Why Choose Us",
     "shopLinks": {
       "allProducts": "All Products",
-      "filters": "Filters",
+      "filters": "Filters & Pumps",
       "heaters": "Heaters",
       "lighting": "Lighting",
       "waterCare": "Water Care",
-      "plants": "Plants & Fertilizers"
+      "plants": "Plant Care & Fertilizers"
     },
     "supportLinks": {
       "contact": "Contact Us",
@@ -503,6 +525,16 @@
         "from": "From (L/h)",
         "to": "To (L/h)",
         "placeholder": "Enter flow rate"
+      },
+      "price": {
+        "label": "Price",
+        "from": "Min (IQD)",
+        "to": "Max (IQD)"
+      },
+      "rating": {
+        "label": "Rating",
+        "atLeast": "{value}+ stars",
+        "all": "All ratings"
       },
       "brand": {
         "label": "Brand",
@@ -872,7 +904,12 @@
       "specifications": "Specifications",
       "usageGuide": "Usage Guide",
       "reviews": "Reviews",
-      "faq": "FAQ"
+      "qa": "Q&A",
+      "bundles": "Recommended",
+      "faq": "FAQ",
+      "bundlesFrequentlyBought": "Frequently Bought Together",
+      "bundlesSimilar": "Similar Products",
+      "bundlesSmart": "Smart Picks"
     },
     "specs": {
       "title": "Technical Specifications",
@@ -883,8 +920,12 @@
       "dimensions": "Dimensions",
       "weight": "Weight",
       "flow": "Flow Rate",
-      "power": "Power",
+      "powerConsumption": "Power Consumption",
       "compatibility": "Compatibility",
+      "tankSize": "Tank Size Compatibility",
+      "tankSizeValue": "{min}–{max} L tanks",
+      "tankSizeMin": "From {min} L tanks",
+      "tankSizeMax": "Up to {max} L tanks",
       "dimensionsValue": "{length} × {width} × {height} cm",
       "weightValue": "{weight} kg"
     },
@@ -899,7 +940,8 @@
       "subtitle": "You may also like",
       "viewAll": "View All",
       "complementary": "Complementary Products",
-      "similarProducts": "Similar Products"
+      "similarProducts": "Similar Products",
+      "smart": "Recommended for You"
     },
     "usageGuide": {
       "title": "Usage Guide",
@@ -935,6 +977,43 @@
       "closeGallery": "Close Gallery",
       "imageCount": "Image {current} of {total}"
     },
+    "qa": {
+      "title": "Questions & Answers",
+      "subtitle": "Ask us anything about this product",
+      "asked": "asked just now",
+      "answerFromTeam": "Answer from FISH WEB",
+      "pendingAnswer": "Thanks! We’ll reply soon.",
+      "empty": "No questions yet. Ask the first question!",
+      "form": {
+        "name": "Your Name",
+        "namePlaceholder": "Enter your name",
+        "email": "Email (optional)",
+        "emailPlaceholder": "name@example.com",
+        "question": "Your Question",
+        "questionPlaceholder": "e.g. Does this filter fit a 200L tank?",
+        "submit": "Submit Question",
+        "disclaimer": "Questions are public once answered. Email is used only to notify you.",
+        "required": "Name and question are required"
+      },
+      "success": {
+        "submitted": "Question received! We’ll answer shortly."
+      },
+      "errors": {
+        "required": "Please add your name and question"
+      },
+      "seed": {
+        "1": {
+          "author": "Ali",
+          "question": "Can I use this filter with shrimp tanks?",
+          "answer": "Yes. Keep intake covered with a sponge pre-filter to protect shrimp."
+        },
+        "2": {
+          "author": "Sara",
+          "question": "What’s the recommended maintenance interval?",
+          "answer": "Rinse mechanical media every 2–3 weeks and replace chemical media monthly."
+        }
+      }
+    },
     "share": {
       "title": "Share Product",
       "copyLink": "Copy Link",
@@ -960,6 +1039,7 @@
     "yourCart": "Your Cart",
     "itemsCount": "{count} items",
     "itemsCountSingular": "1 item",
+    "loyaltyBalanceLabel": "Points Balance",
     "summary": {
       "title": "Order Summary",
       "subtotal": "Subtotal",
@@ -1028,6 +1108,9 @@
     },
     "success": {
       "added": "Added to cart",
+      "addedWithName": "“{name}” added to cart",
+      "miniCartPrompt": "View your mini cart to checkout quickly",
+      "close": "Close toast",
       "removed": "Removed from cart",
       "updated": "Quantity updated",
       "savedForLater": "Saved for later",
@@ -1055,13 +1138,13 @@
     "shipping": {
       "title": "Shipping Information",
       "description": "Where should we send your order?",
+      "guestFieldsHint": "Guest checkout: just name, phone, governorate, city, and address.",
       "useExisting": "Use a saved address",
       "addNew": "Add new address",
       "selectAddress": "Select an address",
       "noSavedAddresses": "No saved addresses",
-      "guestEmail": "Email (for order confirmation)",
-      "guestEmailHint": "We'll send order details to this email",
       "saveAddress": "Save this address for future orders",
+      "phoneFormatHint": "Use the +9647XXXXXXXXX format for Iraqi numbers",
       "continue": "Continue to Payment"
     },
     "payment": {
@@ -1107,6 +1190,7 @@
     "summary": {
       "subtotal": "Subtotal",
       "shipping": "Shipping",
+      "codFee": "COD Fee",
       "discount": "Discount",
       "loyaltyDiscount": "Loyalty Discount",
       "total": "Total",
@@ -1114,6 +1198,10 @@
     },
     "validation": {
       "addressRequired": "Please select or enter a shipping address",
+      "recipientRequired": "Recipient name is required",
+      "streetRequired": "Street address is required",
+      "cityRequired": "City is required",
+      "governorateRequired": "Governorate is required",
       "emailRequired": "Email is required",
       "emailInvalid": "Invalid email address",
       "paymentRequired": "Please select a payment method",
@@ -1161,7 +1249,11 @@
       "viewOrders": "View My Orders",
       "contactSupport": "Contact Support",
       "printOrder": "Print Order"
-    }
+    },
+    "referralCtaTitle": "Share and earn rewards",
+    "referralCtaSubtitle": "Invite friends with your referral link to earn bonus points.",
+    "referralCtaPrimary": "Open referrals",
+    "referralCtaSecondary": "Learn & guides"
   },
   "wishlist": {
     "title": "Wishlist",
@@ -1212,6 +1304,21 @@
       "movedToCart": "Moved to cart",
       "cleared": "Wishlist cleared"
     }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you’re looking for isn’t here. Try searching or explore our categories.",
+    "searchLabel": "Search products",
+    "searchPlaceholder": "Search for products or guides...",
+    "searchCta": "Search",
+    "ctaHome": "Back to Home",
+    "ctaProducts": "Browse Products",
+    "ctaSupport": "Need help?",
+    "popularTitle": "Popular categories",
+    "popularFilters": "Filters & Pumps",
+    "popularHeaters": "Heaters",
+    "popularWaterCare": "Water Care",
+    "popularLighting": "Plant Lighting"
   },
   "search": {
     "autocomplete": {
@@ -1328,6 +1435,7 @@
       "verified": "Verified Purchase",
       "clear": "Clear filters"
     },
+    "verified": "Verified Buyer",
     "sort": {
       "recent": "Most Recent",
       "helpful": "Most Helpful",
@@ -1455,6 +1563,11 @@
       "title": "Loyalty Points",
       "yourPoints": "Your Points",
       "pointsBalance": "Points Balance",
+      "pointsShort": "{points} pts",
+      "progressTitle": "On your way to rewards",
+      "progressSubtitle": "Next reward at {next} pts",
+      "readyToRedeem": "Ready to redeem",
+      "readyLabel": "Ready",
       "earnPoints": "Earn Points",
       "redeemPoints": "Redeem Points",
       "pointsEarned": "Points Earned",

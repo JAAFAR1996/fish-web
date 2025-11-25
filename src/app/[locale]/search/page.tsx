@@ -51,7 +51,9 @@ export default async function SearchPage({
   let products: Product[] = [];
 
   try {
-    products = await searchProductsFTS(query, locale as Locale, 60);
+    products = await searchProductsFTS(query, locale as Locale, 60, {
+      includeAltLocale: true,
+    });
   } catch (error) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('[search/page] Postgres search failed', error);

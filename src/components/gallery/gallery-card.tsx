@@ -73,6 +73,7 @@ export function GalleryCard({ setup, locale, priority, className }: GalleryCardP
               fill
               sizes="(max-width: 768px) 100vw, 33vw"
               priority={priority}
+              loading={priority ? 'eager' : 'lazy'}
               className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             />
           ) : (

@@ -11,12 +11,19 @@
     "account": "الحساب",
     "calculators": "الحاسبات",
     "search": "بحث",
-    "searchPlaceholder": "ابحث عن المنتجات...",
+    "searchPlaceholder": "ابحث عن المنتجات أو الماركات (عربي أو إنجليزي)",
     "menu": "القائمة",
     "closeMenu": "إغلاق القائمة",
     "orders": "الطلبات",
     "wishlist": "المفضلة",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "mobile": {
+      "label": "التنقل الرئيسي",
+      "home": "الرئيسية",
+      "categories": "الأقسام",
+      "search": "البحث",
+      "cart": "السلة"
+    }
   },
   "notifications": {
     "title": "الإشعارات",
@@ -44,37 +51,47 @@
     }
   },
   "categories": {
+    "cta": "تسوق المجموعة الكاملة",
+    "bilingual": "اقتراحات بالعربي والإنجليزي",
     "filters": {
-      "title": "مرشحات",
-      "titleEn": "Filters"
+      "title": "فلاتر ومضخات",
+      "titleEn": "Filters & Pumps",
+      "tagline": "حلول تنقية وضخ للحفاظ على صفاء المياه وتدفقها."
     },
     "air": {
       "title": "هواء",
-      "titleEn": "Air"
+      "titleEn": "Air",
+      "tagline": "تعزيز الأكسجين وحركة الماء لصحة الأكواريوم."
     },
     "heaters": {
       "title": "سخانات",
-      "titleEn": "Heaters"
+      "titleEn": "Heaters",
+      "tagline": "تحكم ثابت بالحرارة لراحة الأسماك."
     },
     "plantLighting": {
       "title": "إضاءة نباتات",
-      "titleEn": "Plant Lighting"
+      "titleEn": "Plant Lighting",
+      "tagline": "إضاءة متوازنة لازدهار النباتات."
     },
     "hardscape": {
       "title": "ركائز/هاردسكيب",
-      "titleEn": "Hardscape"
+      "titleEn": "Hardscape",
+      "tagline": "صخور وخشب وزينة لتشكيل المنظر المائي."
     },
     "waterCare": {
       "title": "عناية ماء",
-      "titleEn": "Water Care"
+      "titleEn": "Water Care",
+      "tagline": "تحسين وتنقية الماء بسهولة وأمان."
     },
     "plantsFertilizers": {
-      "title": "نباتات/أسمدة",
-      "titleEn": "Plants/Fertilizers"
+      "title": "عناية النباتات والأسمدة",
+      "titleEn": "Plant Care & Fertilizers",
+      "tagline": "كل ما تحتاجه للأحواض المزروعة: نباتات، CO2، وأدوات."
     },
     "tests": {
       "title": "اختبارات",
-      "titleEn": "Tests"
+      "titleEn": "Tests",
+      "tagline": "مجموعات قياس دقيقة لكل المعايير المهمة."
     }
   },
   "subcategories": {
@@ -158,6 +175,11 @@
       "viewAll": "عرض الكل",
       "productsCount": "{count} منتج"
     },
+    "recommended": {
+      "title": "مقترحات لك",
+      "subtitle": "اختيارات ذكية بناءً على التقييمات والأكثر مبيعاً",
+      "viewAll": "عرض كل المقترحات"
+    },
     "bestSellers": {
       "title": "الأكثر مبيعاً",
       "subtitle": "المنتجات الأكثر شعبية لدى عملائنا",
@@ -219,11 +241,11 @@
     "categories": {
       "title": "تسوق حسب الفئة",
       "count": "{count} منتج",
-      "filters": "المرشحات",
+      "filters": "فلاتر ومضخات",
       "heaters": "السخانات",
       "plantLighting": "إضاءة النباتات",
       "waterCare": "العناية بالماء",
-      "plantsFertilizers": "أسمدة النباتات",
+      "plantsFertilizers": "عناية النباتات والأسمدة",
       "air": "مضخات الهواء",
       "hardscape": "ديكور الصخور",
       "tests": "اختبارات المياه"
@@ -238,11 +260,11 @@
     "trustBadgesTitle": "لماذا تختارنا",
     "shopLinks": {
       "allProducts": "جميع المنتجات",
-      "filters": "مرشحات",
+      "filters": "فلاتر ومضخات",
       "heaters": "سخانات",
       "lighting": "إضاءة",
       "waterCare": "عناية الماء",
-      "plants": "نباتات وأسمدة"
+      "plants": "عناية النباتات والأسمدة"
     },
     "supportLinks": {
       "contact": "اتصل بنا",
@@ -503,6 +525,16 @@
         "from": "من (لتر/ساعة)",
         "to": "إلى (لتر/ساعة)",
         "placeholder": "أدخل التدفق"
+      },
+      "price": {
+        "label": "السعر",
+        "from": "الحد الأدنى (دينار)",
+        "to": "الحد الأقصى (دينار)"
+      },
+      "rating": {
+        "label": "التقييم",
+        "atLeast": "{value}+ نجوم",
+        "all": "كل التقييمات"
       },
       "brand": {
         "label": "الماركة",
@@ -872,7 +904,12 @@
       "specifications": "المواصفات",
       "usageGuide": "دليل الاستخدام",
       "reviews": "التقييمات",
-      "faq": "الأسئلة الشائعة"
+      "qa": "الأسئلة والأجوبة",
+      "bundles": "منتجات مقترحة",
+      "faq": "الأسئلة الشائعة",
+      "bundlesFrequentlyBought": "يُشترى معاً غالباً",
+      "bundlesSimilar": "منتجات مشابهة",
+      "bundlesSmart": "ترشيحات ذكية"
     },
     "specs": {
       "title": "المواصفات التقنية",
@@ -883,8 +920,12 @@
       "dimensions": "الأبعاد",
       "weight": "الوزن",
       "flow": "معدل التدفق",
-      "power": "القدرة الكهربائية",
+      "powerConsumption": "استهلاك الطاقة",
       "compatibility": "التوافق",
+      "tankSize": "توافق أحجام الأحواض",
+      "tankSizeValue": "{min}–{max} لتر",
+      "tankSizeMin": "من {min} لتر",
+      "tankSizeMax": "حتى {max} لتر",
       "dimensionsValue": "{length} × {width} × {height} سم",
       "weightValue": "{weight} كجم"
     },
@@ -899,7 +940,8 @@
       "subtitle": "قد تعجبك أيضاً",
       "viewAll": "عرض الكل",
       "complementary": "منتجات مكملة",
-      "similarProducts": "منتجات مشابهة"
+      "similarProducts": "منتجات مشابهة",
+      "smart": "مقترحات لك"
     },
     "usageGuide": {
       "title": "دليل الاستخدام",
@@ -935,6 +977,43 @@
       "closeGallery": "إغلاق المعرض",
       "imageCount": "صورة {current} من {total}"
     },
+    "qa": {
+      "title": "الأسئلة والأجوبة",
+      "subtitle": "اسألنا أي شيء عن هذا المنتج",
+      "asked": "سُئل للتو",
+      "answerFromTeam": "إجابة من FISH WEB",
+      "pendingAnswer": "شكراً! سنرد قريباً.",
+      "empty": "لا توجد أسئلة بعد. اسأل أول سؤال!",
+      "form": {
+        "name": "اسمك",
+        "namePlaceholder": "اكتب اسمك",
+        "email": "البريد الإلكتروني (اختياري)",
+        "emailPlaceholder": "name@example.com",
+        "question": "سؤالك",
+        "questionPlaceholder": "مثال: هل يناسب هذا الفلتر حوض 200 لتر؟",
+        "submit": "إرسال السؤال",
+        "disclaimer": "الأسئلة تصبح عامة بعد الإجابة. البريد الإلكتروني فقط لإشعارك.",
+        "required": "الاسم والسؤال مطلوبان"
+      },
+      "success": {
+        "submitted": "تم استلام سؤالك! سنجيب قريباً."
+      },
+      "errors": {
+        "required": "يرجى إضافة الاسم والسؤال"
+      },
+      "seed": {
+        "1": {
+          "author": "علي",
+          "question": "هل يمكن استخدام هذا الفلتر مع أحواض الجمبري؟",
+          "answer": "نعم، مع وضع إسفنجة على السحب لحماية الجمبري."
+        },
+        "2": {
+          "author": "سارة",
+          "question": "ما هو جدول الصيانة الموصى به؟",
+          "answer": "نظف الوسائط الميكانيكية كل 2-3 أسابيع واستبدل الوسائط الكيميائية شهرياً."
+        }
+      }
+    },
     "share": {
       "title": "مشاركة المنتج",
       "copyLink": "نسخ الرابط",
@@ -960,6 +1039,7 @@
     "yourCart": "سلتك",
     "itemsCount": "{count} منتج",
     "itemsCountSingular": "منتج واحد",
+    "loyaltyBalanceLabel": "رصيد النقاط",
     "summary": {
       "title": "ملخص الطلب",
       "subtotal": "المجموع الفرعي",
@@ -1028,6 +1108,9 @@
     },
     "success": {
       "added": "تمت الإضافة إلى العربة",
+      "addedWithName": "تمت إضافة “{name}” إلى العربة",
+      "miniCartPrompt": "افتح الميني كارت لإتمام الطلب بسرعة",
+      "close": "إغلاق التنبيه",
       "removed": "تمت الإزالة من العربة",
       "updated": "تم تحديث الكمية",
       "savedForLater": "تم الحفظ للاحقاً",
@@ -1055,13 +1138,13 @@
     "shipping": {
       "title": "معلومات الشحن",
       "description": "أين نرسل طلبك؟",
+      "guestFieldsHint": "طلب سريع بدون تسجيل: الاسم، الهاتف، المحافظة، المدينة، والعنوان.",
       "useExisting": "استخدم عنواناً محفوظاً",
       "addNew": "أضف عنواناً جديداً",
       "selectAddress": "اختر عنواناً",
       "noSavedAddresses": "لا توجد عناوين محفوظة",
-      "guestEmail": "البريد الإلكتروني (لتأكيد الطلب)",
-      "guestEmailHint": "سنرسل تفاصيل الطلب إلى هذا البريد",
       "saveAddress": "حفظ هذا العنوان لطلبات مستقبلية",
+      "phoneFormatHint": "استخدم تنسيق +9647XXXXXXXXX لأرقام العراق",
       "continue": "متابعة إلى الدفع"
     },
     "payment": {
@@ -1107,6 +1190,7 @@
     "summary": {
       "subtotal": "المجموع الفرعي",
       "shipping": "الشحن",
+      "codFee": "رسوم الدفع عند الاستلام",
       "discount": "الخصم",
       "loyaltyDiscount": "خصم النقاط",
       "total": "المجموع الكلي",
@@ -1114,6 +1198,10 @@
     },
     "validation": {
       "addressRequired": "يرجى اختيار أو إدخال عنوان الشحن",
+      "recipientRequired": "اسم المستلم مطلوب",
+      "streetRequired": "عنوان الشارع مطلوب",
+      "cityRequired": "المدينة مطلوبة",
+      "governorateRequired": "المحافظة مطلوبة",
       "emailRequired": "البريد الإلكتروني مطلوب",
       "emailInvalid": "بريد إلكتروني غير صالح",
       "paymentRequired": "يرجى اختيار طريقة الدفع",
@@ -1161,7 +1249,11 @@
       "viewOrders": "عرض طلباتي",
       "contactSupport": "تواصل مع الدعم",
       "printOrder": "طباعة الطلب"
-    }
+    },
+    "referralCtaTitle": "شارك واربح مكافآت",
+    "referralCtaSubtitle": "ادعُ أصدقاءك برابط الإحالة لتحصل على نقاط إضافية.",
+    "referralCtaPrimary": "اذهب للإحالات",
+    "referralCtaSecondary": "مركز التعلم"
   },
   "wishlist": {
     "title": "قائمة المفضلة",
@@ -1212,6 +1304,21 @@
       "movedToCart": "تم النقل للعربة",
       "cleared": "تم مسح المفضلة"
     }
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "description": "الصفحة التي تبحث عنها غير متاحة. جرّب البحث أو تصفح الأقسام.",
+    "searchLabel": "بحث عن المنتجات",
+    "searchPlaceholder": "ابحث عن منتج أو دليل...",
+    "searchCta": "بحث",
+    "ctaHome": "العودة للرئيسية",
+    "ctaProducts": "تصفح المنتجات",
+    "ctaSupport": "تحتاج مساعدة؟",
+    "popularTitle": "أقسام شائعة",
+    "popularFilters": "فلاتر ومضخات",
+    "popularHeaters": "سخانات",
+    "popularWaterCare": "عناية الماء",
+    "popularLighting": "إضاءة النباتات"
   },
   "search": {
     "autocomplete": {
@@ -1325,9 +1432,10 @@
       "4stars": "4 نجوم وأعلى",
       "3stars": "3 نجوم وأعلى",
       "withImages": "مع صور",
-      "verified": "مشتريات موثقة",
+      "verified": "مشتري موثق",
       "clear": "مسح المرشحات"
     },
+    "verified": "مشتري موثق",
     "sort": {
       "recent": "الأحدث",
       "helpful": "الأكثر إفادة",
@@ -1455,6 +1563,11 @@
       "title": "نقاط الولاء",
       "yourPoints": "نقاطك",
       "pointsBalance": "رصيد النقاط",
+      "pointsShort": "{points} نقطة",
+      "progressTitle": "أنت على بعد خطوات من المكافآت",
+      "progressSubtitle": "المكافأة التالية عند {next} نقطة",
+      "readyToRedeem": "جاهز للاستبدال",
+      "readyLabel": "جاهز",
       "earnPoints": "اكسب نقاط",
       "redeemPoints": "استبدل النقاط",
       "pointsEarned": "نقاط مكتسبة",

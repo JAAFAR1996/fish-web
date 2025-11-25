@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { cn, formatCurrency } from '@/lib/utils';
 import type { LoyaltyPointsSummary } from '@/types';
 import { calculatePointsDiscount } from '@/lib/marketing/loyalty-helpers';
+import { LoyaltyProgress } from '@/components/marketing/loyalty-progress';
 
 interface LoyaltyPointsSectionProps {
   summary: LoyaltyPointsSummary | null;
@@ -92,6 +93,8 @@ export function LoyaltyPointsSection({ summary, className }: LoyaltyPointsSectio
           </p>
         </div>
       </div>
+
+      <LoyaltyProgress summary={summary} />
 
       <div className="rounded-lg border border-border bg-card shadow-sm">
         <div className="border-b border-border px-4 py-3">

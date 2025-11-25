@@ -28,6 +28,9 @@ export const DEFAULT_FILTERS: ProductFilters = {
   tankSizeMax: null,
   flowRateMin: null,
   flowRateMax: null,
+  priceMin: null,
+  priceMax: null,
+  ratingMin: null,
   brands: [],
   categories: [],
   subcategories: [],
@@ -44,6 +47,9 @@ export function isFilterActive(filters: ProductFilters): boolean {
     filters.tankSizeMax !== null ||
     filters.flowRateMin !== null ||
     filters.flowRateMax !== null ||
+    filters.priceMin !== null ||
+    filters.priceMax !== null ||
+    filters.ratingMin !== null ||
     filters.brands.length > 0 ||
     filters.categories.length > 0 ||
     filters.subcategories.length > 0
@@ -55,6 +61,8 @@ export function getActiveFilterCount(filters: ProductFilters): number {
   if (filters.types.length > 0) count += filters.types.length;
   if (filters.tankSizeMin !== null || filters.tankSizeMax !== null) count += 1;
   if (filters.flowRateMin !== null || filters.flowRateMax !== null) count += 1;
+  if (filters.priceMin !== null || filters.priceMax !== null) count += 1;
+  if (filters.ratingMin !== null) count += 1;
   if (filters.brands.length > 0) count += filters.brands.length;
   if (filters.categories.length > 0) count += filters.categories.length;
   if (filters.subcategories.length > 0) count += filters.subcategories.length;

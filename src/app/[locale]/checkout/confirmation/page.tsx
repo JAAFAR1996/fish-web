@@ -241,6 +241,29 @@ export default async function CheckoutConfirmationPage({
           </div>
         </div>
       </div>
+
+      <div className="mt-8 rounded-2xl border border-border bg-gradient-to-br from-aqua-600/10 via-aqua-500/5 to-background p-6 shadow-sm">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h3 className="text-lg font-semibold text-foreground">{t('referralCtaTitle')}</h3>
+            <p className="text-sm text-muted-foreground">{t('referralCtaSubtitle')}</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button asChild variant="primary" size="sm">
+              <Link href={`/${locale}/account?tab=referrals`}>
+                <Icon name="users" className="me-2 h-4 w-4" aria-hidden />
+                {t('referralCtaPrimary')}
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="sm">
+              <Link href={`/${locale}/learning`}>
+                <Icon name="book" className="me-2 h-4 w-4" aria-hidden />
+                {t('referralCtaSecondary')}
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

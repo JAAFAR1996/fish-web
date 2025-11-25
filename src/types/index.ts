@@ -125,6 +125,9 @@ export interface ProductFilters {
   tankSizeMax: number | null;
   flowRateMin: number | null;
   flowRateMax: number | null;
+  priceMin: number | null;
+  priceMax: number | null;
+  ratingMin: number | null;
   brands: string[];
   categories: string[];
   subcategories: string[];
@@ -144,6 +147,7 @@ export interface ProductListingProps {
   initialSort?: SortOption;
   searchQuery?: string;
   hadError?: boolean;
+  recommendedProducts?: Product[];
 }
 
 export type CalculatorType = 'heater' | 'filter' | 'salinity';
@@ -359,6 +363,8 @@ export interface Review {
   is_approved: boolean;
   helpful_count: number;
   not_helpful_count: number;
+  verified?: boolean;
+  verified_purchase?: boolean;
   created_at: string;
   updated_at: string;
 }

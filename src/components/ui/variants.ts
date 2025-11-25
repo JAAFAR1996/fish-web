@@ -53,8 +53,8 @@ export const BUTTON_SIZES: Record<Size, string> = {
   xs: 'h-8 px-2 text-xs',
   sm: 'h-9 px-3 text-sm',
   md: 'h-10 px-4 text-base',
-  lg: 'h-11 px-6 text-lg',
-  xl: 'h-12 px-8 text-xl',
+  lg: 'h-12 min-h-[48px] px-6 text-lg',
+  xl: 'h-12 min-h-[48px] px-8 text-xl',
   icon: 'h-9 w-9 p-0',
 };
 

@@ -2,7 +2,7 @@
 
 import type { CheckoutStep } from '@/types';
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { Icon, type IconName } from '@/components/ui';
 import { cn } from '@/lib/utils';
@@ -28,7 +28,9 @@ export function CheckoutProgress({
   completedSteps = [],
   className,
 }: CheckoutProgressProps) {
+  const locale = useLocale();
   const t = useTranslations('checkout.steps');
+  const direction = locale === 'ar' ? 'rtl' : 'ltr';
 
   const currentIndex = STEPS.findIndex((step) => step.value === currentStep);
 
@@ -38,6 +40,7 @@ export function CheckoutProgress({
         current: currentIndex + 1,
         total: STEPS.length,
       })}
+      dir={direction}
       className={cn('w-full', className)}
     >
       <ol className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-0">

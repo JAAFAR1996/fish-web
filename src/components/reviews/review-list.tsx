@@ -8,7 +8,7 @@ import {
 import { useTranslations } from 'next-intl';
 
 import { Button, Icon } from '@/components/ui';
-import { filterReviewsByRating, sortReviews } from '@/lib/reviews/review-utils';
+import { filterReviewsByRating, filterVerifiedReviews, sortReviews } from '@/lib/reviews/review-utils';
 import { REVIEWS_PER_PAGE } from '@/lib/reviews/constants';
 import { cn } from '@/lib/utils';
 import type {
@@ -100,8 +100,7 @@ export function ReviewList({
     }
 
     if (filters.verified) {
-      // Placeholder for future verified purchase filter.
-      result = result;
+      result = filterVerifiedReviews(result);
     }
 
     return sortReviews(result, filters.sortBy);

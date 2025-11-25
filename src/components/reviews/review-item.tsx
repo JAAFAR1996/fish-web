@@ -91,6 +91,10 @@ export function ReviewItem({
       ),
     );
   };
+  const isVerified = Boolean(
+    (review as unknown as { verified?: boolean }).verified ||
+      (review as unknown as { verified_purchase?: boolean }).verified_purchase,
+  );
 
   return (
     <article
@@ -109,6 +113,7 @@ export function ReviewItem({
                 width={48}
                 height={48}
                 className="h-12 w-12 rounded-full object-cover"
+                loading="lazy"
               />
             ) : (
               reviewerInitials
@@ -119,6 +124,12 @@ export function ReviewItem({
               {review.user?.full_name ?? t('yourReview')}
             </p>
             <p className="text-xs text-muted-foreground">{formattedDate}</p>
+            {isVerified && (
+              <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300">
+                <Icon name="shield-check" size="sm" aria-hidden />
+                {t('verified')}
+              </span>
+            )}
           </div>
         </div>
 

@@ -53,6 +53,25 @@ export function filterProducts(
     });
   }
 
+  // Filter by price
+  if (filters.priceMin !== null || filters.priceMax !== null) {
+    filtered = filtered.filter((p) => {
+      if (filters.priceMin !== null && p.price < filters.priceMin) {
+        return false;
+      }
+      if (filters.priceMax !== null && p.price > filters.priceMax) {
+        return false;
+      }
+      return true;
+    });
+  }
+
+  // Filter by rating
+  const ratingMin = filters.ratingMin;
+  if (ratingMin !== null) {
+    filtered = filtered.filter((p) => p.rating >= ratingMin);
+  }
+
   // Filter by brands
   if (filters.brands.length > 0) {
     filtered = filtered.filter((p) => filters.brands.includes(p.brand));

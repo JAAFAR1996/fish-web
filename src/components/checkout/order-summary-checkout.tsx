@@ -11,6 +11,7 @@ export interface OrderSummaryCheckoutProps {
   shipping: number;
   discount: number;
   loyaltyDiscount?: number;
+  codFee?: number;
   total: number;
   itemCount: number;
   className?: string;
@@ -21,6 +22,7 @@ export function OrderSummaryCheckout({
   shipping,
   discount,
   loyaltyDiscount = 0,
+  codFee,
   total,
   itemCount,
   className,
@@ -47,6 +49,16 @@ export function OrderSummaryCheckout({
         },
       ];
 
+      if (typeof codFee === 'number') {
+        items.push({
+          label: tSummary('codFee'),
+          value:
+            codFee === 0
+              ? tShippingCost('free')
+              : formatCurrency(codFee, resolvedLocale),
+        });
+      }
+
       if (discount > 0) {
         items.push({
           label: tSummary('discount'),
@@ -63,7 +75,7 @@ export function OrderSummaryCheckout({
 
       return items;
     },
-    [discount, itemCount, loyaltyDiscount, resolvedLocale, shipping, subtotal, tShippingCost, tSummary]
+    [codFee, discount, itemCount, loyaltyDiscount, resolvedLocale, shipping, subtotal, tShippingCost, tSummary]
   );
 
   return (

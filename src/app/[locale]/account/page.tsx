@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { AccountTabs } from '@/components/account';
+import { ReferralShareCard } from '@/components/marketing';
+import { Button } from '@/components/ui';
+import { Link } from '@/i18n/navigation';
 import { getUser, getUserProfile, getSession } from '@/lib/auth/utils';
 import { getLoyaltyPointsSummary } from '@/lib/marketing/loyalty-utils';
 import { getUserReferralStats } from '@/lib/marketing/referral-utils-server';
@@ -95,6 +98,29 @@ export default async function AccountPage({ params, searchParams }: AccountPageP
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mb-6">
+        {profile?.referral_code ? (
+          <ReferralShareCard referralCode={profile.referral_code} />
+        ) : (
+          <div className="flex items-center justify-between rounded-xl border border-dashed border-border bg-card p-4 shadow-sm">
+            <div>
+              <p className="text-sm font-semibold text-foreground">
+                {locale === 'ar' ? 'شارك أصدقاءك واربح نقاطاً' : 'Share with friends and earn points'}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {locale === 'ar'
+                  ? 'افتح تبويب الإحالات لإنشاء كودك الفريد.'
+                  : 'Open the referrals tab to generate your unique code.'}
+              </p>
+            </div>
+            <Button asChild variant="primary" size="sm">
+              <Link href="/account?tab=referrals">
+                {locale === 'ar' ? 'اذهب للإحالات' : 'Go to Referrals'}
+              </Link>
+            </Button>
+          </div>
+        )}
+      </div>
       <AccountTabs
         user={user}
         session={session}

@@ -119,18 +119,15 @@ export function ReviewFilters({
           <Icon name="image" className="mr-1 h-4 w-4" />
           {t('filters.withImages')}
         </Button>
-        {/* Verified purchase filter hidden until backend support is implemented */}
-        {false && (
-          <Button
-            size="sm"
-            variant={filters.verified ? 'primary' : 'outline'}
-            onClick={handleToggleVerified}
-            aria-pressed={Boolean(filters.verified)}
-          >
-            <Icon name="shield-check" className="mr-1 h-4 w-4" />
-            {t('filters.verified')}
-          </Button>
-        )}
+        <Button
+          size="sm"
+          variant={filters.verified ? 'primary' : 'outline'}
+          onClick={handleToggleVerified}
+          aria-pressed={Boolean(filters.verified)}
+        >
+          <Icon name="shield-check" className="mr-1 h-4 w-4" />
+          {t('filters.verified')}
+        </Button>
       </div>
 
       <div className="flex items-center gap-3">

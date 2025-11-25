@@ -102,10 +102,13 @@ export function ProfileSection({ user, profile }: ProfileSectionProps) {
 
         <Input
           label={t('phone')}
-          placeholder="+9647XXXXXXXXX"
+          mobileLabelInside
+          placeholder="+964 7XX XXX XXXX"
           value={phone}
           onChange={(event) => setPhone(event.target.value)}
           autoComplete="tel"
+          inputMode="tel"
+          type="tel"
           disabled={isPending}
         />
 

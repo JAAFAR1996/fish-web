@@ -29,6 +29,7 @@ import { SearchBar } from './SearchBar';
 export const Header = () => {
   const t = useTranslations('nav');
   const tAuth = useTranslations('auth');
+  const tLoyalty = useTranslations('marketing.loyalty');
   const locale = useLocale();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -54,6 +55,7 @@ export const Header = () => {
     .map((part) => part.charAt(0).toUpperCase())
     .slice(0, 2)
     .join('');
+  const loyaltyBalance = user?.loyaltyPointsBalance ?? 0;
 
   return (
     <>
@@ -88,10 +90,16 @@ export const Header = () => {
           </div>
 
           <div className="flex flex-1 items-center gap-6">
-            <SearchBar className="hidden sm:block max-w-md flex-1" />
+            <SearchBar className="hidden sm:block max-w-xl flex-1" />
           </div>
 
           <div className="flex items-center gap-2">
+            {user && (
+              <span className="inline-flex items-center gap-2 rounded-full bg-aqua-500/10 px-3 py-1 text-xs font-semibold text-aqua-700 dark:text-aqua-200">
+                <Icon name="sparkles" className="h-4 w-4" aria-hidden="true" />
+                {tLoyalty('pointsShort', { points: loyaltyBalance })}
+              </span>
+            )}
             <Button
               variant="ghost"
               size="sm"
@@ -227,6 +235,9 @@ export const Header = () => {
             {user && <NotificationCenter />}
             <DarkModeToggle size="sm" />
           </div>
+        </div>
+        <div className="block border-t border-border/60 px-4 pb-3 pt-2 sm:hidden">
+          <SearchBar size="sm" className="w-full" />
         </div>
         <div className="hidden border-t border-border/70 px-4 py-2 lg:block">
           <MegaMenu />

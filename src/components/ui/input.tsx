@@ -16,6 +16,7 @@ export interface InputProps
   size?: Size;
   error?: boolean | string;
   label?: string;
+  mobileLabelInside?: boolean;
   helperText?: string;
   leadingIcon?: ReactNode;
   trailingIcon?: ReactNode;
@@ -27,6 +28,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     size = 'md',
     error,
     label,
+    mobileLabelInside = false,
     helperText,
     leadingIcon,
     trailingIcon,
@@ -48,13 +50,20 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
   const describedBy = [helperId, errorId].filter(Boolean).join(' ') || undefined;
   const isError = Boolean(error);
+  const inlineLabel = Boolean(label && mobileLabelInside);
+  const computedPlaceholder = props.placeholder ?? (inlineLabel ? label : undefined);
+  const computedAriaLabel =
+    props['aria-label'] ?? (inlineLabel && label ? label : undefined);
 
   return (
     <div className={cn('flex flex-col gap-1.5', wrapperClassName)}>
       {label && (
         <label
           htmlFor={inputId}
-          className="text-sm font-medium text-foreground"
+          className={cn(
+            'text-sm font-medium text-foreground rtl:text-right',
+            inlineLabel && 'hidden sm:block'
+          )}
         >
           {label}
         </label>
@@ -72,7 +81,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           id={inputId}
           ref={ref}
           className={cn(
-            'flex w-full rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 transition-colors motion-safe:transition-colors',
+            'flex w-full min-h-[48px] rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 transition-colors motion-safe:transition-colors text-left rtl:text-right',
             sizeStyles.input,
             leadingIcon ? sizeStyles.iconPaddingStart : sizeStyles.paddingStart,
             trailingIcon ? sizeStyles.iconPaddingEnd : sizeStyles.paddingEnd,
@@ -82,7 +91,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           )}
           aria-invalid={isError || undefined}
           aria-describedby={describedBy}
+          aria-label={computedAriaLabel}
           disabled={disabled}
+          placeholder={computedPlaceholder}
           {...props}
         />
         {trailingIcon && (
@@ -100,7 +111,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         </p>
       )}
       {errorMessage && (
-        <p id={errorId} className="text-sm text-coral-500">
+        <p
+          id={errorId}
+          className="text-sm text-coral-500"
+          role="alert"
+          aria-live="polite"
+        >
           {errorMessage}
         </p>
       )}

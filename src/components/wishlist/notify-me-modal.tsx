@@ -130,6 +130,7 @@ export function NotifyMeModal({ product, isOpen, onClose }: NotifyMeModalProps) 
               fill
               sizes="56px"
               className="object-cover"
+              loading="lazy"
             />
           </div>
           <div className="min-w-0">
