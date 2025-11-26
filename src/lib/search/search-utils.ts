@@ -2,6 +2,22 @@ import Fuse, { type IFuseOptions, type FuseResultMatch } from 'fuse.js';
 
 import type { Product, SearchResult } from '@/types';
 import { FUSE_THRESHOLD, MAX_PRODUCT_SUGGESTIONS } from './constants';
+import { normalizeSearchText } from './text-normalizer';
+
+const getNormalizedField = (obj: Product, path: string | string[]): string => {
+  if (!path) return '';
+  const segments = Array.isArray(path) ? path : path.split('.');
+  let value: unknown = obj;
+  for (const segment of segments) {
+    if (value && typeof value === 'object' && segment in value) {
+      value = (value as Record<string, unknown>)[segment];
+    } else {
+      value = '';
+      break;
+    }
+  }
+  return normalizeSearchText(typeof value === 'string' ? value : String(value ?? ''));
+};
 
 const FUSE_OPTIONS: IFuseOptions<Product> = {
   keys: [
@@ -17,12 +33,14 @@ const FUSE_OPTIONS: IFuseOptions<Product> = {
   minMatchCharLength: 2,
   ignoreLocation: true,
   useExtendedSearch: false,
+  getFn: getNormalizedField,
 };
 
 export function searchProducts(products: Product[], query: string): SearchResult[] {
+  const normalizedQuery = normalizeSearchText(query);
   const fuse = new Fuse(products, FUSE_OPTIONS);
   return fuse
-    .search(query)
+    .search(normalizedQuery)
     .map((result) => ({
       product: result.item,
       score: result.score ?? 1,
@@ -36,6 +54,7 @@ export function searchProductsByField(
   query: string,
   field: keyof Product
 ): Product[] {
+  const normalizedQuery = normalizeSearchText(query);
   const fuse = new Fuse(products, {
     keys: [field as string],
     threshold: 0.2,
@@ -43,9 +62,10 @@ export function searchProductsByField(
     includeScore: false,
     ignoreLocation: true,
     minMatchCharLength: 2,
+    getFn: getNormalizedField,
   });
 
-  return fuse.search(query).map((result) => result.item);
+  return fuse.search(normalizedQuery).map((result) => result.item);
 }
 
 export function getMatchedBrands(products: Product[], query: string): string[] {

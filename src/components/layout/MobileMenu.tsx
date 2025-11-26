@@ -19,6 +19,7 @@ import {
 } from '@/components/ui';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+import { usePwaInstallPrompt } from '@/hooks/usePwaInstallPrompt';
 
 import { CATEGORIES } from './navigation-data';
 
@@ -34,10 +35,25 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const locale = useLocale();
   const isRtl = useMemo(() => locale === 'ar', [locale]);
   const [isVisible, setIsVisible] = useState(false);
+  const [installMessage, setInstallMessage] = useState<string | null>(null);
 
   const previouslyFocusedElement = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  const isPwaEnabled = process.env.NEXT_PUBLIC_PWA_ENABLED !== 'false';
+
+  const {
+    ready: installReady,
+    isPrompting: isInstalling,
+    promptInstall,
+    status: installStatus,
+    canInstall,
+  } = usePwaInstallPrompt({
+    enabled: isPwaEnabled,
+    delayMs: 45_000,
+    minVisits: 2,
+  });
 
   const focusableSelector =
     'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -127,6 +143,22 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       previouslyFocusedElement.current = null;
     };
   }, [handleKeyDown, isOpen]);
+
+  const handleInstallClick = useCallback(async () => {
+    const outcome = await promptInstall();
+    if (outcome === 'unavailable' || outcome === 'ineligible') {
+      setInstallMessage(
+        locale === 'ar'
+          ? 'يمكنك تثبيت التطبيق من خيار "إضافة للشاشة الرئيسية" في المتصفح.'
+          : 'Use your browser’s “Add to Home Screen” option to install.',
+      );
+    } else {
+      setInstallMessage(null);
+      if (outcome === 'dismissed') {
+        onClose();
+      }
+    }
+  }, [locale, onClose, promptInstall]);
 
   if (!isOpen) {
     return null;
@@ -251,6 +283,39 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             >
               {locale === 'ar' ? 'الدعم' : 'Support'}
             </Link>
+            {isPwaEnabled && (
+              <div className="rounded-md border border-dashed border-aqua-200 bg-aqua-50/60 px-3 py-3 dark:border-aqua-500/40 dark:bg-aqua-500/5">
+                <button
+                  type="button"
+                  onClick={handleInstallClick}
+                  disabled={!installReady || !canInstall || isInstalling}
+                  className={cn(
+                    'flex w-full items-center justify-between gap-2 rounded-md px-2 py-2 text-sm font-semibold',
+                    !installReady || !canInstall
+                      ? 'cursor-not-allowed text-muted-foreground'
+                      : 'text-aqua-700 hover:bg-aqua-100 dark:text-aqua-200 dark:hover:bg-aqua-900/40',
+                  )}
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <Icon name="download" size="sm" aria-hidden />
+                    {locale === 'ar' ? 'تثبيت التطبيق' : 'Install app'}
+                  </span>
+                  {isInstalling && (
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-aqua-500" aria-hidden />
+                  )}
+                </button>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {installMessage ??
+                    (installStatus === 'idle' ||
+                    installStatus === 'ineligible' ||
+                    installStatus === 'unavailable'
+                      ? locale === 'ar'
+                        ? 'سيظهر زر التثبيت بعد بضع زيارات أو عند دعم المتصفح.'
+                        : 'Install becomes available after a few visits when supported by your browser.'
+                      : '')}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

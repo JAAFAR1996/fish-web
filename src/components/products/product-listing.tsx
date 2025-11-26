@@ -144,6 +144,13 @@ export function ProductListing({
         <p className="text-sand-600 dark:text-sand-400">{t('description')}</p>
       </div>
 
+      {hadError && (
+        <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-50">
+          <p className="text-sm font-semibold">{tResults('fallbackTitle')}</p>
+          <p className="text-xs mt-1">{tResults('fallbackDescription')}</p>
+        </div>
+      )}
+
       {recommendedProducts.length > 0 && (
         <RecommendedRail
           products={recommendedProducts.slice(0, 8)}

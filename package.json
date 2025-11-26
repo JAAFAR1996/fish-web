@@ -11,7 +11,8 @@
     "type-check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "analyze": "ANALYZE=true next build"
   },
   "engines": {
     "node": ">=18.17.0"
@@ -26,6 +27,8 @@
     "@next/mdx": "^14.2.33",
     "@react-three/drei": "^9.96.1",
     "@react-three/fiber": "^8.15.19",
+    "@sentry/nextjs": "^10.27.0",
+    "@sentry/node": "^10.27.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.0.3",
     "@types/bcryptjs": "^2.4.6",
@@ -57,6 +60,7 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.15",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20.14.12",

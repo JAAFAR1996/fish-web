@@ -11,35 +11,36 @@ import {
   getMatchedCategories,
   getTopProductMatches,
 } from './search-utils';
+import { normalizeSearchText } from './text-normalizer';
 
 export function getAutocompleteSuggestions(
   query: string,
   products: Product[],
   articles: BlogPost[] = []
 ): AutocompleteSuggestion[] {
-  const trimmed = query.trim();
-  if (!trimmed) {
+  const normalizedQuery = normalizeSearchText(query);
+  if (!normalizedQuery) {
     return [];
   }
 
   const productSuggestions = getTopProductMatches(
     products,
-    trimmed,
+    normalizedQuery,
     MAX_PRODUCT_SUGGESTIONS
   ).map((result) => formatProductSuggestion(result.product));
 
-  const brandSuggestions = getMatchedBrands(products, trimmed)
+  const brandSuggestions = getMatchedBrands(products, normalizedQuery)
     .slice(0, MAX_BRAND_SUGGESTIONS)
     .map((brand) => formatBrandSuggestion(brand, products));
 
-  const categorySuggestions = getMatchedCategories(products, trimmed)
+  const categorySuggestions = getMatchedCategories(products, normalizedQuery)
     .slice(0, MAX_CATEGORY_SUGGESTIONS)
     .map((category) => formatCategorySuggestion(category, products));
 
   const articleSuggestions = articles
     .filter((post) =>
-      post.title.toLowerCase().includes(trimmed.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(trimmed.toLowerCase())
+      normalizeSearchText(post.title).includes(normalizedQuery) ||
+      normalizeSearchText(post.excerpt).includes(normalizedQuery)
     )
     .slice(0, 4)
     .map((post) => formatArticleSuggestion(post));

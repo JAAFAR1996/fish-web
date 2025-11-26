@@ -548,7 +548,10 @@
       "noResults": "No products found",
       "noResultsDescription": "Try adjusting your filters or search for something else",
       "loading": "Loading products...",
-      "error": "Error loading products"
+      "error": "Error loading products",
+      "fallbackTitle": "You're seeing a cached product list",
+      "fallbackDescription": "We couldn't reach the catalog service. Showing the latest saved products instead—pricing and stock may be outdated.",
+      "contactSupport": "Contact support"
     },
     "activeFilters": {
       "title": "Active Filters",

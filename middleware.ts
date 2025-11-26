@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
+import { wrapMiddlewareWithSentry } from '@sentry/nextjs';
 
 import { routing } from '@/i18n/routing';
 import { updateSession } from '@/lib/auth/middleware';
@@ -68,7 +69,7 @@ function applySecurityHeaders(
     `script-src 'self' https://plausible.io 'nonce-${cspNonce}'`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https:",
-    "connect-src 'self' https://plausible.io",
+    "connect-src 'self' https://plausible.io https://o*.ingest.sentry.io https://*.sentry.io",
     "font-src 'self' https://fonts.gstatic.com",
     "frame-ancestors 'self'",
     `report-uri ${CSP_REPORT_URI}`,
@@ -95,7 +96,7 @@ function applySecurityHeaders(
   }
 }
 
-export default async function middleware(request: NextRequest) {
+async function middleware(request: NextRequest) {
   const { pathname, protocol } = request.nextUrl;
 
   // Enforce HTTPS in production
@@ -171,6 +172,8 @@ export default async function middleware(request: NextRequest) {
 
   return finalResponse;
 }
+
+export default wrapMiddlewareWithSentry(middleware);
 
 export const config = {
   matcher: ['/:path*'],

@@ -1,7 +1,9 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { getProductsWithFlashSalesStatus, getRecommendedProducts } from '@/lib/data/products';
+import * as Sentry from '@sentry/nextjs';
+import { getProductsWithFlashSalesStatus, getRecommendedProducts, getStaticFallbackProducts } from '@/lib/data/products';
 import { ProductListing } from '@/components/products';
+import type { ProductWithFlashSale } from '@/types';
 
 interface ProductsPageProps {
   params: { locale: string };
@@ -30,12 +32,37 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
   const { locale } = params;
   setRequestLocale(locale);
 
-  const { products: initialProducts, hadError } = await getProductsWithFlashSalesStatus();
-  const recommendedProducts = await getRecommendedProducts(8);
+  let productsResult: { products: ProductWithFlashSale[]; hadError: boolean };
+  try {
+    productsResult = await getProductsWithFlashSalesStatus();
+  } catch (error) {
+    console.error('[ProductsPage] Falling back to static products:', error);
+    Sentry.captureException(error);
+    const fallback = getStaticFallbackProducts();
+    return (
+      <ProductListing
+        initialProducts={fallback}
+        hadError
+        recommendedProducts={fallback.slice(0, 8)}
+      />
+    );
+  }
+
+  let recommendedProducts: ProductWithFlashSale[] = [];
+  let hadError = productsResult.hadError;
+
+  try {
+    recommendedProducts = await getRecommendedProducts(8);
+  } catch (error) {
+    console.error('[ProductsPage] Failed to build recommendations, using fallback list:', error);
+    Sentry.captureException(error);
+    recommendedProducts = productsResult.products.slice(0, 8);
+    hadError = true;
+  }
 
   return (
     <ProductListing
-      initialProducts={initialProducts}
+      initialProducts={productsResult.products}
       hadError={hadError}
       recommendedProducts={recommendedProducts}
     />

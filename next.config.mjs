@@ -6,6 +6,8 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import withPWA from 'next-pwa';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { withSentryConfig } from '@sentry/nextjs';
+import withBundleAnalyzer from '@next/bundle-analyzer';
 
 import { IMAGE_DEVICE_SIZES, IMAGE_SIZES } from './src/lib/config/ui.js';
 
@@ -29,6 +31,18 @@ const securityHeaders = [
   {
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload',
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block',
+  },
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'off',
+  },
+  {
+    key: 'X-Permitted-Cross-Domain-Policies',
+    value: 'none',
   },
 ];
 
@@ -210,4 +224,28 @@ const nextConfig = {
   },
 };
 
-export default withPWA(pwaConfig)(withMDX(withNextIntl(nextConfig)));
+const withAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+const moduleExports = withAnalyzer(withPWA(pwaConfig)(withMDX(withNextIntl(nextConfig))));
+
+const enableSentryUploads =
+  Boolean(process.env.SENTRY_AUTH_TOKEN && process.env.SENTRY_ORG && process.env.SENTRY_PROJECT);
+
+const sentryWebpackPluginOptions = {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  silent: true,
+  dryRun: !enableSentryUploads,
+};
+
+const sentryOptions = {
+  widenClientFileUpload: true,
+  transpileClientSDK: true,
+  hideSourceMaps: false,
+  disableLogger: true,
+};
+
+export default withSentryConfig(moduleExports, sentryWebpackPluginOptions, sentryOptions);

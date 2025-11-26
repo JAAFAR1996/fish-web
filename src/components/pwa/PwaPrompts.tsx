@@ -18,10 +18,14 @@ const UpdatePrompt = dynamic(() =>
 );
 
 export function PwaPrompts() {
+  const showInstallPrompt =
+    process.env.NEXT_PUBLIC_PWA_AUTO_PROMPT === 'true' &&
+    process.env.NEXT_PUBLIC_SHOW_INSTALL_PROMPT !== 'false';
+
   return (
     <>
       <OfflineIndicator />
-      <InstallPrompt />
+      {showInstallPrompt && <InstallPrompt />}
       <UpdatePrompt />
     </>
   );

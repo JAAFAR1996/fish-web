@@ -1,15 +1,12 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 
 import { useRouter } from '@/i18n/navigation';
 import type { AutocompleteSuggestion } from '@/types';
 import { Button, Icon, Input } from '@/components/ui';
-import {
-  SearchAutocomplete,
-  VoiceSearchModal,
-} from '@/components/search';
 import { cn } from '@/lib/utils';
 import { getSuggestionHref } from '@/lib/search/autocomplete-utils';
 import { SEARCH_DEBOUNCE, MIN_SEARCH_LENGTH } from '@/lib/search/constants';
@@ -20,6 +17,22 @@ type SearchBarProps = {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
 };
+
+const SearchAutocomplete = dynamic(
+  () =>
+    import('@/components/search/search-autocomplete').then(
+      (mod) => mod.SearchAutocomplete
+    ),
+  { ssr: false }
+);
+
+const VoiceSearchModal = dynamic(
+  () =>
+    import('@/components/search/voice-search-modal').then(
+      (mod) => mod.VoiceSearchModal
+    ),
+  { ssr: false }
+);
 
 export function SearchBar({ className, size = 'md' }: SearchBarProps) {
   const t = useTranslations('nav');
@@ -32,6 +45,7 @@ export function SearchBar({ className, size = 'md' }: SearchBarProps) {
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [voiceSupported, setVoiceSupported] = useState(false);
+  const [isNavigating, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -131,12 +145,14 @@ export function SearchBar({ className, size = 'md' }: SearchBarProps) {
 
       saveRecentSearch(query);
       setIsAutocompleteOpen(false);
-      router.push({
-        pathname: '/search',
-        query: { q: query },
+      startTransition(() => {
+        router.push({
+          pathname: '/search',
+          query: { q: query },
+        });
       });
     },
-    [locale, router, value]
+    [router, startTransition, value]
   );
 
   const handleSuggestionSelect = useCallback(
@@ -149,9 +165,9 @@ export function SearchBar({ className, size = 'md' }: SearchBarProps) {
       }
 
       const href = getSuggestionHref(suggestion, locale);
-      router.push(href);
+      startTransition(() => router.push(href));
     },
-    [locale, router]
+    [locale, router, startTransition]
   );
 
   const handleVoiceResult = useCallback(
@@ -168,7 +184,7 @@ export function SearchBar({ className, size = 'md' }: SearchBarProps) {
   );
 
   const trailingContent = useMemo(() => {
-    if (isLoading) {
+    if (isLoading || isNavigating) {
       return <Icon name="loader" className="animate-spin" size="sm" aria-hidden="true" />;
     }
 
@@ -182,7 +198,7 @@ export function SearchBar({ className, size = 'md' }: SearchBarProps) {
         </kbd>
       </span>
     );
-  }, [isLoading]);
+  }, [isLoading, isNavigating]);
 
   return (
     <div className={cn('relative w-full', className)}>
@@ -194,6 +210,7 @@ export function SearchBar({ className, size = 'md' }: SearchBarProps) {
         placeholder={t('searchPlaceholder')}
         aria-label={t('search')}
         aria-keyshortcuts="Control+K Meta+K"
+        aria-busy={isLoading || isNavigating}
         size={size}
         leadingIcon={<Icon name="search" size="sm" aria-hidden="true" />}
         trailingIcon={trailingContent}

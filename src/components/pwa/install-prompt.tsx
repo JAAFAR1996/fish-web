@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 
@@ -13,17 +13,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@/components/ui';
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
-}
-
-const PROMPT_DISMISSED_KEY = 'fishweb-pwa-install-dismissed-at';
-const PROMPT_ACCEPTED_KEY = 'fishweb-pwa-install-accepted-at';
-const PROMPT_PAGE_VIEWS_KEY = 'fishweb-pwa-page-views';
-const DISMISS_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
-const INITIAL_DELAY_MS = 30 * 1000; // 30 seconds
+import { usePwaInstallPrompt } from '@/hooks/usePwaInstallPrompt';
 
 const isStandaloneDisplay = () => {
   if (typeof window === 'undefined') return false;
@@ -36,179 +26,33 @@ const isStandaloneDisplay = () => {
 
 export function InstallPrompt() {
   const isPwaEnabled = process.env.NEXT_PUBLIC_PWA_ENABLED !== 'false';
-  const showInstallPrompt =
-    process.env.NEXT_PUBLIC_SHOW_INSTALL_PROMPT !== 'false';
+  const showInstallPrompt = process.env.NEXT_PUBLIC_SHOW_INSTALL_PROMPT !== 'false';
+  const autoPrompt = process.env.NEXT_PUBLIC_PWA_AUTO_PROMPT === 'true';
 
   const t = useTranslations('pwa.install');
   const pathname = usePathname();
-  const [deferredPrompt, setDeferredPrompt] =
-    useState<BeforeInstallPromptEvent | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isInstalling, setIsInstalling] = useState(false);
-  const [isEligible, setIsEligible] = useState(false);
 
-  const hasDismissedRecently = useCallback(() => {
-    if (typeof window === 'undefined') return false;
-    try {
-      const dismissedAt = localStorage.getItem(PROMPT_DISMISSED_KEY);
-      if (!dismissedAt) return false;
-      const timestamp = Number(dismissedAt);
-      if (Number.isNaN(timestamp)) return false;
-      return Date.now() - timestamp < DISMISS_DURATION_MS;
-    } catch {
-      return false;
-    }
-  }, []);
-
-  const hasAccepted = useCallback(() => {
-    if (typeof window === 'undefined') return false;
-    try {
-      return Boolean(localStorage.getItem(PROMPT_ACCEPTED_KEY));
-    } catch {
-      return false;
-    }
-  }, []);
+  const {
+    ready,
+    isPrompting,
+    promptInstall,
+    snooze,
+    status,
+    canInstall,
+  } = usePwaInstallPrompt({
+    enabled: isPwaEnabled && showInstallPrompt && !isStandaloneDisplay(),
+    delayMs: 45_000,
+    minVisits: 3,
+  });
 
   useEffect(() => {
-    if (!isPwaEnabled || !showInstallPrompt) {
-      return;
+    if (!autoPrompt) return;
+    if (!pathname) return;
+    if (ready && status === 'idle') {
+      setIsModalOpen(true);
     }
-    if (typeof window === 'undefined') {
-      return;
-    }
-    if (!pathname) {
-      return;
-    }
-    if (hasAccepted()) {
-      return;
-    }
-    try {
-      const views =
-        Number(localStorage.getItem(PROMPT_PAGE_VIEWS_KEY) ?? '0') + 1;
-      localStorage.setItem(PROMPT_PAGE_VIEWS_KEY, String(views));
-      if (views >= 3) {
-        setIsEligible(true);
-      }
-    } catch {
-      /* noop */
-    }
-  }, [pathname, hasAccepted, isPwaEnabled, showInstallPrompt]);
-
-  useEffect(() => {
-    if (!isPwaEnabled || !showInstallPrompt) {
-      return;
-    }
-    if (typeof window === 'undefined') {
-      return;
-    }
-    const timer = window.setTimeout(() => {
-      setIsEligible(true);
-    }, INITIAL_DELAY_MS);
-    return () => window.clearTimeout(timer);
-  }, [isPwaEnabled, showInstallPrompt]);
-
-  useEffect(() => {
-    if (!isPwaEnabled || !showInstallPrompt) {
-      return;
-    }
-    if (typeof window === 'undefined') {
-      return;
-    }
-    if (isStandaloneDisplay() || hasAccepted()) {
-      return;
-    }
-
-    const handleBeforeInstallPrompt = (event: Event) => {
-      const promptEvent = event as BeforeInstallPromptEvent;
-      promptEvent.preventDefault();
-      setDeferredPrompt(promptEvent);
-    };
-
-    const handleAppInstalled = () => {
-      setIsModalOpen(false);
-      setDeferredPrompt(null);
-      try {
-        localStorage.setItem(PROMPT_ACCEPTED_KEY, Date.now().toString());
-      } catch {
-        /* noop */
-      }
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    window.addEventListener('appinstalled', handleAppInstalled);
-
-    return () => {
-      window.removeEventListener(
-        'beforeinstallprompt',
-        handleBeforeInstallPrompt,
-      );
-      window.removeEventListener('appinstalled', handleAppInstalled);
-    };
-  }, [hasAccepted, isPwaEnabled, showInstallPrompt]);
-
-  useEffect(() => {
-    if (
-      !isPwaEnabled ||
-      !showInstallPrompt ||
-      !deferredPrompt ||
-      !isEligible
-    ) {
-      return;
-    }
-    if (typeof window === 'undefined') return;
-    if (isStandaloneDisplay() || hasAccepted() || hasDismissedRecently()) {
-      return;
-    }
-    setIsModalOpen(true);
-  }, [
-    deferredPrompt,
-    hasAccepted,
-    hasDismissedRecently,
-    isEligible,
-    isPwaEnabled,
-    showInstallPrompt,
-  ]);
-
-  const handleInstall = useCallback(async () => {
-    if (!deferredPrompt) return;
-    setIsInstalling(true);
-    try {
-      await deferredPrompt.prompt();
-      const choiceResult = await deferredPrompt.userChoice;
-      if (choiceResult.outcome === 'accepted') {
-        try {
-          localStorage.setItem(PROMPT_ACCEPTED_KEY, Date.now().toString());
-        } catch {
-          /* noop */
-        }
-        setIsModalOpen(false);
-      } else {
-        try {
-          localStorage.setItem(
-            PROMPT_DISMISSED_KEY,
-            Date.now().toString(),
-          );
-        } catch {
-          /* noop */
-        }
-        setIsModalOpen(false);
-      }
-    } catch {
-      setIsModalOpen(false);
-    } finally {
-      setIsInstalling(false);
-      setDeferredPrompt(null);
-    }
-  }, [deferredPrompt]);
-
-  const handleNotNow = useCallback(() => {
-    setIsModalOpen(false);
-    try {
-      localStorage.setItem(PROMPT_DISMISSED_KEY, Date.now().toString());
-    } catch {
-      /* noop */
-    }
-  }, []);
+  }, [autoPrompt, pathname, ready, status]);
 
   const benefits = useMemo(
     () => [
@@ -220,13 +64,25 @@ export function InstallPrompt() {
     [t],
   );
 
-  if (!isPwaEnabled || !showInstallPrompt) {
+  const handleInstall = async () => {
+    const outcome = await promptInstall();
+    if (outcome === 'accepted' || outcome === 'dismissed') {
+      setIsModalOpen(false);
+    }
+  };
+
+  const handleNotNow = () => {
+    snooze();
+    setIsModalOpen(false);
+  };
+
+  if (!isPwaEnabled || !showInstallPrompt || !autoPrompt) {
     return null;
   }
 
   return (
     <Modal
-      open={isModalOpen}
+      open={isModalOpen && ready && canInstall}
       onOpenChange={setIsModalOpen}
       title={t('title')}
       description={t('description')}
@@ -270,8 +126,8 @@ export function InstallPrompt() {
           variant="primary"
           className="w-full sm:w-auto"
           onClick={handleInstall}
-          disabled={!deferredPrompt || isInstalling}
-          loading={isInstalling}
+          disabled={!ready || !canInstall || isPrompting}
+          loading={isPrompting}
         >
           <Icon name="download" className="h-4 w-4" aria-hidden />
           {t('install')}

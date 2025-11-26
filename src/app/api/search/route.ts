@@ -9,6 +9,7 @@ import {
   formatProductSuggestion,
   getAutocompleteSuggestions,
 } from '@/lib/search/autocomplete-utils';
+import { normalizeSearchText } from '@/lib/search/text-normalizer';
 import {
   MAX_BRAND_SUGGESTIONS,
   MAX_CATEGORY_SUGGESTIONS,
@@ -33,7 +34,7 @@ const ARABIC_SYNONYMS: Array<{ pattern: RegExp; append: string }> = [
   { pattern: /فلتر|فلترة/gi, append: 'filter' },
   { pattern: /ميزان حرارة|ترمومتر/gi, append: 'thermometer' },
   { pattern: /سخان/gi, append: 'heater' },
-  { pattern: /اضاءة|إضاءة/gi, append: 'lighting' },
+  { pattern: /اضاءة|إضاءة|إنارة/gi, append: 'lighting' },
 ];
 
 function applySynonyms(query: string): string {
@@ -147,8 +148,9 @@ export async function GET(request: Request) {
   const locale = (searchParams.get('locale') as Locale | null) ?? 'en';
 
   const sanitizedQuery = sanitizeQuery(rawQuery);
+  const normalizedQuery = normalizeSearchText(sanitizedQuery);
 
-  if (!sanitizedQuery) {
+  if (!normalizedQuery) {
     logWarn('Search query sanitized to empty string', { rawQuery, locale });
     return NextResponse.json(
       { suggestions: [], error: 'query_invalid' },
@@ -167,7 +169,7 @@ export async function GET(request: Request) {
     );
   }
 
-  if (sanitizedQuery.length < MIN_SEARCH_LENGTH) {
+  if (normalizedQuery.length < MIN_SEARCH_LENGTH) {
     return NextResponse.json({ suggestions: [] });
   }
 
@@ -177,8 +179,8 @@ export async function GET(request: Request) {
     });
     const articles = (await getAllBlogPosts()).filter(
       (post) =>
-        post.title.toLowerCase().includes(sanitizedQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(sanitizedQuery.toLowerCase())
+        normalizeSearchText(post.title).includes(normalizedQuery) ||
+        normalizeSearchText(post.excerpt).includes(normalizedQuery)
     );
     const suggestions = buildSuggestionsFromProducts(dbResults, articles);
 
@@ -193,7 +195,7 @@ export async function GET(request: Request) {
     });
   }
 
-  const cacheKey = `${locale}:${sanitizedQuery.toLowerCase()}`;
+  const cacheKey = `${locale}:${normalizedQuery}`;
   const cachedSuggestions = getCachedFallback(cacheKey);
 
   if (cachedSuggestions) {
@@ -206,10 +208,10 @@ export async function GET(request: Request) {
   const [products, articles] = await Promise.all([getProducts(), getAllBlogPosts()]);
   const filteredArticles = articles.filter(
     (post) =>
-      post.title.toLowerCase().includes(sanitizedQuery.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(sanitizedQuery.toLowerCase())
+      normalizeSearchText(post.title).includes(normalizedQuery) ||
+      normalizeSearchText(post.excerpt).includes(normalizedQuery)
   );
-  const fallback = getAutocompleteSuggestions(sanitizedQuery, products, filteredArticles);
+  const fallback = getAutocompleteSuggestions(normalizedQuery, products, filteredArticles);
   setCachedFallback(cacheKey, fallback);
 
   return NextResponse.json(

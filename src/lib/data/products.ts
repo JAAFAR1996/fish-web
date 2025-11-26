@@ -22,6 +22,16 @@ function logProductsFallback(error: unknown) {
   console.warn('Failed to fetch products from database, using static fallback data', error);
 }
 
+function cloneFallbackProducts(): Product[] {
+  return (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
+    Object.freeze({ ...product }),
+  );
+}
+
+export function getStaticFallbackProducts(): Product[] {
+  return cloneFallbackProducts();
+}
+
 // This module uses server-only dependencies (database access) and can only
 // be imported in Server Components, Server Actions, or API Routes.
 // For client-side product fetching, use @/lib/data/products-client instead.
@@ -38,9 +48,7 @@ const fetchProductsInternal = async (): Promise<{
 
     if (rows.length === 0) {
       console.warn('No products returned from database, falling back to static data');
-      const fallback = (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
-        Object.freeze({ ...product }),
-      );
+      const fallback = cloneFallbackProducts();
       return { products: fallback, hadError: true };
     }
 
@@ -56,9 +64,7 @@ const fetchProductsInternal = async (): Promise<{
     };
   } catch (error) {
     logProductsFallback(error);
-    const fallback = (JSON.parse(JSON.stringify(productsData)) as Product[]).map((product) =>
-      Object.freeze({ ...product }),
-    );
+    const fallback = cloneFallbackProducts();
     return { products: fallback, hadError: true };
   }
 };
@@ -210,14 +216,23 @@ export async function getProductsWithFlashSalesStatus(): Promise<{
   products: ProductWithFlashSale[];
   hadError: boolean;
 }> {
-  const [result, flashSales] = await Promise.all([
-    getProductsWithStatus(),
-    getActiveFlashSales(),
-  ]);
-  return {
-    products: attachFlashSalesToProducts(result.products, flashSales),
-    hadError: result.hadError,
-  };
+  try {
+    const [result, flashSales] = await Promise.all([
+      getProductsWithStatus(),
+      getActiveFlashSales(),
+    ]);
+    return {
+      products: attachFlashSalesToProducts(result.products, flashSales),
+      hadError: result.hadError,
+    };
+  } catch (error) {
+    logProductsFallback(error);
+    const fallback = cloneFallbackProducts();
+    return {
+      products: attachFlashSalesToProducts(fallback, []),
+      hadError: true,
+    };
+  }
 }
 
 export async function getFlashSaleProducts(): Promise<ProductWithFlashSale[]> {
