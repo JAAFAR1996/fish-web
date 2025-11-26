@@ -105,12 +105,12 @@ const config: Config = {
         'sunset-gradient-end': 'rgb(var(--sunset-gradient-end) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-cairo)', 'var(--font-inter)', 'system-ui', 'sans-serif'],
         arabic: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
         english: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         display: ['var(--font-playfair)', 'Georgia', 'serif'],
-        heading: ['var(--font-montserrat)', 'var(--font-inter)', 'sans-serif'],
-        body: ['var(--font-raleway)', 'var(--font-inter)', 'sans-serif'],
+        heading: ['var(--font-cairo)', 'var(--font-montserrat)', 'var(--font-inter)', 'sans-serif'],
+        body: ['var(--font-cairo)', 'var(--font-raleway)', 'var(--font-inter)', 'sans-serif'],
         'arabic-display': ['var(--font-noto-arabic)', 'var(--font-cairo)', 'sans-serif'],
       },
       spacing: {

@@ -304,6 +304,15 @@ export function getWhatsAppUrl(
   const message = formatWhatsAppMessage(product, locale);
   return `https://wa.me/${sanitizedNumber}?text=${message}`;
 }
+
+export function getSupportWhatsAppUrl(
+  phoneNumber?: string,
+  message?: string
+): string {
+  const sanitized = sanitizePhoneNumber(phoneNumber);
+  const text = message ? `?text=${encodeURIComponent(message)}` : '';
+  return `https://wa.me/${sanitized}${text}`;
+}
 export function getWhatsAppShareUrl(
   product: Pick<Product, 'name' | 'brand'> & { description?: string },
   locale: Locale,

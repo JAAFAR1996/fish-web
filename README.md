@@ -41,6 +41,11 @@ A modern, RTL-first e-commerce platform for aquarium equipment in Iraq, built wi
    ```
 7. Visit `http://localhost:3000` (all routes are locale prefixed, e.g. `/ar`, `/en`).
 
+## Ops Setup (CDN & Monitoring)
+- Cloudflare CDN (free plan): point DNS to Cloudflare, enable the orange-proxy for your root and `www` records, and create a `Cache Rules` entry to cache static assets (`/icons/*`, `/_next/static/*`, `/images/*`) with browser cache TTL ≥ 1 day. Set `Automatic Platform Optimization` off to let Next.js handle HTML.
+- UptimeRobot (1-minute): add an HTTPS monitor for your production hostname with the friendly name `Fish Web`, interval 1 minute, and alert via email/WhatsApp. Use the home page or a `/api/health` endpoint if available.
+- Images: Next.js is already configured to serve AVIF/WebP (`next.config.mjs`), so upload sources in the highest quality you have—runtime delivery will stay optimized.
+
 ## Available Scripts
 - `npm run dev` – Start the development server with Turbopack.
 - `npm run build` – Create an optimized production build.

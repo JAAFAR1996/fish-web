@@ -10,6 +10,10 @@ export const BLOG_CATEGORIES: Array<{
   { key: 'plant-care', icon: 'sparkles', color: 'green-500' },
   { key: 'fish-compatibility', icon: 'droplet', color: 'coral-500' },
   { key: 'setup-tips', icon: 'settings', color: 'sand-500' },
+  { key: 'freshwater', icon: 'droplet', color: 'blue-500' },
+  { key: 'troubleshooting', icon: 'alert-triangle', color: 'red-500' },
+  { key: 'lighting', icon: 'sun', color: 'amber-500' },
+  { key: 'maintenance', icon: 'gauge', color: 'aqua-700' },
 ];
 
 export const POSTS_PER_PAGE = 9;

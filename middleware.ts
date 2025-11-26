@@ -96,7 +96,18 @@ function applySecurityHeaders(
 }
 
 export default async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname, protocol } = request.nextUrl;
+
+  // Enforce HTTPS in production
+  const forwardedProto = request.headers.get('x-forwarded-proto');
+  if (
+    process.env.NODE_ENV === 'production' &&
+    (protocol === 'http:' || forwardedProto === 'http')
+  ) {
+    const httpsUrl = new URL(request.url);
+    httpsUrl.protocol = 'https:';
+    return NextResponse.redirect(httpsUrl, 308);
+  }
   if (
     pathname.startsWith('/api') ||
     pathname.startsWith('/_next/static') ||

@@ -2,12 +2,23 @@ import { useTranslations } from 'next-intl';
 
 import { Icon, type IconName } from '@/components/ui';
 import { Link } from '@/i18n/navigation';
+import { getSupportWhatsAppUrl } from '@/lib/utils';
+import {
+  SUPPORT_ADDRESS,
+  SUPPORT_EMAIL,
+  SUPPORT_PHONE_DISPLAY,
+  SUPPORT_PHONE_E164,
+  SUPPORT_WHATSAPP_NUMBER,
+} from '@/lib/config/contact';
 
 import { NewsletterForm } from './NewsletterForm';
 
 // Server Component
 export function Footer() {
   const t = useTranslations('footer');
+  const whatsappHref = getSupportWhatsAppUrl(SUPPORT_WHATSAPP_NUMBER);
+  const phoneHref = `tel:+${SUPPORT_PHONE_E164}`;
+  const emailHref = `mailto:${SUPPORT_EMAIL}`;
 
   const SHOP_LINKS: { key: string; href: string }[] = [
     { key: 'allProducts', href: '/products' },
@@ -19,21 +30,21 @@ export function Footer() {
   ];
 
   const SUPPORT_LINKS: { key: string; href: string }[] = [
-    { key: 'contact', href: '#' },
-    { key: 'shipping', href: '#' },
-    { key: 'returns', href: '#' },
-    { key: 'faq', href: '#' },
-    { key: 'trackOrder', href: '#' },
-    { key: 'sizeGuide', href: '#' },
+    { key: 'contact', href: '/contact' },
+    { key: 'shipping', href: '/shipping' },
+    { key: 'returns', href: '/return-policy' },
+    { key: 'faq', href: '/support' },
+    { key: 'trackOrder', href: '/account?tab=orders' },
+    { key: 'sizeGuide', href: '/learning' },
   ];
 
   const ABOUT_LINKS: { key: string; href: string }[] = [
-    { key: 'aboutUs', href: '#' },
+    { key: 'aboutUs', href: '/about' },
     { key: 'blog', href: '/blog' },
     { key: 'gallery', href: '/gallery' },
-    { key: 'careers', href: '#' },
-    { key: 'privacy', href: '#' },
-    { key: 'terms', href: '#' },
+    { key: 'careers', href: '/about' },
+    { key: 'privacy', href: '/privacy' },
+    { key: 'terms', href: '/support' },
   ];
 
   const SOCIAL_LINKS: { name: 'facebook' | 'instagram' | 'twitter' | 'youtube' | 'whatsapp'; href: string; icon: IconName }[] = [
@@ -146,6 +157,50 @@ export function Footer() {
                 ))}
               </div>
             </section>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-4 rounded-2xl border border-border/70 bg-background p-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="space-y-1 rounded-lg bg-muted/40 p-3">
+              <p className="text-xs text-muted-foreground">{t('contact.phone')}</p>
+              <a
+                href={phoneHref}
+                className="flex items-center gap-2 text-sm font-semibold text-foreground underline-offset-4 hover:underline"
+                dir="ltr"
+              >
+                <Icon name="phone" className="h-4 w-4 text-aqua-600" aria-hidden />
+                {SUPPORT_PHONE_DISPLAY}
+              </a>
+            </div>
+            <div className="space-y-1 rounded-lg bg-muted/40 p-3">
+              <p className="text-xs text-muted-foreground">WhatsApp</p>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-sm font-semibold text-foreground underline-offset-4 hover:underline"
+                dir="ltr"
+              >
+                <Icon name="whatsapp" className="h-4 w-4 text-emerald-600" aria-hidden />
+                {SUPPORT_PHONE_DISPLAY}
+              </a>
+            </div>
+            <div className="space-y-1 rounded-lg bg-muted/40 p-3">
+              <p className="text-xs text-muted-foreground">{t('contact.address')}</p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                <Icon name="home" className="h-4 w-4 text-aqua-600" aria-hidden />
+                <span>{SUPPORT_ADDRESS}</span>
+              </div>
+            </div>
+            <div className="space-y-1 rounded-lg bg-muted/40 p-3">
+              <p className="text-xs text-muted-foreground">{t('contact.email')}</p>
+              <a
+                href={emailHref}
+                className="flex items-center gap-2 text-sm font-semibold text-foreground underline-offset-4 hover:underline"
+              >
+                <Icon name="mail" className="h-4 w-4 text-aqua-600" aria-hidden />
+                {SUPPORT_EMAIL}
+              </a>
+            </div>
           </div>
 
           {/* Trust Badges */}

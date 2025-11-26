@@ -100,7 +100,7 @@ export function ReviewSummary({
                     height="sm"
                   />
                 </div>
-                <span className="w-16 shrink-0 text-right text-sm font-medium text-muted-foreground">
+                <span className="w-16 shrink-0 text-end text-sm font-medium text-muted-foreground">
                   {percentage}%
                 </span>
               </div>

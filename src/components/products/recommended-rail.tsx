@@ -43,8 +43,13 @@ export function RecommendedRail({
         </Button>
       </div>
       <Carousel itemsPerView={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={20} showDots={false}>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} onAddToCart={handleAdd} />
+        {products.map((product, index) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            onAddToCart={handleAdd}
+            priority={index === 0}
+          />
         ))}
       </Carousel>
     </section>

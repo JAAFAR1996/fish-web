@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import type { AutocompleteSuggestion, Locale, Product } from '@/types';
+import type { AutocompleteSuggestion, BlogPost, Locale, Product } from '@/types';
 import { MAX_SEARCH_QUERY_LENGTH, SEARCH_FALLBACK_CACHE_TTL_MS } from '@/lib/config/perf';
 import { logError, logWarn } from '@/lib/logger';
 import {
@@ -17,6 +17,7 @@ import {
 } from '@/lib/search/constants';
 import { searchProductsFTS } from '@/lib/search/postgres-search';
 import { getProducts } from '@/lib/data/products';
+import { getAllBlogPosts } from '@/lib/blog/mdx-utils';
 
 const FALLBACK_CACHE_MAX_ENTRIES = 100;
 
@@ -27,12 +28,31 @@ type FallbackCacheEntry = {
 
 const fallbackSuggestionCache = new Map<string, FallbackCacheEntry>();
 
+const ARABIC_SYNONYMS: Array<{ pattern: RegExp; append: string }> = [
+  { pattern: /حوض/gi, append: 'aquarium' },
+  { pattern: /فلتر|فلترة/gi, append: 'filter' },
+  { pattern: /ميزان حرارة|ترمومتر/gi, append: 'thermometer' },
+  { pattern: /سخان/gi, append: 'heater' },
+  { pattern: /اضاءة|إضاءة/gi, append: 'lighting' },
+];
+
+function applySynonyms(query: string): string {
+  let expanded = query;
+  ARABIC_SYNONYMS.forEach(({ pattern, append }) => {
+    if (pattern.test(query)) {
+      expanded += ` ${append}`;
+    }
+  });
+  return expanded;
+}
+
 function sanitizeQuery(rawQuery: string): string {
   const normalized = rawQuery.normalize('NFKC');
   const withoutControl = normalized.replace(/[\u0000-\u001F\u007F]/g, ' ');
   const withoutOperators = withoutControl.replace(/[&|!:"()*]/g, ' ');
   const allowList = /[^\p{L}\p{M}\p{N}\s\-'",.]/gu;
-  return withoutOperators.replace(allowList, ' ').replace(/\s+/g, ' ').trim();
+  const base = withoutOperators.replace(allowList, ' ').replace(/\s+/g, ' ').trim();
+  return applySynonyms(base);
 }
 
 function pruneExpiredFallbackEntries(now: number) {
@@ -75,7 +95,8 @@ function setCachedFallback(key: string, suggestions: AutocompleteSuggestion[]) {
 }
 
 function buildSuggestionsFromProducts(
-  products: Product[]
+  products: Product[],
+  articles: BlogPost[]
 ): AutocompleteSuggestion[] {
   const productSuggestions = products
     .slice(0, MAX_PRODUCT_SUGGESTIONS)
@@ -106,7 +127,18 @@ function buildSuggestionsFromProducts(
     .slice(0, MAX_CATEGORY_SUGGESTIONS)
     .map(([category, count]) => formatCategorySuggestion(category, count));
 
-  return [...productSuggestions, ...brandSuggestions, ...categorySuggestions];
+  const articleSuggestions = articles.slice(0, 4).map((post): AutocompleteSuggestion => ({
+    type: 'article',
+    value: post.slug,
+    label: post.title,
+    product: null,
+    count: post.readingTime ?? null,
+    thumbnail: post.coverImage ?? null,
+    slug: post.slug,
+    readingTime: post.readingTime ?? null,
+  }));
+
+  return [...productSuggestions, ...brandSuggestions, ...categorySuggestions, ...articleSuggestions];
 }
 
 export async function GET(request: Request) {
@@ -143,7 +175,12 @@ export async function GET(request: Request) {
     const dbResults = await searchProductsFTS(sanitizedQuery, locale, 20, {
       includeAltLocale: true,
     });
-    const suggestions = buildSuggestionsFromProducts(dbResults);
+    const articles = (await getAllBlogPosts()).filter(
+      (post) =>
+        post.title.toLowerCase().includes(sanitizedQuery.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(sanitizedQuery.toLowerCase())
+    );
+    const suggestions = buildSuggestionsFromProducts(dbResults, articles);
 
     if (suggestions.length > 0) {
       return NextResponse.json({ suggestions, source: 'postgres' });
@@ -166,8 +203,13 @@ export async function GET(request: Request) {
     );
   }
 
-  const products = await getProducts();
-  const fallback = getAutocompleteSuggestions(sanitizedQuery, products);
+  const [products, articles] = await Promise.all([getProducts(), getAllBlogPosts()]);
+  const filteredArticles = articles.filter(
+    (post) =>
+      post.title.toLowerCase().includes(sanitizedQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(sanitizedQuery.toLowerCase())
+  );
+  const fallback = getAutocompleteSuggestions(sanitizedQuery, products, filteredArticles);
   setCachedFallback(cacheKey, fallback);
 
   return NextResponse.json(

@@ -88,6 +88,7 @@ export function ImageGallery({
           sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 600px"
           priority={activeIndex === 0}
           loading={activeIndex === 0 ? 'eager' : 'lazy'}
+          fetchPriority={activeIndex === 0 ? 'high' : 'auto'}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
 

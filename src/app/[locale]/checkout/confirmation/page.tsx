@@ -9,11 +9,19 @@ import { formatCurrency } from '@/lib/utils';
 import { getEstimatedDeliveryDays } from '@/lib/checkout/shipping-rates';
 import { Button, Icon } from '@/components/ui';
 import { Link } from '@/i18n/navigation';
+import { getBestSellers } from '@/lib/data/products';
+import { RelatedProducts } from '@/components/pdp';
+import type { Product } from '@/types';
 
 type ConfirmationPageProps = {
   params: { locale: string };
   searchParams: { order?: string };
 };
+
+async function addRecommendedToCart(product: Product) {
+  'use server';
+  console.log('Add recommended product from confirmation:', product.id);
+}
 
 export async function generateMetadata({
   params,
@@ -59,6 +67,7 @@ export default async function CheckoutConfirmationPage({
   const tSummary = await getTranslations('checkout.summary');
   const tShippingCost = await getTranslations('checkout.shippingCost');
   const tPayment = await getTranslations('checkout.payment');
+  const recommended = await getBestSellers(4);
 
   const confirmationEmail = order.guest_email ?? null;
   const estimatedDays = getEstimatedDeliveryDays(order.shipping_address.governorate);
@@ -241,6 +250,21 @@ export default async function CheckoutConfirmationPage({
           </div>
         </div>
       </div>
+
+      {recommended.length > 0 && (
+        <div className="mt-10">
+          <RelatedProducts
+            products={recommended}
+            category={recommended[0]?.category ?? 'all'}
+            title={t('recommendations.title')}
+            onAddToCart={addRecommendedToCart}
+            maxProducts={4}
+          />
+          <p className="mt-2 text-sm text-muted-foreground">
+            {t('recommendations.subtitle')}
+          </p>
+        </div>
+      )}
 
       <div className="mt-8 rounded-2xl border border-border bg-gradient-to-br from-aqua-600/10 via-aqua-500/5 to-background p-6 shadow-sm">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

@@ -222,7 +222,7 @@ export function ImageUploadInput({
 
                 <button
                   type="button"
-                  className="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/80 text-muted-foreground shadow-sm transition hover:bg-background hover:text-foreground"
+                  className="absolute end-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/80 text-muted-foreground shadow-sm transition hover:bg-background hover:text-foreground"
                   onClick={() => handleRemoveImage(index)}
                   aria-label={t('form.cancel')}
                 >

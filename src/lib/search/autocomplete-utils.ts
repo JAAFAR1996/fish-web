@@ -1,4 +1,4 @@
-import type { AutocompleteSuggestion, Product } from '@/types';
+import type { AutocompleteSuggestion, BlogPost, Product } from '@/types';
 
 import {
   MAX_AUTOCOMPLETE_RESULTS,
@@ -14,7 +14,8 @@ import {
 
 export function getAutocompleteSuggestions(
   query: string,
-  products: Product[]
+  products: Product[],
+  articles: BlogPost[] = []
 ): AutocompleteSuggestion[] {
   const trimmed = query.trim();
   if (!trimmed) {
@@ -35,10 +36,19 @@ export function getAutocompleteSuggestions(
     .slice(0, MAX_CATEGORY_SUGGESTIONS)
     .map((category) => formatCategorySuggestion(category, products));
 
+  const articleSuggestions = articles
+    .filter((post) =>
+      post.title.toLowerCase().includes(trimmed.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(trimmed.toLowerCase())
+    )
+    .slice(0, 4)
+    .map((post) => formatArticleSuggestion(post));
+
   const suggestions = [
     ...productSuggestions,
     ...brandSuggestions,
     ...categorySuggestions,
+    ...articleSuggestions,
   ];
 
   return suggestions.slice(0, MAX_AUTOCOMPLETE_RESULTS);
@@ -124,5 +134,22 @@ export function getSuggestionHref(
     return `/${locale}/products?category=${encodeURIComponent(suggestion.value)}`;
   }
 
+  if (suggestion.type === 'article' && suggestion.slug) {
+    return `/${locale}/blog/${suggestion.slug}`;
+  }
+
   return `/${locale}/search?q=${encodeURIComponent(suggestion.label)}`;
+}
+
+export function formatArticleSuggestion(post: BlogPost): AutocompleteSuggestion {
+  return {
+    type: 'article',
+    value: post.slug,
+    slug: post.slug,
+    label: post.title,
+    product: null,
+    count: post.readingTime ?? null,
+    thumbnail: post.coverImage ?? null,
+    readingTime: post.readingTime ?? null,
+  };
 }

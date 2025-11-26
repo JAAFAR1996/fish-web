@@ -28,6 +28,7 @@ import { getUser } from '@/lib/auth/utils';
 import { formatCurrency, isOutOfStock } from '@/lib/utils';
 import type { Locale, Product } from '@/types';
 import { generateProductSchema, generateBreadcrumbSchema, generateReviewListSchema } from '@/lib/seo/product-schema';
+import { RETURN_POLICY_WINDOW_DAYS } from '@/lib/config/contact';
 
 export const dynamic = 'force-dynamic';
 
@@ -182,6 +183,10 @@ export default async function ProductPage({
 
   const price = formatCurrency(product.price, locale);
   const outOfStock = isOutOfStock(product);
+  const codTrustLabel =
+    locale === 'ar'
+      ? `الدفع عند الاستلام • إرجاع خلال ${RETURN_POLICY_WINDOW_DAYS} أيام`
+      : `Cash on delivery • Returns within ${RETURN_POLICY_WINDOW_DAYS} days`;
 
   const defaultTab = searchParams?.tab;
   const complementaryCategory =
@@ -218,6 +223,7 @@ export default async function ProductPage({
           <ProductMedia
             images={product.images}
             productName={product.name}
+            dimensions={product.specifications.dimensions}
             className="lg:sticky lg:top-24 lg:self-start"
           />
 
@@ -268,6 +274,9 @@ export default async function ProductPage({
             </span>
             <span className="text-xl font-semibold text-foreground">
               {price}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {codTrustLabel}
             </span>
           </div>
           <Button

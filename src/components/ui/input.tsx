@@ -61,7 +61,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         <label
           htmlFor={inputId}
           className={cn(
-            'text-sm font-medium text-foreground rtl:text-right',
+            'text-sm font-medium text-foreground text-start',
             inlineLabel && 'hidden sm:block'
           )}
         >
@@ -81,7 +81,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           id={inputId}
           ref={ref}
           className={cn(
-            'flex w-full min-h-[48px] rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 transition-colors motion-safe:transition-colors text-left rtl:text-right',
+            'flex w-full min-h-[48px] rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 transition-colors motion-safe:transition-colors text-start',
             sizeStyles.input,
             leadingIcon ? sizeStyles.iconPaddingStart : sizeStyles.paddingStart,
             trailingIcon ? sizeStyles.iconPaddingEnd : sizeStyles.paddingEnd,

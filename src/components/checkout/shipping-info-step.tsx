@@ -2,7 +2,7 @@
 
 import { useCallback, useId, useMemo, useState } from 'react';
 import type { AuthUser } from '@server/auth';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { Badge, Button, Icon, Input } from '@/components/ui';
 import type { SavedAddress, ShippingAddressSnapshot } from '@/types';
@@ -83,6 +83,7 @@ export function ShippingInfoStep({
   const t = useTranslations('checkout.shipping');
   const tAccount = useTranslations('account.addresses');
   const translate = useTranslations();
+  const locale = useLocale();
   const cityListId = useId();
 
   const defaultAddress = useMemo(() => {
@@ -109,10 +110,16 @@ export function ShippingInfoStep({
   const [newAddress, setNewAddress] = useState<ShippingAddressSnapshot>(
     initialData ?? EMPTY_ADDRESS
   );
+  const [guestEmail, setGuestEmail] = useState<string>('');
   const [saveAddress, setSaveAddress] = useState(initialSaveAddress);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const isGuest = !user;
+  const guestEmailLabel = isGuest
+    ? locale === 'ar'
+      ? 'البريد الإلكتروني (اختياري)'
+      : 'Email (optional)'
+    : '';
   const citySuggestions = useMemo(
     () => getCitySuggestions(newAddress.governorate).slice(0, 6),
     [newAddress.governorate]
@@ -226,14 +233,14 @@ export function ShippingInfoStep({
 
       onContinue({
         shippingAddress: savedAddressToSnapshot(address),
-        guestEmail: isGuest ? null : null,
+        guestEmail: isGuest ? guestEmail || null : null,
         shippingAddressId: address.id,
         saveAddress: false,
       });
       return;
     }
 
-    const validation = validateShippingInfo(newAddress, null, isGuest);
+    const validation = validateShippingInfo(newAddress, guestEmail, isGuest);
     if (!validation.valid) {
       setErrors(validation.errors);
       return;
@@ -241,7 +248,7 @@ export function ShippingInfoStep({
 
     onContinue({
       shippingAddress: newAddress,
-      guestEmail: isGuest ? null : null,
+      guestEmail: isGuest ? guestEmail || null : null,
       saveAddress: user ? saveAddress : undefined,
     });
   }, [
@@ -250,6 +257,7 @@ export function ShippingInfoStep({
     selectedAddressId,
     isGuest,
     newAddress,
+    guestEmail,
     onContinue,
     saveAddress,
     user,
@@ -393,6 +401,30 @@ export function ShippingInfoStep({
                   inputMode="tel"
                   type="tel"
                   autoComplete="tel-national"
+                />
+                <Input
+                  label={guestEmailLabel}
+                  mobileLabelInside
+                  value={guestEmail}
+                  onChange={(event) => {
+                    setGuestEmail(event.target.value);
+                    setErrors((prev) => {
+                      if (!prev.email) return prev;
+                      const next = { ...prev };
+                      delete next.email;
+                      return next;
+                    });
+                  }}
+                  onBlur={() => {
+                    const validation = validateShippingInfo(newAddress, guestEmail, isGuest);
+                    if (!validation.valid && validation.errors.email) {
+                      setErrors((prev) => ({ ...prev, email: validation.errors.email }));
+                    }
+                  }}
+                  error={errors.email}
+                  placeholder="name@example.com"
+                  type="email"
+                  autoComplete="email"
                 />
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm font-medium text-foreground">

@@ -51,7 +51,7 @@ export function ShopThisSetupButton({ setup, variant = 'button', size = 'md', cl
         type="button"
         onClick={handleAdd}
         disabled={isAdding}
-        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-aqua-500 text-white shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="fixed bottom-6 end-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-aqua-500 text-white shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         aria-label={label}
         title={label}
       >
@@ -62,7 +62,7 @@ export function ShopThisSetupButton({ setup, variant = 'button', size = 'md', cl
 
   return (
     <Button type="button" variant="primary" size={size} className={className} onClick={handleAdd} disabled={isAdding}>
-      <Icon name="shopping-cart" className="mr-2 h-4 w-4" /> {label}
+      <Icon name="shopping-cart" className="me-2 h-4 w-4" /> {label}
     </Button>
   );
 }

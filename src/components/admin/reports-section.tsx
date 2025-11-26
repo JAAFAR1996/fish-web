@@ -162,7 +162,7 @@ export function ReportsSection({ admin, className }: ReportsSectionProps) {
             onClick={() => startTransition(async () => loadReports())}
             disabled={pending}
           >
-            <Icon name="refresh-cw" className="mr-2 h-4 w-4" />
+            <Icon name="refresh-cw" className="me-2 h-4 w-4" />
             {t('common.refresh')}
           </Button>
         </div>

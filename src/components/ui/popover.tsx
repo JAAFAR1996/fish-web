@@ -198,7 +198,7 @@ export function PopoverContent({
     <div
       ref={contentRef}
       className={cn(
-        'fixed left-0 top-0 z-50 w-72 rounded-md border bg-background p-4 shadow-md animate-fade-in',
+        'fixed start-0 top-0 z-50 w-72 rounded-md border bg-background p-4 shadow-md animate-fade-in',
         className
       )}
       {...props}

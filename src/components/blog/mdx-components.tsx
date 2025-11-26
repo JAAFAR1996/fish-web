@@ -129,7 +129,7 @@ export const mdxComponents: MDXComponents = {
   ),
   blockquote: ({ children, ...props }) => (
     <blockquote
-      className="border-l-4 border-aqua-500 bg-aqua-50 dark:bg-aqua-950/20 pl-4 py-2 my-6 italic text-base text-muted-foreground"
+      className="border-s-4 border-aqua-500 bg-aqua-50 dark:bg-aqua-950/20 ps-4 py-2 my-6 italic text-base text-muted-foreground"
       {...props}
     >
       {children}

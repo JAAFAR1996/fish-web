@@ -654,7 +654,7 @@ export function ProductForm({
         </Button>
         <Button type="submit" disabled={isPending || isUploadingImages}>
           {(isPending || isUploadingImages) && (
-            <Icon name="loader-2" className="mr-2 h-4 w-4 animate-spin" />
+            <Icon name="loader-2" className="me-2 h-4 w-4 animate-spin" />
           )}
           {existingProduct ? t('products.productUpdated') : t('products.productCreated')}
         </Button>

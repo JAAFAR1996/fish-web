@@ -29,8 +29,9 @@ export interface SearchAutocompleteProps {
 
 const SECTION_ORDER: Array<AutocompleteSuggestion['type']> = [
   'product',
-  'brand',
   'category',
+  'brand',
+  'article',
 ];
 
 export function SearchAutocomplete({
@@ -181,8 +182,9 @@ export function SearchAutocomplete({
       <div key={group.type} role="group" aria-label={group.type}>
         <div className="bg-muted px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           {group.type === 'product' && t('products')}
-          {group.type === 'brand' && t('brands')}
           {group.type === 'category' && t('categories')}
+          {group.type === 'brand' && t('brands')}
+          {group.type === 'article' && t('articles')}
         </div>
         <ul role="listbox" className="divide-y divide-border/50">
           {group.items.map((suggestion) => {
@@ -291,6 +293,39 @@ function renderSuggestionContent(
           )}
         </div>
         <Icon name="search" className="text-muted-foreground" size="sm" />
+      </>
+    );
+  }
+
+  if (suggestion.type === 'article') {
+    return (
+      <>
+        <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-md border border-border/60 bg-muted">
+          {suggestion.thumbnail ? (
+            <Image
+              src={suggestion.thumbnail}
+              alt={suggestion.label}
+              fill
+              sizes="40px"
+              className="object-cover"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+              <Icon name="book" size="sm" aria-hidden />
+            </div>
+          )}
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold text-foreground line-clamp-2">{suggestion.label}</p>
+          {suggestion.readingTime ? (
+            <p className="text-xs text-muted-foreground">
+              {suggestion.readingTime}
+              {' '}
+              {t('minutes')}
+            </p>
+          ) : null}
+        </div>
+        <Icon name="arrow-right" className="text-muted-foreground" size="sm" flipRtl />
       </>
     );
   }

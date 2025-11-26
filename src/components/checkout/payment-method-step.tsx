@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Button, Icon } from '@/components/ui';
 import type { PaymentMethod } from '@/types';
 import { cn } from '@/lib/utils';
+import { RETURN_POLICY_WINDOW_DAYS } from '@/lib/config/contact';
 
 export interface PaymentMethodStepProps {
   initialData?: PaymentMethod | null;
@@ -99,6 +100,9 @@ export function PaymentMethodStep({
           <Icon name="arrow-right" className="ms-2 h-4 w-4" flipRtl />
         </Button>
       </div>
+      <p className="text-sm text-muted-foreground">
+        {tPayment('codNote', { days: RETURN_POLICY_WINDOW_DAYS })}
+      </p>
     </section>
   );
 }

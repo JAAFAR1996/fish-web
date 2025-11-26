@@ -81,11 +81,11 @@ export function GalleryCard({ setup, locale, priority, className }: GalleryCardP
               <Icon name={isVideoCover ? 'play' : 'image'} className="h-10 w-10 text-muted-foreground" />
             </div>
           )}
-          <div className="absolute left-3 top-3">
+          <div className="absolute start-3 top-3">
             <Badge className={styleColor}>{styleLabel}</Badge>
           </div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="pointer-events-none absolute bottom-3 start-3 end-3 flex items-center justify-between text-xs text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <span>{formattedViews}</span>
             <span>{formattedMedia}</span>
           </div>

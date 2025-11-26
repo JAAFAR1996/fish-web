@@ -115,7 +115,7 @@ export function CartItem({
                 </Badge>
               )}
             </div>
-            <div className="text-right text-sm font-semibold text-foreground">
+            <div className="text-end text-sm font-semibold text-foreground">
               {formattedLineTotal}
             </div>
           </div>

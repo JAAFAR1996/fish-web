@@ -309,7 +309,7 @@ export function ProductsSection({ admin, className }: ProductsSectionProps) {
             onClick={handleDelete}
             disabled={deletePending}
           >
-            {deletePending && <Icon name="loader-2" className="mr-2 h-4 w-4 animate-spin" />}
+            {deletePending && <Icon name="loader-2" className="me-2 h-4 w-4 animate-spin" />}
             {t('common.delete')}
           </Button>
         </ModalFooter>

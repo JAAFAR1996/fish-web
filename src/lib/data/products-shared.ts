@@ -115,6 +115,9 @@ export function sortProducts(products: Product[], sortBy: SortOption): Product[]
     case 'lowestPrice':
       return sorted.sort((a, b) => a.price - b.price);
 
+    case 'highestPrice':
+      return sorted.sort((a, b) => b.price - a.price);
+
     case 'newest':
       return sorted.sort((a, b) => {
         // New products first, then by ID (assuming higher ID = newer)

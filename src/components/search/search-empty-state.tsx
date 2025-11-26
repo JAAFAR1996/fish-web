@@ -59,7 +59,13 @@ export function SearchEmptyState({
           <Link href="/products">{tActions('search')}</Link>
         </Button>
         <Button asChild variant="outline">
-          <Link href="/">{t('browseCategories')}</Link>
+          <Link href="/products">{t('browseCategories')}</Link>
+        </Button>
+        <Button asChild variant="ghost">
+          <Link href="/contact">
+            <Icon name="help" className="me-2 h-4 w-4" aria-hidden />
+            {tActions('contactSupport') ?? t('tryDifferent')}
+          </Link>
         </Button>
       </div>
     </section>

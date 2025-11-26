@@ -210,7 +210,7 @@ export function OrdersSection({ admin, className }: OrdersSectionProps) {
             })}
             disabled={refreshPending}
           >
-            <Icon name="refresh-cw" className="mr-2 h-4 w-4" />
+            <Icon name="refresh-cw" className="me-2 h-4 w-4" />
             {t('common.refresh')}
           </Button>
         </div>

@@ -80,7 +80,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <p className="text-sm text-red-600 dark:text-red-400 mr-3">{error}</p>
+            <p className="text-sm text-red-600 dark:text-red-400 me-3">{error}</p>
           </div>
         </div>
       )}
@@ -135,7 +135,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         {isLoading ? (
           <>
             <svg
-              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              className="animate-spin -ms-1 me-3 h-5 w-5 text-white"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

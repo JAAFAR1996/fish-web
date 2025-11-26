@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
+import { useLocale } from 'next-intl';
 
-import type { ProductMedia as ProductMediaItem } from '@/types';
+import type { ProductDimensions, ProductMedia as ProductMediaItem } from '@/types';
 import { Icon } from '@/components/ui';
 import { ImageGallery } from './image-gallery';
 import { ImageLightbox } from './image-lightbox';
@@ -13,6 +14,7 @@ export interface ProductMediaProps {
   productName: string;
   className?: string;
   media?: ProductMediaItem[];
+  dimensions?: ProductDimensions | null;
 }
 
 const MAX_MEDIA_ITEMS = 8;
@@ -62,6 +64,7 @@ export function ProductMedia({
   productName,
   media,
   className,
+  dimensions,
 }: ProductMediaProps) {
   const resolvedMedia = useMemo<ProductMediaItem[]>(() => {
     const base = media && media.length > 0
@@ -128,6 +131,11 @@ export function ProductMedia({
           open={lightboxOpen}
           onOpenChange={setLightboxOpen}
         />
+        <ScalePreview
+          image={imageUrls[0]}
+          productName={productName}
+          dimensions={dimensions}
+        />
       </div>
     );
   }
@@ -150,6 +158,7 @@ export function ProductMedia({
               fill
               sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 600px"
               priority={activeIndex === 0}
+              fetchPriority={activeIndex === 0 ? 'high' : 'auto'}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </button>
@@ -235,14 +244,82 @@ export function ProductMedia({
       </div>
 
       {imageUrls.length > 0 && (
-        <ImageLightbox
-          images={imageUrls}
-          productName={productName}
-          initialIndex={lightboxIndex}
-          open={lightboxOpen}
-          onOpenChange={setLightboxOpen}
-        />
+        <>
+          <ImageLightbox
+            images={imageUrls}
+            productName={productName}
+            initialIndex={lightboxIndex}
+            open={lightboxOpen}
+            onOpenChange={setLightboxOpen}
+          />
+          <ScalePreview
+            image={imageUrls[0]}
+            productName={productName}
+            dimensions={dimensions}
+          />
+        </>
       )}
     </div>
+  );
+}
+
+function ScalePreview({
+  image,
+  productName,
+  dimensions,
+}: {
+  image?: string;
+  productName: string;
+  dimensions?: ProductDimensions | null;
+}) {
+  const locale = useLocale();
+  const isAr = locale === 'ar';
+  const label = isAr ? 'عرض الحجم الواقعي' : 'In-scale view';
+  const hasDimensions = Boolean(dimensions && dimensions.length && dimensions.width && dimensions.height);
+  const dimensionText = hasDimensions
+    ? `${dimensions!.length} × ${dimensions!.width} × ${dimensions!.height} ${isAr ? 'سم' : 'cm'}`
+    : null;
+
+  if (!image) return null;
+
+  return (
+    <div className="mt-4 rounded-xl border border-border/70 bg-gradient-to-br from-muted/80 via-background to-muted/50 p-3 shadow-sm">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+          <Icon name="maximize" className="h-4 w-4 text-aqua-600" aria-hidden />
+          <span>{productName}</span>
+        </div>
+        {dimensionText && (
+          <BadgePill text={dimensionText} />
+        )}
+      </div>
+      <div className="mt-3 overflow-hidden rounded-lg border border-border/60 bg-background">
+        <div className="relative mx-auto aspect-[4/3] w-full max-w-[560px]">
+          <Image
+            src={image}
+            alt={`${productName} scale preview`}
+            fill
+            sizes="(max-width: 768px) 90vw, 560px"
+            className="object-contain"
+            loading="lazy"
+          />
+          <div className="pointer-events-none absolute inset-x-3 bottom-3 flex items-center justify-between rounded-md bg-black/60 px-3 py-2 text-[11px] font-medium text-white shadow-sm">
+            <span className="inline-flex items-center gap-1">
+              <Icon name="maximize" size="sm" className="text-white/80" aria-hidden />
+              {label}
+            </span>
+            {dimensionText && <span>{dimensionText}</span>}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BadgePill({ text }: { text: string }) {
+  return (
+    <span className="inline-flex items-center rounded-full bg-aqua-500/10 px-3 py-1 text-xs font-semibold text-aqua-700 dark:text-aqua-200">
+      {text}
+    </span>
   );
 }

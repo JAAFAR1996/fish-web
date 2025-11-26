@@ -86,7 +86,7 @@ export function OfflineIndicator() {
       role="status"
       aria-live="polite"
       aria-atomic="true"
-      className="fixed left-0 right-0 top-16 z-40 px-4 sm:px-6"
+      className="fixed start-0 end-0 top-16 z-40 px-4 sm:px-6"
     >
       <div
         className={cn(

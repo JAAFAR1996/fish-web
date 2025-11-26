@@ -82,7 +82,7 @@ export function UpdatePrompt() {
   }
 
   return (
-    <div className="fixed bottom-4 left-0 right-0 z-40 flex justify-center px-4 sm:px-6">
+    <div className="fixed bottom-4 start-0 end-0 z-40 flex justify-center px-4 sm:px-6">
       <div className="flex w-full max-w-lg items-center justify-between gap-4 rounded-md border border-border bg-background/95 p-4 shadow-lg backdrop-blur">
         <div className="flex items-center gap-3">
           <Icon name="download" className="h-5 w-5 text-aqua-600" />

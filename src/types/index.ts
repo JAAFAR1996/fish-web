@@ -115,7 +115,12 @@ export type GetDiscountPercentage = (
 ) => number;
 export type IsLowStock = (product: Product) => boolean;
 
-export type SortOption = 'bestSelling' | 'highestRated' | 'lowestPrice' | 'newest';
+export type SortOption =
+  | 'bestSelling'
+  | 'highestRated'
+  | 'lowestPrice'
+  | 'highestPrice'
+  | 'newest';
 
 export type FilterType = 'hob' | 'canister' | 'sponge' | 'internal';
 
@@ -316,12 +321,14 @@ export interface SearchResult {
 }
 
 export interface AutocompleteSuggestion {
-  type: 'product' | 'brand' | 'category';
+  type: 'product' | 'brand' | 'category' | 'article';
   value: string;
   label: string;
   product: Product | null;
   count: number | null;
   thumbnail: string | null;
+  slug?: string;
+  readingTime?: number | null;
 }
 
 export type VoiceSearchState = 'idle' | 'listening' | 'processing' | 'error' | 'not-supported';
@@ -700,7 +707,15 @@ export interface ValidationResult {
   errors: Record<string, string>;
 }
 
-export type BlogCategory = 'filter-guide' | 'plant-care' | 'fish-compatibility' | 'setup-tips';
+export type BlogCategory =
+  | 'filter-guide'
+  | 'plant-care'
+  | 'fish-compatibility'
+  | 'setup-tips'
+  | 'freshwater'
+  | 'troubleshooting'
+  | 'lighting'
+  | 'maintenance';
 
 export interface BlogAuthor {
   name: string;

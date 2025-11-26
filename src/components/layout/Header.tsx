@@ -21,6 +21,12 @@ import { useCart } from '@/components/providers/CartProvider';
 import { NotificationCenter } from '@/components/notifications';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+import {
+  RETURN_POLICY_WINDOW_DAYS,
+  SUPPORT_ADDRESS,
+  SUPPORT_PHONE_DISPLAY,
+  SUPPORT_PHONE_E164,
+} from '@/lib/config/contact';
 
 import { MegaMenu } from './MegaMenu';
 import { MobileMenu } from './MobileMenu';
@@ -56,9 +62,43 @@ export const Header = () => {
     .slice(0, 2)
     .join('');
   const loyaltyBalance = user?.loyaltyPointsBalance ?? 0;
+  const cashOnDelivery = locale === 'ar' ? 'الدفع عند الاستلام' : 'Cash on delivery';
+  const returnPolicy = locale === 'ar'
+    ? `إرجاع أو استبدال خلال ${RETURN_POLICY_WINDOW_DAYS} أيام`
+    : `Easy returns within ${RETURN_POLICY_WINDOW_DAYS} days`;
+  const addressLabel = locale === 'ar' ? SUPPORT_ADDRESS : 'Baghdad – Iraq';
 
   return (
     <>
+      <div className="flex flex-col gap-2 bg-aqua-600 px-4 py-2 text-xs font-medium text-white sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:text-sm lg:px-8">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-2">
+            <Icon name="credit-card" className="h-4 w-4" aria-hidden />
+            <span>{cashOnDelivery}</span>
+          </span>
+          <Link
+            href="/return-policy"
+            className="inline-flex items-center gap-2 underline-offset-4 hover:underline"
+          >
+            <Icon name="package" className="h-4 w-4" aria-hidden />
+            <span>{returnPolicy}</span>
+          </Link>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <a
+            href={`tel:+${SUPPORT_PHONE_E164}`}
+            className="inline-flex items-center gap-2 font-semibold underline-offset-4 hover:underline"
+            dir="ltr"
+          >
+            <Icon name="phone" className="h-4 w-4" aria-hidden />
+            {SUPPORT_PHONE_DISPLAY}
+          </a>
+          <span className="inline-flex items-center gap-2">
+            <Icon name="home" className="h-4 w-4" aria-hidden />
+            <span>{addressLabel}</span>
+          </span>
+        </div>
+      </div>
       <header
         className={cn(
           'sticky top-0 z-50 border-b border-transparent transition-all duration-200',
@@ -90,7 +130,7 @@ export const Header = () => {
           </div>
 
           <div className="flex flex-1 items-center gap-6">
-            <SearchBar className="hidden sm:block max-w-xl flex-1" />
+            <SearchBar className="hidden sm:flex max-w-2xl flex-1 rounded-full border border-aqua-100 bg-white/60 shadow-sm backdrop-blur sm:px-2" />
           </div>
 
           <div className="flex items-center gap-2">

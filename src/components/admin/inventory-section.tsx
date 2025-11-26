@@ -126,16 +126,16 @@ export function InventorySection({ admin, className }: InventorySectionProps) {
             type="button"
             size="sm"
             variant="outline"
-            onClick={(event) => {
-              event.stopPropagation();
-              handleRestock(product);
-            }}
-          >
-            <Icon name="package-plus" className="mr-2 h-4 w-4" />
-            {t('inventory.restockProduct')}
-          </Button>
-        ),
-      },
+          onClick={(event) => {
+            event.stopPropagation();
+            handleRestock(product);
+          }}
+        >
+          <Icon name="package-plus" className="me-2 h-4 w-4" />
+          {t('inventory.restockProduct')}
+        </Button>
+      ),
+    },
     ],
     [handleRestock, locale, t],
   );
@@ -152,15 +152,15 @@ export function InventorySection({ admin, className }: InventorySectionProps) {
         <Button
           type="button"
           variant="outline"
-          onClick={() => startTransition(async () => {
-            await loadProducts();
-          })}
-          disabled={pending}
-        >
-          <Icon name="refresh-cw" className="mr-2 h-4 w-4" />
-          {t('common.refresh')}
-        </Button>
-      </div>
+        onClick={() => startTransition(async () => {
+          await loadProducts();
+        })}
+        disabled={pending}
+      >
+        <Icon name="refresh-cw" className="me-2 h-4 w-4" />
+        {t('common.refresh')}
+      </Button>
+    </div>
 
       {error && (
         <div className="mt-4 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-2 text-sm text-destructive">

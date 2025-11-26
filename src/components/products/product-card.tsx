@@ -438,6 +438,7 @@ export function ProductCard({
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 loading={priority ? 'eager' : 'lazy'}
+                fetchPriority={priority ? 'high' : 'auto'}
                 className={cn(
                   'object-cover transition-transform duration-300',
                   !FEATURES.gsap && 'group-hover:scale-105',

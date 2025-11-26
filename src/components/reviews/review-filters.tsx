@@ -116,7 +116,7 @@ export function ReviewFilters({
           onClick={handleToggleWithImages}
           aria-pressed={Boolean(filters.withImages)}
         >
-          <Icon name="image" className="mr-1 h-4 w-4" />
+          <Icon name="image" className="me-1 h-4 w-4" />
           {t('filters.withImages')}
         </Button>
         <Button
@@ -125,7 +125,7 @@ export function ReviewFilters({
           onClick={handleToggleVerified}
           aria-pressed={Boolean(filters.verified)}
         >
-          <Icon name="shield-check" className="mr-1 h-4 w-4" />
+          <Icon name="shield-check" className="me-1 h-4 w-4" />
           {t('filters.verified')}
         </Button>
       </div>
@@ -137,7 +137,7 @@ export function ReviewFilters({
             <span>{activeRatingLabel}</span>
             <button
               type="button"
-              className="ml-1 text-xs text-muted-foreground transition hover:text-foreground"
+              className="ms-1 text-xs text-muted-foreground transition hover:text-foreground"
               onClick={() => handleRatingChange(null)}
               aria-label={t('filters.clear')}
             >
@@ -148,7 +148,7 @@ export function ReviewFilters({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm">
-              <span className="mr-2">{t('sort.' + filters.sortBy)}</span>
+              <span className="me-2">{t('sort.' + filters.sortBy)}</span>
               <Icon name="chevron-down" className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -173,7 +173,7 @@ export function ReviewFilters({
                 />
                 <span>{t(`sort.${option}`)}</span>
                 {filters.sortBy === option && (
-                  <Icon name='check' className="ml-auto h-4 w-4 text-aqua-500" />
+                  <Icon name='check' className="ms-auto h-4 w-4 text-aqua-500" />
                 )}
               </DropdownMenuItem>
             ))}

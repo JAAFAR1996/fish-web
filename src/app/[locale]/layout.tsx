@@ -17,6 +17,7 @@ import { headers as nextHeaders } from 'next/headers';
 
 import { Header, Footer } from '@/components/layout';
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav';
+import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { AuthProvider } from '@/components/providers/AuthProvider';
 import { CartProvider } from '@/components/providers/CartProvider';
@@ -199,6 +200,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
                     <main id="main-content" className="flex-1 pt-16 pb-24 sm:pb-0">
                       {children}
                     </main>
+                    <WhatsAppButton />
                     <MobileBottomNav />
                     <Footer />
                   </ThemeProvider>

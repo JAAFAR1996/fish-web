@@ -1,11 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
   Icon,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
 } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import type {
@@ -37,7 +37,7 @@ export interface ProductTabsProps {
   className?: string;
 }
 
-const TAB_DEFINITIONS = [
+const SECTION_DEFINITIONS = [
   { value: 'description', icon: 'file-text' as const, labelKey: 'description' },
   { value: 'specifications', icon: 'list' as const, labelKey: 'specifications' },
   { value: 'usageGuide', icon: 'book' as const, labelKey: 'usageGuide' },
@@ -47,9 +47,10 @@ const TAB_DEFINITIONS = [
   { value: 'bundles', icon: 'package-search' as const, labelKey: 'bundles' },
 ];
 
-function ensureValidTab(tab?: string) {
-  const values = TAB_DEFINITIONS.map((definition) => definition.value);
-  return values.includes(tab ?? '') ? tab : 'description';
+function ensureValidSection(section?: string): string {
+  const values = SECTION_DEFINITIONS.map((definition) => definition.value);
+  const normalized = section ?? '';
+  return values.includes(normalized) ? normalized : 'description';
 }
 
 export async function ProductTabs({
@@ -67,7 +68,7 @@ export async function ProductTabs({
 }: ProductTabsProps) {
   const tTabs = await getTranslations('pdp.tabs');
 
-  const sanitizedDefaultTab = ensureValidTab(defaultTab);
+  const sanitizedDefaultSection = ensureValidSection(defaultTab);
   const descriptionParagraphs = product.description
     .split('\n')
     .map((paragraph) => paragraph.trim())
@@ -75,113 +76,139 @@ export async function ProductTabs({
 
   return (
     <section className={cn('space-y-6', className)}>
-      <Tabs
-        defaultValue={sanitizedDefaultTab}
-        className="w-full"
+      <Accordion
+        type="multiple"
+        defaultValue={[sanitizedDefaultSection]}
+        className="space-y-3"
       >
-        <TabsList className="relative flex w-full gap-2 overflow-x-auto rounded-lg border border-border bg-muted/40 p-1 sm:justify-start">
-          {TAB_DEFINITIONS.map(({ value, icon, labelKey }) => (
-            <TabsTrigger
-              key={value}
-              value={value}
-              className="flex min-w-[120px] items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground"
-            >
-              <Icon name={icon} size="sm" className="text-muted-foreground" />
-              <span>{tTabs(labelKey)}</span>
-            </TabsTrigger>
-          ))}
-        </TabsList>
+        <AccordionItem value="description" className="rounded-lg border border-border bg-card shadow-sm">
+          <AccordionTrigger className="px-4 py-3 text-start text-base font-semibold">
+            <div className="flex items-center gap-2">
+              <Icon name="file-text" size="sm" className="text-muted-foreground" />
+              {tTabs('description')}
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-4">
+            <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
+              {descriptionParagraphs.length > 0 ? (
+                descriptionParagraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))
+              ) : (
+                <p>{product.description}</p>
+              )}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
-        <TabsContent
-          value="description"
-          className="rounded-lg border border-border bg-card p-6 shadow-sm"
-        >
-          <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
-            {descriptionParagraphs.length > 0 ? (
-              descriptionParagraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))
-            ) : (
-              <p>{product.description}</p>
-            )}
-          </div>
-        </TabsContent>
+        <AccordionItem value="specifications" className="rounded-lg border border-border bg-card shadow-sm">
+          <AccordionTrigger className="px-4 py-3 text-start text-base font-semibold">
+            <div className="flex items-center gap-2">
+              <Icon name="list" size="sm" className="text-muted-foreground" />
+              {tTabs('specifications')}
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-4">
+            <SpecificationsTable product={product} locale={locale} />
+          </AccordionContent>
+        </AccordionItem>
 
-        <TabsContent value="specifications">
-          <SpecificationsTable product={product} locale={locale} />
-        </TabsContent>
+        <AccordionItem value="usageGuide" className="rounded-lg border border-border bg-card shadow-sm">
+          <AccordionTrigger className="px-4 py-3 text-start text-base font-semibold">
+            <div className="flex items-center gap-2">
+              <Icon name="book" size="sm" className="text-muted-foreground" />
+              {tTabs('usageGuide')}
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-4">
+            <UsageGuideSection product={product} locale={locale} />
+          </AccordionContent>
+        </AccordionItem>
 
-        <TabsContent
-          value="usageGuide"
-          className="rounded-lg border border-border bg-card p-6 shadow-sm"
-        >
-          <UsageGuideSection product={product} locale={locale} />
-        </TabsContent>
+        <AccordionItem value="reviews" className="rounded-lg border border-border bg-card shadow-sm">
+          <AccordionTrigger className="px-4 py-3 text-start text-base font-semibold">
+            <div className="flex items-center gap-2">
+              <Icon name="star" size="sm" className="text-muted-foreground" />
+              {tTabs('reviews')}
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-4">
+            <ReviewsTabContent
+              productId={product.id}
+              productSlug={product.slug}
+              productName={product.name}
+              reviews={reviews}
+              reviewSummary={reviewSummary}
+              userVotes={userVotes}
+              locale={locale}
+            />
+          </AccordionContent>
+        </AccordionItem>
 
-        <TabsContent
-          value="reviews"
-          className="rounded-lg border border-border bg-card p-6 shadow-sm"
-        >
-          <ReviewsTabContent
-            productId={product.id}
-            productSlug={product.slug}
-            productName={product.name}
-            reviews={reviews}
-            reviewSummary={reviewSummary}
-            userVotes={userVotes}
-            locale={locale}
-          />
-        </TabsContent>
+        <AccordionItem value="qa" className="rounded-lg border border-border bg-card shadow-sm">
+          <AccordionTrigger className="px-4 py-3 text-start text-base font-semibold">
+            <div className="flex items-center gap-2">
+              <Icon name="help" size="sm" className="text-muted-foreground" />
+              {tTabs('qa')}
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-4">
+            <ProductQA />
+          </AccordionContent>
+        </AccordionItem>
 
-        <TabsContent
-          value="qa"
-          className="rounded-lg border border-border bg-card p-6 shadow-sm"
-        >
-          <ProductQA />
-        </TabsContent>
+        <AccordionItem value="faq" className="rounded-lg border border-border bg-card shadow-sm">
+          <AccordionTrigger className="px-4 py-3 text-start text-base font-semibold">
+            <div className="flex items-center gap-2">
+              <Icon name="help" size="sm" className="text-muted-foreground" />
+              {tTabs('faq')}
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-4">
+            <FaqSection product={product} />
+          </AccordionContent>
+        </AccordionItem>
 
-        <TabsContent
-          value="bundles"
-          className="rounded-lg border border-border bg-card p-6 shadow-sm"
-        >
-          <div className="space-y-8">
-            {smartRecommendations.length > 0 ? (
-              <RelatedProducts
-                products={smartRecommendations}
-                category={product.category}
-                title={tTabs('bundlesSmart')}
-                onAddToCart={onAddToCart ?? (() => {})}
-              />
-            ) : (
-              <>
-                {complementaryProducts.length > 0 && (
-                  <RelatedProducts
-                    products={complementaryProducts}
-                    category={product.category}
-                    title={tTabs('bundlesFrequentlyBought')}
-                    onAddToCart={onAddToCart ?? (() => {})}
-                  />
-                )}
-                {relatedProducts.length > 0 && (
-                  <RelatedProducts
-                    products={relatedProducts}
-                    category={product.category}
-                    title={tTabs('bundlesSimilar')}
-                    onAddToCart={onAddToCart ?? (() => {})}
-                  />
-                )}
-              </>
-            )}
-          </div>
-        </TabsContent>
-
-        <TabsContent
-          value="faq"
-          className="rounded-lg border border-border bg-card p-6 shadow-sm"
-        >
-          <FaqSection product={product} />
-        </TabsContent>
-      </Tabs>
+        <AccordionItem value="bundles" className="rounded-lg border border-border bg-card shadow-sm">
+          <AccordionTrigger className="px-4 py-3 text-start text-base font-semibold">
+            <div className="flex items-center gap-2">
+              <Icon name="package-search" size="sm" className="text-muted-foreground" />
+              {tTabs('bundles')}
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-4">
+            <div className="space-y-8">
+              {smartRecommendations.length > 0 ? (
+                <RelatedProducts
+                  products={smartRecommendations}
+                  category={product.category}
+                  title={tTabs('bundlesSmart')}
+                  onAddToCart={onAddToCart ?? (() => {})}
+                />
+              ) : (
+                <>
+                  {complementaryProducts.length > 0 && (
+                    <RelatedProducts
+                      products={complementaryProducts}
+                      category={product.category}
+                      title={tTabs('bundlesFrequentlyBought')}
+                      onAddToCart={onAddToCart ?? (() => {})}
+                    />
+                  )}
+                  {relatedProducts.length > 0 && (
+                    <RelatedProducts
+                      products={relatedProducts}
+                      category={product.category}
+                      title={tTabs('bundlesSimilar')}
+                      onAddToCart={onAddToCart ?? (() => {})}
+                    />
+                  )}
+                </>
+              )}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </section>
   );
 }

@@ -188,7 +188,7 @@ export function SetupSubmissionForm({ onSuccess, onCancel, className }: SetupSub
         {step === 4 && (
           <div className="space-y-3 text-sm text-muted-foreground">
             <p>{t('reviewSummary', { title: title || t('untitled') })}</p>
-            <ul className="list-disc space-y-1 pl-4">
+            <ul className="list-disc space-y-1 ps-4">
               <li>{t('summary.mediaCount', { count: numberOfFiles, countFormatted: formatter.format(numberOfFiles) })}</li>
               <li>{t('summary.hotspotCount', { count: hotspots.length, countFormatted: formatter.format(hotspots.length) })}</li>
             </ul>

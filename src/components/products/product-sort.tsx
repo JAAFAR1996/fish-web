@@ -16,7 +16,7 @@ export interface ProductSortProps {
   onChange: (value: SortOption) => void;
 }
 
-const SORT_OPTIONS: SortOption[] = ['bestSelling', 'highestRated', 'lowestPrice', 'newest'];
+const SORT_OPTIONS: SortOption[] = ['bestSelling', 'highestRated', 'lowestPrice', 'highestPrice', 'newest'];
 
 export function ProductSort({ value, onChange }: ProductSortProps) {
   const t = useTranslations('plp.sort');

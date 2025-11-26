@@ -122,7 +122,7 @@ export function AdminDataTable<T>({
   return (
     <div className={cn('space-y-4', className)}>
       <div className="overflow-x-auto rounded-xl border border-border bg-background shadow-sm">
-        <table className="min-w-full divide-y divide-border text-left text-sm">
+        <table className="min-w-full divide-y divide-border text-start text-sm">
           <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
             <tr>
               {columns.map((column) => (

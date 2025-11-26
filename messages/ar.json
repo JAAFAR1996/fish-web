@@ -497,6 +497,7 @@
       "bestSelling": "الأكثر مبيعاً",
       "highestRated": "الأعلى تقييماً",
       "lowestPrice": "الأقل سعراً",
+      "highestPrice": "الأعلى سعراً",
       "newest": "الأحدث"
     },
     "filters": {
@@ -631,6 +632,10 @@
       "viewAll": "عرض جميع {category}",
       "matchesYourNeeds": "يطابق احتياجاتك",
       "loading": "جاري تحميل المنتجات المقترحة..."
+    },
+    "postPurchase": {
+      "title": "منتجات قد تحتاجها",
+      "subtitle": "إضافات مختارة لتكمّل طلبك"
     },
     "save": {
       "button": "حفظ الحساب",
@@ -1154,6 +1159,7 @@
       "codDescription": "ادفع نقداً عند استلام طلبك",
       "codBenefits": "آمن ومريح - لا حاجة لبطاقة ائتمان",
       "comingSoon": "طرق دفع إضافية قريباً",
+      "codNote": "ستدفع نقداً عند الاستلام – لا توجد أي دفعة الآن. يمكنك الإرجاع خلال {days} أيام.",
       "continue": "متابعة إلى المراجعة"
     },
     "review": {
@@ -1250,6 +1256,10 @@
       "contactSupport": "تواصل مع الدعم",
       "printOrder": "طباعة الطلب"
     },
+    "recommendations": {
+      "title": "منتجات قد تعجبك",
+      "subtitle": "إضافات مختارة لتكمل طلبك"
+    },
     "referralCtaTitle": "شارك واربح مكافآت",
     "referralCtaSubtitle": "ادعُ أصدقاءك برابط الإحالة لتحصل على نقاط إضافية.",
     "referralCtaPrimary": "اذهب للإحالات",
@@ -1325,6 +1335,8 @@
       "products": "المنتجات",
       "brands": "الماركات",
       "categories": "الفئات",
+      "articles": "المقالات",
+      "minutes": "دقيقة",
       "viewAll": "عرض الكل ({count})",
       "noResults": "لا توجد نتائج",
       "recentSearches": "عمليات البحث الأخيرة",
@@ -1369,7 +1381,8 @@
       "clearSearch": "مسح البحث",
       "voiceSearch": "البحث الصوتي",
       "viewProduct": "عرض المنتج",
-      "searchIn": "البحث في {category}"
+      "searchIn": "البحث في {category}",
+      "contactSupport": "تواصل معنا"
     },
     "hints": {
       "minLength": "أدخل حرفين على الأقل للبحث",
@@ -1497,6 +1510,22 @@
       "setup-tips": {
         "title": "نصائح الإعداد",
         "description": "خطوات إعداد الحوض المثالي"
+      },
+      "freshwater": {
+        "title": "أساسيات المياه العذبة",
+        "description": "دليل للمبتدئين لتثبيت واستقرار الحوض"
+      },
+      "troubleshooting": {
+        "title": "حل المشاكل",
+        "description": "حل تعكر الماء، الطحالب، والروائح بسرعة"
+      },
+      "lighting": {
+        "title": "الإضاءة",
+        "description": "اختيار شدة وطيف ومدة الإضاءة المناسبة"
+      },
+      "maintenance": {
+        "title": "الصيانة",
+        "description": "قوائم صيانة أسبوعية وشهرية للحوض"
       }
     },
     "author": "الكاتب",

@@ -497,6 +497,7 @@
       "bestSelling": "Best Selling",
       "highestRated": "Highest Rated",
       "lowestPrice": "Lowest Price",
+      "highestPrice": "Highest Price",
       "newest": "Newest"
     },
     "filters": {
@@ -631,6 +632,10 @@
       "viewAll": "View All {category}",
       "matchesYourNeeds": "Matches your needs",
       "loading": "Loading tailored product matches..."
+    },
+    "postPurchase": {
+      "title": "You may also like",
+      "subtitle": "Hand-picked add-ons to complement your order"
     },
     "save": {
       "button": "Save Calculation",
@@ -1154,6 +1159,7 @@
       "codDescription": "Pay cash when you receive your order",
       "codBenefits": "Safe and convenient - no credit card needed",
       "comingSoon": "More payment methods coming soon",
+      "codNote": "You’ll pay cash on delivery — nothing now. Returns available within {days} days.",
       "continue": "Continue to Review"
     },
     "review": {
@@ -1250,6 +1256,10 @@
       "contactSupport": "Contact Support",
       "printOrder": "Print Order"
     },
+    "recommendations": {
+      "title": "You may also like",
+      "subtitle": "Hand-picked add-ons to complement your order"
+    },
     "referralCtaTitle": "Share and earn rewards",
     "referralCtaSubtitle": "Invite friends with your referral link to earn bonus points.",
     "referralCtaPrimary": "Open referrals",
@@ -1325,6 +1335,8 @@
       "products": "Products",
       "brands": "Brands",
       "categories": "Categories",
+      "articles": "Articles",
+      "minutes": "min",
       "viewAll": "View All ({count})",
       "noResults": "No results",
       "recentSearches": "Recent Searches",
@@ -1369,7 +1381,8 @@
       "clearSearch": "Clear Search",
       "voiceSearch": "Voice Search",
       "viewProduct": "View Product",
-      "searchIn": "Search in {category}"
+      "searchIn": "Search in {category}",
+      "contactSupport": "Contact us"
     },
     "hints": {
       "minLength": "Enter at least 2 characters to search",
@@ -1497,6 +1510,22 @@
       "setup-tips": {
         "title": "Setup Tips",
         "description": "Steps to set up the perfect aquarium"
+      },
+      "freshwater": {
+        "title": "Freshwater Basics",
+        "description": "Starter guides for stable freshwater aquariums"
+      },
+      "troubleshooting": {
+        "title": "Troubleshooting",
+        "description": "Fix cloudy water, algae, odors, and more"
+      },
+      "lighting": {
+        "title": "Lighting",
+        "description": "Choose intensity, spectrum, and photoperiods"
+      },
+      "maintenance": {
+        "title": "Maintenance",
+        "description": "Weekly and monthly care checklists"
       }
     },
     "author": "Author",

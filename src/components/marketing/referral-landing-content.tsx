@@ -72,7 +72,7 @@ export function ReferralLandingContent({
 
       <div className="space-y-3 text-sm text-muted-foreground">
         <h2 className="text-center text-lg font-semibold text-foreground">{t('howItWorks')}</h2>
-        <ol className={`list-decimal space-y-2 ${resolvedLocale === 'ar' ? 'pe-5 text-right' : 'ps-5 text-left'}`}>
+        <ol className={`list-decimal space-y-2 ${resolvedLocale === 'ar' ? 'pe-5 text-end' : 'ps-5 text-start'}`}>
           <li>{t('step1')}</li>
           <li>{t('step2')}</li>
           <li>{t('step3')}</li>

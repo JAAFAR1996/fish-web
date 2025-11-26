@@ -113,6 +113,7 @@ export function BestSellers({
                 key={product.id}
                 product={product}
                 onAddToCart={onAddToCart}
+                priority={index === 0}
                 tilt3D={index < 3}
                 shineEffect={index === 0}
                 glassHover={index < 2}

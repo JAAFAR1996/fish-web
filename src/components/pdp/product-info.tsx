@@ -23,6 +23,7 @@ import {
   isLowStock,
   isOutOfStock,
 } from '@/lib/utils';
+import { RETURN_POLICY_WINDOW_DAYS } from '@/lib/config/contact';
 import type { Locale, Product, ProductBadge } from '@/types';
 
 const BADGE_VARIANT_MAP: Record<
@@ -116,6 +117,15 @@ export function ProductInfo({ product, averageRating, reviewCount }: ProductInfo
     await toggleItem(product);
   };
 
+  const codReturnLine =
+    locale === 'ar'
+      ? `الدفع عند الاستلام • إرجاع خلال ${RETURN_POLICY_WINDOW_DAYS} أيام`
+      : `Cash on delivery • Returns within ${RETURN_POLICY_WINDOW_DAYS} days`;
+  const trustMessage =
+    locale === 'ar'
+      ? `ستدفع نقداً عند الاستلام – لا توجد أي دفعة الآن. إرجاع خلال ${RETURN_POLICY_WINDOW_DAYS} أيام.`
+      : `You’ll pay cash on delivery — nothing now. Returns within ${RETURN_POLICY_WINDOW_DAYS} days.`;
+
   return (
     <section className="space-y-6 pb-32 lg:space-y-8 lg:pb-0">
       <div className="flex flex-col gap-3">
@@ -192,7 +202,7 @@ export function ProductInfo({ product, averageRating, reviewCount }: ProductInfo
             type="button"
             variant="primary"
             size="lg"
-            className="w-full"
+            className="w-full bg-emerald-600 text-white hover:bg-emerald-700"
             onClick={handleAddToCart}
             loading={isAdding}
           >
@@ -222,6 +232,23 @@ export function ProductInfo({ product, averageRating, reviewCount }: ProductInfo
             </a>
           </Button>
         )}
+      </div>
+
+      <div className="space-y-3 rounded-lg border border-border/70 bg-muted/40 p-4 shadow-sm">
+        <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-foreground">
+          <StarRating rating={averageRating ?? product.rating} reviewCount={reviewCount ?? product.reviewCount} />
+          <span className="text-muted-foreground">
+            {tRating('reviews', { count: reviewCount ?? product.reviewCount })}
+          </span>
+        </div>
+        <div className="flex flex-wrap items-center gap-2 text-sm text-foreground">
+          <Icon name="shield-check" className="h-4 w-4 text-aqua-600" aria-hidden />
+          <span>{codReturnLine}</span>
+        </div>
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+          <Icon name="credit-card" className="h-4 w-4" aria-hidden />
+          <span>{trustMessage}</span>
+        </div>
       </div>
 
       <ShareButtons

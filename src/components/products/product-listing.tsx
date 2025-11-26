@@ -89,7 +89,7 @@ export function ProductListing({
     setFilters(nextFilters);
     setAppliedFilters(nextFilters);
     const sortParam = searchParams.get('sort');
-    if (sortParam && ['bestSelling', 'highestRated', 'lowestPrice', 'newest'].includes(sortParam)) {
+    if (sortParam && ['bestSelling', 'highestRated', 'lowestPrice', 'highestPrice', 'newest'].includes(sortParam)) {
       setSortBy(sortParam as SortOption);
     }
   }, [searchParams]);
@@ -192,7 +192,7 @@ export function ProductListing({
         {mobileFiltersOpen && (
           <div className="lg:hidden fixed inset-0 z-50 bg-black/50" onClick={() => setMobileFiltersOpen(false)}>
             <div
-              className="absolute inset-y-0 left-0 w-full max-w-sm bg-white dark:bg-sand-900 p-6 overflow-y-auto"
+              className="absolute inset-y-0 start-0 w-full max-w-sm bg-white dark:bg-sand-900 p-6 overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-6">
