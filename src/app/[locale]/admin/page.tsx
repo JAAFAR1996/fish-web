@@ -99,6 +99,7 @@ export default async function AdminDashboardPage({ params, searchParams }: Admin
 
     logWarn('Admin access denied', {
       requestId,
+      error: error instanceof Error ? error.message : String(error),
     });
     redirect('/');
   }
