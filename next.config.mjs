@@ -172,7 +172,6 @@ const nextConfig = {
     deviceSizes: [...IMAGE_DEVICE_SIZES],
     imageSizes: [...IMAGE_SIZES],
   },
-  typedRoutes: true,
   experimental: {
     optimizePackageImports: ['recharts', 'lucide-react', 'fuse.js'],
     // Exclude local/dev artifacts from serverless bundles to keep function size small
