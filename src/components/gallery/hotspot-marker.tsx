@@ -1,6 +1,4 @@
 "use client";
-
-import { Button } from '@/components/ui';
 import type { Hotspot } from '@/types';
 import { cn } from '@/lib/utils';
 

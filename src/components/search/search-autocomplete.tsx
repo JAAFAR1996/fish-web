@@ -19,7 +19,7 @@ type TranslateFn = ReturnType<typeof useTranslations>;
 
 export interface SearchAutocompleteProps {
   suggestions: AutocompleteSuggestion[];
-  query: string; // eslint-disable-line @typescript-eslint/no-unused-vars
+  query: string;
   isOpen: boolean;
   onClose: () => void;
   onSelect: (suggestion: AutocompleteSuggestion) => void;
@@ -61,7 +61,7 @@ export function SearchAutocomplete({
   useEffect(() => {
     setActiveIndex(0);
     itemRefs.current = [];
-  }, [suggestions]);
+  }, [suggestions, query]);
 
   useEffect(() => {
     if (!isOpen || typeof document === 'undefined') {

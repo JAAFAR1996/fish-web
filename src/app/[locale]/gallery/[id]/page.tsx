@@ -7,7 +7,7 @@ import { getSetupById } from '@/lib/gallery/gallery-queries';
 import { incrementViewCountAction } from '@/lib/gallery/gallery-actions';
 import { getProducts } from '@/lib/data/products';
 import { getUser } from '@/lib/auth/utils';
-import type { GallerySetup, GallerySetupWithProducts, Hotspot, Locale } from '@/types';
+import type { GallerySetupWithProducts, Hotspot, Locale } from '@/types';
 
 export const dynamic = 'force-dynamic';
 const BASE_URL = 'https://fishweb.iq';

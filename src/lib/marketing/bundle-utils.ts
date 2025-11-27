@@ -1,6 +1,6 @@
 import { db } from '@server/db';
 import { bundles } from '@shared/schema';
-import { and, eq, gte, isNull, lte, or, sql } from 'drizzle-orm';
+import { and, eq, gte, isNull, lte, or } from 'drizzle-orm';
 
 import { getProducts } from '@/lib/data/products';
 import type { Bundle, BundleWithProducts, Product, CartItemWithProduct } from '@/types';

@@ -65,7 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return () => {
       window.removeEventListener('auth-change', handleAuthChange);
     };
-  }, []);
+  }, [fetchUser]);
 
   const handleSignOut = async () => {
     await signOut();

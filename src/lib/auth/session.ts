@@ -2,7 +2,7 @@ import 'server-only';
 import { cookies } from 'next/headers';
 import { SignJWT, jwtVerify } from 'jose';
 import { db } from '@/../../server/db';
-import { sessions, users } from '@/../../server/schema';
+import { sessions } from '@/../../server/schema';
 import { eq, and, gt, sql } from 'drizzle-orm';
 
 const SESSION_COOKIE_NAME = 'auth_token';
@@ -31,11 +31,11 @@ export async function createSession(userId: string): Promise<string> {
     .sign(getJWTSecret());
 
   // Store session in database
-  const [session] = await db.insert(sessions).values({
+  await db.insert(sessions).values({
     userId,
     token,
     expiresAt: expiresAt.toISOString(),
-  }).returning();
+  });
 
   // Set cookie
   const cookieStore = cookies();
@@ -89,7 +89,7 @@ export async function getSession(): Promise<SessionData | null> {
       userId: session.userId,
       sessionId: session.id,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

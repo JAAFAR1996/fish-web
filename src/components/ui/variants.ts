@@ -122,8 +122,7 @@ export const ICON_SIZES: Record<Size, number> = {
 };
 
 export function createVariants<
-  Variants extends VariantDefinitions,
-  Defaults extends VariantSelection<Variants> = VariantSelection<Variants>
+  Variants extends VariantDefinitions
 >(
   config: CreateVariantsConfig<Variants>
 ): VariantFunction<Variants> {

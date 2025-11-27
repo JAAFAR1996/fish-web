@@ -94,6 +94,10 @@ export const supportsWebGL = (): boolean => {
     cachedWebGLSupport = contexts.some((context) => context != null);
     return cachedWebGLSupport;
   } catch (error) {
+    if (FEATURES.debugAnimations) {
+      // eslint-disable-next-line no-console
+      console.warn('[Features] WebGL detection failed', error);
+    }
     cachedWebGLSupport = false;
     return cachedWebGLSupport;
   }
@@ -133,6 +137,10 @@ export const isLowEndDevice = (): boolean => {
     cachedDeviceStatus = lowCores || lowMemory || slowConnection || reducedMotion;
     return cachedDeviceStatus;
   } catch (error) {
+    if (FEATURES.debugAnimations) {
+      // eslint-disable-next-line no-console
+      console.warn('[Features] Device capability detection failed', error);
+    }
     cachedDeviceStatus = false;
     return cachedDeviceStatus;
   }

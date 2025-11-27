@@ -135,6 +135,7 @@ const pwaConfig = {
   disable:
     process.env.NODE_ENV === 'development' ||
     process.env.NEXT_PUBLIC_PWA_ENABLED === 'false',
+  maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
   runtimeCaching,
 };
 

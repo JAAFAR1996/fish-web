@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import type { ProductListingProps, ProductFilters, SortOption } from '@/types';
 import { filterProducts, sortProducts } from '@/lib/data/products-client';
@@ -51,7 +51,7 @@ export function ProductListing({
     return sortProducts(filtered, sortBy);
   }, [products, appliedFilters, sortBy]);
 
-  const parseFiltersFromParams = (): ProductFilters => {
+  const parseFiltersFromParams = useCallback((): ProductFilters => {
     const params = searchParams;
     if (!params) {
       return { ...DEFAULT_FILTERS };
@@ -81,7 +81,7 @@ export function ProductListing({
       categories: getArray('categories'),
       subcategories: getArray('subcategories'),
     };
-  };
+  }, [searchParams]);
 
   useMemo(() => {
     if (!searchParams) return;
@@ -92,7 +92,7 @@ export function ProductListing({
     if (sortParam && ['bestSelling', 'highestRated', 'lowestPrice', 'highestPrice', 'newest'].includes(sortParam)) {
       setSortBy(sortParam as SortOption);
     }
-  }, [searchParams]);
+  }, [searchParams, parseFiltersFromParams]);
 
   const updateUrl = (nextFilters: ProductFilters, nextSort: SortOption) => {
     const params = new URLSearchParams(searchParams?.toString() ?? '');

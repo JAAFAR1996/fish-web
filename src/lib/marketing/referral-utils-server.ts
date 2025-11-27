@@ -4,7 +4,7 @@ import { and, eq } from 'drizzle-orm';
 
 import type { Referral, ReferralStats } from '@/types';
 import { REFERRAL_REWARD_POINTS, REFEREE_REWARD_POINTS } from './constants';
-import { awardPoints, awardPointsInTransaction } from './loyalty-utils';
+import { awardPointsInTransaction } from './loyalty-utils';
 
 const toIsoString = (value: Date | string | null | undefined): string =>
   value instanceof Date ? value.toISOString() : value ?? new Date(0).toISOString();

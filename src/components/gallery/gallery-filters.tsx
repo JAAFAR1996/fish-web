@@ -10,11 +10,10 @@ interface GalleryFiltersProps {
   filters: GalleryFilters;
   onChange: (filters: GalleryFilters) => void;
   onApply?: () => void;
-  totalSetups?: number;
   className?: string;
 }
 
-export function GalleryFilters({ filters, onChange, onApply, totalSetups, className }: GalleryFiltersProps) {
+export function GalleryFilters({ filters, onChange, onApply, className }: GalleryFiltersProps) {
   const t = useTranslations('gallery.filters');
 
   const handleToggleStyle = (style: GalleryStyle) => {

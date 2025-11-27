@@ -80,11 +80,6 @@ export function ProductMedia({
     [resolvedMedia]
   );
 
-  const videoItems = useMemo(
-    () => resolvedMedia.filter((item) => item.type === 'video'),
-    [resolvedMedia]
-  );
-
   const imageUrls = useMemo(
     () => imageItems.map((item) => item.url),
     [imageItems]

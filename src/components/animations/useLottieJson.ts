@@ -86,6 +86,7 @@ export const useLottieJson = (
   const retriesRef = useRef(retries);
 
   useEffect(() => {
+    retriesRef.current = retries;
     let cancelled = false;
 
     if (typeof window === 'undefined') {
@@ -189,8 +190,7 @@ export const useLottieJson = (
         clearTimeout(timeoutHandle);
       }
     };
-  }, [url, cacheKey, timeoutMs, fallbackData]);
+  }, [url, cacheKey, timeoutMs, fallbackData, retries]);
 
   return { data, error, loading, isFromCache };
 };
-

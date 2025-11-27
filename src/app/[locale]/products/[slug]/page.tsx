@@ -189,8 +189,6 @@ export default async function ProductPage({
       : `Cash on delivery • Returns within ${RETURN_POLICY_WINDOW_DAYS} days`;
 
   const defaultTab = searchParams?.tab;
-  const complementaryCategory =
-    complementaryProducts[0]?.category ?? product.category;
   const reviewSchemas =
     allReviews.length > 0 ? generateReviewListSchema(allReviews, product) : [];
 

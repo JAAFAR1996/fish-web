@@ -10,13 +10,7 @@ import {
 } from 'drizzle-orm';
 
 import { TANK_SIZE_RANGES } from './constants';
-import type {
-  GalleryFilters,
-  GallerySetup,
-  GallerySetupWithProducts,
-  GallerySetupWithUser,
-  Product,
-} from '@/types';
+import type { GallerySetup, GallerySetupWithUser } from '@/types';
 
 let galleryErrorLogged = false;
 

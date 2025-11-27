@@ -58,6 +58,7 @@ export const mdxComponents: MDXComponents = {
 
     // Filter out props that aren't compatible with Link component
     const { popover: _popover, ...linkCompatibleProps } = props as Record<string, unknown>;
+    void _popover;
 
     if (isInternal && href) {
       return (

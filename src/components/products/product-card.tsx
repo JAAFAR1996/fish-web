@@ -91,7 +91,6 @@ export function ProductCard({
   const tWishlistActions = useTranslations('wishlist.actions');
   const tBadges = useTranslations('product.badges');
   const tSpecs = useTranslations('product.specs');
-  const tStock = useTranslations('product.stock');
   const tA11y = useTranslations('product.a11y');
   const tFlashSales = useTranslations('marketing.flashSales');
   const { toggleItem, isInWishlist: wishlistContains } = useWishlist();
@@ -152,7 +151,10 @@ export function ProductCard({
     },
     { scope: cardRef, dependencies: [product.id] },
   );
-  const safeContext = contextSafe ?? ((fn: (...args: unknown[]) => unknown) => fn);
+  const safeContext = useMemo(
+    () => contextSafe ?? ((fn: (...args: unknown[]) => unknown) => fn),
+    [contextSafe],
+  );
 
   const isWishlisted = wishlistContains(product.id);
   const isWishlistPrimaryAction =

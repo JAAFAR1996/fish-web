@@ -92,7 +92,7 @@ export function HotspotEditor({ imageUrl, hotspots, onChange, className }: Hotsp
       window.__pending_hotspot_coords = { x, y };
       setTimeout(() => inputRef.current?.focus(), 0);
     },
-    [hotspots, isAdding, onChange]
+    [isAdding]
   );
 
   return (

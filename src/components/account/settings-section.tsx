@@ -17,7 +17,7 @@ interface SettingsSectionProps {
   initialNotificationPrefs: NotificationPreferences;
 }
 
-export function SettingsSection({ user, initialNotificationPrefs }: SettingsSectionProps) {
+export function SettingsSection({ user: _user, initialNotificationPrefs }: SettingsSectionProps) {
   const t = useTranslations('account.settings');
   const tAuth = useTranslations('auth');
   const { signOut } = useAuth();

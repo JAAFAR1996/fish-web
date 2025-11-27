@@ -1,7 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 
-import { Icon, type IconName } from '@/components/ui';
+import { Icon } from '@/components/ui';
 import { SUPPORT_EMAIL } from '@/lib/config/contact';
 
 type PageProps = { params: { locale: string } };

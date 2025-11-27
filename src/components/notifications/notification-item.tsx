@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { Icon, Button, type IconName } from '@/components/ui';
+import { Icon, Button } from '@/components/ui';
 import { formatNotificationTime, getNotificationIcon, getNotificationColor } from '@/lib/notifications/notification-utils';
 import { cn } from '@/lib/utils';
 import type { Notification, Locale } from '@/types';

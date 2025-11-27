@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
-import { Button, Card } from '@/components/ui';
+import { Button } from '@/components/ui';
 import type { Product } from '@/types';
 import { cn, formatCurrency } from '@/lib/utils';
 import { useCart } from '@/components/providers/CartProvider';

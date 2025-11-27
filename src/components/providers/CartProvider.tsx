@@ -336,7 +336,7 @@ export function CartProvider({ children }: Props) {
           (item) => item.product_id !== productId
         );
         setItems(optimisticItems);
-        const response = await removeFromCartAction(productId);
+        await removeFromCartAction(productId);
         await loadCart();
         return;
       }
@@ -357,7 +357,7 @@ export function CartProvider({ children }: Props) {
             : item
         );
         setItems(optimisticItems);
-        const response = await updateQuantityAction(productId, quantity);
+        await updateQuantityAction(productId, quantity);
         await loadCart();
         return;
       }

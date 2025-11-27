@@ -29,11 +29,10 @@ export function LoyaltyPointsSection({ summary, className }: LoyaltyPointsSectio
   const totalEarned = summary?.totalEarned ?? 0;
   const totalRedeemed = summary?.totalRedeemed ?? 0;
   const potentialDiscount = calculatePointsDiscount(balance);
-  const recentTransactions = summary?.recentTransactions ?? [];
 
   const formattedTransactions = useMemo(
     () =>
-      recentTransactions.map((transaction) => {
+      (summary?.recentTransactions ?? []).map((transaction) => {
         const type = transaction.transaction_type;
         const points =
           transaction.transaction_type === 'redeemed'
@@ -58,7 +57,7 @@ export function LoyaltyPointsSection({ summary, className }: LoyaltyPointsSectio
           pointsDisplay: `${sign}${absolutePoints}`,
         };
       }),
-    [recentTransactions, resolvedLocale, tMarketing]
+    [summary?.recentTransactions, resolvedLocale, tMarketing]
   );
 
   return (

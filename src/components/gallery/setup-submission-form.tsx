@@ -14,11 +14,10 @@ import { HotspotEditor } from '@/components/gallery/hotspot-editor';
 
 interface SetupSubmissionFormProps {
   onSuccess?: () => void;
-  onCancel?: () => void; // eslint-disable-line @typescript-eslint/no-unused-vars
   className?: string;
 }
 
-export function SetupSubmissionForm({ onSuccess, onCancel, className }: SetupSubmissionFormProps) {
+export function SetupSubmissionForm({ onSuccess, className }: SetupSubmissionFormProps) {
   const t = useTranslations('gallery.form');
   const errorMessages = useTranslations('gallery.errors');
   const validationMessages = useTranslations('gallery.validation');

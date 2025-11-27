@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 import { Button, Icon } from '@/components/ui';
-import type { GallerySetupWithProducts, Locale } from '@/types';
+import type { GallerySetupWithProducts } from '@/types';
 import { useCart } from '@/components/providers/CartProvider';
 
 interface ShopThisSetupButtonProps {
@@ -18,7 +18,6 @@ export function ShopThisSetupButton({ setup, variant = 'button', size = 'md', cl
   const { addItem } = useCart();
   const [isAdding, setIsAdding] = useState(false);
   const [progress, setProgress] = useState<{ current: number; total: number }>({ current: 0, total: 0 });
-  const locale = useLocale() as Locale;
   const t = useTranslations('gallery.actions');
 
   const uniqueProducts = Array.from(new Set(setup.products.map((p) => p.id)))

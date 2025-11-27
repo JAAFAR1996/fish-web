@@ -154,8 +154,9 @@ export function ProductForm({
         if (!prev.images) {
           return prev;
         }
-        const { images: _images, ...rest } = prev;
-        return rest;
+        const nextErrors = { ...prev };
+        delete nextErrors.images;
+        return nextErrors;
       });
 
       const pendingUploads = nextImages.filter((preview) => preview.file && !preview.uploaded);

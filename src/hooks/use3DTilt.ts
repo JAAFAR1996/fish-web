@@ -139,8 +139,8 @@ export const use3DTilt = (options: Use3DTiltOptions = {}): Use3DTiltReturn => {
   }, [isInside, maxRotation, relativeX, relativeY, scale, shouldEnableGsap]);
 
   useEffect(() => {
+    const element = tiltRef.current;
     return () => {
-      const element = tiltRef.current;
       if (element) {
         willChangeManager.remove(element);
       }

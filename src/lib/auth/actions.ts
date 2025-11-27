@@ -2,7 +2,6 @@
 
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
-import crypto from 'crypto';
 
 import { db } from '@server/db';
 import { profiles, users } from '@shared/schema';
@@ -15,8 +14,6 @@ import {
   deleteAllUserSessions,
   updateUserPassword,
   getUserByEmail,
-  verifyUserEmail,
-  type AuthUser,
 } from '@server/auth';
 import { getCurrentUser } from '@server/middleware';
 import { validateSignin, validateSignup } from '@/lib/auth/validation';
@@ -123,7 +120,7 @@ export async function signInWithEmail(
       success: true,
       redirect: validateRedirectPath(payload.next),
     };
-  } catch (error) {
+  } catch {
     return { success: false, error: 'auth.errors.unknownError' };
   }
 }
@@ -220,7 +217,7 @@ export async function updatePassword(
     setSessionCookie(sessionToken);
 
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: 'auth.errors.unknownError' };
   }
 }
@@ -235,7 +232,7 @@ export async function deleteAccount(): Promise<AuthActionResult> {
     await db.delete(users).where(eq(users.id, user.id));
     cookies().delete(SESSION_COOKIE_NAME);
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: 'auth.errors.unknownError' };
   }
 }
@@ -280,7 +277,7 @@ export async function getCurrentUserAction(): Promise<{
           }
         : null,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

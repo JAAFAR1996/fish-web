@@ -13,7 +13,6 @@ import {
   type ButtonHTMLAttributes,
   type CSSProperties,
   type HTMLAttributes,
-  type ReactNode,
 } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -361,7 +360,7 @@ export function AccordionTrigger({
   useEffect(() => {
     registerTrigger(value, buttonRef, disabled);
     return () => unregisterTrigger(value);
-  }, [registerTrigger, unregisterTrigger, value]);
+  }, [disabled, registerTrigger, unregisterTrigger, value]);
 
   useEffect(() => {
     setItemDisabled(value, disabled);
