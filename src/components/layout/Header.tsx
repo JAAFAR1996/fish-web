@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 
 import {
@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
   Icon,
 } from '@/components/ui';
+import { ThemeSwitcher } from '@/components/ui/theme-switcher';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { useCart } from '@/components/providers/CartProvider';
 import { NotificationCenter } from '@/components/notifications';
@@ -26,6 +27,8 @@ import {
   SUPPORT_PHONE_DISPLAY,
   SUPPORT_PHONE_E164,
 } from '@/lib/config/contact';
+import { EasterEggs } from '@/components/effects/EasterEggs';
+import { BubbleTrailToggle } from '@/components/effects/BubbleTrailToggle';
 
 import { MegaMenu } from './MegaMenu';
 import { MobileMenu } from './MobileMenu';
@@ -38,6 +41,7 @@ export const Header = () => {
   const locale = useLocale();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const logoRef = useRef<HTMLDivElement>(null);
   const { user, isLoading, signOut } = useAuth();
   const { itemCount, openSidebar } = useCart();
 
@@ -118,8 +122,12 @@ export const Header = () => {
               <Icon name="menu" size="md" aria-hidden="true" />
             </Button>
             <Link href="/" className="flex items-center gap-2">
+              <EasterEggs logoRef={logoRef} secretKeyword="aqua" />
               {/* TODO: Replace with actual logo image */}
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-aqua-500 text-sm font-semibold text-white">
+              <div
+                ref={logoRef}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-aqua-500 text-sm font-semibold text-white"
+              >
                 FW
               </div>
               <span className="text-xl font-bold text-foreground">
@@ -258,6 +266,7 @@ export const Header = () => {
               className="relative rounded-full p-2"
               aria-label={t('cart')}
               onClick={() => openSidebar()}
+              data-cart-target
             >
               <Icon name="cart" size="md" aria-hidden="true" />
               {itemCount > 0 ? (
@@ -273,6 +282,17 @@ export const Header = () => {
             </Button>
             {user && <NotificationCenter />}
             <DarkModeToggle size="sm" />
+              <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="rounded-full p-2" aria-label="Switch theme">
+                  <Icon name="sparkles" size="sm" aria-hidden />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80 space-y-3">
+                <ThemeSwitcher />
+                <BubbleTrailToggle />
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
         <div className="block border-t border-border/60 px-4 pb-3 pt-2 sm:hidden">

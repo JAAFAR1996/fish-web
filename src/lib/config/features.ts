@@ -9,6 +9,25 @@ interface FeatureFlags {
   threejs: boolean;
   lottie: boolean;
   particles: boolean;
+  enhanced3D: boolean;
+  bubbleTrail: boolean;
+  waterRipple: boolean;
+  fishSwimToCart: boolean;
+  neonOceanTheme: boolean;
+  monochromeTheme: boolean;
+  pastelTheme: boolean;
+  fishFinder: boolean;
+  journey: boolean;
+  customerJourney: boolean;
+  difficultyBadges: boolean;
+  productComparison: boolean;
+  masonryGallery: boolean;
+  richReviews: boolean;
+  sustainability: boolean;
+  easterEggs: boolean;
+  arViewer: boolean;
+  productVideos: boolean;
+  bundleRecommendations: boolean;
   performanceMode: PerformanceMode;
   debugAnimations: boolean;
 }
@@ -51,6 +70,14 @@ const parseBoolean = (value: string | undefined, defaultValue: boolean): boolean
 const getFeatureFlag = (key: string, defaultValue: boolean): boolean =>
   parseBoolean(getEnv(key), defaultValue);
 
+const getFeatureFlagWithFallback = (keys: string[], defaultValue: boolean): boolean => {
+  const value = keys
+    .map((key) => getEnv(key))
+    .find((flag) => flag !== undefined && flag !== null);
+
+  return parseBoolean(value, defaultValue);
+};
+
 const getPerformanceMode = (): PerformanceMode => {
   const value = getEnv('NEXT_PUBLIC_PERFORMANCE_MODE')?.trim().toLowerCase();
   if (value === 'true' || value === 'false' || value === 'auto') {
@@ -59,11 +86,35 @@ const getPerformanceMode = (): PerformanceMode => {
   return 'auto';
 };
 
+const journeyFeatureEnabled = getFeatureFlagWithFallback(
+  ['NEXT_PUBLIC_FEATURE_JOURNEY', 'NEXT_PUBLIC_FEATURE_CUSTOMER_JOURNEY'],
+  true,
+);
+
 export const FEATURES: FeatureFlags = {
   gsap: getFeatureFlag('NEXT_PUBLIC_ENABLE_GSAP', true),
   threejs: getFeatureFlag('NEXT_PUBLIC_ENABLE_3D', true),
   lottie: getFeatureFlag('NEXT_PUBLIC_ENABLE_LOTTIE', true),
   particles: getFeatureFlag('NEXT_PUBLIC_ENABLE_PARTICLES', true),
+  enhanced3D: getFeatureFlag('NEXT_PUBLIC_FEATURE_ENHANCED_3D', true),
+  bubbleTrail: getFeatureFlag('NEXT_PUBLIC_FEATURE_BUBBLE_TRAIL', true),
+  waterRipple: getFeatureFlag('NEXT_PUBLIC_FEATURE_WATER_RIPPLE', true),
+  fishSwimToCart: getFeatureFlag('NEXT_PUBLIC_FEATURE_FISH_SWIM_TO_CART', true),
+  neonOceanTheme: getFeatureFlag('NEXT_PUBLIC_FEATURE_NEON_OCEAN_THEME', true),
+  monochromeTheme: getFeatureFlag('NEXT_PUBLIC_FEATURE_MONOCHROME_THEME', true),
+  pastelTheme: getFeatureFlag('NEXT_PUBLIC_FEATURE_PASTEL_THEME', true),
+  fishFinder: getFeatureFlag('NEXT_PUBLIC_FEATURE_FISH_FINDER', true),
+  journey: journeyFeatureEnabled,
+  customerJourney: journeyFeatureEnabled,
+  difficultyBadges: getFeatureFlag('NEXT_PUBLIC_FEATURE_DIFFICULTY_BADGES', true),
+  productComparison: getFeatureFlag('NEXT_PUBLIC_FEATURE_PRODUCT_COMPARISON', true),
+  masonryGallery: getFeatureFlag('NEXT_PUBLIC_FEATURE_MASONRY_GALLERY', true),
+  richReviews: getFeatureFlag('NEXT_PUBLIC_FEATURE_RICH_REVIEWS', true),
+  sustainability: getFeatureFlag('NEXT_PUBLIC_FEATURE_SUSTAINABILITY', true),
+  easterEggs: getFeatureFlag('NEXT_PUBLIC_FEATURE_EASTER_EGGS', true),
+  arViewer: getFeatureFlag('NEXT_PUBLIC_FEATURE_AR_VIEWER', true),
+  productVideos: getFeatureFlag('NEXT_PUBLIC_FEATURE_PRODUCT_VIDEOS', true),
+  bundleRecommendations: getFeatureFlag('NEXT_PUBLIC_FEATURE_BUNDLE_RECOMMENDATIONS', true),
   performanceMode: getPerformanceMode(),
   debugAnimations: getFeatureFlag('NEXT_PUBLIC_DEBUG_ANIMATIONS', false),
 };

@@ -337,7 +337,8 @@
       "quickView": "Quick View",
       "addToWishlist": "Add to Wishlist",
       "removeFromWishlist": "Remove from Wishlist",
-      "viewDetails": "View Details"
+      "viewDetails": "View Details",
+      "compare": "Compare"
     },
     "specs": {
       "flow": "Flow Rate",
@@ -383,7 +384,161 @@
       "quickViewButton": "Quick view {productName}",
       "addToCartButton": "Add {productName} to cart",
       "ratingStars": "Rated {rating} out of 5 stars"
+    },
+    "labels": {
+      "arReady": "AR preview ready",
+      "bundle": "Bundle offer",
+      "ecoFriendly": "Eco-friendly choice",
+      "productOfWeek": "Product of the Week"
+    },
+    "bundle": {
+      "title": "Bundle contents",
+      "summary": "Save with curated combos",
+      "includes": "Includes",
+      "addBundle": "Add bundle to cart"
+    },
+    "explodedView": {
+      "title": "Exploded view",
+      "subtitle": "See every part that ships in the box"
+    },
+    "viewInAR": "View in Your Home",
+    "buyBundle": "Buy Complete Set",
+    "ecoFriendly": "Eco-Friendly",
+    "productOfWeek": "Product of the Week",
+    "transparency": {
+      "title": "Transparent by design",
+      "origin": "Origin",
+      "materials": "Materials",
+      "energy": "Energy use",
+      "lifecycle": "Expected lifespan",
+      "certifications": "Environmental labels",
+      "ecoBadge": "Eco-friendly pick",
+      "notSpecified": "We'll share this detail soon",
+      "energyValue": "{value}W typical draw",
+      "materialsUnknown": "Materials coming soon",
+      "partsDocumented": "{count} components documented"
     }
+  },
+  "fishFinder": {
+    "title": "Find Your Perfect Fish",
+    "subtitle": "Smart quiz tailored to your tank and style",
+    "description": "Answer a few quick questions to get curated fish recommendations.",
+    "start": "Start the finder",
+    "restart": "Start over",
+    "next": "Next",
+    "previous": "Back",
+    "results": {
+      "title": "Your Perfect Matches",
+      "subtitle": "Based on your preferences and tank size",
+      "cta": "Shop these fish",
+      "emptyTitle": "No exact matches yet",
+      "emptyHint": "Adjust your answers or try a different style to see more options."
+    },
+    "filters": {
+      "experience": "Experience",
+      "bioload": "Bioload",
+      "style": "Style",
+      "tankSize": "Tank size (L)"
+    },
+    "step1": {
+      "question": "What's your tank size?",
+      "helper": "Use liters for best accuracy"
+    },
+    "step2": {
+      "question": "What's your experience level?",
+      "helper": "We'll keep things easy if you're starting out"
+    },
+    "step3": {
+      "question": "What's your preferred style?",
+      "helper": "Community, nano, planted, or something bold?"
+    },
+    "step4": {
+      "title": "Your Perfect Matches",
+      "subtitle": "Based on your preferences and tank size"
+    }
+  },
+  "journey": {
+    "title": "Your Aquarium Journey",
+    "subtitle": "Step-by-step plan to launch a thriving tank",
+    "cta": "Start journey",
+    "resume": "Resume where you left off",
+    "progress": "Journey progress",
+    "previous": "Previous step",
+    "reset": "Reset progress",
+    "descriptions": {
+      "step1": "Choose the perfect tank size for your space and budget.",
+      "step2": "Pick plants that fit your lighting and maintenance style.",
+      "step3": "Select compatible fish with confidence.",
+      "step4": "Finish with filtration, heating, and flow equipment."
+    },
+    "step1": "Choose Your Tank",
+    "step2": "Add Plants",
+    "step3": "Select Fish",
+    "step4": "Complete with Equipment"
+  },
+  "difficulty": {
+    "title": "Difficulty",
+    "description": "Choose the level that matches your experience",
+    "easy": "Easy (Beginners)",
+    "medium": "Medium",
+    "hard": "Hard (Experts Only)"
+  },
+  "sustainability": {
+    "title": "For Healthy Oceans",
+    "subtitle": "Responsible sourcing and eco choices at every step",
+    "commitment": "We donate 1% of every sale to protect Iraqi rivers",
+    "ecoFriendly": "Eco-friendly materials",
+    "responsiblySourced": "Responsibly sourced products",
+    "packaging": "Low-waste packaging",
+    "heroTitle": "We keep our rivers and reefs alive",
+    "heroSubtitle": "Cleaner water, happier fish, and a softer footprint with every order.",
+    "donation": "1% of every order funds river cleanups across Iraq.",
+    "pillars": {
+      "title": "Our pledges",
+      "habitatsTitle": "Protecting habitats",
+      "habitatsCopy": "We support river cleanups and education programs for local communities.",
+      "sourcingTitle": "Responsible sourcing",
+      "sourcingCopy": "We highlight brands that use better materials and fair manufacturing.",
+      "packagingTitle": "Smarter packaging",
+      "packagingCopy": "We prioritize low-waste packaging and reusable fillers when possible."
+    },
+    "actions": {
+      "title": "How you can help",
+      "water": "Keep water changes mindful and dispose responsibly.",
+      "energy": "Pick efficient filters and heaters to save energy.",
+      "plants": "Lean on live plants to polish water naturally.",
+      "reuse": "Give spare gear a second life by donating locally."
+    },
+    "guide": {
+      "title": "Eco-friendly aquarium guide",
+      "intro": "Small choices add up to a calmer tank and a lighter footprint.",
+      "sections": {
+        "water": {
+          "title": "Water",
+          "body": "Plan partial changes, dechlorinate gently, and reuse water for houseplants when you can."
+        },
+        "energy": {
+          "title": "Energy",
+          "body": "Choose efficient filters and heaters; aim for timers and thermostats to avoid wasted watts."
+        },
+        "plants": {
+          "title": "Plants",
+          "body": "Fast growers like pothos and stem plants help with natural filtration and oxygen."
+        },
+        "disposal": {
+          "title": "Disposal",
+          "body": "Never drain to natural waterways and avoid harsh chemicals down the sink."
+        }
+      }
+    }
+  },
+  "themes": {
+    "title": "Themes",
+    "subtitle": "Pick a mood that fits your aquarium story",
+    "neonOcean": "Neon Ocean",
+    "monochrome": "Monochrome",
+    "pastel": "Pastel",
+    "system": "Match system theme"
   },
   "gallery": {
     "title": "Setup Gallery",
@@ -1447,11 +1602,12 @@
       "5stars": "5 Stars",
       "4stars": "4 Stars & Up",
       "3stars": "3 Stars & Up",
-      "withImages": "With Images",
+      "withImages": "Photos only",
       "verified": "Verified Purchase",
       "clear": "Clear filters"
     },
     "verified": "Verified Buyer",
+    "trustedCustomer": "Trusted customer",
     "sort": {
       "recent": "Most Recent",
       "helpful": "Most Helpful",

@@ -10,6 +10,8 @@ import {
   StarRating,
   StockIndicator,
 } from '@/components/ui';
+import { ARViewer } from '@/components/products/ARViewer';
+import { ProductTransparency } from '@/components/products/ProductTransparency';
 import { NotifyMeButton } from '@/components/wishlist';
 import { ShareButtons } from '@/components/pdp/share-buttons';
 import { useCart } from '@/components/providers/CartProvider';
@@ -24,6 +26,7 @@ import {
   isOutOfStock,
 } from '@/lib/utils';
 import { RETURN_POLICY_WINDOW_DAYS } from '@/lib/config/contact';
+import { FEATURES } from '@/lib/config/features';
 import type { Locale, Product, ProductBadge } from '@/types';
 
 const BADGE_VARIANT_MAP: Record<
@@ -250,6 +253,18 @@ export function ProductInfo({ product, averageRating, reviewCount }: ProductInfo
           <span>{trustMessage}</span>
         </div>
       </div>
+
+      {product.category.toLowerCase().includes('tank') && product.images?.[0] && (
+        FEATURES.arViewer ? (
+          <ARViewer modelUrl={product.images[0]} className="w-full" />
+        ) : (
+          <div className="rounded-lg border border-dashed border-border/70 p-4 text-sm text-muted-foreground">
+            AR preview coming soon for this model.
+          </div>
+        )
+      )}
+
+      <ProductTransparency product={product} />
 
       <ShareButtons
         product={product}

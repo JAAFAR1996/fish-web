@@ -1,0 +1,36 @@
+/* Neon Ocean theme — bold electric blue on pure black */
+body[data-theme='neon-ocean'] {
+  --color-background: 0 0 0;
+  --color-foreground: 255 255 255;
+  --color-muted: 8 16 24;
+  --color-muted-foreground: 170 220 255;
+  --color-border: 0 217 255;
+  --color-input: 12 36 48;
+  --color-ring: 0 217 255;
+  --ocean-gradient-start: 0 217 255;
+  --ocean-gradient-mid: 0 160 210;
+  --ocean-gradient-end: 0 120 170;
+  --glass-blur: 18px;
+  --glass-opacity: 0.35;
+  --glass-border-opacity: 0.55;
+  --glass-saturation: 160%;
+  --glow-primary: 0 217 255;
+  --glow-soft: 0 217 255;
+  background: radial-gradient(circle at 20% 20%, rgba(0, 217, 255, 0.18), transparent 30%),
+    radial-gradient(circle at 80% 10%, rgba(0, 217, 255, 0.14), transparent 32%),
+    #000000;
+  color: rgb(var(--color-foreground));
+}
+
+body[data-theme='neon-ocean'] *::selection {
+  background: rgba(0, 217, 255, 0.3);
+  color: #000;
+}
+
+body[data-theme='neon-ocean'] .neon-glow {
+  box-shadow: 0 0 24px rgba(0, 217, 255, 0.35), 0 0 48px rgba(0, 217, 255, 0.22);
+}
+
+body[data-theme='neon-ocean'] .glow-text {
+  text-shadow: 0 0 12px rgba(0, 217, 255, 0.65), 0 0 24px rgba(0, 217, 255, 0.45);
+}

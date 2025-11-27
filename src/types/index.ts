@@ -3,6 +3,12 @@ import type { IconName } from '@/components/ui';
 
 export type Theme = 'light' | 'dark' | 'system';
 
+// Extended theme options for new visual styles
+export type ThemeOption = 'light' | 'dark' | 'neon-ocean' | 'monochrome' | 'pastel';
+
+// Difficulty levels for fish and plants
+export type DifficultyLevel = 'easy' | 'medium' | 'hard';
+
 export type Locale = 'ar' | 'en';
 
 export type Direction = 'rtl' | 'ltr';
@@ -71,7 +77,12 @@ export interface Product {
   inStock: boolean;
   isNew: boolean;
   isBestSeller: boolean;
+  difficulty?: DifficultyLevel;
+  ecoFriendly?: boolean;
   specifications: ProductSpecifications;
+  videoUrl?: string;
+  explodedViewParts?: EquipmentPart[];
+  bundleProducts?: string[];
   flashSale?: FlashSale;
   created_at?: string;
   updated_at?: string;
@@ -879,6 +890,86 @@ export interface GalleryFormData {
   style: GalleryStyle;
   media: File[];
   hotspots: Hotspot[];
+}
+
+// Fish Finder
+export interface FishFinderOption {
+  id: string;
+  label: string;
+  image?: string;
+  value: string;
+}
+
+export interface FishFinderStep {
+  id: number;
+  question: string;
+  options: FishFinderOption[];
+}
+
+export interface FishFinderResult {
+  products: Product[];
+  reasoning: string;
+}
+
+export interface FishFinderAnswer {
+  stepId: number;
+  value: string;
+}
+
+export interface FishFinderProfile {
+  tankSize?: number | string;
+  bioload?: BioloadLevel;
+  experience?: DifficultyLevel;
+  style?: string;
+  preferences?: string[];
+  answers?: FishFinderAnswer[];
+}
+
+// Journey
+export interface JourneyStep {
+  id: number;
+  title: string;
+  description: string;
+  icon: string;
+  completed: boolean;
+}
+
+export interface JourneyRoadmap {
+  title: string;
+  subtitle?: string;
+  steps: JourneyStep[];
+  currentStepId?: number;
+}
+
+// Bundles
+export interface ProductBundle {
+  id: string;
+  name: string;
+  products: Product[];
+  discount: number;
+  totalPrice: number;
+  discountedPrice: number;
+}
+
+export interface BundleProductReference {
+  id: string;
+  quantity: number;
+  optional?: boolean;
+}
+
+// Equipment exploded view parts
+export interface EquipmentPart {
+  id: string;
+  name: string;
+  description: string;
+  position: { x: number; y: number };
+}
+
+export interface EquipmentExplodedView {
+  productId?: string;
+  heroImage?: string;
+  parts: EquipmentPart[];
+  notes?: string;
 }
 
 export interface ProductFormData

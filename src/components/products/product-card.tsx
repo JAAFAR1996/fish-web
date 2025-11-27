@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useMemo, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { useLocale, useTranslations } from 'next-intl';
 
 import {
@@ -16,6 +17,7 @@ import {
   StarRating,
   StockIndicator,
 } from '@/components/ui';
+import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { FlashSaleBadge } from '@/components/marketing/flash-sale-badge';
 import { Link } from '@/i18n/navigation';
 import {
@@ -37,6 +39,9 @@ import { NotifyMeButton } from '@/components/wishlist';
 import { ShineEffect } from '@/components/effects';
 import { useGSAP, gsap, PRESETS, EASING_GSAP, ScrollTrigger } from '@/hooks/useGSAP';
 import { use3DTilt } from '@/hooks/use3DTilt';
+import { UnderwaterGlowImage } from '@/components/products/UnderwaterGlowImage';
+import { WaterRippleButton } from '@/components/effects/WaterRippleButton';
+import { FishSwimToCart } from '@/components/cart/FishSwimToCart';
 import { FEATURES } from '@/lib/config/features';
 import { prefersReducedMotion } from '@/lib/config/motion-tokens';
 import { LOTTIE_ANIMATIONS, type LottieRefCurrentProps } from '@/components/animations';
@@ -85,6 +90,8 @@ export function ProductCard({
   tilt3D = false,
   shineEffect = false,
 }: ProductCardProps) {
+  const { resolvedTheme } = useTheme();
+  const isNeonOcean = resolvedTheme === 'neon-ocean';
   const locale = useLocale() as Locale;
   const tProduct = useTranslations('product');
   const tActions = useTranslations('product.actions');
@@ -93,7 +100,10 @@ export function ProductCard({
   const tSpecs = useTranslations('product.specs');
   const tA11y = useTranslations('product.a11y');
   const tFlashSales = useTranslations('marketing.flashSales');
+  const tDifficulty = useTranslations('difficulty');
   const { toggleItem, isInWishlist: wishlistContains } = useWishlist();
+  const addButtonRef = useRef<HTMLButtonElement>(null);
+  const [swimTrigger, setSwimTrigger] = useState<number>(0);
 
   const flashSale = flashSaleOverride ?? product.flashSale ?? null;
   const hasFlashSale = flashSale ? isFlashSaleActive(flashSale) : false;
@@ -259,6 +269,7 @@ export function ProductCard({
     try {
       setIsAddingToCart(true);
       await onAddToCart(product);
+      setSwimTrigger(Date.now());
     } finally {
       setIsAddingToCart(false);
     }
@@ -430,24 +441,45 @@ export function ProductCard({
                   )}
                 />
               )}
-              <Image
-                src={
-                  product.thumbnail ||
-                  product.images[0] ||
-                  '/images/placeholder.png'
-                }
-                alt={tA11y('productImage', { productName: product.name })}
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                loading={priority ? 'eager' : 'lazy'}
-                fetchPriority={priority ? 'high' : 'auto'}
-                className={cn(
-                  'object-cover transition-transform duration-300',
-                  !FEATURES.gsap && 'group-hover:scale-105',
-                  glassHover && isGlassHovering && 'blur-sm'
-                )}
-                priority={priority}
-              />
+              {isNeonOcean ? (
+                <UnderwaterGlowImage
+                  src={
+                    product.thumbnail ||
+                    product.images[0] ||
+                    '/images/placeholder.png'
+                  }
+                  alt={tA11y('productImage', { productName: product.name })}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  loading={priority ? 'eager' : 'lazy'}
+                  fetchPriority={priority ? 'high' : 'auto'}
+                  className={cn(
+                    'object-cover transition-transform duration-300',
+                    !FEATURES.gsap && 'group-hover:scale-105',
+                    glassHover && isGlassHovering && 'blur-sm'
+                  )}
+                  priority={priority}
+                />
+              ) : (
+                <Image
+                  src={
+                    product.thumbnail ||
+                    product.images[0] ||
+                    '/images/placeholder.png'
+                  }
+                  alt={tA11y('productImage', { productName: product.name })}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  loading={priority ? 'eager' : 'lazy'}
+                  fetchPriority={priority ? 'high' : 'auto'}
+                  className={cn(
+                    'object-cover transition-transform duration-300',
+                    !FEATURES.gsap && 'group-hover:scale-105',
+                    glassHover && isGlassHovering && 'blur-sm'
+                  )}
+                  priority={priority}
+                />
+              )}
             </div>
           </Link>
 
@@ -463,6 +495,18 @@ export function ProductCard({
                   : tBadges(badge)}
               </Badge>
             ))}
+            {product.difficulty && (
+              <DifficultyBadge
+                level={product.difficulty}
+                className="pointer-events-auto"
+                tooltip={tDifficulty(product.difficulty)}
+              />
+            )}
+            {product.ecoFriendly && (
+              <Badge variant="secondary" className="pointer-events-auto w-fit">
+                {tProduct('ecoFriendly')}
+              </Badge>
+            )}
           </div>
 
           <Button
@@ -524,6 +568,15 @@ export function ProductCard({
                 ? highlightSearchTerms(product.name, searchQuery)
                 : product.name}
             </Link>
+            {product.difficulty && (
+              <DifficultyBadge level={product.difficulty} className="w-fit" />
+            )}
+            {product.ecoFriendly && (
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600">
+                <Icon name="sparkles" size="xs" aria-hidden />
+                Eco
+              </span>
+            )}
           </div>
 
           {searchQuery && (
@@ -601,6 +654,18 @@ export function ProductCard({
               <Icon name="eye" size="sm" className="me-2" />
               {tActions('quickView')}
             </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="w-full sm:w-auto"
+              asChild
+            >
+              <Link href={`/products/compare?ids=${product.id}`}>
+                <Icon name="grid" size="sm" className="me-2" />
+                {tActions('compare') ?? 'Compare'}
+              </Link>
+            </Button>
 
            {isOutOfStock(product) ? (
               <NotifyMeButton
@@ -610,11 +675,12 @@ export function ProductCard({
                 className="w-full sm:w-auto"
               />
             ) : (
-              <Button
+              <WaterRippleButton
                 type="button"
                 variant="primary"
                 size="sm"
                 className="w-full sm:w-auto"
+                ref={addButtonRef}
                 onClick={handleAddToCart}
                 loading={isAddingToCart}
                 disabled={isAddingToCart}
@@ -626,11 +692,13 @@ export function ProductCard({
               >
                 {!isAddingToCart && <Icon name="cart" size="sm" className="me-2" />}
                 {primaryCtaLabel}
-              </Button>
+              </WaterRippleButton>
             )}
           </CardFooter>
         </div>
       </Card>
+
+      <FishSwimToCart trigger={swimTrigger} originRef={addButtonRef} />
 
       {isQuickViewOpen && (
         <ProductQuickView

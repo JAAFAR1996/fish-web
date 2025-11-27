@@ -132,11 +132,13 @@ const pwaConfig = {
   dest: 'public',
   register: true,
   skipWaiting: true,
-  disable:
-    process.env.NODE_ENV === 'development' ||
-    process.env.NEXT_PUBLIC_PWA_ENABLED === 'false',
+  disable: process.env.NEXT_PUBLIC_PWA_ENABLED !== 'true',
   maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
   runtimeCaching,
+  buildExcludes: [/\.venv[\\/].*/],
+  workboxOptions: {
+    globIgnores: ['**/.venv/**/*', '**/.venv_backup/**/*'],
+  },
 };
 
 const remoteImagePatterns = [
@@ -181,6 +183,8 @@ const nextConfig = {
         '**/.next/cache/**',
         '**/.git/**',
         '**/.local/**',
+        '**/.venv/**',
+        '**\\\\.venv\\\\**',
         '**/tmp/**',
         '**/temp/**',
         '**/node_modules/.cache/**',

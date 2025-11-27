@@ -1,0 +1,28 @@
+/* Pastel theme — airy watercolor palette */
+body[data-theme='pastel'] {
+  --color-background: 243 249 255;
+  --color-foreground: 32 45 64;
+  --color-muted: 255 248 225;
+  --color-muted-foreground: 71 85 105;
+  --color-border: 224 242 241;
+  --color-input: 227 242 253;
+  --color-ring: 224 242 241;
+  --ocean-gradient-start: 227 242 253;
+  --ocean-gradient-mid: 224 242 241;
+  --ocean-gradient-end: 255 248 225;
+  --glass-blur: 16px;
+  --glass-opacity: 0.35;
+  --glass-border-opacity: 0.2;
+  --glass-saturation: 120%;
+  --glow-primary: 224 242 241;
+  --glow-soft: 243 249 255;
+  background: radial-gradient(circle at 10% 20%, rgba(227, 242, 253, 0.9), transparent 35%),
+    radial-gradient(circle at 90% 10%, rgba(224, 242, 241, 0.85), transparent 32%),
+    radial-gradient(circle at 50% 80%, rgba(255, 248, 225, 0.8), transparent 36%),
+    #fdfefe;
+  color: rgb(var(--color-foreground));
+}
+
+body[data-theme='pastel'] .pastel-soft-shadow {
+  box-shadow: 0 12px 40px rgba(32, 45, 64, 0.08);
+}

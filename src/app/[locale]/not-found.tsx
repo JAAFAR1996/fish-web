@@ -1,6 +1,16 @@
+import dynamic from 'next/dynamic';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { Icon, Input, Button } from '@/components/ui';
+
+const CatchFishGame = dynamic(
+  () => import('@/components/effects/CatchFishGame').then((mod) => ({ default: mod.CatchFishGame })),
+  { ssr: false },
+);
+const EasterEggs = dynamic(
+  () => import('@/components/effects/EasterEggs').then((mod) => ({ default: mod.EasterEggs })),
+  { ssr: false },
+);
 
 type NotFoundProps = {
   params: { locale: string };
@@ -94,6 +104,9 @@ export default async function NotFound({ params }: NotFoundProps) {
           </li>
         </ul>
       </div>
+
+      <CatchFishGame />
+      <EasterEggs secretKeyword="404" searchInputSelector="input[name='q']" />
     </div>
   );
 }

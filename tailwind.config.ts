@@ -1,6 +1,7 @@
 import containerQueries from '@tailwindcss/container-queries';
 import typography from '@tailwindcss/typography';
 import tailwindScrollbar from 'tailwind-scrollbar';
+import plugin from 'tailwindcss/plugin';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -90,6 +91,28 @@ const config: Config = {
           900: '#3c2720',
           950: '#221310',
         },
+        neon: {
+          blue: '#00D9FF',
+          purple: '#9B5CFF',
+          pink: '#FF4DFF',
+          green: '#39FF14',
+          yellow: '#F5FF70',
+          orange: '#FF9E00',
+        },
+        pastel: {
+          blue: '#CFE9FF',
+          pink: '#FFD1DC',
+          mint: '#DFF4EC',
+          lilac: '#E7DFFF',
+          peach: '#FFE5C4',
+          yellow: '#FFF7D6',
+        },
+        'neon-blue': '#00D9FF',
+        'pure-black': '#000000',
+        'pure-white': '#FFFFFF',
+        'sky-pastel': '#E3F2FD',
+        'mint-pastel': '#E0F2F1',
+        'beige-pastel': '#FFF8E1',
         background: 'rgb(var(--color-background) / <alpha-value>)',
         foreground: 'rgb(var(--color-foreground) / <alpha-value>)',
         muted: 'rgb(var(--color-muted) / <alpha-value>)',
@@ -142,6 +165,11 @@ const config: Config = {
         'gauge-needle': 'gaugeNeedle 0.8s ease-out forwards',
         'gauge-arc': 'gaugeArc 0.8s ease-out forwards',
         'progress-fill': 'progressFill 0.6s ease-out forwards',
+        'wave-scroll': 'wave-scroll 10s ease-in-out infinite',
+        'bubble-rise': 'bubble-rise 3s ease-in-out infinite',
+        'glow-pulse': 'glow-pulse 2.4s ease-in-out infinite',
+        'fish-swim': 'fish-swim 4s ease-in-out infinite',
+        'luxury-fade': 'luxury-fade 0.8s ease forwards',
       },
       keyframes: {
         fadeIn: {
@@ -184,6 +212,35 @@ const config: Config = {
           from: { width: '0%' },
           to: { width: 'var(--progress-target, 100%)' },
         },
+        'wave-scroll': {
+          '0%': { transform: 'translateY(12px)', opacity: '0.85' },
+          '50%': { transform: 'translateY(-12px)', opacity: '1' },
+          '100%': { transform: 'translateY(12px)', opacity: '0.85' },
+        },
+        'bubble-rise': {
+          '0%': { transform: 'translateY(12px) scale(0.85)', opacity: '0' },
+          '50%': { opacity: '0.6' },
+          '100%': { transform: 'translateY(-80px) scale(1.05)', opacity: '0' },
+        },
+        'glow-pulse': {
+          '0%, 100%': {
+            boxShadow:
+              '0 0 18px rgba(0, 217, 255, 0.35), 0 0 36px rgba(0, 217, 255, 0.18)',
+          },
+          '50%': {
+            boxShadow:
+              '0 0 26px rgba(0, 217, 255, 0.5), 0 0 48px rgba(0, 217, 255, 0.28)',
+          },
+        },
+        'fish-swim': {
+          '0%': { transform: 'translateX(-10px) translateY(0)' },
+          '50%': { transform: 'translateX(10px) translateY(-6px)' },
+          '100%': { transform: 'translateX(-10px) translateY(0)' },
+        },
+        'luxury-fade': {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       backgroundImage: {
         'ocean-gradient':
@@ -197,6 +254,9 @@ const config: Config = {
         shimmer:
           'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
       },
+      backdropBlur: {
+        heavy: '24px',
+      },
     },
   },
   plugins: [
@@ -206,6 +266,15 @@ const config: Config = {
     typography,
     // Adds custom scrollbar styling
     tailwindScrollbar,
+    // Custom utilities
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        '.text-shadow-glow': {
+          textShadow:
+            '0 0 14px rgba(0, 217, 255, 0.35), 0 0 28px rgba(0, 217, 255, 0.2)',
+        },
+      });
+    }),
   ],
 };
 

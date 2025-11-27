@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 
-import { GalleryGrid } from '@/components/gallery';
+import { MasonryGalleryGrid } from '@/components/gallery';
 import { getFeaturedSetups, getGallerySetups } from '@/lib/gallery/gallery-queries';
 import type { GalleryFilters as Filters, GalleryStyle, Locale, TankSizeRange } from '@/types';
 import { GalleryFiltersClient } from '@/components/gallery/GalleryFiltersClient';
@@ -43,14 +43,14 @@ export default async function GalleryPage({ params, searchParams }: { params: { 
       {featured.length > 0 && (
         <section className="mb-8">
           <h2 className="mb-3 text-lg font-semibold text-foreground">{t('featured')}</h2>
-          <GalleryGrid setups={featured} locale={locale} />
+          <MasonryGalleryGrid setups={featured} locale={locale} />
         </section>
       )}
 
       <GalleryFiltersClient initialFilters={filters} />
 
       <div className="mt-6">
-        <GalleryGrid setups={setups} locale={locale} />
+        <MasonryGalleryGrid setups={setups} locale={locale} />
       </div>
     </div>
   );

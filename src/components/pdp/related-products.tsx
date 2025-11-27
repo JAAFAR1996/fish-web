@@ -5,8 +5,10 @@ import { useTranslations } from 'next-intl';
 
 import { Button, Icon } from '@/components/ui';
 import { ProductCard } from '@/components/products';
+import { BundleRecommendation } from '@/components/products/BundleRecommendation';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+import { FEATURES } from '@/lib/config/features';
 import type { Product } from '@/types';
 
 export interface RelatedProductsProps {
@@ -61,6 +63,14 @@ export function RelatedProducts({
           </Link>
         </Button>
       </div>
+
+      {FEATURES.bundleRecommendations && visibleProducts.length > 2 && (
+        <BundleRecommendation
+          baseProduct={visibleProducts[0]}
+          relatedProducts={visibleProducts.slice(1, 4)}
+          onAddBundle={(bundle) => bundle.forEach((product) => onAddToCart(product))}
+        />
+      )}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {visibleProducts.map((product) => (

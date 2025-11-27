@@ -1,6 +1,7 @@
 export * from './gallery-card';
 export * from './gallery-card-skeleton';
 export * from './gallery-grid';
+export * from './MasonryGalleryGrid';
 export * from './gallery-filters';
 export * from './gallery-detail-view';
 export * from './hotspot-marker';

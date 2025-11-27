@@ -50,7 +50,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const resolvedClassName = buttonVariants({
       variant,
       size,
-      className,
+      className: cn(className, FEATURES.waterRipple && 'water-ripple'),
     });
 
     if (asChild) {

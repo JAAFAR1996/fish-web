@@ -21,6 +21,7 @@ import type {
 import { ReviewFilters } from './review-filters';
 import { ReviewItem } from './review-item';
 import { EmptyReviews } from './empty-reviews';
+import { ReviewWithImages } from './ReviewWithImages';
 
 const DEFAULT_FILTERS: ReviewFiltersType = {
   rating: null,
@@ -116,6 +117,8 @@ export function ReviewList({
     return filteredReviews.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredReviews, page]);
 
+  const usePhotoMode = Boolean(filters.withImages);
+
   if (reviews.length === 0) {
     return (
       <EmptyReviews
@@ -143,6 +146,8 @@ export function ReviewList({
             {t('filters.clear')}
           </Button>
         </div>
+      ) : usePhotoMode ? (
+        <ReviewWithImages reviews={paginatedReviews} />
       ) : (
         <div className="space-y-5">
           {paginatedReviews.map((review) => (

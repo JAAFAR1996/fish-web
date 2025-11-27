@@ -1,0 +1,32 @@
+/* Monochromatic theme — crisp black & white with a soft blue accent */
+body[data-theme='monochrome'] {
+  --color-background: 255 255 255;
+  --color-foreground: 15 23 42;
+  --color-muted: 248 250 252;
+  --color-muted-foreground: 100 116 139;
+  --color-border: 226 232 240;
+  --color-input: 241 245 249;
+  --color-ring: 227 242 253;
+  --ocean-gradient-start: 227 242 253;
+  --ocean-gradient-mid: 226 232 240;
+  --ocean-gradient-end: 209 213 219;
+  --glass-blur: 12px;
+  --glass-opacity: 0.25;
+  --glass-border-opacity: 0.25;
+  --glass-saturation: 110%;
+  --glow-primary: 227 242 253;
+  --glow-soft: 226 232 240;
+  background: #ffffff;
+  color: rgb(var(--color-foreground));
+}
+
+body[data-theme='monochrome'] img,
+body[data-theme='monochrome'] video {
+  filter: grayscale(100%);
+}
+
+body[data-theme='monochrome'] .monochrome-accent {
+  color: #0f172a;
+  background: #e3f2fd;
+  border-color: #e3f2fd;
+}

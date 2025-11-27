@@ -11,6 +11,31 @@ A modern, RTL-first e-commerce platform for aquarium equipment in Iraq, built wi
 - Cloudflare R2 object storage
 - next-intl for i18n
 
+## Themes & Switching
+- Built-in themes: `light`, `dark`, `neon-ocean`, `monochrome`, `pastel`.
+- Theme switcher lives in the header palette menu and persists to `localStorage` (`fish-web-theme`).
+- Themes are driven by `data-theme` on `<body>`; custom CSS themes live in `src/styles/themes/*`.
+- Neon mode lights up underwater glows; pastel/monochrome honor the same token system for quick swaps.
+
+## Feature Flags
+- Animation/3D: `NEXT_PUBLIC_ENABLE_GSAP`, `NEXT_PUBLIC_ENABLE_3D`, `NEXT_PUBLIC_FEATURE_ENHANCED_3D`, `NEXT_PUBLIC_FEATURE_BUBBLE_TRAIL`, `NEXT_PUBLIC_FEATURE_WATER_RIPPLE`, `NEXT_PUBLIC_FEATURE_FISH_SWIM_TO_CART`.
+- UI/Content: `NEXT_PUBLIC_FEATURE_NEON_OCEAN_THEME`, `NEXT_PUBLIC_FEATURE_MONOCHROME_THEME`, `NEXT_PUBLIC_FEATURE_PASTEL_THEME`, `NEXT_PUBLIC_FEATURE_EASTER_EGGS`.
+- Commerce: `NEXT_PUBLIC_FEATURE_FISH_FINDER`, `NEXT_PUBLIC_FEATURE_CUSTOMER_JOURNEY` (or `NEXT_PUBLIC_FEATURE_JOURNEY`), `NEXT_PUBLIC_FEATURE_PRODUCT_VIDEOS`, `NEXT_PUBLIC_FEATURE_BUNDLE_RECOMMENDATIONS`, `NEXT_PUBLIC_FEATURE_AR_VIEWER`.
+- Performance: `NEXT_PUBLIC_PERFORMANCE_MODE` (`auto` | `true` | `false`) and `NEXT_PUBLIC_DEBUG_ANIMATIONS`.
+
+## 🎨 Award-Winning Design Features
+- **Igloo Inc (Site of the Year 2024):** Interactive 3D aquarium, mouse-reactive fish, rising bubbles, swaying plants, parallax layers, and performance-tuned WebGL with lazy loading.
+- **Ocean (Nov 2025):** Single neon-blue identity (#00D9FF), underwater glow treatment, and wave-inspired scrolling.
+- **Cartier Watches & Wonders 2025:** Products staged like art pieces, monochrome styling, and slow, elegant motion.
+- **Terminal Industries:** Industrial-futuristic equipment layouts, animated technical icons, and exploded views that reveal every part.
+- **Aesop:** Wide negative space, Perfect Fish Finder wizard, and editorial-grade product storytelling.
+- **Tropica:** Customer journey navigator, difficulty badges, and interactive comparison tables.
+- **Glossier:** Pinterest-style customer gallery, rich review system with imagery, and friendly copy tone.
+- **Patagonia:** “For Healthy Oceans” pledge, eco-friendly aquarium guide, and full transparency blocks.
+- **Allbirds:** Ultra-minimal hero, Product of the Week spotlight, and calm pastel palette.
+- **Ribbit:** Playful interactivity, hidden Easter eggs, and delightful micro-moments.
+- **E-commerce Standouts:** AR “View in Your Home,” short how-to videos, and one-click bundle purchasing.
+
 ## Prerequisites
 - Node.js 18.17 or newer
 - npm (or pnpm / yarn)
@@ -76,6 +101,12 @@ A modern, RTL-first e-commerce platform for aquarium equipment in Iraq, built wi
 - **Dark Mode:** Class-based theming powered by `next-themes` with smooth transitions controlled by CSS variables.
 - **Container Queries:** Enabled through `@tailwindcss/container-queries` for component-scoped responsiveness.
 - **Accessibility:** Respect `prefers-reduced-motion` and deliver high contrast focus rings in aqua.
+
+## 🎨 Theme Switching
+- Themes available: `light`, `dark`, `neon-ocean`, `monochrome`, and `pastel`.
+- The new `ThemeSwitcher` integrates with `next-themes`; user preference is saved to `localStorage`.
+- Theme styles are driven by `data-theme` on `<body>` plus CSS custom properties in `src/styles/themes/*`.
+- Utilities like `.underwater-glow`, `.glow-pulse`, and `.text-shadow-glow` layer visual effects per theme.
 
 ### Using the Design System
 - Prefer semantic utilities such as `bg-background`, `text-foreground`, and `border-border` to stay theme-aware.

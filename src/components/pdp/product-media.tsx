@@ -8,6 +8,7 @@ import type { ProductDimensions, ProductMedia as ProductMediaItem } from '@/type
 import { Icon } from '@/components/ui';
 import { ImageGallery } from './image-gallery';
 import { ImageLightbox } from './image-lightbox';
+import { ProductVideo } from '@/components/products/ProductVideo';
 
 export interface ProductMediaProps {
   images: string[];
@@ -173,13 +174,11 @@ export function ProductMedia({
             }
 
             return (
-              <video
-                controls
-                poster={activeMedia.thumbnail ?? undefined}
+              <ProductVideo
+                src={activeMedia.url}
+                poster={activeMedia.thumbnail}
                 className="h-full w-full object-contain"
-              >
-                <source src={activeMedia.url} />
-              </video>
+              />
             );
           })()
         )}
