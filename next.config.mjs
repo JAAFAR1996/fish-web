@@ -136,9 +136,6 @@ const pwaConfig = {
   maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
   runtimeCaching,
   buildExcludes: [/\.venv[\\/].*/],
-  workboxOptions: {
-    globIgnores: ['**/.venv/**/*', '**/.venv_backup/**/*'],
-  },
 };
 
 const remoteImagePatterns = [
